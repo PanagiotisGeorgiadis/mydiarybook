@@ -10,6 +10,7 @@ import Mocks.MockDaoSuccess;
 import Mocks.MockEntry;
 import javax.swing.JTextArea;
 import EditEntries.EditEntries;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -71,6 +72,11 @@ public class EditForm extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTextArea1);
 
         jButton2.setText("OK");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Cancel");
 
@@ -104,6 +110,10 @@ public class EditForm extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       JOptionPane.showMessageDialog(null, "Success", "Save Detail", JOptionPane.OK_OPTION);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
