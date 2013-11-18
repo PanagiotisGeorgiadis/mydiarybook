@@ -6,27 +6,22 @@
 
 package deleteentries;
 
-import Mocks.MockEntry;
-import Mocks.MockDaoSuccess;
+import javax.swing.JFrame;
 
 /**
  *
  * @author JohnN'y
  */
-public class DeleteEntries {
+public class TextAreaDemo {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-      
-       MockDaoSuccess dao = new MockDaoSuccess() ;
-        MockEntry entryObj = new MockEntry();
-        String Text;
-        
-        Text =dao.displayEntry( entryObj);
-        NewJFrame frameObj = new NewJFrame();
-        
+       TextAreaFrame textAreaFrame = new TextAreaFrame();
+        textAreaFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        textAreaFrame.setSize(425,200);
+        textAreaFrame.setVisible(true);
     }
     
 }

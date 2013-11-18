@@ -17,10 +17,14 @@ public class NewJFrame extends javax.swing.JFrame {
     /**
      * Creates new form NewJFrame
      */
-    public NewJFrame(String Text) {
+    public NewJFrame() {
        
-        jTextArea1.setText(Text);
-    //    initComponents();
+        
+        initComponents();
+//       jTextArea1.setText(Text);
+        String demo = "bla bla";
+        jTextArea1 = new JTextArea(demo);
+        
     }
 
     /**
@@ -36,6 +40,7 @@ public class NewJFrame extends javax.swing.JFrame {
         jTextArea1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("bla bla");
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -90,9 +95,11 @@ public class NewJFrame extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            private String Text;
+            
             public void run() {
-                new NewJFrame( Text).setVisible(true);
+                new NewJFrame().setVisible(true);
+                
+                
             }
         });
     }
