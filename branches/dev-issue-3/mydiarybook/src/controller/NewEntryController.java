@@ -4,7 +4,7 @@
  */
 package controller;
 
-import ui.NewEntryView2;
+import ui.NewEntryView;
 
 /**
  *
@@ -12,9 +12,9 @@ import ui.NewEntryView2;
  */
 public class NewEntryController {
     
-    private NewEntryView2 theView = new NewEntryView2();
+    private NewEntryView theView = new NewEntryView();
     private 
-    NewEntryController(NewEntryView2 theView)
+    NewEntryController(NewEntryView theView)
     {
         
     }

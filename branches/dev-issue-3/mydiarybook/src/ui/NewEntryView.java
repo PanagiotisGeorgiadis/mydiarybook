@@ -16,12 +16,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  *
  * @author Zarc
  */
-public class NewEntryView2 extends javax.swing.JFrame {
+public class NewEntryView extends javax.swing.JFrame {
 
     /**
-     * Creates new form NewEntryView2
+     * Creates new form NewEntryView
      */
-    public NewEntryView2() 
+    public NewEntryView() 
     {        
         initComponents();
         this.setSize(850, 650);
@@ -96,7 +96,7 @@ public class NewEntryView2 extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(textTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 500, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 567, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jSpinner1))
@@ -138,7 +138,7 @@ public class NewEntryView2 extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 657, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 724, Short.MAX_VALUE)
                 .addComponent(chooseImageButton)
                 .addGap(20, 20, 20))
         );
@@ -161,7 +161,7 @@ public class NewEntryView2 extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 820, Short.MAX_VALUE)
+            .addGap(0, 887, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,7 +182,7 @@ public class NewEntryView2 extends javax.swing.JFrame {
                 .addGap(29, 29, 29))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 892, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -225,7 +225,7 @@ public class NewEntryView2 extends javax.swing.JFrame {
 //            try {
 //                myPicture = ImageIO.read(fileChooser.getSelectedFile());
 //            } catch (IOException ex) {
-//                Logger.getLogger(NewEntryView2.class.getName()).log(Level.SEVERE, null, ex);
+//                Logger.getLogger(NewEntryView.class.getName()).log(Level.SEVERE, null, ex);
 //            }
 //            //jLabel3.setIcon(fileChooser.getIcon(fileChooser.getSelectedFile()));
 //             JLabel label1 = new JLabel(new ImageIcon(myPicture));
@@ -258,20 +258,20 @@ public class NewEntryView2 extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-                java.util.logging.Logger.getLogger(NewEntryView2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                java.util.logging.Logger.getLogger(NewEntryView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NewEntryView2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewEntryView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NewEntryView2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewEntryView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NewEntryView2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewEntryView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NewEntryView2().setVisible(true);
+                new NewEntryView().setVisible(true);
             }
         });
     }
