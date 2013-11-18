@@ -6,7 +6,11 @@
 
 package deleteentries;
 
+import Mocks.MockDaoSuccess;
+import Mocks.MockEntry;
 import javax.swing.JTextArea;
+import deleteentries.DeleteEntries;
+
 
 /**
  *
@@ -21,9 +25,13 @@ public class NewJFrame extends javax.swing.JFrame {
        
         
         initComponents();
-//       jTextArea1.setText(Text);
-        String demo = "bla bla";
-        jTextArea1 = new JTextArea(demo);
+       MockDaoSuccess dao = new MockDaoSuccess() ;
+       MockEntry entryObj = new MockEntry();
+       String  text;
+        
+        text =dao.displayEntry( entryObj);
+       jTextArea1.setText(text);
+       
         
     }
 
@@ -98,7 +106,8 @@ public class NewJFrame extends javax.swing.JFrame {
             
             public void run() {
                 new NewJFrame().setVisible(true);
-                
+//                String demo = text;
+//                jTextArea1 = new JTextArea(demo);
                 
             }
         });
