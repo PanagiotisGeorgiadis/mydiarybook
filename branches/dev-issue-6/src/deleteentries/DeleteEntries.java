@@ -6,6 +6,9 @@
 
 package deleteentries;
 
+import Mocks.MockEntry;
+import Mocks.MockDaoSuccess;
+
 /**
  *
  * @author JohnN'y
@@ -16,7 +19,14 @@ public class DeleteEntries {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+      
+       MockDaoSuccess dao = new MockDaoSuccess() ;
+        MockEntry entryObj = new MockEntry();
+        String Text;
+        
+        Text =dao.displayEntry( entryObj);
+        NewJFrame frameObj = new NewJFrame(Text);
+        
     }
     
 }
