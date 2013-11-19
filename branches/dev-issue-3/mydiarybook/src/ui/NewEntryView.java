@@ -4,7 +4,12 @@
  */
 package ui;
 
+import java.awt.Image;
+import java.net.MalformedURLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.UIManager;
 import javax.swing.filechooser.FileFilter;
@@ -205,39 +210,31 @@ public class NewEntryView extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void chooseImageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseImageButtonActionPerformed
-//        jPanel3.add(jLabel3);
-//        jLabel3.setBounds(jPanel3.getBounds());
-//        int x = jLabel3.getX()+jLabel3.getX();
-//        int y = jLabel3.getY()+jLabel3.getY();
-//        jLabel3.setLocation(x, y);
-//        JFileChooser fileChooser = new JFileChooser();
-//        FileChooserUI.createUI();
+
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setAcceptAllFileFilterUsed(false);
         FileFilter imageFilter = new FileNameExtensionFilter("Image files",ImageIO.getReaderFileSuffixes());
         
         fileChooser.setFileFilter(imageFilter);
         int returnVal = fileChooser.showOpenDialog(jPanel2);
-
+        
         if(returnVal == JFileChooser.OPEN_DIALOG)
-        {
-            
-//            try {
-//                myPicture = ImageIO.read(fileChooser.getSelectedFile());
-//            } catch (IOException ex) {
-//                Logger.getLogger(NewEntryView.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//            //jLabel3.setIcon(fileChooser.getIcon(fileChooser.getSelectedFile()));
-//             JLabel label1 = new JLabel(new ImageIcon(myPicture));
-//             jPanel2.add(label1);
-//             label1.setVisible(true);
-            
-            
-            
-                        
-           
+        {              
+            ImageIcon icon = null;
+            try 
+            {
+                icon = new ImageIcon(fileChooser.getSelectedFile().toURI().toURL());
+            } 
+            catch (MalformedURLException ex) 
+            {
+                Logger.getLogger(NewEntryView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            Image img = icon.getImage();
+            Image newimg = img.getScaledInstance(250, 250, Image.SCALE_SMOOTH);
+            ImageIcon newIcon = new ImageIcon(newimg);
+            jLabel3.setIcon(newIcon);
+            jLabel3.setText(null);
         }
-
         
     }//GEN-LAST:event_chooseImageButtonActionPerformed
 
