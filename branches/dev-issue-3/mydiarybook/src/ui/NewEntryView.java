@@ -6,11 +6,14 @@ package ui;
 
 import java.awt.Image;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -22,7 +25,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author Zarc
  */
 public class NewEntryView extends javax.swing.JFrame {
-
+    private static int imagePositionX = 25;
+    private static int imagePositionY = 25;
+    private static int imageNumber = 0;
     /**
      * Creates new form NewEntryView
      */
@@ -31,7 +36,43 @@ public class NewEntryView extends javax.swing.JFrame {
         initComponents();
         this.setSize(850, 650);
     }
-
+    
+     public void displayNewImage(URI imagePath)
+    {
+        JLabel jlabel = new JLabel();
+        ImageIcon icon = null;
+        try 
+        {
+            icon = new ImageIcon(imagePath.toURL());
+        } 
+        catch (MalformedURLException ex) 
+        {
+            JOptionPane.showMessageDialog(this, "Something went wrong! Choose Another Image");
+        }
+        Image img = icon.getImage();
+        Image newimg = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+        ImageIcon newIcon = new ImageIcon(newimg);
+        
+        
+        jlabel.setSize(200, 200);
+        jPanel2.add(jlabel);
+        jlabel.setLocation(imagePositionX, imagePositionY);
+        jlabel.setIcon(newIcon);
+        //jLabel3.setIcon(newIcon);
+        jLabel3.setText(null);
+        jlabel.setVisible(true);
+        if(imageNumber < 2 )
+        {
+            imagePositionX = imagePositionX + 225;
+            imageNumber++;
+        }
+        else
+        {
+            imagePositionX = 25;
+            imagePositionY = imagePositionY + 225;
+            imageNumber = 0;
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -220,20 +261,7 @@ public class NewEntryView extends javax.swing.JFrame {
         
         if(returnVal == JFileChooser.OPEN_DIALOG)
         {              
-            ImageIcon icon = null;
-            try 
-            {
-                icon = new ImageIcon(fileChooser.getSelectedFile().toURI().toURL());
-            } 
-            catch (MalformedURLException ex) 
-            {
-                Logger.getLogger(NewEntryView.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            Image img = icon.getImage();
-            Image newimg = img.getScaledInstance(250, 250, Image.SCALE_SMOOTH);
-            ImageIcon newIcon = new ImageIcon(newimg);
-            jLabel3.setIcon(newIcon);
-            jLabel3.setText(null);
+            displayNewImage(fileChooser.getSelectedFile().toURI());
         }
         
     }//GEN-LAST:event_chooseImageButtonActionPerformed
