@@ -7,6 +7,7 @@
 package mydiarybook;
 
 import javax.swing.JOptionPane;
+import ui.PersonalGoalForm;
 
 /**
  *
@@ -22,7 +23,11 @@ public class MyDiaryBook {
     public static void main(String[] args) {
         // TODO refer to https://code.google.com/p/mydiarybook/issues/list
         
-        JOptionPane.showMessageDialog(null, "Hello World!");
+        //JOptionPane.showMessageDialog(null, "Hello World!");
+        PersonalGoalForm form = new PersonalGoalForm();
+        
+        
+        form.setVisible(true);
     }
     
 }
