@@ -5,7 +5,7 @@
  */
 
 package importantmoments;
-
+import controllers.ImportantmomentsControllers;
 import javax.swing.JOptionPane;
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -61,6 +61,12 @@ public class momentsframe extends javax.swing.JFrame {
         mood = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        title.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                titleActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setText("Προσθήκη Σημαντικών Στιγμών");
@@ -169,6 +175,26 @@ public class momentsframe extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
+        PrintWriter out= null;
+      
+            if (checkValues()) {
+                try {
+                    out = new PrintWriter(new BufferedWriter(new FileWriter("test.txt", true)));
+                    out.println(title.getText());
+                    out.println(location.getText());
+                    out.println(day.getSelectedItem());
+                    out.println(month.getSelectedItem());
+                    out.println(years.getSelectedItem());
+                    out.println(mood.getSelectedItem());
+                    
+                    out.println("---------------------");
+                    JOptionPane.showMessageDialog(null, "Saved to ImportantMoments.txt");
+                } catch (IOException ex) {
+                    Logger.getLogger(ImportantmomentsControllers.class.getName()).log(Level.SEVERE, null, ex);
+                } finally {
+                    out.close();
+                }
+            } 
         if(title.getText().trim().length() == 0 || location.getText().length() == 0)
         {
           JOptionPane.showMessageDialog(null,"Empty Fields");
@@ -178,6 +204,10 @@ public class momentsframe extends javax.swing.JFrame {
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
         System.exit(0);
     }//GEN-LAST:event_cancelActionPerformed
+
+    private void titleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_titleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_titleActionPerformed
 
     /**
      * @param args the command line arguments
@@ -213,6 +243,17 @@ public class momentsframe extends javax.swing.JFrame {
             }
         });
     }
+private boolean checkValues()
+{
+        ImportantmomentsControllers e = new ImportantmomentsControllers();
+        if (!e.checkTitle(title.getText())) {
+            return false; 
+        }
+        if (!e.checkLocation(location.getText())) {
+            return false;
+        }
+        return true;
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton add;
