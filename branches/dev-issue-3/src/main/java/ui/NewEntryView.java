@@ -102,17 +102,8 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
             mediaPlayer.setSize(800, 400);
             mediaPlayer.getMediaPlayer().attachVideoSurface();
             mediaPlayer.getMediaPlayer().playMedia(videoPath);
-             
-        try {
-            Runtime rt = Runtime.getRuntime();
-            Process p = rt.exec("taskkill /t /im vlc.exe");
-            Runtime rt2 = Runtime.getRuntime();
-            Process p2 = rt.exec("taskkill /t /im vlc.exe");
-        } catch (IOException ex) {
-            Logger.getLogger(NewEntryView.class.getName()).log(Level.SEVERE, null, ex);
-        }
-            
-     }
+            //mediaPlayer.release();
+    }
     
     /**
      *
