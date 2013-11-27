@@ -6,9 +6,9 @@ package ui;
 
 import com.sun.jna.NativeLibrary;
 import controller.NewEntryController;
+import java.awt.Dimension;
 import java.awt.Image;
 import java.io.File;
-import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -16,13 +16,11 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.net.MalformedURLException;
 import java.net.URI;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
+import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 
 
@@ -36,10 +34,11 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
     static int imagePositionY = 30;
     static int imageNumber = 0;
     static File imagePath;
-    private String vlcPath = "C:\\Users\\Zarc\\Desktop\\MyDiaryBook\\VLC\\";  //"C:\\Program Files\\VideoLan\\VLC\\";
+    private String vlcPath = "VLC\\";
     private int maxImageNumber = 30;
     private int videoNumber = 0;
     private String videoPath;
+    private EmbeddedMediaPlayerComponent mediaPlayer2;
     
     /**
      * Creates new form NewEntryView sets the size and location 
@@ -57,6 +56,8 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
         jScrollPane2.getVerticalScrollBar().setUnitIncrement(20);
         jScrollPane2.getHorizontalScrollBar().setUnitIncrement(20);
         previewVideoButton.setVisible(false);
+        pauseButton.setVisible(false);
+        stopButton.setVisible(false);
     }
     
     @Override
@@ -89,20 +90,33 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
     }
     
     @Override
-    public void displayVideo(String videoPath)
+    public void displayVideo(String videoPath,String whatToDo)
     {
+        EmbeddedMediaPlayerComponent mediaPlayer = mediaPlayer2;
                 // ****** VlcJ framework  ******//
-            EmbeddedMediaPlayerComponent mediaPlayer = new EmbeddedMediaPlayerComponent();
-            JFrame frame = new JFrame();
-            frame.setContentPane(mediaPlayer);
-            frame.setSize(800, 600);
-            frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-            frame.setVisible(true);
-            frame.setLocationRelativeTo(this);
-            mediaPlayer.setSize(800, 400);
+        if(whatToDo.equalsIgnoreCase("Display"))
+        {
+           
+            Dimension d = jPanel3.getSize();
+            mediaPlayer.setSize(d);
+            jPanel3.add(mediaPlayer);
             mediaPlayer.getMediaPlayer().attachVideoSurface();
-            mediaPlayer.getMediaPlayer().playMedia(videoPath);
-            //mediaPlayer.release();
+            mediaPlayer.getMediaPlayer().playMedia(videoPath);           
+    
+        }
+        else if(whatToDo.equalsIgnoreCase("Pause"))
+        {
+            mediaPlayer.getMediaPlayer().play();
+        }
+        else if(whatToDo.equalsIgnoreCase("Play"))
+        {
+            mediaPlayer.getMediaPlayer().pause();
+        }
+        else
+        {
+            mediaPlayer.release(true);
+            jPanel3.remove(mediaPlayer);
+        }
     }
     
     /**
@@ -173,10 +187,10 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
         jPanel4 = new javax.swing.JPanel();
         imagesLeftLabel = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        videoChooseButton = new javax.swing.JButton();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         previewVideoButton = new javax.swing.JButton();
+        videoChooseButton = new javax.swing.JButton();
+        stopButton = new javax.swing.JButton();
+        pauseButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MyDiaryBook Version 0.2");
@@ -292,16 +306,6 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
 
         jTabbedPane1.addTab("Φωτογραφίες", jPanel2);
 
-        videoChooseButton.setText("Choose");
-        videoChooseButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                videoChooseButtonActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel1.setText("Μπορείτε να διαλέξετε μόνο 1 Βίντεο");
-
         previewVideoButton.setText("Preview");
         previewVideoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -309,50 +313,49 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
             }
         });
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(previewVideoButton)
-                .addGap(294, 294, 294))
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(218, 218, 218)
-                .addComponent(jLabel1)
-                .addContainerGap(220, Short.MAX_VALUE))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addGap(97, 97, 97)
-                .addComponent(previewVideoButton)
-                .addGap(0, 247, Short.MAX_VALUE))
-        );
+        videoChooseButton.setText("Choose");
+        videoChooseButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                videoChooseButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap(274, Short.MAX_VALUE)
+                .addComponent(previewVideoButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(videoChooseButton)
-                .addContainerGap())
+                .addGap(339, 339, 339))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(videoChooseButton)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(66, Short.MAX_VALUE))
+                    .addComponent(previewVideoButton))
+                .addGap(425, 425, 425))
         );
 
         jTabbedPane1.addTab("Βίντεο", jPanel3);
+
+        stopButton.setText("Stop");
+        stopButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                stopButtonActionPerformed(evt);
+            }
+        });
+
+        pauseButton.setText("Pause");
+        pauseButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pauseButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -364,6 +367,10 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
                 .addGap(0, 6, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pauseButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(stopButton)
+                .addGap(252, 252, 252)
                 .addComponent(submitButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cancelButton)
@@ -376,7 +383,9 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(submitButton)
-                    .addComponent(cancelButton))
+                    .addComponent(cancelButton)
+                    .addComponent(stopButton)
+                    .addComponent(pauseButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -449,8 +458,30 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
     }//GEN-LAST:event_submitButtonActionPerformed
 
     private void previewVideoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previewVideoButtonActionPerformed
-         displayVideo(videoPath);
+        mediaPlayer2 = new EmbeddedMediaPlayerComponent(); 
+        displayVideo(videoPath,"Display");
+         stopButton.setVisible(true);
+         pauseButton.setVisible(true);
+         previewVideoButton.setVisible(false);
     }//GEN-LAST:event_previewVideoButtonActionPerformed
+
+    private void pauseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pauseButtonActionPerformed
+        
+        if(pauseButton.getText().equals("Pause"))
+        {
+            pauseButton.setText("Play");
+            displayVideo(videoPath,"Play");
+        }
+        else
+        {
+            pauseButton.setText("Pause");
+            displayVideo(videoPath,"Pause");
+        }
+    }//GEN-LAST:event_pauseButtonActionPerformed
+
+    private void stopButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopButtonActionPerformed
+        displayVideo(videoPath,"Nothing");
+    }//GEN-LAST:event_stopButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -478,7 +509,7 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
             java.util.logging.Logger.getLogger(NewEntryView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -491,17 +522,17 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
     private javax.swing.JLabel dateLabel;
     private javax.swing.JButton imageChooseButton;
     private javax.swing.JLabel imagesLeftLabel;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JButton pauseButton;
     private javax.swing.JButton previewVideoButton;
+    private javax.swing.JButton stopButton;
     private javax.swing.JButton submitButton;
     private javax.swing.JTextArea textArea;
     private javax.swing.JTextField titleField;
