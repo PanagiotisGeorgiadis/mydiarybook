@@ -21,7 +21,7 @@ public interface INewEntryView {
 
     void displayNewImage(URI imagePath);
 
-    void displayVideo(String videoPath);
+    void displayVideo(String videoPath,String whatToDo);
 
     /**
      *
