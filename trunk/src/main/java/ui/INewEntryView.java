@@ -18,6 +18,8 @@ public interface INewEntryView {
      * want to the user
      */
     void displayErrorMessage(String errorMessage);
+    
+    void setTitleField(String text);
 
     void displayNewImage(URI imagePath);
 
@@ -29,11 +31,7 @@ public interface INewEntryView {
      */
     int getImageNumber();
 
-    /**
-     *
-     * @return the image path for each picture that the user "Uploaded"
-     */
-    String getImagePath();
+
 
     /**
      *

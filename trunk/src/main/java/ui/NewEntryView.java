@@ -6,6 +6,7 @@ package ui;
 
 import com.sun.jna.NativeLibrary;
 import controller.NewEntryController;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.io.File;
@@ -18,6 +19,8 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.WARNING_MESSAGE;
+import static javax.swing.JOptionPane.YES_NO_OPTION;
 import javax.swing.UIManager;
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 import uk.co.caprica.vlcj.runtime.RuntimeUtil;
@@ -32,7 +35,7 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
     static int imagePositionX = 25;
     static int imagePositionY = 30;
     static int imageNumber = 0;
-    static File imagePath;
+    //static File imagePath;
     private String vlcPath = "VLC\\";
     private int maxImageNumber = 30;
     private int videoNumber = 0;
@@ -105,11 +108,11 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
         }
         else if(whatToDo.equalsIgnoreCase("Pause"))
         {
-            mediaPlayer.getMediaPlayer().play();
+            mediaPlayer.getMediaPlayer().pause();
         }
         else if(whatToDo.equalsIgnoreCase("Play"))
         {
-            mediaPlayer.getMediaPlayer().pause();
+            mediaPlayer.getMediaPlayer().play();
         }
         else
         {
@@ -129,6 +132,11 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
         JOptionPane.showMessageDialog(this, errorMessage);
     }
     
+    @Override
+    public void setTitleField(String text)
+    {
+        titleField.setText(text);
+    }
     
     /**
      *
@@ -155,11 +163,6 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
      *
      * @return the image path for each picture that the user "Uploaded"
      */
-    @Override
-    public String getImagePath()
-    {
-        return imagePath.toString();
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -217,6 +220,12 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
         textArea.setLineWrap(true);
         textArea.setRows(5);
         jScrollPane1.setViewportView(textArea);
+
+        titleField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                titleFieldFocusLost(evt);
+            }
+        });
 
         titleLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         titleLabel.setLabelFor(titleField);
@@ -392,11 +401,7 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        if(imageNumber>0)
-        {
-            //TODO An fortwnei eikones kai telika pathsei cancel anti gia submit tote na ta diagrafw ola.
-            // isws lynetai me to na valw ena this.dispose(); sto submit button
-        }
+        
         this.dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
 
@@ -451,6 +456,7 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
         else
         {
             NewEntryController controller = new NewEntryController(this,null,"Text",titleField.getText(),videoNumber);
+            this.dispose();
         }
         
     }//GEN-LAST:event_submitButtonActionPerformed
@@ -458,9 +464,9 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
     private void previewVideoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previewVideoButtonActionPerformed
         mediaPlayer2 = new EmbeddedMediaPlayerComponent(); 
         displayVideo(videoPath,"Display");
-         stopButton.setVisible(true);
-         pauseButton.setVisible(true);
-         previewVideoButton.setVisible(false);
+        stopButton.setVisible(true);
+        pauseButton.setVisible(true);
+        previewVideoButton.setVisible(false);
     }//GEN-LAST:event_previewVideoButtonActionPerformed
 
     private void pauseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pauseButtonActionPerformed
@@ -468,18 +474,41 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
         if(pauseButton.getText().equals("Pause"))
         {
             pauseButton.setText("Play");
-            displayVideo(videoPath,"Play");
+            displayVideo(videoPath,"Pause");
         }
         else
         {
             pauseButton.setText("Pause");
-            displayVideo(videoPath,"Pause");
+            displayVideo(videoPath,"Play");
         }
     }//GEN-LAST:event_pauseButtonActionPerformed
 
     private void stopButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopButtonActionPerformed
         displayVideo(videoPath,"Nothing");
+        pauseButton.setVisible(false);
+        stopButton.setVisible(false);
     }//GEN-LAST:event_stopButtonActionPerformed
+
+    private void titleFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_titleFieldFocusLost
+        if(!titleField.getText().trim().isEmpty())
+        {
+            NewEntryController controller = new NewEntryController();
+            if(controller.filePathExists(titleField.getText().toString()) && titleField.isEditable())
+            {
+                int ret = JOptionPane.showConfirmDialog(this, "Do You Want To Overwrite It?", "Duplicate Entry Found!",YES_NO_OPTION , WARNING_MESSAGE);
+                
+                if(ret == JOptionPane.NO_OPTION)
+                    titleField.setText(null);
+                else
+                    titleField.setEditable(false);
+            }
+//            else
+//            {
+//                titleField.setEditable(false);
+//            }
+                
+        }
+    }//GEN-LAST:event_titleFieldFocusLost
 
     /**
      * @param args the command line arguments

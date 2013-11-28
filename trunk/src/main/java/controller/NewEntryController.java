@@ -18,7 +18,7 @@ import ui.INewEntryView;
  * @author Zarc
  */
 public class NewEntryController {
-
+    
     public NewEntryController()
     {
         
@@ -33,7 +33,7 @@ public class NewEntryController {
         
         String userName = userMock.getUsername();
         String destPath = rootPathMock.getDefaultPath();
-        
+                    
         if(fileType.equalsIgnoreCase("Text"))
         {
             String userText = theView.getTextArea();
@@ -53,16 +53,30 @@ public class NewEntryController {
         }
         else if(fileType.equalsIgnoreCase("Video"))
         {
-            //videoNumber = theView.getVideoNumber() -1;
             String videoDestPath = destPath+userName+"\\"+userTitle+"\\Videos\\";
             if(!copyVideo(sourcePath,videoDestPath))
                 theView.displayErrorMessage("Please Try With Another Video!");
         }
         else
         {
-            theView.displayErrorMessage("Unexpected Error!");
+           // theView.displayErrorMessage("The Entry Already Exists! Please Try A Different Entry Title");
         }
     }            
+    
+    public boolean filePathExists(String title)
+    {
+        IDefaultPathDaoNewEntry rootPathMock = mock(IDefaultPathDaoNewEntry.class);
+        when(rootPathMock.getDefaultPath()).thenReturn("C:\\Users\\Zarc\\Desktop\\MyDiaryBook\\Users\\");
+        
+        IUserNameDaoNewEntry userMock = mock(IUserNameDaoNewEntry.class);
+        when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
+        
+        File file = new File(rootPathMock.getDefaultPath()+userMock.getUsername()+"\\"+title);
+        if(file.exists())
+            return true;
+        else
+            return false;
+    }
     
     private boolean createFilePath(String path)
     {
