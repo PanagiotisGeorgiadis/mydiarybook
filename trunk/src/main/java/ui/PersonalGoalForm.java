@@ -7,42 +7,49 @@
 package ui;
 
 import controller.PersonalGoalController;
-import dao.PersonalGoalDao;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JEditorPane;
+import javax.swing.JFileChooser;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
-import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import dao.PersonalGoalDao;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
-/**
- *
- * @author alex
+/*
+ ** Μια φόρμα που υλοποιή το μοντέλου του Προσωπικού στόχου (Personal Goal)
+ *@author alex
  */
 public class PersonalGoalForm extends javax.swing.JFrame {
     private PersonalGoalController PersonalGoalController;
+    private final String database = "alexis.txt";
 
     /**
      * Creates new form PersonalGoalForm
      */
     public PersonalGoalForm() {
         initComponents();
+         db = new PersonalGoalDao();
+         db.loadDatabase(database);
     }
     
     public PersonalGoalForm(String txt) {
         initComponents();
       
-       
-        
+      
     }
 
+    /*
+    getter και setter για τα πεδία της φόρμας .
+    */
     public String getAnnouncementEditorPanel() {
         return announcementEditorPanel.getText().toString();
     }
@@ -114,8 +121,10 @@ public class PersonalGoalForm extends javax.swing.JFrame {
         AnnouncementLabel = new javax.swing.JLabel();
         whenDateSpinner = new javax.swing.JSpinner();
         addNewFotoLabel = new javax.swing.JLabel();
-        pressToAddButton = new javax.swing.JButton();
+        browseFotoFile = new javax.swing.JButton();
         imageLabel = new javax.swing.JLabel();
+        browseFotoTextField = new javax.swing.JTextField();
+        buttonUploadFoto = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -152,12 +161,29 @@ public class PersonalGoalForm extends javax.swing.JFrame {
         whenDateSpinner.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         whenDateSpinner.setEditor(new javax.swing.JSpinner.DateEditor(whenDateSpinner, "dd/MM/yyyy"));
 
-        addNewFotoLabel.setText("Add new foto");
+        addNewFotoLabel.setText("UPLOAD YOUR FOTO");
+        addNewFotoLabel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        pressToAddButton.setText("pressToAdd");
-        pressToAddButton.addActionListener(new java.awt.event.ActionListener() {
+        browseFotoFile.setText("Browse..");
+        browseFotoFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pressToAddButtonActionPerformed(evt);
+                browseFotoFileActionPerformed(evt);
+            }
+        });
+
+        imageLabel.setToolTipText("");
+        imageLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        browseFotoTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                browseFotoTextFieldActionPerformed(evt);
+            }
+        });
+
+        buttonUploadFoto.setText("Upload");
+        buttonUploadFoto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonUploadFotoActionPerformed(evt);
             }
         });
 
@@ -165,60 +191,65 @@ public class PersonalGoalForm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(locationLabel)
+                    .addComponent(withPersonLabel)
+                    .addComponent(titleLabel)
+                    .addComponent(WhenDate)
+                    .addComponent(AnnouncementLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(158, 158, 158)
-                        .addComponent(jLabel1))
+                        .addComponent(saveButton)
+                        .addGap(51, 51, 51)
+                        .addComponent(cancelButton))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(locationLabel)
-                            .addComponent(withPersonLabel)
-                            .addComponent(titleLabel)
-                            .addComponent(WhenDate)
-                            .addComponent(AnnouncementLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(whenDateSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(locationTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
+                                .addComponent(titleTextField, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(withPersonTextField, javax.swing.GroupLayout.Alignment.LEADING)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(saveButton)
-                                .addGap(51, 51, 51)
-                                .addComponent(cancelButton))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(whenDateSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(locationTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
-                                        .addComponent(titleTextField, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(withPersonTextField, javax.swing.GroupLayout.Alignment.LEADING)))
                                 .addGap(50, 50, 50)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(addNewFotoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(pressToAddButton)))))))
-                .addContainerGap(179, Short.MAX_VALUE))
+                                        .addComponent(browseFotoFile)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(buttonUploadFoto)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(addNewFotoLabel)
+                                        .addContainerGap(142, Short.MAX_VALUE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(browseFotoTextField)
+                                        .addContainerGap())
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(28, 28, 28))))))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(162, 162, 162)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
+                        .addGap(36, 36, 36)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(titleLabel)
-                            .addComponent(titleTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(addNewFotoLabel)
-                            .addComponent(pressToAddButton))))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                            .addComponent(titleTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(locationLabel)
@@ -233,170 +264,110 @@ public class PersonalGoalForm extends javax.swing.JFrame {
                             .addComponent(whenDateSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(AnnouncementLabel)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGap(0, 181, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(saveButton)
+                            .addComponent(cancelButton))
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(saveButton)
-                    .addComponent(cancelButton))
-                .addContainerGap())
+                        .addGap(10, 10, 10)
+                        .addComponent(addNewFotoLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(browseFotoFile)
+                            .addComponent(buttonUploadFoto))
+                        .addGap(32, 32, 32)
+                        .addComponent(browseFotoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //cancelButton για να γίνει close η φόρμα.
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         this.dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
-
+   // saveButton για να γίνεται τυχόν έλενχος πεδίον και το τελικό save. 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
-           
-        PersonalGoalController  newPersonalGoalController = new PersonalGoalController(new PersonalGoalDao());   
-            String personalGoalTitle = getTitleTextField();
-            String personalGoalLocation = getLocationTextField();
-            String personalGoalWithPerson = getWithPersonTextField();
-            String personalGoalWhenDate = getWhenDateSpinner();
-            String personalGoalAnnouncement = getAnnouncementEditorPanel();
-     
-                boolean successPrintWriter=false;
-             //TODO : Γιατι υπήρχε πρόβλημα εδώ?   
-           /*  
-                       
-                       boolean successPrintWriterTitle=false;
-                       boolean successPrintWriterLocation=false;
-                       boolean successPrintWriterWithPerson=false;
-                       boolean successPrintWriterAnnouncement=false;
-
-               
-              if(newPersonalGoalController.checkPersonalGoalTitle(personalGoalTitle)){
-                  successPrintWriterTitle=true;
-              }
-              if(newPersonalGoalController.checkPersonalGoalLocation(personalGoalLocation)){
-                  successPrintWriterTitle=true;
-              }
-              if(newPersonalGoalController.checkPersonalGoalWithPerson(personalGoalWithPerson)){
-                  successPrintWriterTitle=true;
-              }
-              if(newPersonalGoalController.checkPersonalGoalAnnouncement(personalGoalAnnouncement)){
-                  successPrintWriterTitle=true;
-              }
-             */
-          
+        try {
+            PersonalGoalController  newPersonalGoalController = new PersonalGoalController(this);   
             
-           if(newPersonalGoalController.checkPersonalGoalTitle(personalGoalTitle)){
-               if(newPersonalGoalController.checkPersonalGoalLocation(personalGoalLocation)){
-                   if(newPersonalGoalController.checkPersonalGoalWithPerson(personalGoalWithPerson)){
-                       if(newPersonalGoalController.checkPersonalGoalWhenDate(personalGoalWhenDate)){
-                            if(newPersonalGoalController.checkPersonalGoalAnnouncement(personalGoalAnnouncement)){
-                                        PrintWriter writer = null;
-                               try {
-                                   writer = new PrintWriter("writeToFilePersonalGoal.txt", "UTF-8");
-                               } catch (FileNotFoundException ex)
-                               {
-                                   Logger.getLogger(PersonalGoalForm.class.getName()).log(Level.SEVERE, null, ex);
-                               } catch (UnsupportedEncodingException ex) {
-                                    Logger.getLogger(PersonalGoalForm.class.getName()).log(Level.SEVERE, null, ex);
-                                }
-                               writer.println("Title:"+ titleTextField.getText().toString()+"\t Location:"+locationTextField.getText().toString()+"\t With:"+
-                                       withPersonTextField.getText().toString()+"\t when:"+whenDateSpinner.getValue().toString()+
-                                       "\t Annoucement:"+ announcementEditorPanel.getText().toString());
-
-                               writer.close();
-                               
-                               /*save image*/
-                               
-                               //TODO: FIX save image
-                               /*
-                               
-                            
-                                         
-                               
-                                                 JFileChooser saveChooser = new JFileChooser();
-                                                 saveChooser.setFileFilter(new FileNameExtensionFilter("JPEG File", "jpg"));
-                                                 saveChooser.setFileFilter(new FileNameExtensionFilter("PNG File", "png"));
-                                                 saveChooser.setFileFilter(new FileNameExtensionFilter("GIF File", "gif"));
-                                                 
-                                                 if(saveChooser.showSaveDialog(this)==jFileChooser1.APPROVE_OPTION){
-                                                     String name = saveChooser.getSelectedFile().getAbsolutePath();
-                                                     String name1 = saveChooser.getFileFilter().getDescription();
-                                                     if (name1.equals("JPEG File")){
-                                                         String ext = ".jpg";
-                                                         name = name + ext;
-                                                         System.out.println(name);
-                                                     }
-                                                     else if(name1.equals("PNG File")){
-                                                         String ext = ".png";
-                                                         name = name + ext;
-                                                         System.out.println(name);
-                                                     }
-                                                     else if(name1.equals("GIF File")){
-                                                         String ext = ".gif";
-                                                         name = name + ext;
-                                                         System.out.println(name);
-                                                     }
-                                                     else if(name1.equals("All Files")){
-
-                                                         System.out.println(name);
-                                                     }
-                                                     else{
-                                                         JOptionPane.showMessageDialog(this, "Error in saving file", "ERROR", JOptionPane.ERROR_MESSAGE);
-                                                     }
-                                                     File f= jFileChooser1.getSelectedFile();
-                                            try {
-                                                ImageIO.write((RenderedImage) imageLabel.getIcon(), "png", File.createTempFile(name, name1));
-                                            } catch (IOException ex) {
-                                                Logger.getLogger(PersonalGoalForm.class.getName()).log(Level.SEVERE, null, ex);
-                                            }
-                                                 }
-                               */
-                               successPrintWriter=true;   
-                           
-                           
-                       }
-                       
-                   }
-                       
-                }   
-              }
-                
-           }       
-             
-               if (successPrintWriter){
-                   System.exit(WIDTH);  
-               }
-           
-             
+            newPersonalGoalController.createPersonalGoal(this);                    
+        } catch (Exception ex) {
+            Logger.getLogger(PersonalGoalForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
     }//GEN-LAST:event_saveButtonActionPerformed
 
-    private void pressToAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pressToAddButtonActionPerformed
-     // final JFileChooser fc = new JFileChooser();
-      int returnVal = jFileChooser1.showOpenDialog(this);
-     
-      
-      if(returnVal==jFileChooser1.APPROVE_OPTION){
-          //jFileChooser1.setAcceptAllFileFilterUsed(true);
-          File f= jFileChooser1.getSelectedFile();
-          FileFilter imageFilter = new FileNameExtensionFilter("Image files", ImageIO.getReaderFileSuffixes());
-          imageFilter.getDescription();
-          //f.addChoosableFileFilter(new imageFilter());
-        //  f.setAcceptAllFileFilterUsed(false);
-          imageLabel.setIcon(new ImageIcon(""+f));
-      }
-      
-      
-      
-        
-      
-     
+    //FIXME: refactor  σε μια νέα κλάση 
+    private File getFile(String fileDescription, String[] fileSuffixes, String dialog )
+    {
+        JFileChooser f = new JFileChooser();
+        f.setFileFilter( new FileNameExtensionFilter(fileDescription,fileSuffixes)); 
+        f.setAcceptAllFileFilterUsed(false);
+        if(f.showDialog(this, dialog) == JFileChooser.CANCEL_OPTION )
+            return null;
+        else
+            return f.getSelectedFile();
+    }
+     //FIXME: refactor  σε μια νέα κλάση 
+    private void browseFotoFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseFotoFileActionPerformed
 
-        
-    }//GEN-LAST:event_pressToAddButtonActionPerformed
+        File file = getFile("Image", ImageIO.getReaderFileSuffixes(), "Select");
+        if(file != null)
+            browseFotoTextField.setText(file.getAbsolutePath());
 
+    }//GEN-LAST:event_browseFotoFileActionPerformed
+
+    private void browseFotoTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseFotoTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_browseFotoTextFieldActionPerformed
+      // buttonUpload για να εμφανίζεται η εικόνα μέσα στην φόρμα.
+     //FIXME: refactor  σε μια νέα κλάση 
+    private void buttonUploadFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUploadFotoActionPerformed
+           
+           String fileName = browseFotoTextField.getText();
+           if(fileName.equals(""))
+               System.out.println("Error[buttonUpload()]: File not selected");
+           else
+           {
+               File file = new File(fileName);
+               if(file == null)
+                   System.out.println("Error[buttonUpload()]: Can not load file");
+               else
+               {
+                    BufferedImage img = null;
+                    try {
+                        img = ImageIO.read(file);
+                    } catch (IOException e) {
+                        System.out.println("Error[ddButtonActionPerformed()] Can not add image");    
+                    }
+                    int w = imageLabel.getWidth();
+                    int h = imageLabel.getHeight();
+
+                    int type = img.getType() == 0? BufferedImage.TYPE_INT_ARGB : img.getType();
+
+                    BufferedImage resizedImg = new BufferedImage(w, h, type);
+                    Graphics g = resizedImg.createGraphics();
+                    g.drawImage(img, 0, 0, w, h, null);
+                    g.dispose();
+                    imageLabel.setIcon(new ImageIcon(resizedImg));
+               } 
+           }
+    }//GEN-LAST:event_buttonUploadFotoActionPerformed
+    //FIXME: refactor  σε μια νέα κλάση και να βάλω interface
+    // displayErrorMessage εαν υπάρχει κάποιο λάθος.
+       public void displayErrorMessage(String errorMessage)
+    {
+        JOptionPane.showMessageDialog(this, errorMessage);
+    }
        
       public class Utils {
 
@@ -422,13 +393,9 @@ public class PersonalGoalForm extends javax.swing.JFrame {
     }
 } 
       
-      
-       
-   
-  
-   
     /**
      * @param args the command line arguments
+     * @throws java.io.UnsupportedEncodingException
      */
     public static void main(String args[]) throws UnsupportedEncodingException {
         /* Set the Nimbus look and feel */
@@ -443,19 +410,14 @@ public class PersonalGoalForm extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PersonalGoalForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PersonalGoalForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PersonalGoalForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(PersonalGoalForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new PersonalGoalForm().setVisible(true);
             }
@@ -466,16 +428,14 @@ public class PersonalGoalForm extends javax.swing.JFrame {
         
     }
 
- 
-    
-    
-    
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel AnnouncementLabel;
     private javax.swing.JLabel WhenDate;
     private javax.swing.JLabel addNewFotoLabel;
     private javax.swing.JEditorPane announcementEditorPanel;
+    private javax.swing.JButton browseFotoFile;
+    private javax.swing.JTextField browseFotoTextField;
+    private javax.swing.JButton buttonUploadFoto;
     private javax.swing.JButton cancelButton;
     private javax.swing.JLabel imageLabel;
     private javax.swing.JFileChooser jFileChooser1;
@@ -483,7 +443,6 @@ public class PersonalGoalForm extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel locationLabel;
     private javax.swing.JTextField locationTextField;
-    private javax.swing.JButton pressToAddButton;
     private javax.swing.JButton saveButton;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JTextField titleTextField;
@@ -491,4 +450,6 @@ public class PersonalGoalForm extends javax.swing.JFrame {
     private javax.swing.JLabel withPersonLabel;
     private javax.swing.JTextField withPersonTextField;
     // End of variables declaration//GEN-END:variables
+    private BufferedImage dialogImage;
+    private PersonalGoalDao db;
 }

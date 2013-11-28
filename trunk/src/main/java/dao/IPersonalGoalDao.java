@@ -10,7 +10,7 @@ import java.io.IOException;
 import model.PersonalGoalModel;
 
 /**
- *
+ *Interface  του PersonalGoalDao
  * @author alex
  */
 public interface IPersonalGoalDao {
