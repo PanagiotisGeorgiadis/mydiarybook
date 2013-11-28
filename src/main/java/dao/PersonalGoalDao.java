@@ -6,16 +6,28 @@
 
 package dao;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.PersonalGoalModel;
 
-/**
- * Μια απλή κλάση η οποία κάνει μια καταχώρηση μέσα στo DAO.
- * @author alex
+/*
+ **Μια κλάση που υλοποιή την εγγραφή σε και την κάνει load.
+ * @param PersonalGoalModel: pgm που το μοντέλο.
+ * @param String fileName  : το όνομα του αρχείου
+ * @return το writeToFilePersonalGoal επιστρέφει ενα true εάν όλα τα πεδία είναι σωστά αλλίως false.
+ * TODO: να φτίαξω τα return σε saveToFile 
+ * @throws IOException
+ *@author alex
  */
-public class PersonalGoalDao implements IPersonalGoalDao {
+public class PersonalGoalDao implements  IPersonalGoalDao {
     
     @Override
     public boolean writeToFilePersonalGoal(PersonalGoalModel pgm) throws IOException{
@@ -33,6 +45,68 @@ public class PersonalGoalDao implements IPersonalGoalDao {
         }
            
         
+    }
+    
+    private ArrayList<PersonalGoalModel> database;
+    private final String delimeter = ";";
+    
+    
+    public void loadDatabase(String fileName)
+    {
+        FileReader fr = null;
+        String line = null;
+        try {
+            fr = new FileReader(fileName);
+            BufferedReader br = new BufferedReader(fr);
+            
+            line = br.readLine();
+            String[] lineSplit;
+            PersonalGoalModel tempPGM = null;
+            while( line != null)
+            {
+                line = br.readLine();
+                lineSplit = line.split(delimeter);
+                tempPGM.setPersonalGoalTitle       (lineSplit[0]);
+                tempPGM.setPersonalGoalLocation    (lineSplit[1]);
+                tempPGM.setPersonalGoalWithPerson  (lineSplit[2]);
+                tempPGM.setPersonalGoalWhenDate    (new Date (lineSplit[3]));
+                tempPGM.setPersonalGoalAnnouncement(lineSplit[4]);
+                database.add(tempPGM);
+            }
+            fr.close();
+        } catch (IOException ex) {
+            Logger.getLogger(PersonalGoalDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    //TODO: να ενώσω saveToFile και writeToFilePersonalGoal.
+    
+    public void saveToFile(String fileName)
+    {
+        int listLen = database.size();
+        
+        if(listLen > 0)
+        {
+            FileWriter fw = null;
+            try {
+                File file = new File(fileName);
+                PersonalGoalModel temp;
+                fw = new FileWriter(file ,true);
+                for(int i = 0; i < listLen;i++)
+                {
+                    temp = database.get(i);
+                    fw.write( temp.getPersonalGoalTitle()      +delimeter+
+                              temp.getPersonalGoalLocation()   +delimeter+
+                              temp.getPersonalGoalWithPerson() +delimeter+
+                              temp.getPersonalGoalWhenDate().toString()   +delimeter+
+                              temp.getPersonalGoalAnnouncement()
+                    );
+                    fw.write(System.getProperty("line.separator"));
+                }
+                fw.close();
+            } catch (IOException ex) {
+                Logger.getLogger(PersonalGoalDao.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+        }
     }
     
 }

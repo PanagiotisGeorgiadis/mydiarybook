@@ -3,257 +3,156 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package controller;
 
 import dao.IPersonalGoalDao;
-import java.util.Date;
-import javax.swing.JOptionPane;
+import dao.PersonalGoalPathDao;
+import java.io.BufferedWriter;
+import java.io.File;
 import model.PersonalGoalModel;
+import static org.mockito.Mockito.*;
+import ui.PersonalGoalForm;
+import java.io.FileWriter;
+import java.io.IOException;
+
 
 /*
-    **Ένας απλός controller που μέσω checkPersonalGoalTitle,checkPersonalGoalLocation,checkPersonalGoalWithPerson
-     *checkPersonalGoalWhenDate checkPersonalGoalAnnouncement.
-     *Ελένχει αν τα πεδία που δίνουμε είναι σωστά αλλίως επιστρέφει μήνυμα λάθους.
-     * @param personalGoalTitle        : Ο τίτλος του προσωπικόυ στόχου (Personal Goal)
-     * @param personalGoalLocation     : Το όνομα της τοποθεσίας.
-     * @param personalGoalWithPerson   : Το όνομα του προσώπου που υλοποιούμε μαζι τον προσωπικό στόχο.
-     * @param personalGoalWhenDate     : Η ημερομηνία του προσωπικόυ στόχου.
-     * @param personalGoalAnnouncement : Το Announcement .
-     * @return επιστρέφει ενα true εάν όλα τα πεδία είναι σωστά αλλίως false.
-     * @throws 
-     *@author alex
+ **Ένας απλός controller που μέσω checkPersonalGoalTitle,checkPersonalGoalLocation,checkPersonalGoalWithPerson
+ *checkPersonalGoalWhenDate checkPersonalGoalAnnouncement.
+ *Ελένχει αν τα πεδία που δίνουμε είναι σωστά αλλίως επιστρέφει μήνυμα λάθους.
+ * @param personalGoalTitle        : Ο τίτλος του προσωπικόυ στόχου (Personal Goal)
+ * @param personalGoalLocation     : Το όνομα της τοποθεσίας.
+ * @param personalGoalWithPerson   : Το όνομα του προσώπου που υλοποιούμε μαζι τον προσωπικό στόχο.
+ * @param personalGoalWhenDate     : Η ημερομηνία του προσωπικόυ στόχου.
+ * @param personalGoalAnnouncement : Το Announcement .
+ * @return επιστρέφει ενα true εάν όλα τα πεδία είναι σωστά αλλίως false.
+ * @throws 
+ *@author alex
  */
-public class PersonalGoalController implements  IPersonalGoalController {
-    public  IPersonalGoalDao newPersonalGoalDao ;
-    
-    public PersonalGoalController(IPersonalGoalDao personalGoalDao){
-        
+public class PersonalGoalController implements IPersonalGoalController {
+
+    public IPersonalGoalDao newPersonalGoalDao;
+
+    public PersonalGoalController(IPersonalGoalDao personalGoalDao) {
+
         this.newPersonalGoalDao = personalGoalDao;
-        
-        
+
     }
-    
- 
- /*FIXME: Να ελένχει μέσα στην φόρμα μονο απο την createPersonalGoal όλα τα πεδία.
-  * ui.PersonalGoalForm 
-  * line : 242-286
-  */
-   
+
+    public PersonalGoalController(PersonalGoalForm theForm) {
+        theForm.getTitleTextField();
+        theForm.getLocationTextField();
+        theForm.getWithPersonTextField();
+        theForm.getAnnouncementEditorPanel();
+        theForm.getWhenDateSpinner();
+    }
+
     @Override
-   public boolean createPersonalGoal(String personalGoalTitle,String personalGoalLocation ,String personalGoalWithPerson,
-   Date personalGoalWhenDate, String personalGoalAnnouncement)throws Exception,IllegalArgumentException{
-      PersonalGoalModel newPersonalGoalModel = new PersonalGoalModel();
+    public boolean createPersonalGoal(PersonalGoalForm theForm) throws Exception, IllegalArgumentException {
 
-       try{
-           newPersonalGoalDao.writeToFilePersonalGoal(newPersonalGoalModel);
-            return true;
-        }catch (Exception ex){
-            System.out.println("File Not Found!");
-            return false;
+        PersonalGoalModel newPersonalGoalModel = new PersonalGoalModel();
+
+        PersonalGoalEvaluator eval = new PersonalGoalEvaluator();
+        PersonalGoalForm newPersonalGoalForm = new PersonalGoalForm();
+
+        int i, proceed = 0;
+
+        boolean[] Check = new boolean[5];
+        Check[0] = eval.checkPersonalGoalTitle(theForm.getTitleTextField());
+        Check[1] = eval.checkPersonalGoalLocation(theForm.getLocationTextField());
+        Check[2] = eval.checkPersonalGoalWithPerson(theForm.getWithPersonTextField());
+        Check[3] = eval.checkPersonalGoalWhenDate(theForm.getWhenDateSpinner());
+        Check[4] = eval.checkPersonalGoalAnnouncement(theForm.getAnnouncementEditorPanel());
+
+        for (i = 0; i < 5; i++) {
+            if (!Check[i]) {
+                newPersonalGoalForm.displayErrorMessage("Please Fill All The Nessessary Fields!");
+                break;
+            } else {
+                proceed++;
+            }
         }
 
-  
-    /*  
-     boolean result=false;
-     boolean finalResult=false;
-    
-     while(result=false){
-     result = checkPersonalGoalTitle(personalGoalTitle); 
-     
-     }
-     
-     while(result=false){
-     result = checkPersonalGoalLocation(personalGoalLocation); 
-     
-     }
-     while(result=false){
-     result = checkPersonalGoalWithPerson(personalGoalWithPerson); 
-     
-     }
-     while(result=false){
-     result = checkPersonalGoalAnnouncement(personalGoalAnnouncement); 
-     
-     }
-     boolean result1 =  personalGoalDao.writeToFilePersonalGoal(newPersonalGoalModel);
-       
-        if(result=result1) {
-            finalResult=true;
-            
+        if (proceed == 5) {
+            Check[0] = eval.checkPersonalGoalTitle(theForm.getTitleTextField());
+            Check[1] = eval.checkPersonalGoalLocation(theForm.getLocationTextField());
+            Check[2] = eval.checkPersonalGoalWithPerson(theForm.getWithPersonTextField());
+            Check[3] = eval.checkPersonalGoalWhenDate(theForm.getWhenDateSpinner());
+            Check[4] = eval.checkPersonalGoalAnnouncement(theForm.getAnnouncementEditorPanel());
+
         }
-        return finalResult;
-    
-        
-       */
-        
-      
-        
-   }
-   
-  
-   //FIXME: να τσεκάρει αν υπάρχει ίδιος τίτλος .και αν ναι να εμφανίζει μνμ λάθος        
-       
-      /* check if the given personalGoalTitle exist in the file */
-      /*  
-        try{
-            boolean resultIfPersonalGoalTitle=false;
-            resultIfPersonalGoalTitle=
-           PersonalGoalAvailableDao.chechIfTitleIsAvailable(newPersonalGoal.getPersonalGoalTitle());
-            if(resultIfPersonalGoalTitle=false){
-                System.out.println("The Title exist..\n");
+
+        while (proceed == 5) {
+            for (i = 0; i < 5; i++) {
+                if (!Check[i]) {
+                    switch (i) {
+                        case 0:
+                            newPersonalGoalForm.displayErrorMessage("Title is incorrect.");
+                            newPersonalGoalForm.setTitleTextField(null);
+                            break;
+                        case 1:
+                            newPersonalGoalForm.displayErrorMessage("Location is incorrect");
+                            newPersonalGoalForm.setLocationTextField(null);
+                            break;
+                        case 2:
+                            newPersonalGoalForm.displayErrorMessage("WithPerson is incorrect");
+                            newPersonalGoalForm.setWithPersonTextField(null);
+                            break;
+                        case 3:
+                            newPersonalGoalForm.displayErrorMessage("WhenDate is incorrect");
+                            newPersonalGoalForm.setWhenDateSpinner(null);
+                            break;
+                        case 4:
+                            newPersonalGoalForm.displayErrorMessage("Announcement is incorrect");
+                            newPersonalGoalForm.setAnnouncementEditorPanel(null);
+                            break;
+
+                        default:
+                    }
+
+                } else {
+                    proceed++;
+                    System.out.println(proceed);
+
+                }
+
+            }
+
+            if (proceed == 10) {
+
+                PersonalGoalPathDao destPath = mock(PersonalGoalPathDao.class);
+                when(destPath.DefaultPath()).thenReturn("C:\\Users\\alex\\Desktop\\MyDiaryBook\\");
+
+                PersonalGoalPathDao userName = mock(PersonalGoalPathDao.class);
+                when(userName.UserName()).thenReturn("alexis");
+                try {
+
+                    //FIXME: να φτιάξω ξεχωριστή συνάρτηση για το save μέσα στο txt.
+                    
+                    File file = new File(destPath.DefaultPath() + userName.UserName() + ".txt");
+                    FileWriter fileWriter = new FileWriter(file, true);
+                    try (BufferedWriter writer1 = new BufferedWriter(fileWriter)) {
+                        writer1.append("\n");
+                        writer1.append("\n" + "Title:" + theForm.getTitleTextField() + "\t Location:" + theForm.getLocationTextField() + "\t With:"
+                                + theForm.getWithPersonTextField() + "\t when:" + theForm.getWhenDateSpinner()
+                                + "\t Annoucement:" + theForm.getAnnouncementEditorPanel());
+                        fileWriter.write(System.getProperty("line.separator"));
+                    }
+                } catch (IOException ex) {
+                    newPersonalGoalForm.displayErrorMessage("Something went wrong");
+                }
+                newPersonalGoalForm.displayErrorMessage("Success!");
+
+            }
+
+            try {
+                newPersonalGoalDao.writeToFilePersonalGoal(newPersonalGoalModel);
+                return true;
+            } catch (IOException ex) {
+                System.out.println("File Not Found!");
                 return false;
             }
-            else{
-                System.out.println("Title is acceptable\n!");
-                
-                }       
-           }catch (Exception e){
-            System.out.println(e);
-            
-            }
-      // check if can write to file..  
-        try{
-           personalGoalDao.writeToFilePersonalGoal(newPersonalGoal);
-           return true;
-        }catch (Exception ex){
-            System.out.println("File Not Found!");
-            return false;
         }
-       */
-        
-   
-
-  
-   // check if  title is correctly..   
-    @Override
-   public boolean checkPersonalGoalTitle(String personalGoalTitle)throws IllegalArgumentException{
-     boolean result=false;
-     String checkNull="";
-            
-
-            if(personalGoalTitle.length()>0&&personalGoalTitle.length()<3 ){
-                
-                JOptionPane.showMessageDialog(null,"Title must have atleast 3 characters");
-            }
-            else if(personalGoalTitle.length()>25){
-                
-                JOptionPane.showMessageDialog(null,"Title must be less than 25 characters");
-            }
-            else if(personalGoalTitle.equals(checkNull)){
-                
-                JOptionPane.showMessageDialog(null,"Title can't be null");
-            }
-            else{
-                result=true;
-            }
-        return result;
-             
-        
-        }
-   //---------------------------------------------------------------------------------------------
-   // check if  title is correctly.. 
-    @Override
-    public boolean checkPersonalGoalLocation(String personalGoalLocation) throws IllegalArgumentException {
-     boolean result=false;
-     String checkNull="";       
-
-            if(personalGoalLocation.length()>0&&personalGoalLocation.length()<3){
-                
-                
-                JOptionPane.showMessageDialog(null,"Location must have atleast 3 characters");
-            }
-            else if(personalGoalLocation.length()>25){
-                
-                JOptionPane.showMessageDialog(null,"Location must be less than 25 characters");
-                
-            }
-            else if(personalGoalLocation.equals(checkNull)){
-                
-                JOptionPane.showMessageDialog(null,"Location can't be null");
-                
-            }
-            else{
-                result=true;
-            }
-        return result;
-             
-        
-        }
-    //---------------------------------------------------------------------------------------------
-    // check if WithPerson is correctly.. 
-    @Override
-    public boolean checkPersonalGoalWithPerson(String personalGoalWithPerson)throws IllegalArgumentException{
-     boolean result=false;
-            
-
-            if(personalGoalWithPerson.length()>0&&personalGoalWithPerson.length()<3){
-                
-                
-                JOptionPane.showMessageDialog(null,"WithPerson must have atleast 3 characters");
-            }
-            else if(personalGoalWithPerson.length()>25){
-                
-                JOptionPane.showMessageDialog(null,"WithPerson must be less than 25 characters");
-                
-            }
-            else{
-                result=true;
-            }
-        return result;
-             
-        
-        }
-   //---------------------------------------------------------------------------------------------
-     @Override
-    public boolean checkPersonalGoalWhenDate(String personalGoalWhenDate)throws IllegalArgumentException{
-     boolean result=false;
-     String checkNull="";
-            
-
-            if(personalGoalWhenDate.equals(checkNull)){
-                
-                
-                JOptionPane.showMessageDialog(null,"Date can't Date");
-            }
-            
-            else{
-                result=true;
-            }
-        return result;
-             
-        
-        }
-     //---------------------------------------------------------------------------------------------
-   //check if personalGoalAnnouncement is correctly..
-    @Override
-   public boolean checkPersonalGoalAnnouncement(String personalGoalAnnouncement)throws IllegalArgumentException{
-     boolean result=false;;
-            
-
-            
-            if(personalGoalAnnouncement.length()>150){
-                 
-                JOptionPane.showMessageDialog(null,"Announcement must be less than 150 characters");
-                
-            }
-            else{
-                result=true;
-            }
-        return result;
-             
-        
-        }
-
-    
-      
-
-     
-        
-        
-      
-    
- }
-
-    
-    
-
+        return true;
+    }
+}
