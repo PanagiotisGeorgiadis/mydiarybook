@@ -10,6 +10,6 @@ package controller;
  *
  * @author PTsilopoulos
  */
-public interface IEditEntry {
+public interface IEditEntryController {
     String getEntry();
 }
