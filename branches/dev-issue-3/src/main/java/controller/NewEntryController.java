@@ -33,7 +33,6 @@ public class NewEntryController {
         
         String userName = userMock.getUsername();
         String destPath = rootPathMock.getDefaultPath();
-        boolean exists;
         
         if(fileType.equalsIgnoreCase("Text"))
         {
@@ -63,40 +62,7 @@ public class NewEntryController {
         {
             theView.displayErrorMessage("Unexpected Error!");
         }
-    }
-    
-//    public NewEntryController(INewEntryView theView)
-//    {
-//        NewEntryUsernameDao userMock = new NewEntryUsernameDao();
-//        String user = userMock.getUsername();
-//        defaultFilePath = defaultFilePath+user+"\\"+theView.getTextTitle()+"\\Texts\\";
-//        boolean exists;
-//        String userText = theView.getTextArea();
-//        String userTitle = theView.getTextTitle();
-//
-//        
-//        if(!theView.getTextArea().trim().isEmpty())
-//        {
-//            exists = createFilePath(defaultFilePath);
-//            if(exists)
-//                createFile(userTitle,userText);
-//            else
-//                theView.displayErrorMessage("Path Couldn't Be Created!");
-//        }                
-//    }
-    
-//    public NewEntryController(INewEntryView theView,String imagePath)
-//    {
-//        NewEntryUsernameDao userMock = new NewEntryUsernameDao();
-//        String user = userMock.getUsername();
-//        imageNumber = theView.getImageNumber() -1;
-//        defaultImagePath = defaultImagePath+theView.getTextTitle()+"\\Images\\";
-//        boolean exists;
-//        
-//        exists = createFilePath(defaultImagePath);
-//        if(exists)    
-//            copyImage(theView.getImagePath(),defaultImagePath); 
-//    }
+    }            
     
     private boolean createFilePath(String path)
     {
@@ -117,24 +83,6 @@ public class NewEntryController {
             return false;
         }
     }
-    
-//    public boolean copyImage(String sourcePath,String destPath)
-//    {
-//        File source = new File(sourcePath);
-//        File destFile;
-//        if(imageNumber == 0)
-//            destFile = new File(destPath+"Image.jpg");
-//        else
-//            destFile = new File(destPath+"Image"+imageNumber+".jpg");
-//        imageNumber--;
-//        try {
-//            Files.copy(source.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-//        } catch (IOException ex) {
-//            return false;
-//        }
-//        return true;
-//    }
-    
 
     public boolean copyImage(String sourcePath,String destPath,int imageNumber)
     {
