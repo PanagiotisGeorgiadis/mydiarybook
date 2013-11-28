@@ -20,7 +20,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
-import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 
 
@@ -412,7 +411,6 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
             int returnVal = imageChooser.showOpenDialog(jPanel2);       
             if(returnVal == JFileChooser.OPEN_DIALOG)
             {
-               // imagePath = imageChooser.getSelectedFile();
                 displayNewImage(imageChooser.getSelectedFile().toURI());
                 NewEntryController controller = new NewEntryController(this,imageChooser.getSelectedFile().toString(),"Image",titleField.getText(),imageNumber);
             }
