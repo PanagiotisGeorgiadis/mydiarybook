@@ -4,12 +4,15 @@
  * and open the template in the editor.
  */
 
-package controller;
+package dao;
+
+import exception.ExceptionDao;
 
 /**
  *
  * @author PTsilopoulos
  */
-public interface IEditEntry {
-    String getEntry();
-}
+public interface IEditDao {
+    
+     String displayEntry(String text) throws ExceptionDao;
+    }
