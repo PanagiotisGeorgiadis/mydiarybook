@@ -502,6 +502,10 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
                 else
                     titleField.setEditable(false);
             }
+            else
+            {
+                titleField.setEditable(false);
+            }
                 
         }
     }//GEN-LAST:event_titleFieldFocusLost
