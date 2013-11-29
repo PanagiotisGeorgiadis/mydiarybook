@@ -1,22 +1,17 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package controller;
 
-import controller.NewEntryController;
-import controller.NewEntryController;
-import dao.IDefaultPathDaoNewEntry;
-import dao.IUserNameDaoNewEntry;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-import ui.INewEntryView;
-import ui.NewEntryView;
 
 /**
  *
@@ -37,14 +32,6 @@ public class NewEntryControllerTest {
     
     @Before
     public void setUp() {
-        IUserNameDaoNewEntry username = mock(IUserNameDaoNewEntry.class);
-        when(username.getUsername()).thenReturn("ZARCHON");
-        
-        IDefaultPathDaoNewEntry defaultPath = mock(IDefaultPathDaoNewEntry.class);
-        when(defaultPath.getDefaultPath()).thenReturn("C:\\Users\\Zarc\\Desktop\\MyDiaryBook\\");
-        
-        INewEntryView theView = mock(INewEntryView.class);
-        when(theView.getTextArea()).thenReturn("blablablablabla");
     }
     
     @After
@@ -52,6 +39,29 @@ public class NewEntryControllerTest {
     }
 
     /**
+     * Test of filePathExists method, of class NewEntryController.
+     */
+    @Test
+    public void testFilePathExists() {
+        System.out.println("filePathExists");
+        String title = "F:\\BLABLA\\BLABLA\\BLABLA";
+        NewEntryController instance = new NewEntryController();
+        boolean expResult = false;
+        boolean result = instance.filePathExists(title);
+        assertEquals(expResult, result);
+    }
+    
+    @Test
+    public void testFilePathExists2() {
+        System.out.println("filePathExists");
+        String title = "PAOK";
+        NewEntryController instance = new NewEntryController();
+        boolean expResult = true;
+        boolean result = instance.filePathExists(title);
+        assertEquals(expResult, result);
+    }
+
+     /**
      * Test of copyImage method, of class NewEntryController.
      */
     @Test
@@ -262,5 +272,4 @@ public class NewEntryControllerTest {
         instance.createFile(title, text, destPath);
         assertEquals(expResult, result);
     }
-
 }
