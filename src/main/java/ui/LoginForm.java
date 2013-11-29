@@ -8,11 +8,25 @@ package ui;
 
 import javax.swing.JOptionPane;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.DriverManager;
+import java.sql.Connection;
+
+
 /**
  *
  * @author user
  */
 public class LoginForm extends javax.swing.JFrame {
+    String jdbcDriver = "com.mysql.jdbc.Driver";
+    String dbURL = "jdbc:mysql://89.163.172.10/tl";
+    String dbUserId = "tl";
+    String dbPassword = "tl";
+    Connection c = null;
+    boolean ok = false;
+    boolean correctpassword = false;
 
     /**
      * Creates new form LoginForm
@@ -21,6 +35,58 @@ public class LoginForm extends javax.swing.JFrame {
         initComponents();
         
     }
+    
+    
+             public void checkLogin() {
+
+      try {    
+        Class.forName(jdbcDriver);
+      } catch (ClassNotFoundException exp) {
+        System.err.println("Could not load the JDBC driver " + jdbcDriver);
+        return;
+      }
+        
+      try {
+        c = DriverManager.getConnection(dbURL, dbUserId, dbPassword);
+                
+        try {
+            String currentuser = username.getText();
+            String oldpassword2 = pass.getText();
+            
+            String getOldPassword =
+        "Select * From accounts  where username ='"+currentuser+"' and password='"+oldpassword2+"'";
+         PreparedStatement  s= c.prepareStatement(getOldPassword);
+         
+
+            ResultSet rset = s.executeQuery();
+            
+            
+             if (rset.next())
+            {
+                correctpassword=true;
+            }
+
+          	    
+	    s.close();
+             
+            
+          
+          
+        } catch (SQLException sqlexp) {
+            JOptionPane.showMessageDialog(null,"Failed to execute one of the statements."+sqlexp.getMessage());
+
+            ok =false;
+        }
+        
+        c.close();
+        
+      } catch (SQLException sqlexp) {
+          JOptionPane.showMessageDialog(null,"Failed to connect to the database."+sqlexp.getMessage());
+          ok=false;
+
+      }
+      
+     }
 
 
     /**
@@ -41,15 +107,13 @@ public class LoginForm extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("User Login");
 
-        username.setText("user");
         username.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 usernameActionPerformed(evt);
             }
         });
-
-        pass.setText("user1");
 
         login.setText("Login");
         login.addActionListener(new java.awt.event.ActionListener() {
@@ -119,14 +183,14 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
         // TODO connect to database later
-        String user = username.getText();
-        String password = pass.getText();
+ 
+        checkLogin();
         
-        
-            if(user.equals("user") && password.equals("user1")){
+            if(correctpassword==true){
                 
                 DiaryForm regFace =new DiaryForm();
                 regFace.setVisible(true);
+                correctpassword=false;
                 dispose();
                 
             
