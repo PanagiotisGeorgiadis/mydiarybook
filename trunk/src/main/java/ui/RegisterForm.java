@@ -1,21 +1,31 @@
 package ui;
 
 import controller.RegisterController;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.DriverManager;
+import java.sql.Connection;
 
 /**
  *
  * @author Stef
  */
-public class RegisterForm extends javax.swing.JFrame implements IRegisterForm {
 
+
+public class RegisterForm extends javax.swing.JFrame implements IRegisterForm {
+    String jdbcDriver = "com.mysql.jdbc.Driver";
+    String dbURL = "jdbc:mysql://89.163.172.10/tl";
+    String dbUserId = "tl";
+    String dbPassword = "tl";
+    Connection c = null;
+    boolean ok = true;
+    boolean usernameexist = false;
     @Override
+    
     public void display(String msg) {
 
         JOptionPane.showMessageDialog(this, msg);
@@ -24,6 +34,114 @@ public class RegisterForm extends javax.swing.JFrame implements IRegisterForm {
     public RegisterForm() {
         initComponents();
     }
+             public void checkUsername() {
+
+      try {    
+        Class.forName(jdbcDriver);
+      } catch (ClassNotFoundException exp) {
+        System.err.println("Could not load the JDBC driver " + jdbcDriver);
+        return;
+      }
+        
+      try {
+        c = DriverManager.getConnection(dbURL, dbUserId, dbPassword);
+                
+        try {
+            String currentuser = jTextField1.getText();
+            
+            
+            String getUsername =
+        "Select * From accounts  where username ='"+currentuser+"'";
+         PreparedStatement  s= c.prepareStatement(getUsername);
+         
+
+            ResultSet rset = s.executeQuery();
+            
+            
+             if (rset.next())
+            {
+                usernameexist=true;
+            }
+
+          	    
+	    s.close();
+             
+            
+          
+          
+        } catch (SQLException sqlexp) {
+            JOptionPane.showMessageDialog(null,"Failed to execute one of the statements."+sqlexp.getMessage());
+
+            ok =false;
+        }
+        
+        c.close();
+        
+      } catch (SQLException sqlexp) {
+          JOptionPane.showMessageDialog(null,"Failed to connect to the database."+sqlexp.getMessage());
+          ok=false;
+
+      }
+      
+     }
+             
+                          public void registerValues() {
+
+      try {    
+        Class.forName(jdbcDriver);
+      } catch (ClassNotFoundException exp) {
+        System.err.println("Could not load the JDBC driver " + jdbcDriver);
+        return;
+      }
+        
+      try {
+        c = DriverManager.getConnection(dbURL, dbUserId, dbPassword);
+                
+        try {
+            String currentuser = jTextField1.getText();
+            String mail = jTextField2.getText();
+            String password= jPasswordField1.getText();
+            String q1 = favoritepet.getText();
+            String q2=  favoritecar.getText();      
+            
+            
+            String registerValues =
+        "Insert Into accounts (username,password,mail,q1,q2) VALUES ('"+currentuser+"','"+password+"','"+mail+"','"+q1+"','"+q2+"')";
+         PreparedStatement  s= c.prepareStatement(registerValues);
+         
+
+              s.execute();
+              
+            
+            
+        
+          	    
+	    s.close();
+             
+            
+          
+          
+        } catch (SQLException sqlexp) {
+            JOptionPane.showMessageDialog(null,"Failed to execute one of the statements."+sqlexp.getMessage());
+
+            ok =false;
+        }
+        
+        c.close();
+        
+      } catch (SQLException sqlexp) {
+          JOptionPane.showMessageDialog(null,"Failed to connect to the database."+sqlexp.getMessage());
+          ok=false;
+
+      }
+      
+     }
+    
+    
+    
+    
+    
+
 
     public void createRegister (PrintWriter xwriteOutput) {
        
@@ -52,6 +170,10 @@ public class RegisterForm extends javax.swing.JFrame implements IRegisterForm {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        favoritepet = new javax.swing.JTextField();
+        favoritecar = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -89,6 +211,10 @@ public class RegisterForm extends javax.swing.JFrame implements IRegisterForm {
             }
         });
 
+        jLabel7.setText("Αγαπημένο κατοικίδιο");
+
+        jLabel8.setText("Αγαπημένη μάρκα αυτοκινήτου");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -96,32 +222,32 @@ public class RegisterForm extends javax.swing.JFrame implements IRegisterForm {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(128, 128, 128)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jCheckBox1))
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(22, 22, 22)
-                                .addComponent(jButton1)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(62, 62, 62)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
-                                    .addComponent(jTextField1)
-                                    .addComponent(jPasswordField2)
-                                    .addComponent(jTextField2)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(53, 53, 53)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jButton1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jCheckBox1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel1))
+                            .addGap(128, 128, 128)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
+                                .addComponent(jTextField1)
+                                .addComponent(jPasswordField2)
+                                .addComponent(jTextField2)
+                                .addComponent(favoritepet)
+                                .addComponent(favoritecar))))
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(97, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -147,13 +273,20 @@ public class RegisterForm extends javax.swing.JFrame implements IRegisterForm {
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
-                .addGap(14, 14, 14)
+                    .addComponent(jLabel7)
+                    .addComponent(favoritepet, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(favoritecar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(19, Short.MAX_VALUE))
+                    .addComponent(jButton2)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton1)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jCheckBox1))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         jLabel5.getAccessibleContext().setAccessibleDescription("");
@@ -171,30 +304,38 @@ public class RegisterForm extends javax.swing.JFrame implements IRegisterForm {
     }//GEN-LAST:event_jLabel6MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      PrintWriter out = null;
+     checkUsername();
+        if (usernameexist==false)
+      {
         if (jCheckBox1.isSelected()) {
             if (checkValues()) {
-                try {
-                    out = new PrintWriter(new BufferedWriter(new FileWriter("test.txt", true)));
-                    out.println(jTextField1.getText());
-                    out.println(jPasswordField1.getText());
-                    out.println(jPasswordField2.getText());
-                    out.println(jTextField2.getText());
-                    
-                    out.println("---------------------");
-                    JOptionPane.showMessageDialog(null, "Saved to test.txt");
-                } catch (IOException ex) {
-                    Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
-                } finally {
-                    out.close();
+                registerValues();
+                if (ok==true)
+                {
+            JOptionPane.showMessageDialog(null,"Your Account Created!.");
+            ok=false;
+          
                 }
+                
+                
+                
+                
+                
+                
             } else {
                 JOptionPane.showMessageDialog(null, "Invalid input values");
             }
         } else {
             JOptionPane.showMessageDialog(null, "CHECK THE CONDITIONS BOX");
 
-    }                             
+    }  
+        
+      }
+      else 
+      {
+          JOptionPane.showMessageDialog(null, "Username Already Exists!");
+          usernameexist = false;
+      }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -224,6 +365,8 @@ public class RegisterForm extends javax.swing.JFrame implements IRegisterForm {
      }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField favoritecar;
+    private javax.swing.JTextField favoritepet;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JCheckBox jCheckBox1;
@@ -233,6 +376,8 @@ public class RegisterForm extends javax.swing.JFrame implements IRegisterForm {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JPasswordField jPasswordField2;
     private javax.swing.JTextField jTextField1;

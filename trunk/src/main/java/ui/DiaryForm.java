@@ -36,6 +36,8 @@ public class DiaryForm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         logged = new javax.swing.JLabel();
         closeButton = new javax.swing.JButton();
+        changepass = new javax.swing.JButton();
+        resetpass = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -53,6 +55,20 @@ public class DiaryForm extends javax.swing.JFrame {
             }
         });
 
+        changepass.setText("Change Password");
+        changepass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                changepassActionPerformed(evt);
+            }
+        });
+
+        resetpass.setText("Reset Passowrd");
+        resetpass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetpassActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -63,13 +79,17 @@ public class DiaryForm extends javax.swing.JFrame {
                         .addGap(126, 126, 126)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(logged, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(163, 163, 163)
-                        .addComponent(closeButton)))
+                        .addComponent(closeButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(changepass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(logged, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(resetpass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(131, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -79,7 +99,11 @@ public class DiaryForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(logged, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
+                .addGap(41, 41, 41)
+                .addComponent(changepass)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(resetpass)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(closeButton)
@@ -92,6 +116,22 @@ public class DiaryForm extends javax.swing.JFrame {
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
        this.dispose();
     }//GEN-LAST:event_closeButtonActionPerformed
+
+    private void changepassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changepassActionPerformed
+        // TODO add your handling code here:
+                        ChangePassword regFace =new ChangePassword();
+                regFace.setVisible(true);
+                
+                dispose();
+    }//GEN-LAST:event_changepassActionPerformed
+
+    private void resetpassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetpassActionPerformed
+        // TODO add your handling code here:
+                                ResetPassword regFace =new ResetPassword();
+                regFace.setVisible(true);
+                
+                dispose();
+    }//GEN-LAST:event_resetpassActionPerformed
 
     /**
      * @param args the command line arguments
@@ -132,9 +172,11 @@ public class DiaryForm extends javax.swing.JFrame {
    //public static javax.swing.JLabel LoggedUser2;
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton changepass;
     private javax.swing.JButton closeButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField jTextField1;
     public static javax.swing.JLabel logged;
+    private javax.swing.JButton resetpass;
     // End of variables declaration//GEN-END:variables
 }
