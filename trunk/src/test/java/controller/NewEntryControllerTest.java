@@ -53,10 +53,30 @@ public class NewEntryControllerTest {
     
     @Test
     public void testFilePathExists2() {
-        System.out.println("filePathExists");
+        System.out.println("filePathExists2");
         String title = "PAOK";
         NewEntryController instance = new NewEntryController();
         boolean expResult = true;
+        boolean result = instance.filePathExists(title);
+        assertEquals(expResult, result);
+    }
+    
+    @Test
+    public void testFilePathExists3() {
+        System.out.println("filePathExists3");
+        String title = "PAOK";
+        NewEntryController instance = new NewEntryController();
+        boolean expResult = true;
+        boolean result = instance.filePathExists(title);
+        assertEquals(expResult, result);
+    }
+    
+    @Test
+    public void testFilePathExists4() {
+        System.out.println("filePathExists4");
+        String title = null;
+        NewEntryController instance = new NewEntryController();
+        boolean expResult = false;
         boolean result = instance.filePathExists(title);
         assertEquals(expResult, result);
     }
