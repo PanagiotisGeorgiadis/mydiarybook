@@ -1,12 +1,32 @@
+package ui;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
-package ui;
 
+import model.*;
+import java.io.*;
+import controller.ImportantmomentsControllers;
 import javax.swing.JOptionPane;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  *
@@ -40,11 +60,17 @@ public class momentsframe extends javax.swing.JFrame {
         add = new javax.swing.JButton();
         month = new javax.swing.JComboBox();
         day = new javax.swing.JComboBox();
-        locationlable = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        locationlabel = new javax.swing.JLabel();
+        moodlabel = new javax.swing.JLabel();
         mood = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        title.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                titleActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setText("Προσθήκη Σημαντικών Στιγμών");
@@ -74,9 +100,9 @@ public class momentsframe extends javax.swing.JFrame {
 
         day.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
 
-        locationlable.setText("Τοποθεσία");
+        locationlabel.setText("Τοποθεσία");
 
-        jLabel3.setText("Διάθεση");
+        moodlabel.setText("Διάθεση");
 
         mood.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Χαρούμενος", "Δυστηχησμένος", "Κουρασμένος", "Μπερδεμένος", "Χαμένος", "Ενθουσιασμένος", "Υπέροχα", "Ερωτευμένος", "Θυμωμένος", "Άρρωστος" }));
 
@@ -86,24 +112,19 @@ public class momentsframe extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(90, 90, 90)
-                .addComponent(jLabel4)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(add)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cancel))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(99, 99, 99)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(datelabel)
                             .addComponent(titlelabel, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(locationlable)
-                            .addComponent(jLabel3))
+                            .addComponent(locationlabel)
+                            .addComponent(moodlabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(add)
+                                .addGap(18, 18, 18)
+                                .addComponent(cancel))
                             .addComponent(location)
                             .addComponent(title)
                             .addGroup(layout.createSequentialGroup()
@@ -112,22 +133,19 @@ public class momentsframe extends javax.swing.JFrame {
                                 .addComponent(month, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(years, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(mood, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 20, Short.MAX_VALUE)))
-                .addGap(23, 23, 23))
+                            .addComponent(mood, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jLabel4))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel4)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addComponent(titlelabel))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(titlelabel)
+                    .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(day, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -137,36 +155,68 @@ public class momentsframe extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(location, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(locationlable))
+                    .addComponent(locationlabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(moodlabel)
                     .addComponent(mood, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cancel)
-                    .addComponent(add))
-                .addGap(52, 52, 52))
+                    .addComponent(add)
+                    .addComponent(cancel))
+                .addGap(55, 55, 55))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
+        PrintWriter out= null;
+      
+            if (checkValues()) {
+                try {
+                    out = new PrintWriter(new BufferedWriter(new FileWriter("ImportantMoments.txt", true)));
+                    out.println(title.getText());
+                    out.println(location.getText());
+                    out.println(day.getSelectedItem());
+                    out.println(month.getSelectedItem());
+                    out.println(years.getSelectedItem());
+                    out.println(mood.getSelectedItem());
+
+                    
+                    out.println("---------------------");
+                    JOptionPane.showMessageDialog(null, "Saved to ImportantMoments.txt");
+                } catch (IOException ex) {
+                    Logger.getLogger(ImportantmomentsControllers.class.getName()).log(Level.SEVERE, null, ex);
+                } finally {
+                    out.close();
+                }
+            }
+                else{
+                JOptionPane.showMessageDialog(null, "Invalid input values");
+            }
+             
         if(title.getText().trim().length() == 0 || location.getText().length() == 0)
         {
           JOptionPane.showMessageDialog(null,"Empty Fields");
         }
+       
     }//GEN-LAST:event_addActionPerformed
 
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
-        this.dispose();
+        System.exit(0);
     }//GEN-LAST:event_cancelActionPerformed
+
+    private void titleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_titleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_titleActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        
+ 
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -197,18 +247,29 @@ public class momentsframe extends javax.swing.JFrame {
             }
         });
     }
+private boolean checkValues()
+{
+        ImportantmomentsControllers e = new ImportantmomentsControllers();
+        if (!e.checkTitle(title.getText())) {
+            return false; 
+        }
+        if (!e.checkLocation(location.getText())) {
+            return false;
+        }
+        return true;
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton add;
     private javax.swing.JButton cancel;
     private javax.swing.JLabel datelabel;
     private javax.swing.JComboBox day;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JTextField location;
-    private javax.swing.JLabel locationlable;
+    private javax.swing.JLabel locationlabel;
     private javax.swing.JComboBox month;
     private javax.swing.JComboBox mood;
+    private javax.swing.JLabel moodlabel;
     private javax.swing.JTextField title;
     private javax.swing.JLabel titlelabel;
     private javax.swing.JComboBox years;
