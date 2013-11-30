@@ -6,10 +6,8 @@ package ui;
 
 import com.sun.jna.NativeLibrary;
 import controller.NewEntryController;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
-import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
