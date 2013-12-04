@@ -227,19 +227,33 @@ public class NewEntryController {
     
     public boolean deleteDirectory(File folder)
     {
-        if (folder.isDirectory()) 
+        if(folder!=null && folder.exists())
         {
-            String[] children = folder.list();
-            for (int i=0; i<children.length; i++) 
+            if (folder.isDirectory()) 
             {
-                
-                boolean success = deleteDirectory(new File(folder, children[i]));
+                String[] children = folder.list();
+                for (int i=0; i<children.length; i++) 
+                {
+                    deleteDirectory(new File(folder, children[i]));
+                    folder.delete();
+                }
                 folder.delete();
             }
+            else
+                folder.delete();
+            return true;
         }
         else
-            folder.delete();
+        {
+            return false;
+//            if(folder.isDirectory() && folder.exists())
+//            {
+//                folder.delete();
+//            }
+//            else
+//                return false;
+        }
         
-        return true;
+        
     }
 }
