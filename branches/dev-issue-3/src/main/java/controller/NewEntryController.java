@@ -24,7 +24,7 @@ public class NewEntryController {
     {
         
     }
-    public NewEntryController(INewEntryView theView,String userTitle)
+    public NewEntryController(String userTitle)
     {
         IUserNameDaoNewEntry userMock = mock(IUserNameDaoNewEntry.class);
         when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");

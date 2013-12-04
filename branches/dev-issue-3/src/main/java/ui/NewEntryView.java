@@ -378,7 +378,7 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        NewEntryController controller = new NewEntryController(this,titleField.getText());
+        NewEntryController controller = new NewEntryController(titleField.getText());
         this.dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
 
