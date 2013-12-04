@@ -32,14 +32,14 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
 
     static int imagePositionX = 25;
     static int imagePositionY = 30;
-    static int imageNumber = 0;
+    static int imageNumber = -1;
     //static File imagePath;
     private String vlcPath = "VLC\\";
     private int maxImageNumber = 30;
     private int videoNumber = 0;
+    private int textNumber = 0;
     private String videoPath;
     private EmbeddedMediaPlayerComponent mediaPlayer2;
-    
     /**
      * Creates new form NewEntryView sets the size and location 
      * on the center of the screen. Also initializes the NativeLibraries
@@ -73,7 +73,7 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
                 Image img = icon.getImage();
                 Image newimg = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
                 ImageIcon newIcon = new ImageIcon(newimg);
-                jPanel4.add(jlabel);
+                imagePanel.add(jlabel);
                 jlabel.setIcon(newIcon);
                 imageNumber++;
                 imagesLeftLabel.setText((maxImageNumber - imageNumber)+" Images"+" Left");
@@ -97,9 +97,9 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
         if(whatToDo.equalsIgnoreCase("Display"))
         {
            
-            Dimension d = jPanel3.getSize();
+            Dimension d = videoPanel.getSize();
             mediaPlayer.setSize(d);
-            jPanel3.add(mediaPlayer);
+            videoPanel.add(mediaPlayer);
             mediaPlayer.getMediaPlayer().attachVideoSurface();
             mediaPlayer.getMediaPlayer().playMedia(videoPath);           
     
@@ -115,7 +115,7 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
         else
         {
             mediaPlayer.release(true);
-            jPanel3.remove(mediaPlayer);
+            videoPanel.remove(mediaPlayer);
         }
     }
     
@@ -174,7 +174,7 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
         submitButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
+        textPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         textArea = new javax.swing.JTextArea();
         titleField = new javax.swing.JTextField();
@@ -184,16 +184,16 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
         jPanel2 = new javax.swing.JPanel();
         imageChooseButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jPanel4 = new javax.swing.JPanel();
+        imagePanel = new javax.swing.JPanel();
         imagesLeftLabel = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
+        videoPanel = new javax.swing.JPanel();
         previewVideoButton = new javax.swing.JButton();
         videoChooseButton = new javax.swing.JButton();
         stopButton = new javax.swing.JButton();
         pauseButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("MyDiaryBook Version 0.2");
+        setTitle("MyDiaryBook Version 0.3");
         setMinimumSize(new java.awt.Dimension(780, 550));
 
         submitButton.setText("Submit");
@@ -235,34 +235,34 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
         jSpinner1.setModel(new javax.swing.SpinnerDateModel());
         jSpinner1.setEditor(new javax.swing.JSpinner.DateEditor(jSpinner1, "dd/MM/yyyy"));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout textPanelLayout = new javax.swing.GroupLayout(textPanel);
+        textPanel.setLayout(textPanelLayout);
+        textPanelLayout.setHorizontalGroup(
+            textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(textPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, textPanelLayout.createSequentialGroup()
+                        .addGroup(textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(titleField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(titleLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 439, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(dateLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jSpinner1))
                         .addGap(67, 67, 67)))
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        textPanelLayout.setVerticalGroup(
+            textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, textPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(titleLabel)
                     .addComponent(dateLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(titleField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -270,7 +270,7 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Κείμενο", jPanel1);
+        jTabbedPane1.addTab("Κείμενο", textPanel);
 
         jPanel2.setAutoscrolls(true);
 
@@ -281,8 +281,8 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
             }
         });
 
-        jPanel4.setLayout(new java.awt.GridLayout(3, 10, 10, 10));
-        jScrollPane2.setViewportView(jPanel4);
+        imagePanel.setLayout(new java.awt.GridLayout(3, 10, 10, 10));
+        jScrollPane2.setViewportView(imagePanel);
 
         imagesLeftLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         imagesLeftLabel.setText("30 Images");
@@ -326,28 +326,28 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
             }
         });
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout videoPanelLayout = new javax.swing.GroupLayout(videoPanel);
+        videoPanel.setLayout(videoPanelLayout);
+        videoPanelLayout.setHorizontalGroup(
+            videoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(videoPanelLayout.createSequentialGroup()
                 .addContainerGap(274, Short.MAX_VALUE)
                 .addComponent(previewVideoButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(videoChooseButton)
                 .addGap(339, 339, 339))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        videoPanelLayout.setVerticalGroup(
+            videoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(videoPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(videoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(videoChooseButton)
                     .addComponent(previewVideoButton))
                 .addGap(425, 425, 425))
         );
 
-        jTabbedPane1.addTab("Βίντεο", jPanel3);
+        jTabbedPane1.addTab("Βίντεο", videoPanel);
 
         stopButton.setText("Stop");
         stopButton.addActionListener(new java.awt.event.ActionListener() {
@@ -399,7 +399,7 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        
+        NewEntryController controller = new NewEntryController(this,titleField.getText());
         this.dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
 
@@ -429,7 +429,7 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
                 
         if(!titleField.getText().trim().isEmpty())
         {
-            int returnVal = videoChooser.showOpenDialog(jPanel3);
+            int returnVal = videoChooser.showOpenDialog(videoPanel);
             videoPath = videoChooser.getSelectedFile().toString();
             if(returnVal == JFileChooser.OPEN_DIALOG)
                 if(videoPath.endsWith(".mpeg") || videoPath.endsWith(".mp4") || videoPath.endsWith(".flv") || videoPath.endsWith(".wmv") 
@@ -453,7 +453,7 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
             displayErrorMessage("You Must Fill in A Text Title!");
         else
         {
-            NewEntryController controller = new NewEntryController(this,null,"Text",titleField.getText(),videoNumber);
+            NewEntryController controller = new NewEntryController(this,null,"Text",titleField.getText(),textNumber);
             this.dispose();
         }
         
@@ -546,11 +546,9 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
     private javax.swing.JButton cancelButton;
     private javax.swing.JLabel dateLabel;
     private javax.swing.JButton imageChooseButton;
+    private javax.swing.JPanel imagePanel;
     private javax.swing.JLabel imagesLeftLabel;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSpinner jSpinner1;
@@ -560,8 +558,10 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
     private javax.swing.JButton stopButton;
     private javax.swing.JButton submitButton;
     private javax.swing.JTextArea textArea;
+    private javax.swing.JPanel textPanel;
     private javax.swing.JTextField titleField;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JButton videoChooseButton;
+    private javax.swing.JPanel videoPanel;
     // End of variables declaration//GEN-END:variables
 }
