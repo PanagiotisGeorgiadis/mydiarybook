@@ -4,13 +4,13 @@
  * and open the template in the editor.
  */
 
-package dao;
+package model;
 
 /**
  *
  * @author PTsilopoulos
  */
-public interface IDaoController {
-    //FIX replace string to mockobject
-     String displayEntry(String text);
-    }
+public class EditEntry {
+    // Προσθήκη text, date & place κλάσεων
+    private String 
+}

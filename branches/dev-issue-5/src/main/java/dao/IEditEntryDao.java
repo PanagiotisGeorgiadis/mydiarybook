@@ -7,12 +7,12 @@
 package dao;
 
 import exception.ExceptionDao;
+import model.EditEntry;
 
 /**
  *
  * @author PTsilopoulos
  */
-public interface IEditDao {
-    
-     String displayEntry(String text) throws ExceptionDao;
-    }
+public interface IEditEntryDao {
+     EditEntry displayEntry(String text) throws ExceptionDao;
+}
