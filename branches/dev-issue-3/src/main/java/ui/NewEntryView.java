@@ -129,13 +129,7 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
     {
         JOptionPane.showMessageDialog(this, errorMessage);
     }
-    
-    @Override
-    public void setTitleField(String text)
-    {
-        titleField.setText(text);
-    }
-    
+     
     /**
      *
      * @return a String which contains the Text the user Wrote
@@ -147,21 +141,6 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
     }
     
     
-    /**
-     *
-     * @return the total images that the user "Uploaded"
-     */
-    @Override
-    public int getImageNumber()
-    {
-        return imageNumber;
-    }
-    
-    /**
-     *
-     * @return the image path for each picture that the user "Uploaded"
-     */
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

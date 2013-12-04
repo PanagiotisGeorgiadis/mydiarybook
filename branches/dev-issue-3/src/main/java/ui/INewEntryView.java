@@ -19,19 +19,10 @@ public interface INewEntryView {
      */
     void displayErrorMessage(String errorMessage);
     
-    void setTitleField(String text);
 
     void displayNewImage(URI imagePath);
 
     void displayVideo(String videoPath,String whatToDo);
-
-    /**
-     *
-     * @return the total images that the user "Uploaded"
-     */
-    int getImageNumber();
-
-
 
     /**
      *
