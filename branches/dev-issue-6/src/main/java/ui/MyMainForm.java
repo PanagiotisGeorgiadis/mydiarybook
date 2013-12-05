@@ -38,7 +38,7 @@ public class MyMainForm extends javax.swing.JFrame {
         ExitButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("MyDiaryBook Version 0.2");
+        setTitle("MyDiaryBook Version 0.3");
 
         LoginButton.setText("Login Demo");
         LoginButton.setPreferredSize(new java.awt.Dimension(151, 23));
