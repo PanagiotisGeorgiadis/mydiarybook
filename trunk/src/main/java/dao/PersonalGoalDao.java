@@ -28,6 +28,12 @@ import model.PersonalGoalModel;
  *@author alex
  */
 public class PersonalGoalDao implements  IPersonalGoalDao {
+    /**
+     * boolean συνάρτηση που κάνει εγγραφή μέσα σε ενα αρχέιο.
+     * @param pgm
+     * @return
+     * @throws IOException 
+     */
     
     @Override
     public boolean writeToFilePersonalGoal(PersonalGoalModel pgm) throws IOException{
@@ -50,7 +56,10 @@ public class PersonalGoalDao implements  IPersonalGoalDao {
     private ArrayList<PersonalGoalModel> database;
     private final String delimeter = ";";
     
-    
+    /**
+     * 
+     * @param fileName 
+     */
     public void loadDatabase(String fileName)
     {
         FileReader fr = null;
@@ -79,7 +88,10 @@ public class PersonalGoalDao implements  IPersonalGoalDao {
         }
     }
     //TODO: να ενώσω saveToFile και writeToFilePersonalGoal.
-    
+    /**
+     * 
+     * @param fileName 
+     */
     public void saveToFile(String fileName)
     {
         int listLen = database.size();
