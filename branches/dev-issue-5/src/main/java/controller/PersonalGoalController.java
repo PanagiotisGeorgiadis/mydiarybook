@@ -46,7 +46,13 @@ public class PersonalGoalController implements IPersonalGoalController {
         theForm.getAnnouncementEditorPanel();
         theForm.getWhenDateSpinner();
     }
-
+/**
+ * Boolean συνάρτηση που ελένχει όλα τα πεδία της φόρμας εάν είναι σωστά
+ * @param theForm
+ * @return βάζει την εγγραφή μέσα σε ενα αρχείο.
+ * @throws Exception
+ * @throws IllegalArgumentException 
+ */
     @Override
     public boolean createPersonalGoal(PersonalGoalForm theForm) throws Exception, IllegalArgumentException {
 

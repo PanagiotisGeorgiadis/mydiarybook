@@ -1,5 +1,8 @@
 package controller;
 
+import static ui.ChangePassword.password;
+import static ui.ChangePassword.repeatpassword;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -17,8 +20,21 @@ public class ChangePasswordController {
     {
         if(!pass.equals(repeatpass)) return false;
         if(pass.length() > 40 || pass.length() < 2) return false;
-
+        if(pass.contains(" ")) return false;
+       if(pass.matches("[0-9]+")==true) return false;
+            
         return true;
     }
+
+ public static boolean checkValues() {
+        ChangePasswordController e = new ChangePasswordController();
+
+        if (!e.checkChangePasswordController(password.getText(), repeatpassword.getText())) {
+            return false;
+        }
+        return true;
+    }
+
+
 }
 

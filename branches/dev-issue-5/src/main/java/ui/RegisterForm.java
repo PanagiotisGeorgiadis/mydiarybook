@@ -4,155 +4,27 @@ import controller.RegisterController;
 import java.io.PrintWriter;
 import javax.swing.JOptionPane;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.DriverManager;
-import java.sql.Connection;
+import static ui.ChangePassword.ok;
 
 /**
  *
  * @author Stef
  */
-
-
-public class RegisterForm extends javax.swing.JFrame implements IRegisterForm {
-    String jdbcDriver = "com.mysql.jdbc.Driver";
-    String dbURL = "jdbc:mysql://89.163.172.10/tl";
-    String dbUserId = "tl";
-    String dbPassword = "tl";
-    Connection c = null;
-    boolean ok = true;
-    boolean usernameexist = false;
-    @Override
-    
-    public void display(String msg) {
-
-        JOptionPane.showMessageDialog(this, msg);
-    }
+public class RegisterForm extends javax.swing.JFrame {
 
     public RegisterForm() {
         initComponents();
     }
-             public void checkUsername() {
 
-      try {    
-        Class.forName(jdbcDriver);
-      } catch (ClassNotFoundException exp) {
-        System.err.println("Could not load the JDBC driver " + jdbcDriver);
-        return;
-      }
-        
-      try {
-        c = DriverManager.getConnection(dbURL, dbUserId, dbPassword);
-                
-        try {
-            String currentuser = jTextField1.getText();
-            
-            
-            String getUsername =
-        "Select * From accounts  where username ='"+currentuser+"'";
-         PreparedStatement  s= c.prepareStatement(getUsername);
-         
+    public void createRegister(PrintWriter xwriteOutput) {
 
-            ResultSet rset = s.executeQuery();
-            
-            
-             if (rset.next())
-            {
-                usernameexist=true;
-            }
-
-          	    
-	    s.close();
-             
-            
-          
-          
-        } catch (SQLException sqlexp) {
-            JOptionPane.showMessageDialog(null,"Failed to execute one of the statements."+sqlexp.getMessage());
-
-            ok =false;
-        }
-        
-        c.close();
-        
-      } catch (SQLException sqlexp) {
-          JOptionPane.showMessageDialog(null,"Failed to connect to the database."+sqlexp.getMessage());
-          ok=false;
-
-      }
-      
-     }
-             
-                          public void registerValues() {
-
-      try {    
-        Class.forName(jdbcDriver);
-      } catch (ClassNotFoundException exp) {
-        System.err.println("Could not load the JDBC driver " + jdbcDriver);
-        return;
-      }
-        
-      try {
-        c = DriverManager.getConnection(dbURL, dbUserId, dbPassword);
-                
-        try {
-            String currentuser = jTextField1.getText();
-            String mail = jTextField2.getText();
-            String password= jPasswordField1.getText();
-            String q1 = favoritepet.getText();
-            String q2=  favoritecar.getText();      
-            
-            
-            String registerValues =
-        "Insert Into accounts (username,password,mail,q1,q2) VALUES ('"+currentuser+"','"+password+"','"+mail+"','"+q1+"','"+q2+"')";
-         PreparedStatement  s= c.prepareStatement(registerValues);
-         
-
-              s.execute();
-              
-            
-            
-        
-          	    
-	    s.close();
-             
-            
-          
-          
-        } catch (SQLException sqlexp) {
-            JOptionPane.showMessageDialog(null,"Failed to execute one of the statements."+sqlexp.getMessage());
-
-            ok =false;
-        }
-        
-        c.close();
-        
-      } catch (SQLException sqlexp) {
-          JOptionPane.showMessageDialog(null,"Failed to connect to the database."+sqlexp.getMessage());
-          ok=false;
-
-      }
-      
-     }
-    
-    
-    
-    
-    
-
-
-    public void createRegister (PrintWriter xwriteOutput) {
-       
-      String  Registerinfo = jTextField1.getText() + " " + jPasswordField1.getText() + " " + jPasswordField2.getText()
+        String Registerinfo = jTextField1.getText() + " " + jPasswordField1.getText() + " " + jPasswordField2.getText()
                 + " " + jTextField2.getText();
-       
-      xwriteOutput.println(Registerinfo);
-      
+
+        xwriteOutput.println(Registerinfo);
 
     }
- 
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -214,6 +86,18 @@ public class RegisterForm extends javax.swing.JFrame implements IRegisterForm {
         jLabel7.setText("Αγαπημένο κατοικίδιο");
 
         jLabel8.setText("Αγαπημένη μάρκα αυτοκινήτου");
+
+        favoritepet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                favoritepetActionPerformed(evt);
+            }
+        });
+
+        favoritecar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                favoritecarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -304,69 +188,55 @@ public class RegisterForm extends javax.swing.JFrame implements IRegisterForm {
     }//GEN-LAST:event_jLabel6MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-     checkUsername();
-        if (usernameexist==false)
-      {
-        if (jCheckBox1.isSelected()) {
-            if (checkValues()) {
-                registerValues();
-                if (ok==true)
-                {
-            JOptionPane.showMessageDialog(null,"Your Account Created!.");
-            ok=false;
-          
-                }
-                
-                
-                
-                
-                
-                
-            } else {
-                JOptionPane.showMessageDialog(null, "Invalid input values");
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "CHECK THE CONDITIONS BOX");
+        dao.RegisterFormDao.checkUsername();
+        if (dao.RegisterFormDao.usernameexist == false) {
+            if (jCheckBox1.isSelected()) {
+                if (controller.RegisterController.checkValues()) {
+                    dao.RegisterFormDao.registerValues();
+                    if (dao.RegisterFormDao.ok == true) {
+                        JOptionPane.showMessageDialog(null, "Congratulations, \n Your Account Has Been Created!");
+                        ok = false;
 
-    }  
-        
-      }
-      else 
-      {
-          JOptionPane.showMessageDialog(null, "Username Already Exists!");
-          usernameexist = false;
-      }
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Invalid input values");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "CHECK THE CONDITIONS BOX");
+
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Username Already Exists!");
+            dao.RegisterFormDao.usernameexist = false;
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void favoritepetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_favoritepetActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_favoritepetActionPerformed
+
+    private void favoritecarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_favoritecarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_favoritecarActionPerformed
+
     /**
+     * @param args
      */
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new RegisterForm().setVisible(true);
             }
         });
     }
-     private boolean checkValues() {
-        RegisterController e = new RegisterController();
-        if (!e.checkMail(jTextField2.getText())) {
-            return false;
-         
-        }
-        
-        if (!e.checkUsername(jTextField1.getText())) {
-            return false;
-        }
-        if (!e.checkPassword(jPasswordField2.getText(), jPasswordField1.getText())) {
-            return false;
-        }
-        return true;
-     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField favoritecar;
-    private javax.swing.JTextField favoritepet;
+    public static javax.swing.JTextField favoritecar;
+    public static javax.swing.JTextField favoritepet;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JCheckBox jCheckBox1;
@@ -378,10 +248,10 @@ public class RegisterForm extends javax.swing.JFrame implements IRegisterForm {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JPasswordField jPasswordField2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    public static javax.swing.JPasswordField jPasswordField1;
+    public static javax.swing.JPasswordField jPasswordField2;
+    public static javax.swing.JTextField jTextField1;
+    public static javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 
 }
