@@ -17,6 +17,13 @@ package controller;
  *@author alex
  */
 public class PersonalGoalEvaluator {
+    
+    /**
+     * Boolean συνάρτηση που ελένχει το title 
+     * @param personalGoalTitle
+     * @return επιστρέφει true αν είναι σωστό και false εαν δεν είναι σωστό.
+     * @throws IllegalArgumentException 
+     */
 
     public boolean checkPersonalGoalTitle(String personalGoalTitle) throws IllegalArgumentException {
 
@@ -43,6 +50,12 @@ public class PersonalGoalEvaluator {
     }
    //---------------------------------------------------------------------------------------------
     // check if  title is correctly.. 
+    
+    /**
+     *  Boolean συνάρτηση που ελένχει το Location .
+     * @param personalGoalLocation
+     * @return επιστρέφει true αν το Location είναι σωστό και false εαν δεν είναι σωστό.
+     */
 
     public boolean checkPersonalGoalLocation(String personalGoalLocation)  {
         boolean result;
@@ -68,6 +81,12 @@ public class PersonalGoalEvaluator {
     }
     //---------------------------------------------------------------------------------------------
     // check if WithPerson is correctly.. 
+    /**
+     * Boolean συνάρτηση που ελένχει το WithPerson.
+     * @param personalGoalWithPerson
+     * @return επιστρέφει true αν το WithPerson είναι σωστό και false εαν δεν είναι σωστό.
+     * @throws IllegalArgumentException 
+     */
 
     public boolean checkPersonalGoalWithPerson(String personalGoalWithPerson) throws IllegalArgumentException {
         boolean result;
@@ -86,7 +105,12 @@ public class PersonalGoalEvaluator {
 
     }
    //---------------------------------------------------------------------------------------------
-
+/**
+ * Boolean συνάρτηση που ελένχει το WhenDate.
+ * @param personalGoalWhenDate
+ * @return επιστρέφει true αν το WhenDate είναι σωστό και false εαν δεν είναι σωστό.
+ * @throws IllegalArgumentException 
+ */
     public boolean checkPersonalGoalWhenDate(String personalGoalWhenDate) throws IllegalArgumentException {
         boolean result;
         String checkNull;
@@ -104,6 +128,12 @@ public class PersonalGoalEvaluator {
     }
      //---------------------------------------------------------------------------------------------
     //check if personalGoalAnnouncement is correctly..
+    /**
+     * Boolean συνάρτηση που ελένχει το Announcement.
+     * @param personalGoalAnnouncement
+     * @return επιστρέφει true αν το personalGoalAnnouncement είναι σωστό και false εαν δεν είναι σωστό.
+     * @throws IllegalArgumentException 
+     */
 
     public boolean checkPersonalGoalAnnouncement(String personalGoalAnnouncement) throws IllegalArgumentException {
         boolean result;

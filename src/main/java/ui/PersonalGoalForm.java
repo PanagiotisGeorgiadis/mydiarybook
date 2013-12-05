@@ -290,11 +290,19 @@ public class PersonalGoalForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    //cancelButton για να γίνει close η φόρμα.
+    
+    /**
+     * cancelButton για να γίνει close η φόρμα.
+     * @param evt 
+     */
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         this.dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
-   // saveButton για να γίνεται τυχόν έλενχος πεδίον και το τελικό save. 
+  
+    /**
+     * saveButton για να γίνεται τυχόν έλενχος πεδίον και το τελικό save. 
+     * @param evt 
+     */
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         try {
             PersonalGoalController  newPersonalGoalController = new PersonalGoalController(this);   
@@ -307,6 +315,13 @@ public class PersonalGoalForm extends javax.swing.JFrame {
     }//GEN-LAST:event_saveButtonActionPerformed
 
     //FIXME: refactor  σε μια νέα κλάση 
+    /**
+     * 
+     * @param fileDescription
+     * @param fileSuffixes
+     * @param dialog
+     * @return 
+     */
     private File getFile(String fileDescription, String[] fileSuffixes, String dialog )
     {
         JFileChooser f = new JFileChooser();
@@ -318,6 +333,10 @@ public class PersonalGoalForm extends javax.swing.JFrame {
             return f.getSelectedFile();
     }
      //FIXME: refactor  σε μια νέα κλάση 
+    /**
+     * 
+     * @param evt 
+     */
     private void browseFotoFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseFotoFileActionPerformed
 
         File file = getFile("Image", ImageIO.getReaderFileSuffixes(), "Select");
@@ -325,12 +344,19 @@ public class PersonalGoalForm extends javax.swing.JFrame {
             browseFotoTextField.setText(file.getAbsolutePath());
 
     }//GEN-LAST:event_browseFotoFileActionPerformed
-
+/**
+ * 
+ * @param evt 
+ */
     private void browseFotoTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseFotoTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_browseFotoTextFieldActionPerformed
-      // buttonUpload για να εμφανίζεται η εικόνα μέσα στην φόρμα.
+      
      //FIXME: refactor  σε μια νέα κλάση 
+    /**
+     * buttonUpload για να εμφανίζεται η εικόνα μέσα στην φόρμα.
+     * @param evt 
+     */
     private void buttonUploadFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUploadFotoActionPerformed
            
            String fileName = browseFotoTextField.getText();
