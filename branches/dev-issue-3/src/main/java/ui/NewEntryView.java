@@ -32,32 +32,34 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
 
     static int imagePositionX = 25;
     static int imagePositionY = 30;
-    static int imageNumber = -1;
+    static int imageNumber;
     //static File imagePath;
     private String vlcPath = "VLC\\";
-    private int maxImageNumber = 30;
+    private int maxImageNumber;
     private int videoNumber = 0;
     private int textNumber = 0;
-    private String videoPath;
+    private String videoPath = null;
     private EmbeddedMediaPlayerComponent mediaPlayer2;
     /**
      * Creates new form NewEntryView sets the size and location 
      * on the center of the screen. Also initializes the NativeLibraries
      * used for playing Videos.
      */
-    public NewEntryView() 
+    public NewEntryView()  
     {        
         initComponents();
         this.setSize(800,570);
         this.setLocationRelativeTo(null);
-        //System.setProperty("jna.library.path", vlcPath);
-        NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), vlcPath);
-        NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcCoreName(), vlcPath);      
+        System.setProperty("jna.library.path", vlcPath);
+       // NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), vlcPath);
+        //NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcCoreName(), vlcPath);      
         jScrollPane2.getVerticalScrollBar().setUnitIncrement(20);
         jScrollPane2.getHorizontalScrollBar().setUnitIncrement(20);
         previewVideoButton.setVisible(false);
         pauseButton.setVisible(false);
-        stopButton.setVisible(false);
+        stopButton.setVisible(false);  
+        imageNumber = 0;
+        maxImageNumber = 30;
     }
     
     @Override
@@ -102,7 +104,6 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
             videoPanel.add(mediaPlayer);
             mediaPlayer.getMediaPlayer().attachVideoSurface();
             mediaPlayer.getMediaPlayer().playMedia(videoPath);           
-    
         }
         else if(whatToDo.equalsIgnoreCase("Pause"))
         {
@@ -378,7 +379,10 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        NewEntryController controller = new NewEntryController(titleField.getText());
+        NewEntryController controller;
+        if(!titleField.getText().equals("") && titleField.getText().equals(null))
+            controller = new NewEntryController(titleField.getText());
+        
         this.dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
 
@@ -482,6 +486,13 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
             else
             {
                 titleField.setEditable(false);
+            }
+            
+            if(!titleField.getText().matches("\\w*"))
+            {
+                displayErrorMessage("Your Title Must Contain Only Letters And Numbers!");
+                titleField.setEditable(true);
+                titleField.setText(null);
             }
                 
         }

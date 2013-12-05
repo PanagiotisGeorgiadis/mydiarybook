@@ -237,7 +237,7 @@ public class NewEntryController {
                     deleteDirectory(new File(folder, children[i]));
                     folder.delete();
                 }
-                folder.delete();
+               // folder.delete();
             }
             else
                 folder.delete();
@@ -246,12 +246,6 @@ public class NewEntryController {
         else
         {
             return false;
-//            if(folder.isDirectory() && folder.exists())
-//            {
-//                folder.delete();
-//            }
-//            else
-//                return false;
         }
         
         
