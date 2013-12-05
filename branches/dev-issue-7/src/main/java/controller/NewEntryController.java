@@ -9,6 +9,7 @@ import dao.IUserNameDaoNewEntry;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import static org.mockito.Mockito.*;
@@ -21,6 +22,24 @@ public class NewEntryController {
     
     public NewEntryController()
     {
+        
+    }
+    public NewEntryController(String userTitle)
+    {
+        IUserNameDaoNewEntry userMock = mock(IUserNameDaoNewEntry.class);
+        when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
+        
+        IDefaultPathDaoNewEntry rootPathMock = mock(IDefaultPathDaoNewEntry.class);
+        when(rootPathMock.getDefaultPath()).thenReturn("C:\\Users\\Zarc\\Desktop\\MyDiaryBook\\Users\\");
+        
+        String userName = userMock.getUsername();
+        String destPath = rootPathMock.getDefaultPath();
+        
+        String pathToDelete = destPath+userName+"\\"+userTitle;
+        
+        File folderToDelete = new File(pathToDelete);
+        
+        deleteDirectory(folderToDelete);
         
     }
     public NewEntryController(INewEntryView theView,String sourcePath,String fileType,String userTitle,int fileNumber)
@@ -38,7 +57,7 @@ public class NewEntryController {
         {
             String userText = theView.getTextArea();
             String textDestPath = destPath+userName+"\\"+userTitle+"\\Texts\\";
-           
+
             if(!theView.getTextArea().trim().isEmpty())
             {
                 if(!createFile(userTitle,userText,textDestPath))
@@ -114,7 +133,7 @@ public class NewEntryController {
 
                     Files.copy(source.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
             } 
-            catch (Exception ex)
+            catch (IOException ex)
             {
                 return false;
             }
@@ -154,7 +173,7 @@ public class NewEntryController {
             {
                 try {
                     Files.copy(source.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                } catch (Exception ex) {
+                } catch (IOException ex) {
                     return false;
                 }
             }
@@ -199,10 +218,36 @@ public class NewEntryController {
                 createFile(title,text,destPath);
             }
         }
-        catch(Exception ex)
+        catch(Exception e)
         {
             return false;
         }
         return false;
+    }
+    
+    public boolean deleteDirectory(File folder)
+    {
+        if(folder!=null && folder.exists())
+        {
+            if (folder.isDirectory()) 
+            {
+                String[] children = folder.list();
+                for (int i=0; i<children.length; i++) 
+                {
+                    deleteDirectory(new File(folder, children[i]));
+                    folder.delete();
+                }
+               // folder.delete();
+            }
+            else
+                folder.delete();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+        
+        
     }
 }
