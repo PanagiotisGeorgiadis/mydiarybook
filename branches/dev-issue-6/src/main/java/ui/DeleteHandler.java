@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
 public class DeleteHandler implements ActionListener {
     
        private DeleteController delObj = new DeleteController();
-       private File fileText = new File("mpal.txt");
+       private File fileText;
        private JFrame form = new JFrame();
        
 /*
