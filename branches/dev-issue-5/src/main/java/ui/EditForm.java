@@ -8,8 +8,11 @@ Note: Recompile with -Xlint:deprecation for details.
 
 package ui;
 
-import dao.MockSuccessfulDAO;
+import controller.EditEntryController;
+import dao.EditEntryDao;
+import static java.awt.SystemColor.text;
 import javax.swing.JOptionPane;
+import model.EditEntry;
 
 /**
  *
@@ -21,24 +24,20 @@ public class EditForm extends javax.swing.JFrame {
      * Creates new form EditEntry
      */
     public EditForm() {
-        initComponents();
-    }    
-    // TI KANEI AUTO OEO?
-    /*public EditForm() {
-        initComponents();
-        MockSuccessfulDAO dao = new MockSuccessfulDAO() ;
-        String entryObj = null;
-        String  text = null;
+        // TO-DO lines with comments are placeholders for connecting EditForm to DisplayForm
         
-        text = displayEntry(entryObj);
+        initComponents();
+        //EditEntryDao dao = new EditEntryDao();
+        EditEntry newEditEntry = new EditEntry();
+        String text;
+        String entryObj = "This is the original Entry text.";
+        
+        text= newEditEntry.getEntry(entryObj);
+        //text = dao.displayEntry(DisplayForm);
+      
         jTextArea1.setText(text);
         jTextArea1.setEditable(true);
     }
-    
-    public String displayEntry(String entry)
-    {
-        return entry;
-    }*/
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -55,6 +54,7 @@ public class EditForm extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Edit your Entry...");
 
         jButton1.setLabel("Save Changes");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -105,12 +105,20 @@ public class EditForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        // TO-DO add write-to-file upon pressing "Save Changes":
+        
        
         JOptionPane.showMessageDialog(this, "Successfully Edited!");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        /* TO-DO display which Entry we are editing and the appropriate messages.
+        EditEntryController controller = new EditEntryController(new EditEntryDao());
+        try {
+            EditEntry editentry = controller.displayEntry(text.Entry());
+        } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, e.getMessage(), "You did not insert anything on the text field!",JOptionPane.INFORMATION_MESSAGE);
+        }*/
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -143,6 +151,7 @@ public class EditForm extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @SuppressWarnings("override")
             public void run() {
                 new EditForm().setVisible(true);
             }

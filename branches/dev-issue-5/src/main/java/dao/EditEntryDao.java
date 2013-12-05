@@ -6,7 +6,6 @@
 
 package dao;
 
-import exception.ExceptionDao;
 import model.EditEntry;
 
 /**
@@ -16,7 +15,7 @@ import model.EditEntry;
 public class EditEntryDao implements IEditEntryDao {
     //FIX replace string to mockobject
     @Override
-    public EditEntry displayEntry(String text) throws ExceptionDao
+    public EditEntry displayEntry(String text)
     {
         return new EditEntry();
     }
