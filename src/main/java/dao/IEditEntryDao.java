@@ -6,11 +6,13 @@
 
 package dao;
 
+import exception.ExceptionDao;
+import model.EditEntry;
+
 /**
  *
  * @author PTsilopoulos
  */
-public interface IDaoController {
-    //FIX replace string to mockobject
-     String displayEntry(String text);
-    }
+public interface IEditEntryDao {
+     EditEntry displayEntry(String text) throws ExceptionDao;
+}
