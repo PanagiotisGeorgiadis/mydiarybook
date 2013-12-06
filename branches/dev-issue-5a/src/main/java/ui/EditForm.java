@@ -8,8 +8,10 @@ Note: Recompile with -Xlint:deprecation for details.
 
 package ui;
 
-import dao.MockSuccessfulDAO;
 import javax.swing.JOptionPane;
+import model.EditEntry;
+//import controller.EditEntryController;
+//import dao.EditEntryDao;
 
 /**
  *
@@ -17,16 +19,20 @@ import javax.swing.JOptionPane;
  */
 public class EditForm extends javax.swing.JFrame {
 
-    /**
-     * Creates new form EditEntry
-     */
+    //private EditEntryController controller = new EditEntryController(new EditEntryDao());
+    private EditEntry newEditEntry = new EditEntry();
+    
     public EditForm() {
-        initComponents();
-        MockSuccessfulDAO dao = new MockSuccessfulDAO() ;
-        String entryObj = null;
-        String  text = null;
+        // TO-DO lines with comments are placeholders for connecting EditForm to DisplayForm
         
-        text = displayEntry(entryObj);
+        initComponents();
+        //neweditentry = controller.displayEntry(text);      
+        String text;
+        String entryObj = "This is the original Entry text.";
+        
+        text= newEditEntry.getEntry(entryObj);
+        //text = dao.displayEntry(DisplayForm);
+      
         jTextArea1.setText(text);
         jTextArea1.setEditable(true);
     }
@@ -51,6 +57,7 @@ public class EditForm extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Edit your entry..");
 
         jButton1.setLabel("Save Changes");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -75,29 +82,26 @@ public class EditForm extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(140, 140, 140)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(19, 19, 19)
-                                .addComponent(jButton2)))))
+                .addGap(33, 33, 33)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(39, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(52, 52, 52)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(69, 69, 69))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addGap(46, 46, 46)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
 
         pack();
@@ -107,6 +111,7 @@ public class EditForm extends javax.swing.JFrame {
         // TODO add your handling code here:
        
         JOptionPane.showMessageDialog(this, "Successfully Edited!");
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
