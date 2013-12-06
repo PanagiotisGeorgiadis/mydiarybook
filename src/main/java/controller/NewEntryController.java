@@ -30,7 +30,7 @@ public class NewEntryController {
         when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
         
         IDefaultPathDaoNewEntry rootPathMock = mock(IDefaultPathDaoNewEntry.class);
-        when(rootPathMock.getDefaultPath()).thenReturn("C:\\Users\\Zarc\\Desktop\\MyDiaryBook\\Users\\");
+        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+"\\MyDiaryBook\\Users\\");
         
         String userName = userMock.getUsername();
         String destPath = rootPathMock.getDefaultPath();
@@ -48,7 +48,7 @@ public class NewEntryController {
         when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
         
         IDefaultPathDaoNewEntry rootPathMock = mock(IDefaultPathDaoNewEntry.class);
-        when(rootPathMock.getDefaultPath()).thenReturn("C:\\Users\\Zarc\\Desktop\\MyDiaryBook\\Users\\");
+        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+"\\MyDiaryBook\\Users\\");
         
         String userName = userMock.getUsername();
         String destPath = rootPathMock.getDefaultPath();
@@ -81,7 +81,12 @@ public class NewEntryController {
            // theView.displayErrorMessage("The Entry Already Exists! Please Try A Different Entry Title");
         }
     }            
-    
+    /**
+     * Checks if the given string exists as file in the Directory u are looking for.
+     * @param String title
+     * @return true if the filePathExists 
+     * @return false if not found
+     */
     public boolean filePathExists(String title)
     {
         IDefaultPathDaoNewEntry rootPathMock = mock(IDefaultPathDaoNewEntry.class);
@@ -237,7 +242,7 @@ public class NewEntryController {
                     deleteDirectory(new File(folder, children[i]));
                     folder.delete();
                 }
-               // folder.delete();
+                folder.delete();
             }
             else
                 folder.delete();
