@@ -58,7 +58,7 @@ public class ChangePasswordControllerTest extends TestCase {
         String pass = "123";
         String repeatpass = "123";
         ChangePasswordController instance = new ChangePasswordController();
-        boolean expResult = true;
+        boolean expResult = false;
         boolean result = instance.checkChangePasswordController(pass, repeatpass);
         assertEquals(expResult, result);
       
