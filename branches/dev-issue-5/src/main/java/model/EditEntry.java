@@ -19,14 +19,12 @@ public class EditEntry {
     public String text;
     
     public String getEntry(String text) {
-        this.text = text;
         return text;
     }
     
-    public String setEntry(String entry)
+    public void setEntry(String entry)
     {
         this.text = entry;
-        return entry;
     }
     
     /**
