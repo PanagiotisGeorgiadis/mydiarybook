@@ -23,12 +23,14 @@ public class EditForm extends javax.swing.JFrame {
     /**
      * Creates new form EditEntry
      */
+    //private EditEntryController controller = new EditEntryController(new EditEntryDao());
+    private EditEntry newEditEntry = new EditEntry();
+    
     public EditForm() {
         // TO-DO lines with comments are placeholders for connecting EditForm to DisplayForm
         
         initComponents();
-        //EditEntryDao dao = new EditEntryDao();
-        EditEntry newEditEntry = new EditEntry();
+        //neweditentry = controller.displayEntry(text);      
         String text;
         String entryObj = "This is the original Entry text.";
         
@@ -109,6 +111,7 @@ public class EditForm extends javax.swing.JFrame {
         
        
         JOptionPane.showMessageDialog(this, "Successfully Edited!");
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
