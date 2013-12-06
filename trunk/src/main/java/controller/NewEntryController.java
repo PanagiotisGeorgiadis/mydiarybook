@@ -90,7 +90,7 @@ public class NewEntryController {
     public boolean filePathExists(String title)
     {
         IDefaultPathDaoNewEntry rootPathMock = mock(IDefaultPathDaoNewEntry.class);
-        when(rootPathMock.getDefaultPath()).thenReturn("C:\\Users\\Zarc\\Desktop\\MyDiaryBook\\Users\\");
+        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+"\\MyDiaryBook\\Users\\");
         
         IUserNameDaoNewEntry userMock = mock(IUserNameDaoNewEntry.class);
         when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
