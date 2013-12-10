@@ -18,10 +18,19 @@ import ui.INewEntryView;
  * @author Zarc
  */
 public class NewEntryController {
-    private int maxImageNumber = 30;
+    private final int maxImageNumber = 30;
+    private String destPath;
+    private String userName;
     public NewEntryController()
     {
+        IUserNameDaoNewEntry userMock = mock(IUserNameDaoNewEntry.class);
+        when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
         
+        IDefaultPathDaoNewEntry rootPathMock = mock(IDefaultPathDaoNewEntry.class);
+        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+"\\MyDiaryBook\\Users\\");
+        
+        this.destPath = rootPathMock.getDefaultPath();
+        this.userName = userMock.getUsername();
     }
     public NewEntryController(String userTitle)
     {
@@ -38,8 +47,20 @@ public class NewEntryController {
         
         File folderToDelete = new File(pathToDelete);
         
-        deleteDirectory(folderToDelete);
+        //deleteDirectory(folderToDelete);
         
+    }
+    //TEXT CONTROLLER FINAL//
+    public NewEntryController(INewEntryView theView,String entryText,String userTitle)
+    {
+        String userText = theView.getTextArea();
+            String textDestPath = destPath+userName+"\\"+userTitle+"\\Texts\\";
+
+            if(("").equals(entryText))
+            {
+                if(!createFile(userTitle,userText,textDestPath))
+                    theView.displayErrorMessage("Path Couldn't Be Created!");
+            }
     }
     public NewEntryController(INewEntryView theView,String sourcePath,String fileType,String userTitle,int fileNumber)
     {
@@ -80,6 +101,7 @@ public class NewEntryController {
            // theView.displayErrorMessage("The Entry Already Exists! Please Try A Different Entry Title");
         }
     }            
+   
     /**
      * Checks if the given string exists as file in the Directory you are looking for.
      * @param title
@@ -100,6 +122,11 @@ public class NewEntryController {
             return false;
     }
     
+    /**
+     * 
+     * @param path
+     * @return true if the FilePath exists or is Created, false if some error occurs 
+     */
     private boolean createFilePath(String path)
     {
         try
@@ -120,6 +147,13 @@ public class NewEntryController {
         }
     }
 
+    /**
+     * 
+     * @param sourcePath String the path from which the User selected the Image
+     * @param destPath String the Default Destination Path 
+     * @param imageNumber integer the Number of Image 
+     * @return true if everything went okay, false if an exception is caught.
+     */
     public boolean copyImage(String sourcePath,String destPath,int imageNumber)
     {
         File destFile;
@@ -197,7 +231,13 @@ public class NewEntryController {
         return true;
     }
     
- 
+    /**
+     * 
+     * @param title String entry title for the File.
+     * @param text String the text that must be in the File.
+     * @param destPath String the Default Destination Path.
+     * @return 
+     */
     public boolean createFile(String title,String text,String destPath)
     {
         if(destPath!=null)
@@ -236,29 +276,29 @@ public class NewEntryController {
         return false;
     }
     
-    public boolean deleteDirectory(File folder)
-    {
-        if(folder!=null && folder.exists())
-        {
-            if (folder.isDirectory()) 
-            {
-                String[] children = folder.list();
-                for (int i=0; i<children.length; i++) 
-                {
-                    deleteDirectory(new File(folder, children[i]));
-                    folder.delete();
-                }
-                folder.delete();
-            }
-            else
-                folder.delete();
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-        
-        
-    }
+//    public boolean deleteDirectory(File folder)
+//    {
+//        if(folder!=null && folder.exists())
+//        {
+//            if (folder.isDirectory()) 
+//            {
+//                String[] children = folder.list();
+//                for (int i=0; i<children.length; i++) 
+//                {
+//                    deleteDirectory(new File(folder, children[i]));
+//                    folder.delete();
+//                }
+//                folder.delete();
+//            }
+//            else
+//                folder.delete();
+//            return true;
+//        }
+//        else
+//        {
+//            return false;
+//        }
+//        
+//        
+//    }
 }

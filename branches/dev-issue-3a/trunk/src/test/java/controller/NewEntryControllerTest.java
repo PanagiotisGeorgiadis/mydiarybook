@@ -277,65 +277,65 @@ public class NewEntryControllerTest {
         assertEquals(expResult, result);
     }
 
-    /**
-     * Test of deleteDirectory method, of class NewEntryController.
-     */
-    @Test
-    public void testDeleteDirectory() {
-        System.out.println("deleteDirectoryWithNullPath");
-        File folder = null;
-        NewEntryController instance = new NewEntryController();
-        boolean expResult = false;
-        boolean result = instance.deleteDirectory(folder);
-        assertEquals(expResult, result);
-    }
-    
-    @Test
-    public void testDeleteDirectory2() {
-        System.out.println("deleteDirectoryWithExistandPath");
-        File folder = new File(System.getProperty("user.dir")+"\\MyDiaryBook\\Makis");
-        NewEntryController instance = new NewEntryController();
-        boolean expResult = true;
-        boolean result = instance.deleteDirectory(folder);
-        assertEquals(expResult, result);
-    }
-    
-    @Test
-    public void testDeleteDirectory3() {
-        System.out.println("deleteDirectoryWithNonPathVariable");
-        File folder = new File("asdas");
-        NewEntryController instance = new NewEntryController();
-        boolean expResult = false;
-        boolean result = instance.deleteDirectory(folder);
-        assertEquals(expResult, result);
-    }
-    
-    @Test
-    public void testDeleteDirectory4() {
-        System.out.println("deleteDirectoryWithNonExistantPath");
-        File folder = new File("F:\\adasdas\\BLABLA\\qweqweqw");
-        NewEntryController instance = new NewEntryController();
-        boolean expResult = false;
-        boolean result = instance.deleteDirectory(folder);
-        assertEquals(expResult, result);
-    }
-    
-    @Test
-    public void testDeleteDirectory5() {
-        System.out.println("deleteDirectoryWithExistantPathCreatedFromTests");
-        File folder = new File(System.getProperty("user.dir")+"\\MyDiaryBook\\Mitsos");
-        NewEntryController instance = new NewEntryController();
-        boolean expResult = true;
-        boolean result = instance.deleteDirectory(folder);
-        assertEquals(expResult, result);
-    }
-    @Test
-    public void testDeleteDirectory6() {
-        System.out.println("deleteDirectoryWithNonExistantPathCreatedFromTests");
-        File folder = new File(System.getProperty("user.dir")+"\\MyDiaryBook\\Mitsos\\");
-        NewEntryController instance = new NewEntryController();
-        boolean expResult = false;
-        boolean result = instance.deleteDirectory(folder);
-        assertEquals(expResult, result);
-    }
+//    /**
+//     * Test of deleteDirectory method, of class NewEntryController.
+//     */
+//    @Test
+//    public void testDeleteDirectory() {
+//        System.out.println("deleteDirectoryWithNullPath");
+//        File folder = null;
+//        NewEntryController instance = new NewEntryController();
+//        boolean expResult = false;
+//        boolean result = instance.deleteDirectory(folder);
+//        assertEquals(expResult, result);
+//    }
+//    
+//    @Test
+//    public void testDeleteDirectory2() {
+//        System.out.println("deleteDirectoryWithExistandPath");
+//        File folder = new File(System.getProperty("user.dir")+"\\MyDiaryBook\\Makis");
+//        NewEntryController instance = new NewEntryController();
+//        boolean expResult = true;
+//        boolean result = instance.deleteDirectory(folder);
+//        assertEquals(expResult, result);
+//    }
+//    
+//    @Test
+//    public void testDeleteDirectory3() {
+//        System.out.println("deleteDirectoryWithNonPathVariable");
+//        File folder = new File("asdas");
+//        NewEntryController instance = new NewEntryController();
+//        boolean expResult = false;
+//        boolean result = instance.deleteDirectory(folder);
+//        assertEquals(expResult, result);
+//    }
+//    
+//    @Test
+//    public void testDeleteDirectory4() {
+//        System.out.println("deleteDirectoryWithNonExistantPath");
+//        File folder = new File("F:\\adasdas\\BLABLA\\qweqweqw");
+//        NewEntryController instance = new NewEntryController();
+//        boolean expResult = false;
+//        boolean result = instance.deleteDirectory(folder);
+//        assertEquals(expResult, result);
+//    }
+//    
+//    @Test
+//    public void testDeleteDirectory5() {
+//        System.out.println("deleteDirectoryWithExistantPathCreatedFromTests");
+//        File folder = new File(System.getProperty("user.dir")+"\\MyDiaryBook\\Mitsos");
+//        NewEntryController instance = new NewEntryController();
+//        boolean expResult = true;
+//        boolean result = instance.deleteDirectory(folder);
+//        assertEquals(expResult, result);
+//    }
+//    @Test
+//    public void testDeleteDirectory6() {
+//        System.out.println("deleteDirectoryWithNonExistantPathCreatedFromTests");
+//        File folder = new File(System.getProperty("user.dir")+"\\MyDiaryBook\\Mitsos\\");
+//        NewEntryController instance = new NewEntryController();
+//        boolean expResult = false;
+//        boolean result = instance.deleteDirectory(folder);
+//        assertEquals(expResult, result);
+//    }
 }
