@@ -35,7 +35,7 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
     static int imagePositionY = 30;
     static int imageNumber;
     //static File imagePath;
-    private final String fSeparator = File.pathSeparator;
+    private final String fSeparator = File.separator;
     private String vlcPath = System.getProperty("user.dir")+fSeparator+"VLC"+fSeparator;
     private int maxImageNumber;
     private String videoPath = null;
@@ -485,12 +485,15 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
             NewEntryController controller = new NewEntryController();
             if(controller.filePathExists(titleField.getText().toString()) && titleField.isEditable())
             {
-                int ret = JOptionPane.showConfirmDialog(this, "Do You Want To Overwrite It?", "Duplicate Entry Found!",YES_NO_OPTION , WARNING_MESSAGE);
+                int ret = JOptionPane.showConfirmDialog(this, "Do You Want To Overwrite It?\nIf You Press Yes All Data From This Entry Will Be Lost!", "Duplicate Entry Found!",YES_NO_OPTION , WARNING_MESSAGE);
                 
-                if(ret == JOptionPane.NO_OPTION)
-                    titleField.setText(null);
-                else
+                if(ret == JOptionPane.YES_OPTION)
+                {    
                     titleField.setEditable(false);
+                    controller = new NewEntryController(titleField.getText());
+                }
+                else
+                    titleField.setText(null);              
             }
             else
             {
