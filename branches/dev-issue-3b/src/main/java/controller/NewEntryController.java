@@ -19,83 +19,76 @@ import ui.INewEntryView;
  */
 public class NewEntryController {
     private final int maxImageNumber = 30;
-    private String fileSeperator = File.separator;
+    private final String fileSeparator = File.separator;
     
     public NewEntryController()
+    {
+        
+    }
+    public NewEntryController(String userTitle)
     {
         IUserNameDaoNewEntry userMock = mock(IUserNameDaoNewEntry.class);
         when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
         
         IDefaultPathDaoNewEntry rootPathMock = mock(IDefaultPathDaoNewEntry.class);
-        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fileSeperator+"MyDiaryBook"+fileSeperator+"Users"+fileSeperator);
+        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fileSeparator+"MyDiaryBook"+fileSeparator+"Users"+fileSeparator);
         
-        String destPath = rootPathMock.getDefaultPath();
         String userName = userMock.getUsername();
+        String destPath = rootPathMock.getDefaultPath();
+        
+        String pathToDelete = destPath+userName+fileSeparator+userTitle;
+        
+        File folderToDelete = new File(pathToDelete);
+        
+        deleteDirectory(folderToDelete);
+        
     }
-//    public NewEntryController(String userTitle)
-//    {
-//        IUserNameDaoNewEntry userMock = mock(IUserNameDaoNewEntry.class);
-//        when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
-//        
-//        IDefaultPathDaoNewEntry rootPathMock = mock(IDefaultPathDaoNewEntry.class);
-//        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fileSeperator+"MyDiaryBook"+fileSeperator+"Users"+fileSeperator);
-//        
-//        String userName = userMock.getUsername();
-//        String destPath = rootPathMock.getDefaultPath();
-//        
-//        String pathToDelete = destPath+userName+fileSeperator+userTitle;
-//        
-//        File folderToDelete = new File(pathToDelete);
-//        
-//        //deleteDirectory(folderToDelete);
-//        
-//    }
-    //TEXT CONTROLLER FINAL//
+    //Text Constructor Final//
     public NewEntryController(String userTitle,String userText,INewEntryView theView)
     {
         IUserNameDaoNewEntry userMock = mock(IUserNameDaoNewEntry.class);
         when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
         IDefaultPathDaoNewEntry rootPathMock = mock(IDefaultPathDaoNewEntry.class);
-        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fileSeperator+"MyDiaryBook"+fileSeperator+"Users"+fileSeperator);
+        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fileSeparator+"MyDiaryBook"+fileSeparator+"Users"+fileSeparator);
         
         String destPath = rootPathMock.getDefaultPath();
         String userName = userMock.getUsername();
             
-        String textDestPath = destPath+userName+fileSeperator+userTitle+fileSeperator+"Texts"+fileSeperator;
-        if(("").equals(userText))
+        String textDestPath = destPath+userName+fileSeparator+userTitle+fileSeparator+"Texts"+fileSeparator;
+        if(!("").equals(userText))
         {
             if(!createFile(userTitle,userText,textDestPath))
                 theView.displayErrorMessage("Path Couldn't Be Created!");
         }
     }
     
-    //Image controller final//
+    //Image Constructor Final//
     public NewEntryController(String userTitle,String sourcePath,int imageNumber,INewEntryView theView )
     {
         IUserNameDaoNewEntry userMock = mock(IUserNameDaoNewEntry.class);
         when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
         IDefaultPathDaoNewEntry rootPathMock = mock(IDefaultPathDaoNewEntry.class);
-        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fileSeperator+"MyDiaryBook"+fileSeperator+"Users"+fileSeperator);
+        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fileSeparator+"MyDiaryBook"+fileSeparator+"Users"+fileSeparator);
         
         String destPath = rootPathMock.getDefaultPath();
         String userName = userMock.getUsername();
         
-        String imageDestPath = destPath+userName+fileSeperator+userTitle+fileSeperator+"Images"+fileSeperator;   
+        String imageDestPath = destPath+userName+fileSeparator+userTitle+fileSeparator+"Images"+fileSeparator;   
             if(!copyImage(sourcePath,imageDestPath,imageNumber))
                 theView.displayErrorMessage("Please Try With Another Image!");
     }
-    //Video Constructor final//
+    //Video Constructor Final//
     public NewEntryController(String userTitle,File sourceFile,INewEntryView theView)
     {
         IUserNameDaoNewEntry userMock = mock(IUserNameDaoNewEntry.class);
         when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
         IDefaultPathDaoNewEntry rootPathMock = mock(IDefaultPathDaoNewEntry.class);
-        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fileSeperator+"MyDiaryBook"+fileSeperator+"Users"+fileSeperator);
+        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fileSeparator+"MyDiaryBook"+fileSeparator+"Users"+fileSeparator);
         
         String destPath = rootPathMock.getDefaultPath();
         String userName = userMock.getUsername();
         
-        String videoDestPath = destPath+userName+fileSeperator+userTitle+fileSeperator+"Videos"+fileSeperator;
+        String videoDestPath = destPath+userName+fileSeparator+userTitle+fileSeparator+"Videos"+fileSeparator;
             if(!copyVideo(sourceFile.toString(),videoDestPath))
                 theView.displayErrorMessage("Please Try With Another Video!");
     }
@@ -147,12 +140,12 @@ public class NewEntryController {
     public boolean filePathExists(String title)
     {
         IDefaultPathDaoNewEntry rootPathMock = mock(IDefaultPathDaoNewEntry.class);
-        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fileSeperator+"MyDiaryBook"+fileSeperator+"Users"+fileSeperator);
+        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fileSeparator+"MyDiaryBook"+fileSeparator+"Users"+fileSeparator);
         
         IUserNameDaoNewEntry userMock = mock(IUserNameDaoNewEntry.class);
         when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
         
-        File file = new File(rootPathMock.getDefaultPath()+userMock.getUsername()+fileSeperator+title);
+        File file = new File(rootPathMock.getDefaultPath()+userMock.getUsername()+fileSeparator+title);
         if(file.exists())
             return true;
         else
@@ -313,29 +306,29 @@ public class NewEntryController {
         return false;
     }
     
-//    public boolean deleteDirectory(File folder)
-//    {
-//        if(folder!=null && folder.exists())
-//        {
-//            if (folder.isDirectory()) 
-//            {
-//                String[] children = folder.list();
-//                for (int i=0; i<children.length; i++) 
-//                {
-//                    deleteDirectory(new File(folder, children[i]));
-//                    folder.delete();
-//                }
-//                folder.delete();
-//            }
-//            else
-//                folder.delete();
-//            return true;
-//        }
-//        else
-//        {
-//            return false;
-//        }
-//        
-//        
-//    }
+    public boolean deleteDirectory(File folder)
+    {
+        if(folder!=null && folder.exists())
+        {
+            if (folder.isDirectory()) 
+            {
+                String[] children = folder.list();
+                for (int i=0; i<children.length; i++) 
+                {
+                    deleteDirectory(new File(folder, children[i]));
+                    folder.delete();
+                }
+                folder.delete();
+            }
+            else
+                folder.delete();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+        
+        
+    }
 }

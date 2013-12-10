@@ -29,18 +29,18 @@ public class NewEntryControllerTest {
     
     @BeforeClass
     public static void setUpClass() {
-        String fSeparator = System.getProperty("file.separator");
+        String fSeparator = File.separator; //System.getProperty("file.separator");
         File file = new File("."+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+"Panagiwtis Georgiadis"+fSeparator+"PAOK"+fSeparator);
         file.mkdirs();
     }
     
     @AfterClass
     public static void tearDownClass() {
-        String fSeparator = System.getProperty("file.separator");
+        String fSeparator = File.separator;
         File file = new File("."+fSeparator+"MyDiaryBook");
         try {
             FileUtils.deleteDirectory(file);
-            file = new File(System.getProperty("user.dir")+fSeparator+".qweqwe.txt");
+            file = new File(System.getProperty("user.dir")+fSeparator+"qweqwe.txt");
             file.delete();
         } catch (IOException ex) {
             Logger.getLogger(NewEntryControllerTest.class.getName()).log(Level.SEVERE, null, ex);
@@ -271,7 +271,7 @@ public class NewEntryControllerTest {
         System.out.println("createFileWithCurrentPathAsPath");
         String title = "qweqwe";
         String text = "qweqweqe";
-        String destPath = System.getProperty("user.dir");
+        String destPath = System.getProperty("user.dir")+File.separator;
         NewEntryController instance = new NewEntryController();
         boolean expResult = true;
         boolean result = instance.createFile(title, text, destPath);
