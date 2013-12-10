@@ -10,8 +10,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
+import org.apache.commons.io.FileUtils;
 import static org.mockito.Mockito.*;
 import ui.INewEntryView;
 /**
@@ -19,7 +18,7 @@ import ui.INewEntryView;
  * @author Zarc
  */
 public class NewEntryController {
-    
+    private int maxImageNumber = 30;
     public NewEntryController()
     {
         
@@ -125,22 +124,25 @@ public class NewEntryController {
     {
         File destFile;
         boolean exists = createFilePath(destPath);
-        if(exists)
+        if(exists && imageNumber<=maxImageNumber && imageNumber>=0)
         {
             try
             {
-                File source = new File(sourcePath);
+                File sourceFile = new File(sourcePath);
                 if(imageNumber == 0)
                     destFile = new File(destPath+"Image.jpg");
                 else
                     destFile = new File(destPath+"Image"+imageNumber+".jpg");
-
-                    Files.copy(source.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-            } 
-            catch (IOException ex)
-            {
+                FileUtils.copyFile(sourceFile, destFile);
+             } 
+             catch (IOException ex)
+             {
                 return false;
-            }
+             }            
+        }
+        else if(imageNumber>maxImageNumber || imageNumber<0)
+        {
+            return false;
         }
         else
         {
@@ -176,7 +178,7 @@ public class NewEntryController {
             if(exists)
             {
                 try {
-                    Files.copy(source.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    FileUtils.copyFile(source, destFile);
                 } catch (IOException ex) {
                     return false;
                 }
@@ -198,33 +200,38 @@ public class NewEntryController {
  
     public boolean createFile(String title,String text,String destPath)
     {
-        try
-        {
-            File file = new File(destPath+title+".txt");
-            boolean exists = createFilePath(destPath);
-            if(exists)
+        if(destPath!=null)
+            try
             {
-                FileWriter fw = new FileWriter(file,true);
-                BufferedWriter bw = new BufferedWriter(fw);
-                if(file.exists())
-                    bw.append(text);
-                else    
+                File file = new File(destPath+title+".txt");
+                boolean exists = createFilePath(destPath);
+                if(exists)
                 {
-                    file.createNewFile();
-                    bw.write(text);
+                    FileWriter fw = new FileWriter(file,true);
+                    BufferedWriter bw = new BufferedWriter(fw);
+                    if(file.exists())
+                        bw.append(text);
+                    else    
+                    {
+                        file.createNewFile();
+                        bw.write(text);
+                    }
+                    bw.close();
+                    return true;
                 }
-                bw.close();
-                return true;
+                else
+                {
+                    createFilePath(destPath);
+                    createFile(title,text,destPath);
+                }
             }
-            else
+            catch(Exception e)
             {
-                createFilePath(destPath);
-                createFile(title,text,destPath);
+                return false;
             }
-        }
-        catch(Exception e)
+        else
         {
-            return false;
+            createFile(title,text,".");
         }
         return false;
     }
