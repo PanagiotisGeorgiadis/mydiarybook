@@ -40,6 +40,8 @@ public class NewEntryControllerTest {
         File file = new File("."+fSeparator+"MyDiaryBook");
         try {
             FileUtils.deleteDirectory(file);
+            file = new File(System.getProperty("user.dir")+fSeparator+".qweqwe.txt");
+            file.delete();
         } catch (IOException ex) {
             Logger.getLogger(NewEntryControllerTest.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -269,7 +271,7 @@ public class NewEntryControllerTest {
         System.out.println("createFileWithCurrentPathAsPath");
         String title = "qweqwe";
         String text = "qweqweqe";
-        String destPath = ".";
+        String destPath = System.getProperty("user.dir");
         NewEntryController instance = new NewEntryController();
         boolean expResult = true;
         boolean result = instance.createFile(title, text, destPath);
