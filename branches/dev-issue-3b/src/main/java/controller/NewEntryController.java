@@ -19,7 +19,7 @@ import ui.INewEntryView;
  */
 public class NewEntryController {
     private final int maxImageNumber = 30;
-    private final String fileSeparator = File.separator;
+    private final String fSeparator = File.separator;
     
     public NewEntryController()
     {
@@ -31,13 +31,13 @@ public class NewEntryController {
         when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
         
         IDefaultPathDaoNewEntry rootPathMock = mock(IDefaultPathDaoNewEntry.class);
-        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fileSeparator+"MyDiaryBook"+fileSeparator+"Users"+fileSeparator);
+        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator);
         
         String userName = userMock.getUsername();
         String destPath = rootPathMock.getDefaultPath();
         
-        String pathToDelete = destPath+userName+fileSeparator+userTitle;
-        
+        String pathToDelete = destPath+userName+fSeparator+userTitle;
+         
         File folderToDelete = new File(pathToDelete);
         
         deleteDirectory(folderToDelete);
@@ -49,12 +49,12 @@ public class NewEntryController {
         IUserNameDaoNewEntry userMock = mock(IUserNameDaoNewEntry.class);
         when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
         IDefaultPathDaoNewEntry rootPathMock = mock(IDefaultPathDaoNewEntry.class);
-        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fileSeparator+"MyDiaryBook"+fileSeparator+"Users"+fileSeparator);
+        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator);
         
         String destPath = rootPathMock.getDefaultPath();
         String userName = userMock.getUsername();
             
-        String textDestPath = destPath+userName+fileSeparator+userTitle+fileSeparator+"Texts"+fileSeparator;
+        String textDestPath = destPath+userName+fSeparator+userTitle+fSeparator+"Texts"+fSeparator;
         if(!("").equals(userText))
         {
             if(!createFile(userTitle,userText,textDestPath))
@@ -68,12 +68,12 @@ public class NewEntryController {
         IUserNameDaoNewEntry userMock = mock(IUserNameDaoNewEntry.class);
         when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
         IDefaultPathDaoNewEntry rootPathMock = mock(IDefaultPathDaoNewEntry.class);
-        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fileSeparator+"MyDiaryBook"+fileSeparator+"Users"+fileSeparator);
+        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator);
         
         String destPath = rootPathMock.getDefaultPath();
         String userName = userMock.getUsername();
         
-        String imageDestPath = destPath+userName+fileSeparator+userTitle+fileSeparator+"Images"+fileSeparator;   
+        String imageDestPath = destPath+userName+fSeparator+userTitle+fSeparator+"Images"+fSeparator;   
             if(!copyImage(sourcePath,imageDestPath,imageNumber))
                 theView.displayErrorMessage("Please Try With Another Image!");
     }
@@ -83,12 +83,12 @@ public class NewEntryController {
         IUserNameDaoNewEntry userMock = mock(IUserNameDaoNewEntry.class);
         when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
         IDefaultPathDaoNewEntry rootPathMock = mock(IDefaultPathDaoNewEntry.class);
-        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fileSeparator+"MyDiaryBook"+fileSeparator+"Users"+fileSeparator);
+        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator);
         
         String destPath = rootPathMock.getDefaultPath();
         String userName = userMock.getUsername();
         
-        String videoDestPath = destPath+userName+fileSeparator+userTitle+fileSeparator+"Videos"+fileSeparator;
+        String videoDestPath = destPath+userName+fSeparator+userTitle+fSeparator+"Videos"+fSeparator;
             if(!copyVideo(sourceFile.toString(),videoDestPath))
                 theView.displayErrorMessage("Please Try With Another Video!");
     }
@@ -140,12 +140,12 @@ public class NewEntryController {
     public boolean filePathExists(String title)
     {
         IDefaultPathDaoNewEntry rootPathMock = mock(IDefaultPathDaoNewEntry.class);
-        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fileSeparator+"MyDiaryBook"+fileSeparator+"Users"+fileSeparator);
+        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator);
         
         IUserNameDaoNewEntry userMock = mock(IUserNameDaoNewEntry.class);
         when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
         
-        File file = new File(rootPathMock.getDefaultPath()+userMock.getUsername()+fileSeparator+title);
+        File file = new File(rootPathMock.getDefaultPath()+userMock.getUsername()+fSeparator+title);
         if(file.exists())
             return true;
         else
@@ -216,7 +216,11 @@ public class NewEntryController {
         return true;
     }
     
-
+    /**
+    * @param sourcePath String the path from which the User selected the Image
+    * @param videoDestPath String the Default Destination Path 
+    * @return true if everything went okay, false if an exception is caught.
+    */
     public boolean copyVideo(String sourcePath,String videoDestPath)
     {
         try
@@ -266,7 +270,7 @@ public class NewEntryController {
      * @param title String entry title for the File.
      * @param text String the text that must be in the File.
      * @param destPath String the Default Destination Path.
-     * @return 
+     * @returns true if and only if the file is created else returns false.
      */
     public boolean createFile(String title,String text,String destPath)
     {
@@ -306,6 +310,12 @@ public class NewEntryController {
         return false;
     }
     
+    /**
+     * 
+     * @param folder File type parameter used to point at the directory you want to delete
+     * @returns true if and only if the directory pointed exists and is deleted with its
+     * components else returns false.
+     */
     public boolean deleteDirectory(File folder)
     {
         if(folder!=null && folder.exists())

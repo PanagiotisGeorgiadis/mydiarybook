@@ -37,7 +37,7 @@ public class NewEntryControllerTest {
     @AfterClass
     public static void tearDownClass() {
         String fSeparator = File.separator;
-        File file = new File("."+fSeparator+"MyDiaryBook");
+        File file = new File("."+fSeparator+"MyDiaryBook"+fSeparator);
         try {
             FileUtils.deleteDirectory(file);
             file = new File(System.getProperty("user.dir")+fSeparator+"qweqwe.txt");
