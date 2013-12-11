@@ -34,13 +34,12 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
     static int imagePositionX = 25;
     static int imagePositionY = 30;
     static int imageNumber;
-    //static File imagePath;
     private final String fSeparator = File.separator;
     private String vlcPath = System.getProperty("user.dir")+fSeparator+"VLC"+fSeparator;
     private int maxImageNumber;
     private String videoPath = null;
     private EmbeddedMediaPlayerComponent mediaPlayer2 =null;
-    private File[] imageFiles = new File[30];
+    private static File[] imageFiles = new File[31];
     /**
      * Creates new form NewEntryView sets the size and location 
      * on the center of the screen. Also initializes the NativeLibraries
@@ -69,26 +68,23 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
     {
         JLabel jlabel = new JLabel();
         ImageIcon icon = null;
-        if(imageNumber<maxImageNumber)
+        try 
         {
-            try 
-            {
-                icon = new ImageIcon(imagePath.toURL());
-                Image img = icon.getImage();
-                Image newimg = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-                ImageIcon newIcon = new ImageIcon(newimg);
-                imagePanel.add(jlabel);
-                jlabel.setIcon(newIcon);
-                imageNumber++;
-                imagesLeftLabel.setText((maxImageNumber - imageNumber)+" Images"+" Left");
-            } 
-            catch (MalformedURLException ex) 
-            {
-                displayErrorMessage("Please Select Another Image");
-                imageNumber--;
-            }
+            icon = new ImageIcon(imagePath.toURL());
+            Image img = icon.getImage();
+            Image newimg = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+            ImageIcon newIcon = new ImageIcon(newimg);
+            imagePanel.add(jlabel);
+            jlabel.setIcon(newIcon);
+            imageNumber++;
+            imagesLeftLabel.setText((maxImageNumber - imageNumber)+" Images"+" Left");
+        } 
+        catch (MalformedURLException ex) 
+        {
+            displayErrorMessage("Please Select Another Image");
+            //imageNumber--;
         }
-        else
+        if(imageNumber>=maxImageNumber)
             imageChooseButton.setVisible(false);
         
     }
@@ -382,19 +378,26 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
         FileFilter imageFilter = new FileNameExtensionFilter("Image Files",ImageIO.getReaderFileSuffixes());
         imageChooser.setFileFilter(imageFilter);
         imageChooser.setMultiSelectionEnabled(true);
+        File[] tempFile = new File[30];
         
         if(!titleField.getText().trim().isEmpty())
         {
             int returnVal = imageChooser.showOpenDialog(jPanel2);       
             if(returnVal == JFileChooser.OPEN_DIALOG)
             {    
-                imageFiles = imageChooser.getSelectedFiles();
-                for(int i=0;i<imageFiles.length;i++)
+                tempFile = imageChooser.getSelectedFiles();
+                int i=0;
+                while(i<tempFile.length)
                 {
-                    displayNewImage(imageFiles[i].toURI());
+                    if(imageNumber>maxImageNumber)
+                        displayErrorMessage("Your Last "+(imageNumber-maxImageNumber)+" Photos Will Not Be Saved!");
+                    else
+                    {
+                        imageFiles[imageNumber] = tempFile[i];
+                        displayNewImage(tempFile[i].toURI());
+                        i++;
+                    } 
                 }
-                //displayNewImage(imageChooser.getSelectedFile().toURI());
-                //NewEntryController controller = new NewEntryController(this,imageChooser.getSelectedFile().toString(),"Image",titleField.getText(),imageNumber);
             }
         }
         else 
@@ -436,10 +439,9 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
         {
             NewEntryController controller = new NewEntryController(titleField.getText(),textArea.getText(),this); //NewEntryController(this,null,"Text",titleField.getText(),textNumber);
             if(imageNumber!=0)
-                for(int i=0;i<imageFiles.length;i++)
+                for(int i=0;i<imageNumber;i++)
                 {   
-                    imageNumber = i;
-                    controller = new NewEntryController(titleField.getText(),imageFiles[i].toString(),imageNumber,this); //NewEntryController(this,imageFiles[i].toString(),"Image",titleField.getText(),imageNumber);
+                    controller = new NewEntryController(titleField.getText(),imageFiles[i].toString(),i,this); //NewEntryController(this,imageFiles[i].toString(),"Image",titleField.getText(),imageNumber);
                 }
             if(videoPath != null)
             {
