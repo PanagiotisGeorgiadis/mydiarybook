@@ -29,6 +29,8 @@ public class LoginForm extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        CreateAccountPopUpLabel = new javax.swing.JLabel();
+        ResetPasswordPopUpjLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("User Login");
@@ -60,6 +62,24 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
 
+        CreateAccountPopUpLabel.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
+        CreateAccountPopUpLabel.setForeground(new java.awt.Color(51, 51, 255));
+        CreateAccountPopUpLabel.setText("Create New Account");
+        CreateAccountPopUpLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CreateAccountPopUpLabelMouseClicked(evt);
+            }
+        });
+
+        ResetPasswordPopUpjLabel.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
+        ResetPasswordPopUpjLabel.setForeground(new java.awt.Color(51, 51, 255));
+        ResetPasswordPopUpjLabel.setText("Forgot your password?");
+        ResetPasswordPopUpjLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ResetPasswordPopUpjLabelMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -79,7 +99,12 @@ public class LoginForm extends javax.swing.JFrame {
                             .addComponent(pass)
                             .addComponent(username, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
                             .addComponent(login, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(135, 135, 135)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(CreateAccountPopUpLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ResetPasswordPopUpjLabel))))
                 .addContainerGap(125, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -99,7 +124,11 @@ public class LoginForm extends javax.swing.JFrame {
                 .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addGap(25, 25, 25)
+                .addComponent(CreateAccountPopUpLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(ResetPasswordPopUpjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
@@ -134,6 +163,21 @@ public class LoginForm extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void CreateAccountPopUpLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CreateAccountPopUpLabelMouseClicked
+        // TODO add your handling code here:
+        RegisterForm regFace = new RegisterForm();
+        regFace.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_CreateAccountPopUpLabelMouseClicked
+
+    private void ResetPasswordPopUpjLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ResetPasswordPopUpjLabelMouseClicked
+        // TODO add your handling code here:
+        ResetPassword regFace = new ResetPassword();
+        regFace.setVisible(true);
+
+        dispose();
+    }//GEN-LAST:event_ResetPasswordPopUpjLabelMouseClicked
 
     /**
      * @param args the command line arguments
@@ -173,6 +217,8 @@ public class LoginForm extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel CreateAccountPopUpLabel;
+    private javax.swing.JLabel ResetPasswordPopUpjLabel;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
