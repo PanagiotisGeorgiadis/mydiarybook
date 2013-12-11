@@ -62,7 +62,7 @@ public class NewEntryControllerTest {
     @Test
     public void testFilePathExists() {
         System.out.println("filePathExistsWithNonExistantPath");
-        String title = "F:\\BLABLA\\BLABLA\\BLABLA";
+        String title = "F:"+fSeparator+"BLABLA"+fSeparator+"BLABLA"+fSeparator+"BLABLA";
         NewEntryController instance = new NewEntryController();
         boolean expResult = false;
         boolean result = instance.filePathExists(title);
@@ -105,8 +105,8 @@ public class NewEntryControllerTest {
     @Test
     public void testCopyImage() {
         System.out.println("copyImageFromExistingSourceToExistingDest");
-        String sourcePath = System.getProperty("user.dir")+"\\src\\test\\java\\resources\\testImg.jpg";
-        String destPath = System.getProperty("user.dir")+"\\MyDiaryBook\\Mitsos\\Images\\";
+        String sourcePath = System.getProperty("user.dir")+fSeparator+"src"+fSeparator+"test"+fSeparator+"java"+fSeparator+"resources"+fSeparator+"testImg.jpg";
+        String destPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Mitsos"+fSeparator+"Images"+fSeparator;
         int imageNumber = 0;
         NewEntryController instance = new NewEntryController();
         boolean expResult = true;
@@ -118,7 +118,7 @@ public class NewEntryControllerTest {
     public void testCopyImage2() {
         System.out.println("copyImageFromNonExistingSourceToExistingDest");
         String sourcePath = "C.jpg";
-        String destPath = System.getProperty("user.dir")+"\\MyDiaryBook\\Mitsos\\Images\\";
+        String destPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Mitsos"+fSeparator+"Images"+fSeparator;
         int imageNumber = 2;
         NewEntryController instance = new NewEntryController();
         boolean expResult = false;
@@ -129,8 +129,8 @@ public class NewEntryControllerTest {
     @Test
     public void testCopyImage3() {
         System.out.println("copyImageFromNonExistingSourceToExistingDest");
-        String sourcePath = "F:\\Bla\\Blabla\\Blablabla";
-        String destPath = System.getProperty("user.dir")+"\\MyDiaryBook\\Mitsos\\Images\\";
+        String sourcePath = "F:"+fSeparator+"Bla"+fSeparator+"Blabla"+fSeparator+"Blablabla";
+        String destPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Mitsos"+fSeparator+"Images"+fSeparator;
         int imageNumber = 3;
         NewEntryController instance = new NewEntryController();
         boolean expResult = false;
@@ -141,8 +141,8 @@ public class NewEntryControllerTest {
     @Test
     public void testCopyImage4() {
         System.out.println("copyImageFromExistingSourceToExistingDestWhileCreatingTheDestPath");
-        String sourcePath = System.getProperty("user.dir")+"\\src\\test\\java\\resources\\testImg.jpg";
-        String destPath = System.getProperty("user.dir")+"\\MyDiaryBook\\Makis\\Images\\";
+        String sourcePath = System.getProperty("user.dir")+fSeparator+"src"+fSeparator+"test"+fSeparator+"java"+fSeparator+"resources"+fSeparator+"testImg.jpg";
+        String destPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Makis"+fSeparator+"Images"+fSeparator;
         int imageNumber = 3;
         NewEntryController instance = new NewEntryController();
         boolean expResult = true;
@@ -153,8 +153,8 @@ public class NewEntryControllerTest {
     @Test
     public void testCopyImage5() {
         System.out.println("copyImageFromExistingPathButBigImageNumber");
-        String sourcePath = System.getProperty("user.dir")+"\\src\\test\\java\\resources\\testImg.jpg";
-        String destPath = System.getProperty("user.dir")+"\\MyDiaryBook\\Makis\\Images\\";
+        String sourcePath = System.getProperty("user.dir")+fSeparator+"src"+fSeparator+"test"+fSeparator+"java"+fSeparator+"resources"+fSeparator+"testImg.jpg"+fSeparator;
+        String destPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Makis"+fSeparator+"Images"+fSeparator;
         int imageNumber = 100;
         NewEntryController instance = new NewEntryController();
         boolean expResult = false;
@@ -167,8 +167,8 @@ public class NewEntryControllerTest {
     @Test
     public void testCopyVideo() {
         System.out.println("copyVideoFromExistingSourceToExistingDest");
-        String sourcePath = System.getProperty("user.dir")+"\\src\\test\\java\\resources\\testVideo.mp4";
-        String videoDestPath = System.getProperty("user.dir")+"\\MyDiaryBook\\Mitsos\\Videos\\";
+        String sourcePath = System.getProperty("user.dir")+fSeparator+"src"+fSeparator+"test"+fSeparator+"java"+fSeparator+"resources"+fSeparator+"testVideo.mp4";
+        String videoDestPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Mitsos"+fSeparator+"Videos"+fSeparator;
         NewEntryController instance = new NewEntryController();
         boolean expResult = true;
         boolean result = instance.copyVideo(sourcePath, videoDestPath);
@@ -189,8 +189,8 @@ public class NewEntryControllerTest {
     @Test
     public void testCopyVideo3() {
         System.out.println("copyVideoFromExistingSourceButNotVideoFileToExistingDest");
-        String sourcePath = "C:\\Users\\Zarc\\Documents\\First Of the year";
-        String videoDestPath = System.getProperty("user.dir")+"\\MyDiaryBook\\Mitsos\\";
+        String sourcePath = "C:"+fSeparator+"Users"+fSeparator+"Zarc"+fSeparator+"Documents"+fSeparator+"First Of the year";
+        String videoDestPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Mitsos"+fSeparator;
         NewEntryController instance = new NewEntryController();
         boolean expResult = false;
         boolean result = instance.copyVideo(sourcePath, videoDestPath);
@@ -219,7 +219,7 @@ public class NewEntryControllerTest {
         System.out.println("createFileWithTitleWithTextToExistingDest");
         String title = "Paparounas";
         String text = "wqeqwewqeqwewqeqwewqeqwewqeqwewqeqwewqeqwewqeqwewqeqwe";
-        String destPath = System.getProperty("user.dir")+"\\MyDiaryBook\\Makis\\Texts\\";
+        String destPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Makis"+fSeparator+"Texts"+fSeparator;
         NewEntryController instance = new NewEntryController();
         boolean expResult = true;
         boolean result = instance.createFile(title, text, destPath);
@@ -232,7 +232,7 @@ public class NewEntryControllerTest {
         System.out.println("createFileWithoutTitleWithTextToExistingDest");
         String title = "";
         String text = "wqeqwewqeqwewqeqwewqeqwewqeqwewqeqwewqeqwewqeqwewqeqwe";
-        String destPath = System.getProperty("user.dir")+"\\MyDiaryBook\\Makis\\Texts\\";
+        String destPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Makis"+fSeparator+"Texts"+fSeparator;
         NewEntryController instance = new NewEntryController();
         boolean expResult = true;
         boolean result = instance.createFile(title, text, destPath);
@@ -245,7 +245,7 @@ public class NewEntryControllerTest {
         System.out.println("createFileWithNullTitleWithTextToExistingDest");
         String title = null;
         String text = "wqeqwewqeqwewqeqwewqeqwewqeqwewqeqwewqeqwewqeqwewqeqwe";
-        String destPath = System.getProperty("user.dir")+"\\MyDiaryBook\\Makis\\Texts\\";
+        String destPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Makis"+fSeparator+"Texts"+fSeparator;
         NewEntryController instance = new NewEntryController();
         boolean expResult = true;
         boolean result = instance.createFile(title, text, destPath);
@@ -258,7 +258,7 @@ public class NewEntryControllerTest {
         System.out.println("createFileWithNullTitleAndTextToExistingDest");
         String title = null;
         String text = null;
-        String destPath = System.getProperty("user.dir")+"\\MyDiaryBook\\Makis\\Texts\\";
+        String destPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Makis"+fSeparator+"Texts"+fSeparator;
         NewEntryController instance = new NewEntryController();
         boolean expResult = true;
         boolean result = instance.createFile(title, text, destPath);
@@ -271,7 +271,7 @@ public class NewEntryControllerTest {
         System.out.println("createFileWithCurrentPathAsPath");
         String title = "qweqwe";
         String text = "qweqweqe";
-        String destPath = System.getProperty("user.dir")+File.separator;
+        String destPath = System.getProperty("user.dir")+fSeparator;
         NewEntryController instance = new NewEntryController();
         boolean expResult = true;
         boolean result = instance.createFile(title, text, destPath);
@@ -295,7 +295,7 @@ public class NewEntryControllerTest {
     @Test
     public void testDeleteDirectory2() {
         System.out.println("deleteDirectoryWithExistandPath");
-        File folder = new File(System.getProperty("user.dir")+"\\MyDiaryBook\\Makis");
+        File folder = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Makis");
         NewEntryController instance = new NewEntryController();
         boolean expResult = true;
         boolean result = instance.deleteDirectory(folder);
@@ -315,7 +315,7 @@ public class NewEntryControllerTest {
     @Test
     public void testDeleteDirectory4() {
         System.out.println("deleteDirectoryWithNonExistantPath");
-        File folder = new File("F:\\adasdas\\BLABLA\\qweqweqw");
+        File folder = new File("F:"+fSeparator+"adasdas"+fSeparator+"BLABLA"+fSeparator+"qweqweqw");
         NewEntryController instance = new NewEntryController();
         boolean expResult = false;
         boolean result = instance.deleteDirectory(folder);
@@ -325,7 +325,7 @@ public class NewEntryControllerTest {
     @Test
     public void testDeleteDirectory5() {
         System.out.println("deleteDirectoryWithExistantPathCreatedFromTests");
-        File folder = new File(System.getProperty("user.dir")+"\\MyDiaryBook\\Mitsos");
+        File folder = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Mitsos");
         NewEntryController instance = new NewEntryController();
         boolean expResult = true;
         boolean result = instance.deleteDirectory(folder);
@@ -334,7 +334,7 @@ public class NewEntryControllerTest {
     @Test
     public void testDeleteDirectory6() {
         System.out.println("deleteDirectoryWithNonExistantPathCreatedFromTests");
-        File folder = new File(System.getProperty("user.dir")+"\\MyDiaryBook\\Mitsos\\");
+        File folder = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Mitsos"+fSeparator);
         NewEntryController instance = new NewEntryController();
         boolean expResult = false;
         boolean result = instance.deleteDirectory(folder);
