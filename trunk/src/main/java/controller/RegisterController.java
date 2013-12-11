@@ -4,10 +4,10 @@
  */
 package controller;
 
-import static ui.RegisterForm.jPasswordField1;
-import static ui.RegisterForm.jPasswordField2;
-import static ui.RegisterForm.jTextField1;
-import static ui.RegisterForm.jTextField2;
+import static ui.RegisterForm.PasswordPasswordField;
+import static ui.RegisterForm.RePasswordPasswordField;
+import static ui.RegisterForm.UserNameTextField;
+import static ui.RegisterForm.EmailTextField;
 
 /**
  *
@@ -44,15 +44,15 @@ public class RegisterController
 
     public static boolean checkValues() {
         RegisterController e = new RegisterController();
-        if (!e.checkMail(jTextField2.getText())) {
+        if (!e.checkMail(EmailTextField.getText())) {
             return false;
 
         }
 
-        if (!e.checkUsername(jTextField1.getText())) {
+        if (!e.checkUsername(UserNameTextField.getText())) {
             return false;
         }
-        if (!e.checkPassword(jPasswordField2.getText(), jPasswordField1.getText())) {
+        if (!e.checkPassword(RePasswordPasswordField.getText(), PasswordPasswordField.getText())) {
             return false;
         }
         return true;
