@@ -52,15 +52,7 @@ public class NewEntryControllerTest {
         assertEquals(expResult, result);
     }
     
-    @Test
-    public void testFilePathExists2() {
-        System.out.println("filePathExistsWithExistantEntry");
-        String title = "PAOK";
-        NewEntryController instance = new NewEntryController();
-        boolean expResult = true;
-        boolean result = instance.filePathExists(title);
-        assertEquals(expResult, result);
-    }
+
     
     @Test
     public void testFilePathExists3() {
