@@ -11,11 +11,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import static ui.RegisterForm.favoritecar;
-import static ui.RegisterForm.favoritepet;
-import static ui.RegisterForm.jPasswordField1;
-import static ui.RegisterForm.jTextField1;
-import static ui.RegisterForm.jTextField2;
+import static ui.RegisterForm.FavoriteCar;
+import static ui.RegisterForm.FavoritePet;
+import static ui.RegisterForm.PasswordPasswordField;
+import static ui.RegisterForm.UserNameTextField;
+import static ui.RegisterForm.EmailTextField;
 
 /**
  *
@@ -45,7 +45,7 @@ public class RegisterFormDao {
             c = DriverManager.getConnection(dbURL, dbUserId, dbPassword);
 
             try {
-                String currentuser = jTextField1.getText();
+                String currentuser = UserNameTextField.getText();
 
                 String getUsername
                         = "Select * From accounts  where username ='" + currentuser + "'";
@@ -86,11 +86,11 @@ public class RegisterFormDao {
             c = DriverManager.getConnection(dbURL, dbUserId, dbPassword);
 
             try {
-                String currentuser = jTextField1.getText();
-                String mail = jTextField2.getText();
-                String password = jPasswordField1.getText();
-                String q1 = favoritepet.getText();
-                String q2 = favoritecar.getText();
+                String currentuser = UserNameTextField.getText();
+                String mail = EmailTextField.getText();
+                String password = PasswordPasswordField.getText();
+                String q1 = FavoritePet.getText();
+                String q2 = FavoriteCar.getText();
 
                 String registerValues
                         = "Insert Into accounts (username,password,mail,q1,q2) VALUES ('" + currentuser + "','" + password + "','" + mail + "','" + q1 + "','" + q2 + "')";
