@@ -160,7 +160,6 @@ public class MyMainForm extends javax.swing.JFrame {
             e.printStackTrace();
         }
         NewEntryView theView = new NewEntryView();
-
         theView.setDefaultLookAndFeelDecorated(true);
         theView.setLocationRelativeTo(null);
         theView.setVisible(true);

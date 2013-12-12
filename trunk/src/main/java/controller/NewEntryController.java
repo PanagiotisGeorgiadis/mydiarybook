@@ -10,8 +10,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
+import org.apache.commons.io.FileUtils;
 import static org.mockito.Mockito.*;
 import ui.INewEntryView;
 /**
@@ -19,6 +18,8 @@ import ui.INewEntryView;
  * @author Zarc
  */
 public class NewEntryController {
+    private final int maxImageNumber = 30;
+    private final String fSeparator = File.separator;
     
     public NewEntryController()
     {
@@ -30,78 +31,132 @@ public class NewEntryController {
         when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
         
         IDefaultPathDaoNewEntry rootPathMock = mock(IDefaultPathDaoNewEntry.class);
-        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+"\\MyDiaryBook\\Users\\");
+        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator);
         
         String userName = userMock.getUsername();
         String destPath = rootPathMock.getDefaultPath();
         
-        String pathToDelete = destPath+userName+"\\"+userTitle;
-        
+        String pathToDelete = destPath+userName+fSeparator+userTitle;
+         
         File folderToDelete = new File(pathToDelete);
         
         deleteDirectory(folderToDelete);
         
     }
-    public NewEntryController(INewEntryView theView,String sourcePath,String fileType,String userTitle,int fileNumber)
+    //Text Constructor Final//
+    public NewEntryController(String userTitle,String userText,INewEntryView theView)
     {
         IUserNameDaoNewEntry userMock = mock(IUserNameDaoNewEntry.class);
         when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
-        
         IDefaultPathDaoNewEntry rootPathMock = mock(IDefaultPathDaoNewEntry.class);
-        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+"\\MyDiaryBook\\Users\\");
+        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator);
         
-        String userName = userMock.getUsername();
         String destPath = rootPathMock.getDefaultPath();
-                    
-        if(fileType.equalsIgnoreCase("Text"))
+        String userName = userMock.getUsername();
+            
+        String textDestPath = destPath+userName+fSeparator+userTitle+fSeparator+"Texts"+fSeparator;
+        if(!("").equals(userText))
         {
-            String userText = theView.getTextArea();
-            String textDestPath = destPath+userName+"\\"+userTitle+"\\Texts\\";
-
-            if(!theView.getTextArea().trim().isEmpty())
-            {
-                if(!createFile(userTitle,userText,textDestPath))
-                    theView.displayErrorMessage("Path Couldn't Be Created!");
-            }
+            if(!createFile(userTitle,userText,textDestPath))
+                theView.displayErrorMessage("Path Couldn't Be Created!");
         }
-        else if(fileType.equalsIgnoreCase("Image"))
-        {
-            String imageDestPath = destPath+userName+"\\"+userTitle+"\\Images\\";   
-            if(!copyImage(sourcePath,imageDestPath,fileNumber))
+    }
+    
+    //Image Constructor Final//
+    public NewEntryController(String userTitle,String sourcePath,int imageNumber,INewEntryView theView )
+    {
+        IUserNameDaoNewEntry userMock = mock(IUserNameDaoNewEntry.class);
+        when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
+        IDefaultPathDaoNewEntry rootPathMock = mock(IDefaultPathDaoNewEntry.class);
+        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator);
+        
+        String destPath = rootPathMock.getDefaultPath();
+        String userName = userMock.getUsername();
+        
+        String imageDestPath = destPath+userName+fSeparator+userTitle+fSeparator+"Images"+fSeparator;   
+            if(!copyImage(sourcePath,imageDestPath,imageNumber))
                 theView.displayErrorMessage("Please Try With Another Image!");
-        }
-        else if(fileType.equalsIgnoreCase("Video"))
-        {
-            String videoDestPath = destPath+userName+"\\"+userTitle+"\\Videos\\";
-            if(!copyVideo(sourcePath,videoDestPath))
+    }
+    //Video Constructor Final//
+    public NewEntryController(String userTitle,File sourceFile,INewEntryView theView)
+    {
+        IUserNameDaoNewEntry userMock = mock(IUserNameDaoNewEntry.class);
+        when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
+        IDefaultPathDaoNewEntry rootPathMock = mock(IDefaultPathDaoNewEntry.class);
+        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator);
+        
+        String destPath = rootPathMock.getDefaultPath();
+        String userName = userMock.getUsername();
+        
+        String videoDestPath = destPath+userName+fSeparator+userTitle+fSeparator+"Videos"+fSeparator;
+            if(!copyVideo(sourceFile.toString(),videoDestPath))
                 theView.displayErrorMessage("Please Try With Another Video!");
-        }
-        else
-        {
-           // theView.displayErrorMessage("The Entry Already Exists! Please Try A Different Entry Title");
-        }
-    }            
+    }
+//    public NewEntryController(INewEntryView theView,String sourcePath,String fileType,String userTitle,int fileNumber)
+//    {
+//        IUserNameDaoNewEntry userMock = mock(IUserNameDaoNewEntry.class);
+//        when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
+//        
+//        IDefaultPathDaoNewEntry rootPathMock = mock(IDefaultPathDaoNewEntry.class);
+//        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+"\\MyDiaryBook\\Users\\");
+//        
+//        String userName = userMock.getUsername();
+//        String destPath = rootPathMock.getDefaultPath();
+//                    
+//        if(fileType.equalsIgnoreCase("Text"))
+//        {
+//            String userText = theView.getTextArea();
+//            String textDestPath = destPath+userName+"\\"+userTitle+"\\Texts\\";
+//
+//            if(!theView.getTextArea().trim().isEmpty())
+//            {
+//                if(!createFile(userTitle,userText,textDestPath))
+//                    theView.displayErrorMessage("Path Couldn't Be Created!");
+//            }
+//        }
+//        else if(fileType.equalsIgnoreCase("Image"))
+//        {
+//            String imageDestPath = destPath+userName+"\\"+userTitle+"\\Images\\";   
+//            if(!copyImage(sourcePath,imageDestPath,fileNumber))
+//                theView.displayErrorMessage("Please Try With Another Image!");
+//        }
+//        else if(fileType.equalsIgnoreCase("Video"))
+//        {
+//            String videoDestPath = destPath+userName+"\\"+userTitle+"\\Videos\\";
+//            if(!copyVideo(sourcePath,videoDestPath))
+//                theView.displayErrorMessage("Please Try With Another Video!");
+//        }
+//        else
+//        {
+//           // theView.displayErrorMessage("The Entry Already Exists! Please Try A Different Entry Title");
+//        }
+//    }            
+   
     /**
-     * Checks if the given string exists as file in the Directory u are looking for.
-     * @param String title
-     * @return true if the filePathExists 
-     * @return false if not found
+     * Checks if the given string exists as file in the Directory you are looking for.
+     * @param title
+     * @return true if the filePathExists or false if not found
      */
     public boolean filePathExists(String title)
     {
         IDefaultPathDaoNewEntry rootPathMock = mock(IDefaultPathDaoNewEntry.class);
-        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+"\\MyDiaryBook\\Users\\");
+        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator);
         
         IUserNameDaoNewEntry userMock = mock(IUserNameDaoNewEntry.class);
         when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
         
-        File file = new File(rootPathMock.getDefaultPath()+userMock.getUsername()+"\\"+title);
+        File file = new File(rootPathMock.getDefaultPath()+userMock.getUsername()+fSeparator+title);
         if(file.exists())
             return true;
         else
             return false;
     }
     
+    /**
+     * 
+     * @param path
+     * @return true if the FilePath exists or is Created, false if some error occurs 
+     */
     private boolean createFilePath(String path)
     {
         try
@@ -122,26 +177,36 @@ public class NewEntryController {
         }
     }
 
+    /**
+     * 
+     * @param sourcePath String the path from which the User selected the Image
+     * @param destPath String the Default Destination Path 
+     * @param imageNumber integer the Number of Image 
+     * @return true if everything went okay, false if an exception is caught.
+     */
     public boolean copyImage(String sourcePath,String destPath,int imageNumber)
     {
         File destFile;
         boolean exists = createFilePath(destPath);
-        if(exists)
+        if(exists && imageNumber<=maxImageNumber && imageNumber>=0)
         {
             try
             {
-                File source = new File(sourcePath);
+                File sourceFile = new File(sourcePath);
                 if(imageNumber == 0)
                     destFile = new File(destPath+"Image.jpg");
                 else
                     destFile = new File(destPath+"Image"+imageNumber+".jpg");
-
-                    Files.copy(source.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-            } 
-            catch (IOException ex)
-            {
+                FileUtils.copyFile(sourceFile, destFile);
+             } 
+             catch (IOException ex)
+             {
                 return false;
-            }
+             }            
+        }
+        else if(imageNumber>maxImageNumber || imageNumber<0)
+        {
+            return false;
         }
         else
         {
@@ -151,7 +216,11 @@ public class NewEntryController {
         return true;
     }
     
-
+    /**
+    * @param sourcePath String the path from which the User selected the Image
+    * @param videoDestPath String the Default Destination Path 
+    * @return true if everything went okay, false if an exception is caught.
+    */
     public boolean copyVideo(String sourcePath,String videoDestPath)
     {
         try
@@ -177,7 +246,7 @@ public class NewEntryController {
             if(exists)
             {
                 try {
-                    Files.copy(source.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    FileUtils.copyFile(source, destFile);
                 } catch (IOException ex) {
                     return false;
                 }
@@ -196,40 +265,57 @@ public class NewEntryController {
         return true;
     }
     
- 
+    /**
+     * 
+     * @param title String entry title for the File.
+     * @param text String the text that must be in the File.
+     * @param destPath String the Default Destination Path.
+     * @returns true if and only if the file is created else returns false.
+     */
     public boolean createFile(String title,String text,String destPath)
     {
-        try
-        {
-            File file = new File(destPath+title+".txt");
-            boolean exists = createFilePath(destPath);
-            if(exists)
+        if(destPath!=null)
+            try
             {
-                FileWriter fw = new FileWriter(file,true);
-                BufferedWriter bw = new BufferedWriter(fw);
-                if(file.exists())
-                    bw.append(text);
-                else    
+                File file = new File(destPath+title+".txt");
+                boolean exists = createFilePath(destPath);
+                if(exists)
                 {
-                    file.createNewFile();
-                    bw.write(text);
+                    FileWriter fw = new FileWriter(file,true);
+                    BufferedWriter bw = new BufferedWriter(fw);
+                    if(file.exists())
+                        bw.append(text);
+                    else    
+                    {
+                        file.createNewFile();
+                        bw.write(text);
+                    }
+                    bw.close();
+                    return true;
                 }
-                bw.close();
-                return true;
+                else
+                {
+                    createFilePath(destPath);
+                    createFile(title,text,destPath);
+                }
             }
-            else
+            catch(Exception e)
             {
-                createFilePath(destPath);
-                createFile(title,text,destPath);
+                return false;
             }
-        }
-        catch(Exception e)
+        else
         {
-            return false;
+            createFile(title,text,".");
         }
         return false;
     }
     
+    /**
+     * 
+     * @param folder File type parameter used to point at the directory you want to delete
+     * @returns true if and only if the directory pointed exists and is deleted with its
+     * components else returns false.
+     */
     public boolean deleteDirectory(File folder)
     {
         if(folder!=null && folder.exists())
