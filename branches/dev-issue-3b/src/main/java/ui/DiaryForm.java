@@ -3,9 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ui;
-
 
 /**
  *
@@ -20,7 +18,7 @@ public class DiaryForm extends javax.swing.JFrame {
         initComponents();
         logged.setText(LoginForm.username.getText());
         this.setLocationRelativeTo(null);
-       // this.setVisible(true);
+        // this.setVisible(true);
     }
 
     /**
@@ -114,23 +112,23 @@ public class DiaryForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
-       this.dispose();
+        this.dispose();
     }//GEN-LAST:event_closeButtonActionPerformed
 
     private void changepassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changepassActionPerformed
         // TODO add your handling code here:
-                        ChangePassword regFace =new ChangePassword();
-                regFace.setVisible(true);
-                
-                dispose();
+        ChangePassword regFace = new ChangePassword();
+        regFace.setVisible(true);
+
+        dispose();
     }//GEN-LAST:event_changepassActionPerformed
 
     private void resetpassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetpassActionPerformed
         // TODO add your handling code here:
-                                ResetPassword regFace =new ResetPassword();
-                regFace.setVisible(true);
-                
-                dispose();
+        ResetPassword regFace = new ResetPassword();
+        regFace.setVisible(true);
+
+        dispose();
     }//GEN-LAST:event_resetpassActionPerformed
 
     /**
@@ -162,15 +160,14 @@ public class DiaryForm extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public  void run() {
+            public void run() {
                 new DiaryForm().setVisible(true);
             }
         });
     }
-    
-   
+
    //public static javax.swing.JLabel LoggedUser2;
-   
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton changepass;
     private javax.swing.JButton closeButton;
