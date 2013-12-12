@@ -8,10 +8,10 @@ Note: Recompile with -Xlint:deprecation for details.
 
 package ui;
 
+import controller.EditEntryController;
+import dao.EditEntryDao;
 import javax.swing.JOptionPane;
 import model.EditEntry;
-//import controller.EditEntryController;
-//import dao.EditEntryDao;
 
 /**
  *
@@ -19,22 +19,14 @@ import model.EditEntry;
  */
 public class EditForm extends javax.swing.JFrame {
 
-    //private EditEntryController controller = new EditEntryController(new EditEntryDao());
+    private EditEntryController controller = new EditEntryController(new EditEntryDao());
     private EditEntry newEditEntry = new EditEntry();
     
     public EditForm() {
         // TO-DO lines with comments are placeholders for connecting EditForm to DisplayForm
         
         initComponents();
-        //neweditentry = controller.displayEntry(text);      
-        String text;
-        String entryObj = "This is the original Entry text.";
-        
-        text= newEditEntry.getEntry(entryObj);
-        //text = dao.displayEntry(DisplayForm);
-      
-        jTextArea1.setText(text);
-        jTextArea1.setEditable(true);
+        boolean answer = controller.checkEdit(jTextArea1.getText()); 
     }
     
     public String displayEntry(String entry)
@@ -109,8 +101,10 @@ public class EditForm extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-       
-        JOptionPane.showMessageDialog(this, "Successfully Edited!");
+        if(("").equals(jTextArea1.getText()))
+            JOptionPane.showMessageDialog(this, "The entry is empty!");
+        else
+            JOptionPane.showMessageDialog(this, "Successfully Edited!");
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 

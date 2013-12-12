@@ -35,7 +35,7 @@ public class NewEntryControllerTest {
     }
     
     @AfterClass
-    public static void tearDownClass() {
+    public static void tearDownClass() {  
         String fSeparator = File.separator;
         File file = new File("."+fSeparator+"MyDiaryBook"+fSeparator);
         try {
@@ -50,10 +50,26 @@ public class NewEntryControllerTest {
     
     @Before
     public void setUp() {
+        String fSeparator = File.separator; //System.getProperty("file.separator");
+        File file = new File("."+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+"Panagiwtis Georgiadis"+fSeparator+"PAOK"+fSeparator);
+        file.mkdirs();
+        file = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Mitsos");
+        file.mkdirs();
+        file = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Makis");
+        file.mkdirs();        
     }
     
     @After
     public void tearDown() {
+        String fSeparator = File.separator;
+        File file = new File("."+fSeparator+"MyDiaryBook"+fSeparator);
+        try {
+            FileUtils.deleteDirectory(file);
+            file = new File(System.getProperty("user.dir")+fSeparator+"qweqwe.txt");
+            file.delete();
+        } catch (IOException ex) {
+            Logger.getLogger(NewEntryControllerTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -320,15 +336,6 @@ public class NewEntryControllerTest {
         File folder = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Mitsos");
         NewEntryController instance = new NewEntryController();
         boolean expResult = true;
-        boolean result = instance.deleteDirectory(folder);
-        assertEquals(expResult, result);
-    }
-    @Test
-    public void testDeleteDirectory6() {
-        System.out.println("deleteDirectoryWithNonExistantPathCreatedFromTests");
-        File folder = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Mitsos"+fSeparator);
-        NewEntryController instance = new NewEntryController();
-        boolean expResult = false;
         boolean result = instance.deleteDirectory(folder);
         assertEquals(expResult, result);
     }
