@@ -79,14 +79,7 @@ public class PersonalGoalController implements IPersonalGoalController {
             }
         }
 
-        if (proceed == 5) {
-            Check[0] = eval.checkPersonalGoalTitle(theForm.getTitleTextField());
-            Check[1] = eval.checkPersonalGoalLocation(theForm.getLocationTextField());
-            Check[2] = eval.checkPersonalGoalWithPerson(theForm.getWithPersonTextField());
-            Check[3] = eval.checkPersonalGoalWhenDate(theForm.getWhenDateSpinner());
-            Check[4] = eval.checkPersonalGoalAnnouncement(theForm.getAnnouncementEditorPanel());
-
-        }
+       
 
         while (proceed == 5) {
             for (i = 0; i < 5; i++) {
@@ -118,7 +111,7 @@ public class PersonalGoalController implements IPersonalGoalController {
 
                 } else {
                     proceed++;
-                    System.out.println(proceed);
+                    
 
                 }
 
