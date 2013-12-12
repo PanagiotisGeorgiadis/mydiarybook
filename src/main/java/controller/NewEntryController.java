@@ -11,6 +11,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import org.apache.commons.io.FileUtils;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.apache.commons.io.FileUtils;
 import static org.mockito.Mockito.*;
 import ui.INewEntryView;
 /**
@@ -337,8 +340,6 @@ public class NewEntryController {
         else
         {
             return false;
-        }
-        
-        
+        }       
     }
 }
