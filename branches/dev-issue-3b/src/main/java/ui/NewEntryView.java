@@ -48,7 +48,7 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
     public NewEntryView()  
     {        
         initComponents();
-        this.setSize(800,570);
+        this.setSize(870,570);
         this.setLocationRelativeTo(null);
         System.setProperty("jna.library.path", vlcPath);
         //NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), vlcPath);
@@ -60,7 +60,6 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
         stopButton.setVisible(false);  
         imageNumber = 0;
         maxImageNumber = 30;
-        
     }
     
     @Override
@@ -147,8 +146,7 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
         textArea = new javax.swing.JTextArea();
         titleField = new javax.swing.JTextField();
         titleLabel = new javax.swing.JLabel();
-        dateLabel = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
+        jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         imageChooseButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -163,6 +161,7 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MyDiaryBook Version 0.3");
         setMinimumSize(new java.awt.Dimension(780, 550));
+        setPreferredSize(new java.awt.Dimension(890, 580));
 
         submitButton.setText("Submit");
         submitButton.addActionListener(new java.awt.event.ActionListener() {
@@ -193,15 +192,12 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
             }
         });
 
-        titleLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        titleLabel.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
         titleLabel.setLabelFor(titleField);
-        titleLabel.setText("Τίτλος Κείμένου");
+        titleLabel.setText("Entry Title");
 
-        dateLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        dateLabel.setText("Ημερομηνία");
-
-        jSpinner1.setModel(new javax.swing.SpinnerDateModel());
-        jSpinner1.setEditor(new javax.swing.JSpinner.DateEditor(jSpinner1, "dd/MM/yyyy"));
+        jLabel1.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        jLabel1.setText("Write Something");
 
         javax.swing.GroupLayout textPanelLayout = new javax.swing.GroupLayout(textPanel);
         textPanel.setLayout(textPanelLayout);
@@ -210,35 +206,34 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
             .addGroup(textPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, textPanelLayout.createSequentialGroup()
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 834, Short.MAX_VALUE)
+                    .addGroup(textPanelLayout.createSequentialGroup()
                         .addGroup(textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(titleField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(titleLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 525, Short.MAX_VALUE)
-                        .addGroup(textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(dateLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jSpinner1))
-                        .addGap(67, 67, 67)))
+                        .addGap(156, 156, 156)
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         textPanelLayout.setVerticalGroup(
             textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, textPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(titleLabel)
-                    .addComponent(dateLabel))
+                .addGroup(textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(textPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(titleLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(titleField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(textPanelLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(titleField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Κείμενο", textPanel);
+        jTabbedPane1.addTab("Text", textPanel);
 
         jPanel2.setAutoscrolls(true);
 
@@ -252,7 +247,7 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
         imagePanel.setLayout(new java.awt.GridLayout(3, 10, 10, 10));
         jScrollPane2.setViewportView(imagePanel);
 
-        imagesLeftLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        imagesLeftLabel.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
         imagesLeftLabel.setText("30 Images");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -260,12 +255,12 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 738, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(imageChooseButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(imagesLeftLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(20, 20, 20))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 691, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(imageChooseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(imagesLeftLabel))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,12 +268,12 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(imageChooseButton)
-                .addGap(39, 39, 39)
+                .addGap(35, 35, 35)
                 .addComponent(imagesLeftLabel)
-                .addContainerGap(522, Short.MAX_VALUE))
+                .addContainerGap(397, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Φωτογραφίες", jPanel2);
+        jTabbedPane1.addTab("Photos", jPanel2);
 
         videoChooseButton.setText("Choose");
         videoChooseButton.addActionListener(new java.awt.event.ActionListener() {
@@ -299,7 +294,7 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
         videoPanelLayout.setHorizontalGroup(
             videoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(videoPanelLayout.createSequentialGroup()
-                .addContainerGap(774, Short.MAX_VALUE)
+                .addContainerGap(783, Short.MAX_VALUE)
                 .addGroup(videoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(previewVideoButton, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(videoChooseButton, javax.swing.GroupLayout.Alignment.TRAILING)))
@@ -310,10 +305,10 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
                 .addComponent(videoChooseButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(previewVideoButton)
-                .addContainerGap(570, Short.MAX_VALUE))
+                .addContainerGap(452, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Βίντεο", videoPanel);
+        jTabbedPane1.addTab("Video", videoPanel);
 
         stopButton.setText("Stop");
         stopButton.addActionListener(new java.awt.event.ActionListener() {
@@ -334,7 +329,7 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(258, Short.MAX_VALUE)
+                .addContainerGap(345, Short.MAX_VALUE)
                 .addComponent(pauseButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(stopButton)
@@ -350,8 +345,8 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 532, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(submitButton)
                     .addComponent(cancelButton)
@@ -548,14 +543,13 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
-    private javax.swing.JLabel dateLabel;
     private javax.swing.JButton imageChooseButton;
     private javax.swing.JPanel imagePanel;
     private javax.swing.JLabel imagesLeftLabel;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JButton pauseButton;
     private javax.swing.JButton previewVideoButton;

@@ -3,47 +3,53 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ui;
 
+import controller.DeleteController;
+import dao.MockFileExist;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
  * @author JohnN'y
  */
-public class Delete extends javax.swing.JFrame {
-    
- private Path path = Paths.get(System.getProperty("user.dir") + "\\Text");
- private   File fileText = new File(path.toString());
- private Path path1;
- 
-    /**
-     * Creates new form Delete
-     */
-    public Delete() throws IOException {
-        initComponents();
-        
-       // jButton1.addActionListener(new DeleteHandler(fileText));
-        jButton1.addActionListener(new DeleteAlbumHandler(this,fileText));
-        Files.createDirectory(path);
-        path1 = Paths.get(path+"\\text.txt");
-        Files.createFile(path1);
-        path = Paths.get(path+"\\text1.txt");
-         Files.createFile(path);
+public class DeleteList extends javax.swing.JFrame {
 
+    /**
+     * Creates new form DeleteList
+     */
+    private DefaultListModel listModel = new DefaultListModel();
+    private Path path = Paths.get(System.getProperty("user.dir") + "\\Text");
+    private File fileText = new File(path.toString());
+    private Path path1;
+
+    public DeleteList() throws IOException {
+        initComponents();
+        try {
+            Files.createDirectory(path);
+            path1 = Paths.get(path + "\\text.txt");
+            Files.createFile(path1);
+            path = Paths.get(path + "\\text1.txt");
+            Files.createFile(path);
+            listModel.addElement(new File(System.getProperty("user.dir") + "\\Text\\text.txt"));
+            listModel.addElement(new File(System.getProperty("user.dir") + "\\Text\\text1.txt"));
+            jList1.setModel(listModel);
+            jButton1.addActionListener(new DeleteListHandler(this,jList1,listModel));
+        } catch (FileAlreadyExistsException e) {
+
+        }
     }
-   
-    public File getFile(){
-        return fileText = new File(path.toString());
-    }
-   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -54,11 +60,20 @@ public class Delete extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Delete");
+        jList1.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(jList1);
+
+        jButton1.setText("jButton1");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -70,16 +85,22 @@ public class Delete extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(213, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addGap(124, 124, 124))
+                .addGap(137, 137, 137))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(71, 71, 71)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(54, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(138, 138, 138)
+                .addGap(27, 27, 27)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
                 .addComponent(jButton1)
-                .addContainerGap(139, Short.MAX_VALUE))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
 
         pack();
@@ -87,6 +108,7 @@ public class Delete extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+ 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -106,13 +128,13 @@ public class Delete extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Delete.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DeleteList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Delete.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DeleteList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Delete.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DeleteList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Delete.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DeleteList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -120,9 +142,9 @@ public class Delete extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new Delete().setVisible(true);
+                    new DeleteList().setVisible(true);
                 } catch (IOException ex) {
-                    Logger.getLogger(Delete.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(DeleteList.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
@@ -130,9 +152,7 @@ public class Delete extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JList jList1;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
-
-    
 }
-
-

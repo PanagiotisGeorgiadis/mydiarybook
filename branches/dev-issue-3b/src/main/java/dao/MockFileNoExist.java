@@ -12,9 +12,9 @@ import java.io.File;
  *
  * @author JohnN'y
  */
-public class MockFileNoExist implements IEntriesDao {
+public class MockFileNoExist implements IDeleteEntriesDao {
 
-        private String textFile = new String("C:\\MyJavaApp\\dev-issu-6\\src\\Controller\\text.txt");
+        private String textFile = new String("text.txt");
 
     @Override
     public String getFile() {
@@ -26,6 +26,11 @@ public class MockFileNoExist implements IEntriesDao {
     @Override
     public void setFile(String textFile) {
         this.textFile = textFile;
+    }
+
+    @Override
+    public boolean findFile(String textFile) {
+        return false;
     }
     
 }
