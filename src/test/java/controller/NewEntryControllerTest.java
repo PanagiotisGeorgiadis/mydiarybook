@@ -29,9 +29,6 @@ public class NewEntryControllerTest {
     
     @BeforeClass
     public static void setUpClass() {
-        String fSeparator = File.separator; //System.getProperty("file.separator");
-        File file = new File("."+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+"Panagiwtis Georgiadis"+fSeparator+"PAOK"+fSeparator);
-        file.mkdirs();
     }
     
     @AfterClass
