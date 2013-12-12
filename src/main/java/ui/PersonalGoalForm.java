@@ -6,6 +6,7 @@
 
 package ui;
 
+
 import controller.PersonalGoalController;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -20,25 +21,29 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import dao.PersonalGoalDao;
+import dao.PersonalGoalPathDao;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /*
  ** Μια φόρμα που υλοποιή το μοντέλου του Προσωπικού στόχου (Personal Goal)
  *@author alex
  */
-public class PersonalGoalForm extends javax.swing.JFrame {
+public class PersonalGoalForm extends javax.swing.JFrame implements IPersonalGoalForm{
     private PersonalGoalController PersonalGoalController;
     private final String database = "alexis.txt";
+   
 
     /**
      * Creates new form PersonalGoalForm
      */
     public PersonalGoalForm() {
         initComponents();
-         db = new PersonalGoalDao();
-         db.loadDatabase(database);
+      //  PersonalGoalDao db = new PersonalGoalDao();
+     //         db.loadDatabase(database);
     }
     
     public PersonalGoalForm(String txt) {
@@ -46,56 +51,6 @@ public class PersonalGoalForm extends javax.swing.JFrame {
       
       
     }
-
-    /*
-    getter και setter για τα πεδία της φόρμας .
-    */
-    public String getAnnouncementEditorPanel() {
-        return announcementEditorPanel.getText().toString();
-    }
-
-    public void setAnnouncementEditorPanel(JEditorPane AnnouncementEditorPanel) {
-        this.announcementEditorPanel = AnnouncementEditorPanel;
-    }
-
-    public String getLocationTextField() {
-        return locationTextField.getText().toString();
-    }
-
-    public void setLocationTextField(JTextField locationTextField) {
-        this.locationTextField = locationTextField;
-    }
-
-    public String getTitleTextField() {
-        return titleTextField.getText().toString();
-    }
-
-    public void setTitleTextField(JTextField titleTextField) {
-        this.titleTextField = titleTextField;
-    }
-
-    public String getWhenDateSpinner() {
-        return whenDateSpinner.getValue().toString();
-    }
-
-    public void setWhenDateSpinner(JSpinner whenDateSpinner) {
-        this.whenDateSpinner = whenDateSpinner;
-    }
-
-    public String getWithPersonTextField() {
-        return withPersonTextField.getText().toString();
-    }
-
-    public void setWithPersonTextField(JTextField withPersonTextField) {
-        this.withPersonTextField = withPersonTextField;
-    }
-    
-    
-     
-   
-     
- 
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -117,7 +72,7 @@ public class PersonalGoalForm extends javax.swing.JFrame {
         saveButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        announcementEditorPanel = new javax.swing.JEditorPane();
+        announcementEditorPane = new javax.swing.JEditorPane();
         AnnouncementLabel = new javax.swing.JLabel();
         whenDateSpinner = new javax.swing.JSpinner();
         addNewFotoLabel = new javax.swing.JLabel();
@@ -153,7 +108,7 @@ public class PersonalGoalForm extends javax.swing.JFrame {
             }
         });
 
-        jScrollPane1.setViewportView(announcementEditorPanel);
+        jScrollPane1.setViewportView(announcementEditorPane);
 
         AnnouncementLabel.setText("Announcement");
 
@@ -305,9 +260,12 @@ public class PersonalGoalForm extends javax.swing.JFrame {
      */
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         try {
-            PersonalGoalController  newPersonalGoalController = new PersonalGoalController(this);   
             
-            newPersonalGoalController.createPersonalGoal(this);                    
+           PersonalGoalController newController = new PersonalGoalController();
+           newController.createPersonalGoal(titleTextField.getText(),locationTextField.getText(),withPersonTextField.getText(),whenDateSpinner.getValue().toString(),announcementEditorPane.getText());
+            
+                              
+     
         } catch (Exception ex) {
             Logger.getLogger(PersonalGoalForm.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -390,10 +348,18 @@ public class PersonalGoalForm extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonUploadFotoActionPerformed
     //FIXME: refactor  σε μια νέα κλάση και να βάλω interface
     // displayErrorMessage εαν υπάρχει κάποιο λάθος.
+    @Override
        public void displayErrorMessage(String errorMessage)
     {
         JOptionPane.showMessageDialog(this, errorMessage);
     }
+     @Override  
+          public void displaySuccessMessage(String successMessage)
+    {
+        JOptionPane.showMessageDialog(this, successMessage);
+    }
+       
+      
        
       public class Utils {
 
@@ -404,19 +370,7 @@ public class PersonalGoalForm extends javax.swing.JFrame {
     public final static String tif = "tif";
     public final static String png = "png";
 
-    /*
-     * Get the extension of a file.
-     */  
-    public  String getExtension(File f) {
-        String ext = null;
-        String s = f.getName();
-        int i = s.lastIndexOf('.');
-
-        if (i > 0 &&  i < s.length() - 1) {
-            ext = s.substring(i+1).toLowerCase();
-        }
-        return ext;
-    }
+   
 } 
       
     /**
@@ -458,7 +412,7 @@ public class PersonalGoalForm extends javax.swing.JFrame {
     private javax.swing.JLabel AnnouncementLabel;
     private javax.swing.JLabel WhenDate;
     private javax.swing.JLabel addNewFotoLabel;
-    private javax.swing.JEditorPane announcementEditorPanel;
+    private javax.swing.JEditorPane announcementEditorPane;
     private javax.swing.JButton browseFotoFile;
     private javax.swing.JTextField browseFotoTextField;
     private javax.swing.JButton buttonUploadFoto;
