@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package controller;
 
 import junit.framework.TestCase;
@@ -13,23 +12,24 @@ import junit.framework.TestCase;
  * @author Stef
  */
 public class ChangePasswordControllerTest extends TestCase {
-    
+
     public ChangePasswordControllerTest(String testName) {
         super(testName);
     }
-    
+
     @Override
     protected void setUp() throws Exception {
         super.setUp();
     }
-    
+
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
     }
 
     /**
-     * Test of checkChangePasswordController method, of class ChangePasswordController.
+     * Test of checkChangePasswordController method, of class
+     * ChangePasswordController.
      */
     public void testCheckChangePasswordController() {
         System.out.println("checkChangePasswordController");
@@ -39,11 +39,10 @@ public class ChangePasswordControllerTest extends TestCase {
         boolean expResult = false;
         boolean result = instance.checkChangePasswordController(pass, repeatpass);
         assertEquals(expResult, result);
-      
+
     }
-    
-    
-       public void testCheckChangePasswordController1() {
+
+    public void testCheckChangePasswordController1() {
         System.out.println("checkChangePasswordController");
         String pass = "12";
         String repeatpass = "13";
@@ -51,9 +50,10 @@ public class ChangePasswordControllerTest extends TestCase {
         boolean expResult = false;
         boolean result = instance.checkChangePasswordController(pass, repeatpass);
         assertEquals(expResult, result);
-      
+
     }
-   public void testCheckChangePasswordController3() {
+
+    public void testCheckChangePasswordController3() {
         System.out.println("checkChangePasswordController");
         String pass = "123";
         String repeatpass = "123";
@@ -61,10 +61,10 @@ public class ChangePasswordControllerTest extends TestCase {
         boolean expResult = false;
         boolean result = instance.checkChangePasswordController(pass, repeatpass);
         assertEquals(expResult, result);
-      
+
     }
-   
-      public void testCheckChangePasswordController4() {
+
+    public void testCheckChangePasswordController4() {
         System.out.println("checkChangePasswordController");
         String pass = "123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123";
         String repeatpass = "123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123";
@@ -72,9 +72,10 @@ public class ChangePasswordControllerTest extends TestCase {
         boolean expResult = false;
         boolean result = instance.checkChangePasswordController(pass, repeatpass);
         assertEquals(expResult, result);
-      
+
     }
-         public void testCheckChangePasswordController5() {
+
+    public void testCheckChangePasswordController5() {
         System.out.println("checkChangePasswordController");
         String pass = "the  best";
         String repeatpass = "the  best";
@@ -82,9 +83,10 @@ public class ChangePasswordControllerTest extends TestCase {
         boolean expResult = false;
         boolean result = instance.checkChangePasswordController(pass, repeatpass);
         assertEquals(expResult, result);
-      
+
     }
-          public void testCheckChangePasswordController6() {
+
+    public void testCheckChangePasswordController6() {
         System.out.println("checkChangePasswordController");
         String pass = "mayname1";
         String repeatpass = "mynme1";
@@ -92,9 +94,10 @@ public class ChangePasswordControllerTest extends TestCase {
         boolean expResult = false;
         boolean result = instance.checkChangePasswordController(pass, repeatpass);
         assertEquals(expResult, result);
-      
+
     }
-        public void testCheckChangePasswordController7() {
+
+    public void testCheckChangePasswordController7() {
         System.out.println("checkChangePasswordController");
         String pass = "myname_1";
         String repeatpass = "myname_1";
@@ -102,6 +105,17 @@ public class ChangePasswordControllerTest extends TestCase {
         boolean expResult = true;
         boolean result = instance.checkChangePasswordController(pass, repeatpass);
         assertEquals(expResult, result);
-      
+
+    }
+
+    public void testCheckChangePasswordController8() {
+        System.out.println("checkChangePasswordController");
+        String pass = "13p14";
+        String repeatpass = "13p14";
+        ChangePasswordController instance = new ChangePasswordController();
+        boolean expResult = true;
+        boolean result = instance.checkChangePasswordController(pass, repeatpass);
+        assertEquals(expResult, result);
+
     }
 }

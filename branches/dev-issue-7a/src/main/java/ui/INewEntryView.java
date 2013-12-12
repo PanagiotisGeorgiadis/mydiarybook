@@ -24,10 +24,5 @@ public interface INewEntryView {
 
     void displayVideo(String videoPath,String whatToDo);
 
-    /**
-     *
-     * @return a String which contains the Text the user Wrote
-     */
-    String getTextArea();
     
 }

@@ -4,19 +4,17 @@
  * and open the template in the editor.
  */
 
-package dao;
-
-import java.io.File;
+package controller;
 
 /**
  *
- * @author JohnN'y
+ * @author Zarc
  */
-public interface IEntriesDao {
+public class MyDiaryBookController {
     
-    public String getFile();
-   
-    public void setFile(String textFile);
-  //  public String getTextFile() ;
+    public MyDiaryBookController()
+    {
+        //File file = new File("");
+    }
     
 }
