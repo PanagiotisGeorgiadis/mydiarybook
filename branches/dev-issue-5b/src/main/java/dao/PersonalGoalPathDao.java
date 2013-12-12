@@ -10,18 +10,20 @@ package dao;
  * 
  * @author alex
  */
-public class PersonalGoalPathDao {
+public class PersonalGoalPathDao implements IPersonalGoalPathDao {
     
     public PersonalGoalPathDao()
     {
         
     }
     
-    public String DefaultPath()
+    @Override
+    public String getDefaultPath()
     {
         return "hi";
     }
-    public String UserName()
+    @Override
+    public String getUserName()
     {
         return "bye";
     }

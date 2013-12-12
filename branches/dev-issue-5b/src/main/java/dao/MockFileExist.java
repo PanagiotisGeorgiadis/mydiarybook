@@ -12,8 +12,8 @@ import java.io.File;
  *
  * @author JohnN'y
  */
-public class MockFileExist implements IEntriesDao{
-    private String textFile = new String("C:\\MyJavaApp\\dev-issu-6\\src\\Controller\\text.txt");
+public class MockFileExist implements IDeleteEntriesDao{
+    private String textFile = new String(System.getProperty("user.dir")+"\\Text");
 
    
    /* 
@@ -24,13 +24,17 @@ public class MockFileExist implements IEntriesDao{
 */
     @Override
     public String getFile() {
-        String path = "C:\\MyJavaApp\\dev-issu-6\\src\\Controller\\text.txt";
-        return  path;
+        return  textFile;
     }
 
     @Override
     public void setFile(String textFile) {
         this.textFile = textFile;
+    }
+
+    @Override
+    public boolean findFile(String textFile) {
+            return true;
     }
     
 }

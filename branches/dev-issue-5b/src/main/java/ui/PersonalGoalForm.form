@@ -212,7 +212,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JEditorPane" name="announcementEditorPanel">
+        <Component class="javax.swing.JEditorPane" name="announcementEditorPane">
         </Component>
       </SubComponents>
     </Container>

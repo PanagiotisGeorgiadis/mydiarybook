@@ -6,14 +6,25 @@
 
 package controller;
 
-import ui.PersonalGoalForm;
+import ui.IPersonalGoalForm;
 
 /**
- * Interface του PersonalGoalController.
+ *
  * @author alex
  */
 public interface IPersonalGoalController {
 
-    boolean createPersonalGoal(PersonalGoalForm theForm) throws Exception, IllegalArgumentException;
+    /**
+     * Boolean συνάρτηση που ελένχει όλα τα πεδία της φόρμας εάν είναι σωστά
+     *
+     * @param title
+     * @param location
+     * @param withPerson
+     * @param whenDate
+     * @param announcement
+     * @return βάζει την εγγραφή μέσα σε ενα αρχείο.
+     * @throws Exception
+     */
+    boolean createPersonalGoal( String title, String location, String withPerson, String whenDate, String announcement);
     
 }
