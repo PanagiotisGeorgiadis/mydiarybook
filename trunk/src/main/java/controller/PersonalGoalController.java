@@ -6,14 +6,9 @@
 package controller;
 
 import dao.IPersonalGoalDao;
-import dao.PersonalGoalPathDao;
-import java.io.BufferedWriter;
-import java.io.File;
-import model.PersonalGoalModel;
-import static org.mockito.Mockito.*;
+import dao.PersonalGoalDao;
+import ui.IPersonalGoalForm;
 import ui.PersonalGoalForm;
-import java.io.FileWriter;
-import java.io.IOException;
 
 
 /*
@@ -31,6 +26,12 @@ import java.io.IOException;
  */
 public class PersonalGoalController implements IPersonalGoalController {
 
+    private String title;
+    private String location;
+    private String withPerson;
+    private String whenDate;
+    private String announcement;
+
     public IPersonalGoalDao newPersonalGoalDao;
 
     public PersonalGoalController(IPersonalGoalDao personalGoalDao) {
@@ -39,119 +40,55 @@ public class PersonalGoalController implements IPersonalGoalController {
 
     }
 
-    public PersonalGoalController(PersonalGoalForm theForm) {
-        theForm.getTitleTextField();
-        theForm.getLocationTextField();
-        theForm.getWithPersonTextField();
-        theForm.getAnnouncementEditorPanel();
-        theForm.getWhenDateSpinner();
+    public PersonalGoalController() {
+
     }
-/**
- * Boolean συνάρτηση που ελένχει όλα τα πεδία της φόρμας εάν είναι σωστά
- * @param theForm
- * @return βάζει την εγγραφή μέσα σε ενα αρχείο.
- * @throws Exception
- * @throws IllegalArgumentException 
- */
+ 
+    /**
+     * Boolean συνάρτηση που ελένχει όλα τα πεδία της φόρμας εάν είναι σωστά
+     *
+     * @param title
+     * @param location
+     * @param withPerson
+     * @param whenDate
+     * @param announcement
+     * @return βάζει την εγγραφή μέσα σε ενα αρχείο.
+     * @throws Exception
+     */
+    //TODO : Make createPersonalGoal string for success testing
     @Override
-    public boolean createPersonalGoal(PersonalGoalForm theForm) throws Exception, IllegalArgumentException {
+    public boolean createPersonalGoal(String title, String location, String withPerson, String whenDate, String announcement) {
+        this.title = title;
+        this.location = location;
+        this.withPerson = withPerson;
+        this.whenDate = whenDate;
+        this.announcement = announcement;
 
-        PersonalGoalModel newPersonalGoalModel = new PersonalGoalModel();
 
+        PersonalGoalForm theForm = new PersonalGoalForm();
+        PersonalGoalDao newDao = new PersonalGoalDao();
         PersonalGoalEvaluator eval = new PersonalGoalEvaluator();
         PersonalGoalForm newPersonalGoalForm = new PersonalGoalForm();
 
-        int i, proceed = 0;
-
-        boolean[] Check = new boolean[5];
-        Check[0] = eval.checkPersonalGoalTitle(theForm.getTitleTextField());
-        Check[1] = eval.checkPersonalGoalLocation(theForm.getLocationTextField());
-        Check[2] = eval.checkPersonalGoalWithPerson(theForm.getWithPersonTextField());
-        Check[3] = eval.checkPersonalGoalWhenDate(theForm.getWhenDateSpinner());
-        Check[4] = eval.checkPersonalGoalAnnouncement(theForm.getAnnouncementEditorPanel());
-
-        for (i = 0; i < 5; i++) {
-            if (!Check[i]) {
-                newPersonalGoalForm.displayErrorMessage("Please Fill All The Nessessary Fields!");
-                break;
-            } else {
-                proceed++;
-            }
+        //check if allFieldSuccess 
+        String allFieldSuccess = eval.CheckField(title, location, withPerson, whenDate, announcement);
+        //if all is ok save to file
+        if (allFieldSuccess == "success") {
+            //TODO: make name of file the real name of user
+            String file = "user.txt";
+            newDao.saveToFile(file, title, location, withPerson, whenDate, announcement);
+           theForm.displaySuccessMessage("success");
+            return true;
+        } else {
+            theForm.displayErrorMessage(allFieldSuccess+" is incorect!");
+            return false;
         }
+
+            }
+        
+        
+    }
+    
 
        
 
-        while (proceed == 5) {
-            for (i = 0; i < 5; i++) {
-                if (!Check[i]) {
-                    switch (i) {
-                        case 0:
-                            newPersonalGoalForm.displayErrorMessage("Title is incorrect.");
-                            newPersonalGoalForm.setTitleTextField(null);
-                            break;
-                        case 1:
-                            newPersonalGoalForm.displayErrorMessage("Location is incorrect");
-                            newPersonalGoalForm.setLocationTextField(null);
-                            break;
-                        case 2:
-                            newPersonalGoalForm.displayErrorMessage("WithPerson is incorrect");
-                            newPersonalGoalForm.setWithPersonTextField(null);
-                            break;
-                        case 3:
-                            newPersonalGoalForm.displayErrorMessage("WhenDate is incorrect");
-                            newPersonalGoalForm.setWhenDateSpinner(null);
-                            break;
-                        case 4:
-                            newPersonalGoalForm.displayErrorMessage("Announcement is incorrect");
-                            newPersonalGoalForm.setAnnouncementEditorPanel(null);
-                            break;
-
-                        default:
-                    }
-
-                } else {
-                    proceed++;
-                    
-
-                }
-
-            }
-
-            if (proceed == 10) {
-
-                PersonalGoalPathDao destPath = mock(PersonalGoalPathDao.class);
-                when(destPath.DefaultPath()).thenReturn("C:\\Users\\alex\\Desktop\\MyDiaryBook\\");
-
-                PersonalGoalPathDao userName = mock(PersonalGoalPathDao.class);
-                when(userName.UserName()).thenReturn("alexis");
-                try {
-
-                    //FIXME: να φτιάξω ξεχωριστή συνάρτηση για το save μέσα στο txt.
-                    
-                    File file = new File(destPath.DefaultPath() + userName.UserName() + ".txt");
-                    FileWriter fileWriter = new FileWriter(file, true);
-                    try (BufferedWriter writer1 = new BufferedWriter(fileWriter)) {
-                        writer1.append("\n");
-                        writer1.append("\n" + "Title:" + theForm.getTitleTextField() + "\t Location:" + theForm.getLocationTextField() + "\t With:"
-                                + theForm.getWithPersonTextField() + "\t when:" + theForm.getWhenDateSpinner()
-                                + "\t Annoucement:" + theForm.getAnnouncementEditorPanel());
-                        fileWriter.write(System.getProperty("line.separator"));
-                    }
-                } catch (IOException ex) {
-                    newPersonalGoalForm.displayErrorMessage("Something went wrong");
-                }
-                newPersonalGoalForm.displayErrorMessage("Success!");
-
-            }
-
-            try {
-                newPersonalGoalDao.writeToFilePersonalGoal(newPersonalGoalModel);
-                return true;
-            } catch (IOException ex) {
-                System.out.println("File Not Found!");
-                return false;
-            }
-        }
-        return true;
-    }
-}

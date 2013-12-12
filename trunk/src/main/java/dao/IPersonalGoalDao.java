@@ -6,15 +6,26 @@
 
 package dao;
 
-import java.io.IOException;
-import model.PersonalGoalModel;
+import java.io.File;
+import java.io.FileWriter;
 
 /**
- *Interface  του PersonalGoalDao
+ *
  * @author alex
  */
 public interface IPersonalGoalDao {
 
-    boolean writeToFilePersonalGoal(PersonalGoalModel pgm) throws IOException;
+    /**
+     *
+     * @param fileName
+     */
+    void txtLoadPersonalGoal(String fileName);
+
+    //TODO: να ενώσω saveToFile και writeToFilePersonalGoal.
+    /**
+     *
+     * @param fileName
+     */
+    void saveToFile(String fileName,String title, String location, String withPerson, String whenDate, String announcement);
     
 }
