@@ -4,8 +4,8 @@
  */
 package controller;
 
-import dao.IDefaultPathDaoNewEntry;
-import dao.IUserNameDaoNewEntry;
+import dao.INewEntryMockDefaultPath;
+import dao.INewEntryMockUsername;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -30,10 +30,10 @@ public class NewEntryController {
     }
     public NewEntryController(String userTitle)
     {
-        IUserNameDaoNewEntry userMock = mock(IUserNameDaoNewEntry.class);
+        INewEntryMockUsername userMock = mock(INewEntryMockUsername.class);
         when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
         
-        IDefaultPathDaoNewEntry rootPathMock = mock(IDefaultPathDaoNewEntry.class);
+        INewEntryMockDefaultPath rootPathMock = mock(INewEntryMockDefaultPath.class);
         when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator);
         
         String userName = userMock.getUsername();
@@ -49,9 +49,9 @@ public class NewEntryController {
     //Text Constructor Final//
     public NewEntryController(String userTitle,String userText,INewEntryView theView)
     {
-        IUserNameDaoNewEntry userMock = mock(IUserNameDaoNewEntry.class);
+        INewEntryMockUsername userMock = mock(INewEntryMockUsername.class);
         when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
-        IDefaultPathDaoNewEntry rootPathMock = mock(IDefaultPathDaoNewEntry.class);
+        INewEntryMockDefaultPath rootPathMock = mock(INewEntryMockDefaultPath.class);
         when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator);
         
         String destPath = rootPathMock.getDefaultPath();
@@ -61,16 +61,16 @@ public class NewEntryController {
         if(!("").equals(userText))
         {
             if(!createFile(userTitle,userText,textDestPath))
-                theView.displayErrorMessage("Path Couldn't Be Created!");
+                theView.displayErrorMessage(userName);
         }
     }
     
     //Image Constructor Final//
     public NewEntryController(String userTitle,String sourcePath,int imageNumber,INewEntryView theView )
     {
-        IUserNameDaoNewEntry userMock = mock(IUserNameDaoNewEntry.class);
+        INewEntryMockUsername userMock = mock(INewEntryMockUsername.class);
         when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
-        IDefaultPathDaoNewEntry rootPathMock = mock(IDefaultPathDaoNewEntry.class);
+        INewEntryMockDefaultPath rootPathMock = mock(INewEntryMockDefaultPath.class);
         when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator);
         
         String destPath = rootPathMock.getDefaultPath();
@@ -83,9 +83,9 @@ public class NewEntryController {
     //Video Constructor Final//
     public NewEntryController(String userTitle,File sourceFile,INewEntryView theView)
     {
-        IUserNameDaoNewEntry userMock = mock(IUserNameDaoNewEntry.class);
+        INewEntryMockUsername userMock = mock(INewEntryMockUsername.class);
         when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
-        IDefaultPathDaoNewEntry rootPathMock = mock(IDefaultPathDaoNewEntry.class);
+        INewEntryMockDefaultPath rootPathMock = mock(INewEntryMockDefaultPath.class);
         when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator);
         
         String destPath = rootPathMock.getDefaultPath();
@@ -97,10 +97,10 @@ public class NewEntryController {
     }
 //    public NewEntryController(INewEntryView theView,String sourcePath,String fileType,String userTitle,int fileNumber)
 //    {
-//        IUserNameDaoNewEntry userMock = mock(IUserNameDaoNewEntry.class);
+//        INewEntryMockUsername userMock = mock(INewEntryMockUsername.class);
 //        when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
 //        
-//        IDefaultPathDaoNewEntry rootPathMock = mock(IDefaultPathDaoNewEntry.class);
+//        INewEntryMockDefaultPath rootPathMock = mock(INewEntryMockDefaultPath.class);
 //        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+"\\MyDiaryBook\\Users\\");
 //        
 //        String userName = userMock.getUsername();
@@ -142,10 +142,10 @@ public class NewEntryController {
      */
     public boolean filePathExists(String title)
     {
-        IDefaultPathDaoNewEntry rootPathMock = mock(IDefaultPathDaoNewEntry.class);
+        INewEntryMockDefaultPath rootPathMock = mock(INewEntryMockDefaultPath.class);
         when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator);
         
-        IUserNameDaoNewEntry userMock = mock(IUserNameDaoNewEntry.class);
+        INewEntryMockUsername userMock = mock(INewEntryMockUsername.class);
         when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
         
         File file = new File(rootPathMock.getDefaultPath()+userMock.getUsername()+fSeparator+title);
@@ -277,38 +277,27 @@ public class NewEntryController {
      */
     public boolean createFile(String title,String text,String destPath)
     {
-        if(destPath!=null)
-            try
-            {
-                File file = new File(destPath+title+".txt");
-                boolean exists = createFilePath(destPath);
-                if(exists)
-                {
-                    FileWriter fw = new FileWriter(file,true);
-                    BufferedWriter bw = new BufferedWriter(fw);
-                    if(file.exists())
-                        bw.append(text);
-                    else    
-                    {
-                        file.createNewFile();
-                        bw.write(text);
-                    }
-                    bw.close();
-                    return true;
-                }
-                else
-                {
-                    createFilePath(destPath);
-                    createFile(title,text,destPath);
-                }
-            }
-            catch(Exception e)
-            {
-                return false;
-            }
-        else
+        try
         {
-            createFile(title,text,".");
+            File file = new File(destPath+title+".txt");
+            boolean exists = createFilePath(destPath);
+            if(exists)
+            {
+                FileWriter fw = new FileWriter(file,true);
+                BufferedWriter bw = new BufferedWriter(fw);
+                bw.write(text);
+                bw.close();
+                return true;
+            }
+            else
+            {
+                createFilePath(destPath);
+                createFile(title,text,destPath);
+            }
+        }
+        catch(Exception e)
+        {
+            return false;
         }
         return false;
     }

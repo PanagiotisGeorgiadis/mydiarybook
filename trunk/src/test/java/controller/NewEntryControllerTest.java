@@ -261,8 +261,8 @@ public class NewEntryControllerTest {
     @Test
     public void testCreateFile4() {
         System.out.println("createFileWithNullTitleAndTextToExistingDest");
-        String title = null;
-        String text = null;
+        String title = "";
+        String text = "";
         String destPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Makis"+fSeparator+"Texts"+fSeparator;
         NewEntryController instance = new NewEntryController();
         boolean expResult = true;

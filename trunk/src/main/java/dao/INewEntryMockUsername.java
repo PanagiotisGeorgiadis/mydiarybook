@@ -8,7 +8,7 @@ package dao;
  *
  * @author Zarc
  */
-public interface IUserNameDaoNewEntry {
+public interface INewEntryMockUsername {
     
     public String getUsername();
     
