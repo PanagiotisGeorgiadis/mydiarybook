@@ -8,7 +8,7 @@ package dao;
  *
  * @author Zarc
  */
-public interface IDefaultPathDaoNewEntry {
+public interface INewEntryMockDefaultPath {
     
     public String getDefaultPath();
     

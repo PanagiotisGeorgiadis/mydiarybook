@@ -6,6 +6,13 @@ package ui;
 
 import com.sun.jna.NativeLibrary;
 import controller.NewEntryController;
+import controller.NewEntryDeleteController;
+import controller.NewEntryImageController;
+import controller.NewEntryTextController;
+import controller.NewEntryVideoController;
+import dao.CheckIfFileExistsDao;
+import dao.FilesDao;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.io.File;
@@ -60,6 +67,9 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
         stopButton.setVisible(false);  
         imageNumber = 0;
         maxImageNumber = 30;
+        entryAlreadyExistsLabel.setVisible(false);
+        entryAlreadyExistsLabel.setText("Warning! An Entry With This Title Already Exists!");
+        titleField.requestFocusInWindow();
     }
     
     @Override
@@ -77,11 +87,13 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
             jlabel.setIcon(newIcon);
             imageNumber++;
             imagesLeftLabel.setText((maxImageNumber - imageNumber)+" Images"+" Left");
+            if((maxImageNumber - imageNumber)== 1)
+                imagesLeftLabel.setText((maxImageNumber - imageNumber)+" Image"+" Left");
         } 
         catch (MalformedURLException ex) 
         {
-            displayErrorMessage("Please Select Another Image");
-            //imageNumber--;
+            imagePanel.remove(jlabel);
+            imageNumber--;
         }
         if(imageNumber>=maxImageNumber)
             imageChooseButton.setVisible(false);
@@ -146,7 +158,8 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
         textArea = new javax.swing.JTextArea();
         titleField = new javax.swing.JTextField();
         titleLabel = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        introLabel = new javax.swing.JLabel();
+        entryAlreadyExistsLabel = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         imageChooseButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -191,13 +204,20 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
                 titleFieldFocusLost(evt);
             }
         });
+        titleField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                titleFieldKeyTyped(evt);
+            }
+        });
 
         titleLabel.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
         titleLabel.setLabelFor(titleField);
         titleLabel.setText("Entry Title");
 
-        jLabel1.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
-        jLabel1.setText("Write Something");
+        introLabel.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        introLabel.setText("Write Something");
+
+        entryAlreadyExistsLabel.setText("Warning! An Entry With This Title Already Exists!");
 
         javax.swing.GroupLayout textPanelLayout = new javax.swing.GroupLayout(textPanel);
         textPanel.setLayout(textPanelLayout);
@@ -209,25 +229,28 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 834, Short.MAX_VALUE)
                     .addGroup(textPanelLayout.createSequentialGroup()
                         .addGroup(textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(titleField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(titleLabel))
-                        .addGap(156, 156, 156)
-                        .addComponent(jLabel1)
+                            .addGroup(textPanelLayout.createSequentialGroup()
+                                .addComponent(titleField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(entryAlreadyExistsLabel))
+                            .addGroup(textPanelLayout.createSequentialGroup()
+                                .addComponent(titleLabel)
+                                .addGap(256, 256, 256)
+                                .addComponent(introLabel)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         textPanelLayout.setVerticalGroup(
             textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, textPanelLayout.createSequentialGroup()
-                .addGroup(textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(textPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(titleLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(titleField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(textPanelLayout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel1)))
+                .addContainerGap()
+                .addGroup(textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(titleLabel)
+                    .addComponent(introLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(titleField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(entryAlreadyExistsLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
                 .addContainerGap())
@@ -360,10 +383,8 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         if(mediaPlayer2!=null)
-        {
             displayVideo(videoPath,"hhg");
-            
-        }
+        
         this.dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
 
@@ -373,30 +394,21 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
         FileFilter imageFilter = new FileNameExtensionFilter("Image Files",ImageIO.getReaderFileSuffixes());
         imageChooser.setFileFilter(imageFilter);
         imageChooser.setMultiSelectionEnabled(true);
-        File[] tempFile = new File[30];
+        File[] tempFile = new File[100];
         
-        if(!titleField.getText().trim().isEmpty())
-        {
-            int returnVal = imageChooser.showOpenDialog(jPanel2);       
-            if(returnVal == JFileChooser.OPEN_DIALOG)
-            {    
-                tempFile = imageChooser.getSelectedFiles();
-                int i=0;
-                while(i<tempFile.length)
-                {
-                    if(imageNumber>maxImageNumber)
-                        displayErrorMessage("Your Last "+(imageNumber-maxImageNumber)+" Photos Will Not Be Saved!");
-                    else
-                    {
-                        imageFiles[imageNumber] = tempFile[i];
-                        displayNewImage(tempFile[i].toURI());
-                        i++;
-                    } 
-                }
+
+        int returnVal = imageChooser.showOpenDialog(jPanel2);       
+        if(returnVal == JFileChooser.OPEN_DIALOG)
+        {    
+            tempFile = imageChooser.getSelectedFiles();
+            int i=0;
+            while(i<tempFile.length && tempFile.length<=maxImageNumber && imageNumber<=maxImageNumber)
+            {
+                imageFiles[imageNumber] = tempFile[i];
+                displayNewImage(tempFile[i].toURI());
+                i++;
             }
         }
-        else 
-            displayErrorMessage("Please Enter An Entry Tittle!");
 
     }//GEN-LAST:event_imageChooseButtonActionPerformed
 
@@ -404,47 +416,56 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
         JFileChooser videoChooser = new JFileChooser();
         videoChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
                 
-        if(!titleField.getText().trim().isEmpty())
+        int returnVal = videoChooser.showOpenDialog(videoPanel);
+        if(returnVal == JFileChooser.APPROVE_OPTION)
         {
-            int returnVal = videoChooser.showOpenDialog(videoPanel);
-            
-            if(returnVal == JFileChooser.APPROVE_OPTION)
+            videoPath = videoChooser.getSelectedFile().toString();
+            if(videoPath.endsWith(".mpeg") || videoPath.endsWith(".mp4") || videoPath.endsWith(".flv") || videoPath.endsWith(".wmv") 
+                || videoPath.endsWith(".mkv") || videoPath.endsWith(".avi"))
             {
-                videoPath = videoChooser.getSelectedFile().toString();
-                if(videoPath.endsWith(".mpeg") || videoPath.endsWith(".mp4") || videoPath.endsWith(".flv") || videoPath.endsWith(".wmv") 
-                    || videoPath.endsWith(".mkv") || videoPath.endsWith(".avi"))
-                {
-                   // NewEntryController controller = new NewEntryController(this,videoPath,"Video",titleField.getText(),videoNumber);
-                    previewVideoButton.setVisible(true);
-                    videoChooseButton.setVisible(false);
-                }
-                else
-                    displayErrorMessage("You need to select a Video File!");    
-            }
+                previewVideoButton.setVisible(true);
+                videoChooseButton.setVisible(false);
+            }    
         }
-        else
-            displayErrorMessage("Please Enter An Entry Tittle!");
 
     }//GEN-LAST:event_videoChooseButtonActionPerformed
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-        if(titleField.getText().isEmpty())
-            displayErrorMessage("You Must Fill in A Text Title!");
+        NewEntryVideoController videoController = new NewEntryVideoController();
+        NewEntryImageController imageController = new NewEntryImageController();
+        NewEntryTextController textController = new NewEntryTextController();
+        NewEntryDeleteController deleteController = new NewEntryDeleteController();   
+        if(titleField.getBackground() == Color.orange)
+        {
+            int ret = JOptionPane.showConfirmDialog(this, "Do You Want To Overwrite It?\n", "Duplicate Entry Found!",YES_NO_OPTION , WARNING_MESSAGE);
+            if(ret == JOptionPane.YES_OPTION)
+            {
+                deleteController.deleteDirectory(titleField.getText());
+                titleField.setBackground(Color.green);
+                this.submitButtonActionPerformed(evt);
+                this.dispose();
+            }
+            else
+            {
+                titleField.setText("");
+                titleField.requestFocusInWindow();
+                titleField.setBackground(Color.white);
+                entryAlreadyExistsLabel.setVisible(false);                
+            }
+        }
         else
         {
-            NewEntryController controller = new NewEntryController(titleField.getText(),textArea.getText(),this); //NewEntryController(this,null,"Text",titleField.getText(),textNumber);
+            textController.createTextFile(titleField.getText(), textArea.getText());
             if(imageNumber!=0)
-                for(int i=0;i<imageNumber;i++)
-                {   
-                    controller = new NewEntryController(titleField.getText(),imageFiles[i].toString(),i,this); //NewEntryController(this,imageFiles[i].toString(),"Image",titleField.getText(),imageNumber);
-                }
+                for(int i=0;i<imageNumber;i++)  
+                    imageController.copyImage(titleField.getText(), imageFiles[i].toString());
             if(videoPath != null)
-            {
-                File videoFile = new File(videoPath);
-                controller = new NewEntryController(titleField.getText(),videoFile,this); //NewEntryController(this,videoPath,"Video",titleField.getText(),videoNumber);
-            }
+                videoController.copyVideo(titleField.getText(), videoPath);
+            if(mediaPlayer2!=null)
+                displayVideo(videoPath,"hhg");
             this.dispose();
         }
+        
         
     }//GEN-LAST:event_submitButtonActionPerformed
 
@@ -479,33 +500,41 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
     private void titleFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_titleFieldFocusLost
         if(!titleField.getText().trim().isEmpty())
         {
-            NewEntryController controller = new NewEntryController();
-            if(controller.filePathExists(titleField.getText().toString()) && titleField.isEditable())
+            submitButton.setVisible(true);
+            CheckIfFileExistsDao entryExistance = new CheckIfFileExistsDao();
+            if(entryExistance.filePathExists(titleField.getText())) 
             {
-                int ret = JOptionPane.showConfirmDialog(this, "Do You Want To Overwrite It?\nIf You Press Yes All Data From This Entry Will Be Lost!", "Duplicate Entry Found!",YES_NO_OPTION , WARNING_MESSAGE);
-                
-                if(ret == JOptionPane.YES_OPTION)
-                {    
-                    titleField.setEditable(false);
-                    controller = new NewEntryController(titleField.getText());
-                }
-                else
-                    titleField.setText(null);              
+                entryAlreadyExistsLabel.setVisible(true);
+                titleField.setBackground(Color.orange);            
             }
             else
             {
-                titleField.setEditable(false);
+                entryAlreadyExistsLabel.setVisible(false);
+                titleField.setBackground(Color.green);
             }
             
             if(!titleField.getText().matches("\\w*") && !titleField.getText().matches("\\w*\\s\\w*") && !titleField.getText().matches("\\w*\\s\\w*\\s\\w*"))
             {
-                displayErrorMessage("Your Title Must Contain Only Letters And Numbers!");
-                titleField.setEditable(true);
-                titleField.setText(null);
-            }
-                
+                entryAlreadyExistsLabel.setText("Your Title Must Be Aplhanumeric And Maximum Three Words!");
+                entryAlreadyExistsLabel.setVisible(true);
+                titleField.setText("");
+                titleField.requestFocusInWindow();
+                titleField.setBackground(Color.WHITE);
+            }         
+        }
+        else
+        {
+            submitButton.setVisible(false);
+            entryAlreadyExistsLabel.setVisible(true);
+            entryAlreadyExistsLabel.setText("Warning! You Must Feel In An Entry Title!");
+            titleField.requestFocusInWindow();
+            titleField.setBackground(Color.red);
         }
     }//GEN-LAST:event_titleFieldFocusLost
+
+    private void titleFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_titleFieldKeyTyped
+        titleField.setBackground(Color.white);
+    }//GEN-LAST:event_titleFieldKeyTyped
 
     /**
      * @param args the command line arguments
@@ -543,10 +572,11 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
+    private javax.swing.JLabel entryAlreadyExistsLabel;
     private javax.swing.JButton imageChooseButton;
     private javax.swing.JPanel imagePanel;
     private javax.swing.JLabel imagesLeftLabel;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel introLabel;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
