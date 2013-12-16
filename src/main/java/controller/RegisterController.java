@@ -15,7 +15,7 @@ public class RegisterController {
         if (email.length() <= 4) {
             return false;
         }
-        if (!email.contains("@") || email.indexOf("@") == 0 || email.indexOf("@") == email.length() - 1 || email.contains("@@")) {
+        if (!email.contains("@") || email.indexOf("@") == 0 || email.indexOf("@") == email.length() - 1 || email.matches(".*@.*@.*")) {
             return false;
         }
         return true;
@@ -36,7 +36,9 @@ public class RegisterController {
     }
 
     public boolean checkPassword(String password, String repeatedpassword) {
-        if (password.equals(repeatedpassword)) {
+        if (password.equals(repeatedpassword)&& password.length()>2
+                && password.length()<25 && !password.contains(" ") && password.matches("[0-9]+")==false)  
+        {
             return true;
         }
        
