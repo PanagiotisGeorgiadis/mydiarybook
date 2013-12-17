@@ -100,7 +100,7 @@ public class FavoritesForm extends javax.swing.JFrame {
         msg.setForeground(new java.awt.Color(0, 153, 0));
 
         emptymsg.setForeground(new java.awt.Color(255, 0, 0));
-        emptymsg.setText("Emty Link");
+        emptymsg.setText("Invalid Link");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -204,14 +204,20 @@ public class FavoritesForm extends javax.swing.JFrame {
     }//GEN-LAST:event_linkMouseClicked
 
     private void linkFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_linkFocusLost
-        //CheckFavoritesController controller = new CheckFavoritesController();
-      if(link.getText()==null)
-      
+      CheckFavoritesController controller = new CheckFavoritesController();
+   
+         
+     if(!controller.checklink(link.getText()))
+      {
       emptymsg.setVisible(true);
-      
+      save.setEnabled(false);
+      }
       else 
-      
+      {
       emptymsg.setVisible(false);
+       save.setEnabled(true);
+      }
+      
       
     }//GEN-LAST:event_linkFocusLost
 

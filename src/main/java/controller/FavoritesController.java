@@ -13,6 +13,11 @@ package controller;
 public class FavoritesController {
     public boolean checklink(String link)
     {
+        
+        if(link.isEmpty())
+        {
+        return false;
+        }
         if(!link.contains(".")) 
         {        
             return false;
@@ -24,14 +29,11 @@ public class FavoritesController {
         {
             return false;
         }
-        if (link.matches(".*..*..*..*"))
-        {
-            return false;
-          }
-        if(link.equals(null))
-        {
-        return false;
-        }
+//        if (!link.matches(".*..*..*"))
+//        {
+//            return false;
+//          }
+       
         if(link.contains(" "))
         {
         return false;
