@@ -23,6 +23,14 @@ public class ChangePassword extends javax.swing.JFrame {
         initComponents();
         passwordsmsg.setVisible(false);
         wrongmsg.setVisible(false);
+        username.setName("username");
+        oldpassword.setName("oldpassword");
+        password.setName("password");
+        repeatpassword.setName("repeatpassword");
+        wrongmsg.setName("wrongmsg");
+        passwordsmsg.setName("passwordsmsg");
+        submit.setName("submit");
+        close.setName("close");
     }
 
     @SuppressWarnings("unchecked")
