@@ -11,7 +11,7 @@ package controller;
  * @author Stef
  */
 public class CheckFavoritesController {
-    public boolean checklinl(String link)
+    public boolean checklink(String link)
     {
         FavoritesController linkController= new FavoritesController();
         
