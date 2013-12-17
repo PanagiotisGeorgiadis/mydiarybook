@@ -36,12 +36,15 @@ public class LoginController {
     }
 
 public boolean checkValues(String username, String pass) {
-        ChangePasswordController e = new ChangePasswordController();
+        LoginController e = new LoginController();
 
-        if (!e.checkChangePasswordController(username, pass)) {
+        if (!e.checkPass (pass)) {
             return false;
         }
-        return true;
-    }
-
+        if (!e.checkUsername(username))
+        {
+            return false;
+        }
+            return true;
+    } 
 }

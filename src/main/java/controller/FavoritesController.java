@@ -28,6 +28,26 @@ public class FavoritesController {
         {
             return false;
           }
+        if(link.equals(null))
+        {
+        return false;
+        }
+        if(link.contains(" "))
+        {
+        return false;
+        }
         return true;
     }    
+public static boolean checkValues(String link)
+{
+    FavoritesController e= new FavoritesController();
+    
+    if(!e.checklink(link))
+    {
+    return false;
+    }
+        
+        return true;
+}
+
 }

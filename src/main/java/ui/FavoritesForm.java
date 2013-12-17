@@ -6,6 +6,7 @@
 
 package ui;
 
+import controller.CheckFavoritesController;
 import dao.FavoritesDao;
 import model.Login;
 
@@ -15,12 +16,11 @@ import model.Login;
  * @author w7user
  */
 public class FavoritesForm extends javax.swing.JFrame {
-
-    /**
-     * Creates new form FavoritesForm
-     */
+  
+  
     public FavoritesForm() {
         initComponents();
+        emptymsg.setVisible(false);
     }
 
     /**
@@ -42,6 +42,7 @@ public class FavoritesForm extends javax.swing.JFrame {
         save = new javax.swing.JButton();
         clear = new javax.swing.JButton();
         msg = new javax.swing.JLabel();
+        emptymsg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -52,6 +53,19 @@ public class FavoritesForm extends javax.swing.JFrame {
 
         jLabel3.setText("Comments");
 
+        link.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                linkMouseClicked(evt);
+            }
+        });
+        link.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                linkFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                linkFocusLost(evt);
+            }
+        });
         link.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 linkKeyTyped(evt);
@@ -85,6 +99,9 @@ public class FavoritesForm extends javax.swing.JFrame {
 
         msg.setForeground(new java.awt.Color(0, 153, 0));
 
+        emptymsg.setForeground(new java.awt.Color(255, 0, 0));
+        emptymsg.setText("Emty Link");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -100,9 +117,10 @@ public class FavoritesForm extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                                .addGap(0, 46, Short.MAX_VALUE)
                                 .addComponent(save)
                                 .addGap(73, 73, 73)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,13 +129,15 @@ public class FavoritesForm extends javax.swing.JFrame {
                                         .addComponent(clear)
                                         .addGap(174, 174, 174)
                                         .addComponent(back)))
-                                .addContainerGap(43, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(link, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                .addComponent(link, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(emptymsg, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,7 +151,9 @@ public class FavoritesForm extends javax.swing.JFrame {
                         .addGap(89, 89, 89)
                         .addComponent(jLabel3))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(link, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(link, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(emptymsg, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(30, 30, 30)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(30, 30, 30)
@@ -177,6 +199,26 @@ public class FavoritesForm extends javax.swing.JFrame {
         msg.setText(null);
     }//GEN-LAST:event_linkKeyTyped
 
+    private void linkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_linkMouseClicked
+     
+    }//GEN-LAST:event_linkMouseClicked
+
+    private void linkFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_linkFocusLost
+        //CheckFavoritesController controller = new CheckFavoritesController();
+      if(link.getText()==null)
+      
+      emptymsg.setVisible(true);
+      
+      else 
+      
+      emptymsg.setVisible(false);
+      
+    }//GEN-LAST:event_linkFocusLost
+
+    private void linkFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_linkFocusGained
+        emptymsg.setVisible(false);
+    }//GEN-LAST:event_linkFocusGained
+
     /**
      * @param args the command line arguments
      */
@@ -216,6 +258,7 @@ public class FavoritesForm extends javax.swing.JFrame {
     private javax.swing.JButton back;
     private javax.swing.JButton clear;
     private javax.swing.JTextArea comment;
+    private javax.swing.JLabel emptymsg;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -18,14 +18,14 @@ import javax.swing.JOptionPane;
  * @author Stef
  */
 public class RegisterForm extends javax.swing.JFrame {
-    
+
     boolean usernamepass = false;
-    boolean passwordpass =false;
-    boolean repeatpassowrdpass=false;
+    boolean passwordpass = false;
+    boolean repeatpassowrdpass = false;
     boolean mailpass = false;
     boolean q1pass = false;
     boolean q2pass = false;
-    
+
     
 
     public RegisterForm() {
@@ -36,9 +36,32 @@ public class RegisterForm extends javax.swing.JFrame {
         invalidpassword.setVisible(false);
         cndaccept.setVisible(false);
         SubmitAccountButton.setEnabled(false);
-        q1msg.setVisible(false);
+        q1msg.setVisible(false); usernameexistmsg.setName("usernameexistmsg");
+        password.setName("password");
+        repassword.setName("repassword");
+        invalidpassword.setName("invalidpassword");
+        email.setName("email");
+        missmatchpasswords.setName("missmatchpasswords");
+        FavoritePet.setName("FavoritePet");
+        invalidemail.setName("invalidemail");
+        FavoriteCar.setName("FavoriteCar");
+        q1msg.setName("q1msg");
+
         q2msg.setVisible(false);
-        
+        username.setName("username");
+        usernameexistmsg.setName("usernameexistmsg");
+        password.setName("password");
+        repassword.setName("repassword");
+        invalidpassword.setName("invalidpassword");
+        email.setName("email");
+        missmatchpasswords.setName("missmatchpasswords");
+        FavoritePet.setName("FavoritePet");
+        invalidemail.setName("invalidemail");
+        FavoriteCar.setName("FavoriteCar");
+        q1msg.setName("q1msg");
+       q2msg.setName("q2msg");
+       SubmitAccountButton.setName("SubmitAccountButton");
+       CancelButton.setName("CancelButton");
     }
 
     @SuppressWarnings("unchecked")
@@ -178,10 +201,10 @@ public class RegisterForm extends javax.swing.JFrame {
         cndaccept.setText("please accept the terms and conditions");
 
         q1msg.setForeground(new java.awt.Color(255, 0, 0));
-        q1msg.setText("answer must be at least 3 chars long");
+        q1msg.setText("answer must be at least 3 chars ");
 
         q2msg.setForeground(new java.awt.Color(255, 0, 0));
-        q2msg.setText("answer must be at least 3 chars long");
+        q2msg.setText("answer must be at least 3 chars");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -288,7 +311,9 @@ public class RegisterForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelButtonActionPerformed
-        this.dispose();
+             this.dispose();
+              LoginForm regFace = new LoginForm();
+                regFace.setVisible(true);
     }//GEN-LAST:event_CancelButtonActionPerformed
 
     private void cndMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cndMouseClicked
@@ -297,38 +322,27 @@ public class RegisterForm extends javax.swing.JFrame {
     }//GEN-LAST:event_cndMouseClicked
 
     private void SubmitAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitAccountButtonActionPerformed
-         
-        RegisterController controller2 = new RegisterController(); 
+
+        RegisterController controller2 = new RegisterController();
         RegisterFormDao formDao = new RegisterFormDao();
         if (!ConditionAndTemrsCheckBox.isSelected()) {
             cndaccept.setVisible(true);
-            
-           
-        }
-               
-        else
-        {
-            
-        
-         
-        
-        formDao.registerValues(username.getText(),password.getText(),repassword.getText(),email.getText(),FavoritePet.getText(),FavoriteCar.getText());
-                     
-        if (!formDao.ok) {
-                        JOptionPane.showMessageDialog(null, "Congratulations, \n Your Account Has Been Created!");
-                        
-                        dispose();
-                        LoginForm regFace = new LoginForm();
-                        regFace.setVisible(true);
-                    }
-                   
+
+        } else {
+
+            formDao.registerValues(username.getText(), password.getText(), repassword.getText(), email.getText(), FavoritePet.getText(), FavoriteCar.getText());
+
+            if (!formDao.ok) {
+                JOptionPane.showMessageDialog(null, "Congratulations, \n Your Account Has Been Created!");
+
+                dispose();
+                LoginForm regFace = new LoginForm();
+                regFace.setVisible(true);
+            }
 
         }
-        
-                
-            
 
-            
+
     }//GEN-LAST:event_SubmitAccountButtonActionPerformed
 
     private void FavoriteCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FavoriteCarActionPerformed
@@ -336,139 +350,113 @@ public class RegisterForm extends javax.swing.JFrame {
     }//GEN-LAST:event_FavoriteCarActionPerformed
 
     private void usernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernameFocusLost
-        CheckUsernameController controller = new CheckUsernameController();        
-        if (controller.usernameExists(username.getText()))
-                {
-                    usernamepass =false;
-                    usernameexistmsg.setVisible(true);
-                    SubmitAccountButton.setEnabled(false); 
+        CheckUsernameController controller = new CheckUsernameController();
+        if (controller.usernameExists(username.getText())) {
+            usernamepass = false;
+            usernameexistmsg.setVisible(true);
+            SubmitAccountButton.setEnabled(false);
 
-                }      
-        else
-                            {
-                    usernamepass =true;
-                    usernameexistmsg.setVisible(false);
-                    if (usernamepass && passwordpass && repeatpassowrdpass && mailpass && q1pass && q2pass )
-                    {
-                     SubmitAccountButton.setEnabled(true);   
-                    }
-                } 
-            
+        } else {
+            usernamepass = true;
+            usernameexistmsg.setVisible(false);
+            if (usernamepass && passwordpass && repeatpassowrdpass && mailpass && q1pass && q2pass) {
+                SubmitAccountButton.setEnabled(true);
+            }
+        }
 
-        
-           
+
     }//GEN-LAST:event_usernameFocusLost
 
     private void cndPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_cndPropertyChange
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_cndPropertyChange
 
     private void ConditionAndTemrsCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConditionAndTemrsCheckBoxActionPerformed
-        
+
         cndaccept.setVisible(false);
     }//GEN-LAST:event_ConditionAndTemrsCheckBoxActionPerformed
 
     private void passwordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordKeyTyped
 
-        CheckValidPassword controller = new CheckValidPassword();        
-        if (!controller.checkPassword(password.getText()+evt.getKeyChar()))
-                {
-                    passwordpass = false;
-                    invalidpassword.setVisible(true);
-                    SubmitAccountButton.setEnabled(false); 
+        CheckValidPassword controller = new CheckValidPassword();
+        if (!controller.checkPassword(password.getText() + evt.getKeyChar())) {
+            passwordpass = false;
+            invalidpassword.setVisible(true);
+            SubmitAccountButton.setEnabled(false);
 
-                }      
-        else
-                            {
-                    passwordpass = true;
-                    invalidpassword.setVisible(false);
-                    if (usernamepass && passwordpass && repeatpassowrdpass && mailpass && q1pass && q2pass )
-                    {
-                     SubmitAccountButton.setEnabled(true);   
-                    }
-                } 
+        } else {
+            passwordpass = true;
+            invalidpassword.setVisible(false);
+            if (usernamepass && passwordpass && repeatpassowrdpass && mailpass && q1pass && q2pass) {
+                SubmitAccountButton.setEnabled(true);
+            }
+        }
     }//GEN-LAST:event_passwordKeyTyped
 
     private void repasswordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_repasswordKeyTyped
-           CheckPasswordController controller = new CheckPasswordController();        
-        if (!controller.checkPassword(password.getText(),repassword.getText()+evt.getKeyChar()))
-                {
-                    repeatpassowrdpass=false;
-                    missmatchpasswords.setVisible(true);
-                    SubmitAccountButton.setEnabled(false); 
+        CheckPasswordController controller = new CheckPasswordController();
+        if (!controller.checkPassword(password.getText(), repassword.getText() + evt.getKeyChar())) {
+            repeatpassowrdpass = false;
+            missmatchpasswords.setVisible(true);
+            SubmitAccountButton.setEnabled(false);
 
-                }      
-        else
-                            {
-                    repeatpassowrdpass=true;
-                    missmatchpasswords.setVisible(false);
-                    if (usernamepass && passwordpass && repeatpassowrdpass && mailpass && q1pass && q2pass )
-                    {
-                     SubmitAccountButton.setEnabled(true);   
-                    }
-                }         
+        } else {
+            repeatpassowrdpass = true;
+            missmatchpasswords.setVisible(false);
+            if (usernamepass && passwordpass && repeatpassowrdpass && mailpass && q1pass && q2pass) {
+                SubmitAccountButton.setEnabled(true);
+            }
+        }
     }//GEN-LAST:event_repasswordKeyTyped
 
     private void emailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailKeyTyped
-        CheckMailController controller = new CheckMailController();        
-        if (!controller.checkMail(email.getText()+evt.getKeyChar()))
-                {
-                    mailpass = false;
-                    invalidemail.setVisible(true);
-                    SubmitAccountButton.setEnabled(false); 
+        CheckMailController controller = new CheckMailController();
+        if (!controller.checkMail(email.getText() + evt.getKeyChar())) {
+            mailpass = false;
+            invalidemail.setVisible(true);
+            SubmitAccountButton.setEnabled(false);
 
-                }      
-        else
-                            {
-                    mailpass = true;
-                    invalidemail.setVisible(false);
-                    if (usernamepass && passwordpass && repeatpassowrdpass && mailpass && q1pass && q2pass )
-                    {
-                     SubmitAccountButton.setEnabled(true);   
-                    }
-                }         
+        } else {
+            mailpass = true;
+            invalidemail.setVisible(false);
+            if (usernamepass && passwordpass && repeatpassowrdpass && mailpass && q1pass && q2pass) {
+                SubmitAccountButton.setEnabled(true);
+            }
+        }
     }//GEN-LAST:event_emailKeyTyped
 
     private void FavoritePetKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_FavoritePetKeyTyped
-        
-        CheckQ1Controller controller = new CheckQ1Controller();        
-        if (!controller.checkQ1(FavoritePet.getText()+evt.getKeyChar()))
-                {
-                    q1pass = false;
-                    q1msg.setVisible(true);
-                    SubmitAccountButton.setEnabled(false); 
 
-                }      
-        else
-                            {
-                    q1pass = true;
-                    q1msg.setVisible(false);
-                    if (usernamepass && passwordpass && repeatpassowrdpass && mailpass && q1pass && q2pass )
-                    {
-                     SubmitAccountButton.setEnabled(true);   
-                    }
-                }         
+        CheckQ1Controller controller = new CheckQ1Controller();
+        if (!controller.checkQ1(FavoritePet.getText() + evt.getKeyChar())) {
+            q1pass = false;
+            q1msg.setVisible(true);
+            SubmitAccountButton.setEnabled(false);
+
+        } else {
+            q1pass = true;
+            q1msg.setVisible(false);
+            if (usernamepass && passwordpass && repeatpassowrdpass && mailpass && q1pass && q2pass) {
+                SubmitAccountButton.setEnabled(true);
+            }
+        }
     }//GEN-LAST:event_FavoritePetKeyTyped
 
     private void FavoriteCarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_FavoriteCarKeyTyped
-        CheckQ2Controller controller = new CheckQ2Controller();        
-        if (!controller.checkQ2(FavoriteCar.getText()+evt.getKeyChar()))
-                {
-                    q2pass = false;
-                    q2msg.setVisible(true);
-                    SubmitAccountButton.setEnabled(false); 
+        CheckQ2Controller controller = new CheckQ2Controller();
+        if (!controller.checkQ2(FavoriteCar.getText() + evt.getKeyChar())) {
+            q2pass = false;
+            q2msg.setVisible(true);
+            SubmitAccountButton.setEnabled(false);
 
-                }      
-        else
-                            {
-                    q2pass = true;
-                    q2msg.setVisible(false);
-                    if (usernamepass && passwordpass && repeatpassowrdpass && mailpass && q1pass && q2pass )
-                    {
-                     SubmitAccountButton.setEnabled(true);   
-                    }
-                }         
+        } else {
+            q2pass = true;
+            q2msg.setVisible(false);
+            if (usernamepass && passwordpass && repeatpassowrdpass && mailpass && q1pass && q2pass) {
+                SubmitAccountButton.setEnabled(true);
+            }
+        }
     }//GEN-LAST:event_FavoriteCarKeyTyped
 
     /**
