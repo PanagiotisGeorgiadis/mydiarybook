@@ -17,6 +17,11 @@ public class LoginForm extends javax.swing.JFrame {
     public LoginForm() {
         initComponents();
         wrongmsg.setVisible(false);
+        username.setName("username");
+        pass.setName("pass");
+        login.setName("login");
+        exit.setName("exit");
+        wrongmsg.setName("wrongmsg");
 
     }
 
@@ -30,7 +35,7 @@ public class LoginForm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        exit = new javax.swing.JButton();
         CreateAccountPopUpLabel = new javax.swing.JLabel();
         ResetPasswordPopUpjLabel = new javax.swing.JLabel();
         wrongmsg = new javax.swing.JLabel();
@@ -66,10 +71,10 @@ public class LoginForm extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Wide Latin", 3, 11)); // NOI18N
         jLabel3.setText("LOGIN FORM");
 
-        jButton1.setText("Exit");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        exit.setText("Exit");
+        exit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                exitActionPerformed(evt);
             }
         });
 
@@ -111,7 +116,7 @@ public class LoginForm extends javax.swing.JFrame {
                         .addComponent(pass)
                         .addComponent(username)
                         .addComponent(login, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(113, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -140,7 +145,7 @@ public class LoginForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
                 .addComponent(wrongmsg)
                 .addGap(18, 18, 18)
@@ -182,9 +187,9 @@ public class LoginForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_usernameActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_exitActionPerformed
 
     private void CreateAccountPopUpLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CreateAccountPopUpLabelMouseClicked
         // TODO add your handling code here:
@@ -249,7 +254,7 @@ public class LoginForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel CreateAccountPopUpLabel;
     private javax.swing.JLabel ResetPasswordPopUpjLabel;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton exit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

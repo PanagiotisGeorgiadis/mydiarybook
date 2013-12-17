@@ -96,6 +96,7 @@ public class RegisterController {
         if (!e.checkPassword(password, repeatedpassword)) {
             return false;
         }
+ 
         return true;
     }
 

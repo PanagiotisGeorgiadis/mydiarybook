@@ -134,14 +134,18 @@ public class ResetPassword extends javax.swing.JFrame {
                 Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
                 clpbrd.setContents(stringSelection, null);
                 JOptionPane.showMessageDialog(null, "New Pass Is " + dao.getPass()+ " And Autocopied To Clipboard");
-            
+                dispose();
+                LoginForm regFace = new LoginForm();
+                regFace.setVisible(true);
 
         }
     }//GEN-LAST:event_submitActionPerformed
 
     private void closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeActionPerformed
-        // TODO add your handling code here:
-        dispose();
+       
+                dispose();
+                LoginForm regFace = new LoginForm();
+                regFace.setVisible(true);
     }//GEN-LAST:event_closeActionPerformed
 
     /**
