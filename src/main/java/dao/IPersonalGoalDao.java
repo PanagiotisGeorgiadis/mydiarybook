@@ -6,26 +6,30 @@
 
 package dao;
 
-import java.io.File;
-import java.io.FileWriter;
-
 /**
  *
  * @author alex
  */
 public interface IPersonalGoalDao {
 
+    boolean saveTextFile(String path, String title, String location, String withPerson, String whenDate, String announcement);
+
     /**
      *
      * @param fileName
      */
     void txtLoadPersonalGoal(String fileName);
-
     //TODO: να ενώσω saveToFile και writeToFilePersonalGoal.
     /**
      *
+     * @param path
+     * @param title
      * @param fileName
+     * @param location
+     * @param withPerson
+     * @param announcement
+     * @param whenDate
+     * @return
      */
-    void saveToFile(String fileName,String title, String location, String withPerson, String whenDate, String announcement);
     
 }

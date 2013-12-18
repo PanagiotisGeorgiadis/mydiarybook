@@ -9,6 +9,7 @@ import dao.IPersonalGoalDao;
 import dao.PersonalGoalDao;
 import ui.IPersonalGoalForm;
 import ui.PersonalGoalForm;
+import validators.PersonalGoalCheckField;
 
 
 /*
@@ -24,7 +25,7 @@ import ui.PersonalGoalForm;
  * @throws 
  *@author alex
  */
-public class PersonalGoalController implements IPersonalGoalController {
+public class PersonalGoalController implements IPersonalGoalController   {
 
     private String title;
     private String location;
@@ -43,7 +44,7 @@ public class PersonalGoalController implements IPersonalGoalController {
     public PersonalGoalController() {
 
     }
- 
+
     /**
      * Boolean συνάρτηση που ελένχει όλα τα πεδία της φόρμας εάν είναι σωστά
      *
@@ -56,39 +57,26 @@ public class PersonalGoalController implements IPersonalGoalController {
      * @throws Exception
      */
     //TODO : Make createPersonalGoal string for success testing
+   
     @Override
-    public boolean createPersonalGoal(String title, String location, String withPerson, String whenDate, String announcement) {
+    public String createPersonalGoal(String title, String location, String withPerson, String whenDate, String announcement) {
         this.title = title;
         this.location = location;
         this.withPerson = withPerson;
         this.whenDate = whenDate;
         this.announcement = announcement;
-
-
-        PersonalGoalForm theForm = new PersonalGoalForm();
-        PersonalGoalDao newDao = new PersonalGoalDao();
-        PersonalGoalEvaluator eval = new PersonalGoalEvaluator();
-        PersonalGoalForm newPersonalGoalForm = new PersonalGoalForm();
-
-        //check if allFieldSuccess 
+        PersonalGoalCheckField eval = new PersonalGoalCheckField();
+        //check if allFieldSuccess
+        
         String allFieldSuccess = eval.CheckField(title, location, withPerson, whenDate, announcement);
         //if all is ok save to file
-        if (allFieldSuccess == "success") {
-            //TODO: make name of file the real name of user
-            String file = "user.txt";
-            newDao.saveToFile(file, title, location, withPerson, whenDate, announcement);
-           theForm.displaySuccessMessage("success");
-            return true;
-        } else {
-            theForm.displayErrorMessage(allFieldSuccess+" is incorect!");
-            return false;
+        if(allFieldSuccess=="success"){  
+        return allFieldSuccess;
         }
-
-            }
-        
-        
+        else
+        {
+        return allFieldSuccess;
+        }
     }
-    
 
-       
-
+}
