@@ -22,17 +22,18 @@ public class FavoritesController {
         {        
             return false;
         }
-        if(!link.startsWith("http://www.")) {
+        if(!link.startsWith("http://") || !link.startsWith("http://www.")) {
+            
             return false;
         }
         if(link.indexOf(".")==link.length()-1)
         {
             return false;
         }
-//        if (!link.matches(".*..*..*"))
-//        {
-//            return false;
-//          }
+        if (link.matches(".*\\..*\\..*\\..*"))
+        {
+            return false;
+          }
        
         if(link.contains(" "))
         {

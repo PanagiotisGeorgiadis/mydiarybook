@@ -99,7 +99,15 @@ public class RegisterControllerTest extends TestCase {
         assertEquals(expResult, result);
 
     }
+    public void testCheckMail7() {
+        System.out.println("checkMail");
+        String email = "d@sdd@yahoo";
+        RegisterController instance = new RegisterController();
+        boolean expResult = false;
+        boolean result = instance.checkMail(email);
+        assertEquals(expResult, result);
 
+    }
     /**
      * Test of checkUsername method, of class RegisterController.
      */
@@ -168,6 +176,15 @@ public class RegisterControllerTest extends TestCase {
         String username = "!@#$$%$%$";
         RegisterController instance = new RegisterController();
         boolean expResult = true;
+        boolean result = instance.checkUsername(username);
+        assertEquals(expResult, result);
+
+    }
+        public void testCheckUsername7() {
+        System.out.println("checkUsername");
+        String username = "";
+        RegisterController instance = new RegisterController();
+        boolean expResult = false;
         boolean result = instance.checkUsername(username);
         assertEquals(expResult, result);
 
