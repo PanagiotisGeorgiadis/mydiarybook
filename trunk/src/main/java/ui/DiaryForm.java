@@ -5,6 +5,8 @@
  */
 package ui;
 
+import model.Login;
+
 /**
  *
  * @author user
@@ -16,7 +18,9 @@ public class DiaryForm extends javax.swing.JFrame {
      */
     public DiaryForm() {
         initComponents();
-        logged.setText(LoginForm.username.getText());
+        
+        logged.setText(Login.getUsername());
+        
         this.setLocationRelativeTo(null);
         // this.setVisible(true);
     }
@@ -162,6 +166,7 @@ public class DiaryForm extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new DiaryForm().setVisible(true);
+                
             }
         });
     }
