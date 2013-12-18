@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package validators;
 
 import org.junit.After;
@@ -18,27 +19,27 @@ import static org.junit.Assert.*;
  * @author alex
  */
 public class AnnouncementValidatorTest {
-
+    
     public AnnouncementValidatorTest() {
     }
-
+    
     @BeforeClass
     public static void setUpClass() {
     }
-
+    
     @AfterClass
     public static void tearDownClass() {
     }
-
+    
     @Before
     public void setUp() {
     }
-
+    
     @After
     public void tearDown() {
     }
 
-    /**
+      /**
      * Test of checkPersonalGoalAnnouncement method, of class
      * AnnouncementValidator.
      */
@@ -97,4 +98,5 @@ public class AnnouncementValidatorTest {
         Assert.assertEquals(expResult, result);
 
     }
+    
 }

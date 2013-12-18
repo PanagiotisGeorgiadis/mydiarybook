@@ -11,7 +11,6 @@ package validators;
  * @author alex
  */
 public class AnnouncementValidator {
-    
     /**
      * Boolean function control run the right thing Announcement.
      *
