@@ -24,6 +24,5 @@ public class WhenDateValidator {
         }
 
         return true;
-
     }
 }
