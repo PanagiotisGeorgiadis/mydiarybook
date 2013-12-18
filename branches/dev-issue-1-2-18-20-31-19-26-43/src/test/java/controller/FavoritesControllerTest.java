@@ -113,6 +113,44 @@ public class FavoritesControllerTest {
         assertEquals(expResult, result);
       
     }
+          @Test
+    public void testChecklink7() {
+        System.out.println("checklink");
+        String link = "http://www.goo.gle.co.m";
+        FavoritesController instance = new FavoritesController();
+        boolean expResult = false;
+        boolean result = instance.checklink(link);
+        assertEquals(expResult, result);
+      
+    }
+     @Test
+      public void testChecklink8() {
+        System.out.println("checklink");
+        String link = "http://www.goo.gle.com";
+        FavoritesController instance = new FavoritesController();
+        boolean expResult = false;
+        boolean result = instance.checklink(link);
+        assertEquals(expResult, result);
+      
+    }
+       public void testChecklink9() {
+        System.out.println("checklink");
+        String link = "http://stackoverflow.com/";
+        FavoritesController instance = new FavoritesController();
+        boolean expResult = true;
+        boolean result = instance.checklink(link);
+        assertEquals(expResult, result);
+      
+    }
+            public void testChecklink10() {
+        System.out.println("checklink");
+        String link = "ftp://ftp.teiser.gr/";
+        FavoritesController instance = new FavoritesController();
+        boolean expResult = true;
+        boolean result = instance.checklink(link);
+        assertEquals(expResult, result);
+      
+    }
     /**
      * Test of checkValues method, of class FavoritesController.
      */
