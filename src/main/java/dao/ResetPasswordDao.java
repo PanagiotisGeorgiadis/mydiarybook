@@ -11,7 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import static ui.ChangePassword.username;
+
 
 /**
  *
@@ -26,7 +26,7 @@ public class ResetPasswordDao {
     static public String dbUserId = "tl";
     static public String dbPassword = "tl";
     static public boolean ok = true;
-    static public boolean questionsok = false;
+    public boolean questionsok = false;
     static public String question1;
     static public String question2;
     static public int question3 = 0;
@@ -34,14 +34,9 @@ public class ResetPasswordDao {
     static public Connection c = null;
     static public Connection c2 = null;
 
-    /**
-     * Creates new form ResetPassword
-     */
-    public ResetPasswordDao() {
-        initComponents();
-    }
 
-    static public void saveNewPassword() {
+
+     public void saveNewPassword(String username) {
 
         try {
             Class.forName(jdbcDriver);
@@ -54,14 +49,13 @@ public class ResetPasswordDao {
             c = DriverManager.getConnection(dbURL, dbUserId, dbPassword);
 
             try {
-                String currentuser = ui.ResetPassword.username.getText();
+                
                 String newpass = B + A + C + randomNum + A + B + C;
                 String updateString
-                        = "update accounts set password = '" + newpass + "' where username ='" + currentuser + "'";
+                        = "update accounts set password = '" + newpass + "' where username ='" + username + "'";
                 PreparedStatement s = c.prepareStatement(updateString);
 
-          // In case you want to see the update results from each statement
-                // Normally not needed to store the results.
+          
                 s.execute();
 
                 s.close();
@@ -82,7 +76,7 @@ public class ResetPasswordDao {
 
     }
 
-    static public void generateNewPassword() {
+     public void generateNewPassword() {
         randomNum = 99999 + (int) (Math.random() * 999999);
 
         int randomNum2 = 1 + (int) (Math.random() * 5);
@@ -125,24 +119,28 @@ public class ResetPasswordDao {
         } else if (randomNum4 == 5) {
             C = "F";
         }
-    }
 
-    static public void getSecurityQuestions() {
+    }
+     public String getPass()
+             {
+                 String myString = B + A + C + randomNum + A + B + C;
+                 return myString;
+             }
+
+    public boolean getSecurityQuestions(String username,String q1,String q2) {
         try {
             Class.forName(jdbcDriver);
         } catch (ClassNotFoundException exp) {
             System.err.println("Could not load the JDBC driver " + jdbcDriver);
-            return;
+            return questionsok;
         }
 
         try {
             c2 = DriverManager.getConnection(dbURL, dbUserId, dbPassword);
 
             try {
-                String currentuser2 = ui.ResetPassword.username.getText();
-                question1 = ui.ResetPassword.q1.getText();
-                question2 = ui.ResetPassword.q2.getText();
-                String getQuestions1 = "SELECT * FROM accounts where username='" + currentuser2 + "' and q1='" + question1 + "' and q2='" + question2 + "';";
+
+                String getQuestions1 = "SELECT * FROM accounts where username='" + username + "' and q1='" + q1 + "' and q2='" + q2 + "';";
                 PreparedStatement s = c2.prepareStatement(getQuestions1);
                 ResultSet rset = s.executeQuery();
 
@@ -154,21 +152,19 @@ public class ResetPasswordDao {
 
             } catch (SQLException sqlexp) {
                 JOptionPane.showMessageDialog(null, "Failed to execute one of the statements." + sqlexp.getMessage());
-                ok = false;
+                questionsok = false;
             }
 
             c2.close();
 
         } catch (SQLException sqlexp) {
             JOptionPane.showMessageDialog(null, "Failed to connect to the database." + sqlexp.getMessage());
-            ui.ResetPassword.ok = false;
+            questionsok = false;
 
         }
-
+    return questionsok;
     }
 
-    private void initComponents() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
 
 }

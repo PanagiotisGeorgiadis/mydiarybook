@@ -6,8 +6,7 @@
 
 package controller;
 
-import static ui.ResetPassword.q1;
-import static ui.ResetPassword.q2;
+
 
 /**
  *
@@ -26,10 +25,10 @@ public class ResetPasswordController {
     }
   
     
-    public static boolean checkValues() {
+    public boolean checkValues(String q1,String q2) {
         ResetPasswordController e = new ResetPasswordController();
 
-        if (!e.ResetPasswordController(q1.getText(), q2.getText())) {
+        if (!e.ResetPasswordController(q1, q2)) {
             return false;
         }
         return true;

@@ -1,20 +1,12 @@
 package ui;
 
-import javax.swing.JOptionPane;
-
 import controller.ResetPasswordController;
-import static dao.ResetPasswordDao.A;
-import static dao.ResetPasswordDao.B;
-import static dao.ResetPasswordDao.C;
-import static dao.ResetPasswordDao.generateNewPassword;
-import static dao.ResetPasswordDao.getSecurityQuestions;
-import static dao.ResetPasswordDao.questionsok;
-import static dao.ResetPasswordDao.randomNum;
-import static dao.ResetPasswordDao.saveNewPassword;
+import dao.ResetPasswordDao;
+import javax.swing.JOptionPane;
 
 import java.awt.datatransfer.*;
 import java.awt.Toolkit;
-import static ui.ChangePassword.ok;
+
 
 /**
  *
@@ -115,39 +107,45 @@ public class ResetPassword extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
-        // TODO add your handling code here:
-        if (!controller.ResetPasswordController.checkValues()) {
+       ResetPasswordController controller = new ResetPasswordController();
+       ResetPasswordDao dao = new ResetPasswordDao();
+        
+        if (!controller.checkValues(q1.getText(),q2.getText())) {
             JOptionPane.showMessageDialog(null, "Some Of Your Answers Are Too Small!");
             q1.setText(null);
             q2.setText(null);
             q1.requestFocus();
         } else {
-            dao.ResetPasswordDao.getSecurityQuestions();
+            
 
-            if (dao.ResetPasswordDao.questionsok == false) {
+            if (!dao.getSecurityQuestions(username.getText(),q1.getText(),q2.getText())) {
                 JOptionPane.showMessageDialog(null, "At Least One Of Your Answers Is Wrong!");
                 q1.requestFocus();
                 return;
             }
 
-            dao.ResetPasswordDao.generateNewPassword();
-            questionsok = false;
+            dao.generateNewPassword();
+            
 
-            dao.ResetPasswordDao.saveNewPassword();
-            if (dao.RegisterFormDao.ok == true) {
-                String myString = B + A + C + randomNum + A + B + C;
-                StringSelection stringSelection = new StringSelection(myString);
+            dao.saveNewPassword(username.getText());
+            
+                
+                StringSelection stringSelection = new StringSelection(dao.getPass());
                 Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
                 clpbrd.setContents(stringSelection, null);
-                JOptionPane.showMessageDialog(null, "New Pass Is " + B + A + C + randomNum + A + B + C + " And Autocopied To Clipboard");
-            }
+                JOptionPane.showMessageDialog(null, "New Pass Is " + dao.getPass()+ " And Autocopied To Clipboard");
+                dispose();
+                LoginForm regFace = new LoginForm();
+                regFace.setVisible(true);
 
         }
     }//GEN-LAST:event_submitActionPerformed
 
     private void closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeActionPerformed
-        // TODO add your handling code here:
-        dispose();
+       
+                dispose();
+                LoginForm regFace = new LoginForm();
+                regFace.setVisible(true);
     }//GEN-LAST:event_closeActionPerformed
 
     /**
@@ -188,12 +186,12 @@ public class ResetPassword extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton close;
-    public static javax.swing.JTextField q1;
-    public static javax.swing.JTextField q2;
+    private javax.swing.JTextField q1;
+    private javax.swing.JTextField q2;
     private javax.swing.JLabel question1label;
     private javax.swing.JLabel question1label1;
     private javax.swing.JButton submit;
-    public static javax.swing.JTextField username;
+    private javax.swing.JTextField username;
     private javax.swing.JLabel usernamelabel;
     // End of variables declaration//GEN-END:variables
 }

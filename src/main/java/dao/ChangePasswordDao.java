@@ -5,17 +5,7 @@
  */
 
 package dao;
-
-import java.sql.Connection;
-
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import static ui.ChangePassword.username;
-import controller.ChangePasswordController;
-import javax.swing.JOptionPane;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,8 +19,8 @@ import java.sql.Connection;
  * @author Stef
  */
 public  class ChangePasswordDao {
-     public static boolean ok;
-    public static boolean correctpassword;
+    public boolean ok;
+    public boolean correctpassword;
     public static String newpass;
     static public String jdbcDriver = "com.mysql.jdbc.Driver";
     static public  String dbURL = "jdbc:mysql://89.163.172.10/tl";
@@ -41,24 +31,23 @@ public  class ChangePasswordDao {
  
    
     
-    public static void getOldPass() {
+    public  boolean getOldPass(String username,String pass) {
 
         try {
             Class.forName(jdbcDriver);
         } catch (ClassNotFoundException exp) {
             System.err.println("Could not load the JDBC driver " + jdbcDriver);
-            return;
+            return correctpassword;
         }
 
         try {
             c = DriverManager.getConnection(dbURL, dbUserId, dbPassword);
 
             try {
-                String currentuser = ui.ChangePassword.username.getText();
-                String oldpassword2 = ui.ChangePassword.oldpassword.getText();
+               
 
                 String getOldPassword
-                        = "Select * From accounts  where username ='" + currentuser + "' and password='" + oldpassword2 + "'";
+                        = "Select * From accounts  where username ='" + username + "' and password='" + pass + "'";
                 PreparedStatement s = c.prepareStatement(getOldPassword);
 
                 ResultSet rset = s.executeQuery();
@@ -72,19 +61,19 @@ public  class ChangePasswordDao {
             } catch (SQLException sqlexp) {
                 JOptionPane.showMessageDialog(null, "Failed to execute one of the statements." + sqlexp.getMessage());
 
-                ui.ChangePassword.ok = false;
+                correctpassword = false;
             }
 
             c.close();
 
         } catch (SQLException sqlexp) {
             JOptionPane.showMessageDialog(null, "Failed to connect to the database." + sqlexp.getMessage());
-            ui.ChangePassword.ok = false;
+            correctpassword = false;
 
         }
-
+        return correctpassword;
     }
-     public static  void updatePass() {
+     public void updatePass(String username,String pass) {
 
         try {
             Class.forName(jdbcDriver);
@@ -97,11 +86,11 @@ public  class ChangePasswordDao {
             c = DriverManager.getConnection(dbURL, dbUserId, dbPassword);
 
             try {
-                String currentuser = ui.ChangePassword.username.getText();
-                String newpass = ui.ChangePassword.password.getText();
+                
+                
 
                 String updatePassword
-                        = "Update accounts set password='" +newpass + "' where username='" +currentuser + "'";
+                        = "Update accounts set password='" +pass + "' where username='" +username + "'";
                 PreparedStatement s = c.prepareStatement(updatePassword);
 
                 s.execute();
@@ -111,14 +100,14 @@ public  class ChangePasswordDao {
             } catch (SQLException sqlexp) {
                 JOptionPane.showMessageDialog(null, "Failed to execute one of the statements." + sqlexp.getMessage());
 
-                ui.ChangePassword.ok = false;
+                
             }
 
             c.close();
 
         } catch (SQLException sqlexp) {
             JOptionPane.showMessageDialog(null, "Failed to connect to the database." + sqlexp.getMessage());
-            ui.ChangePassword.ok = false;
+            
 
         }
 

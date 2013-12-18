@@ -11,11 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import static ui.RegisterForm.FavoriteCar;
-import static ui.RegisterForm.FavoritePet;
-import static ui.RegisterForm.PasswordPasswordField;
-import static ui.RegisterForm.UserNameTextField;
-import static ui.RegisterForm.EmailTextField;
+
 
 /**
  *
@@ -28,32 +24,31 @@ public class RegisterFormDao {
     static public String dbUserId = "tl";
     static public String dbPassword = "tl";
     static public Connection c = null;
-    static public boolean ok = true;
+    public boolean ok = false;
     static public boolean usernameexist = false;
 
    
-    static public void checkUsername() {
+    public boolean checkUsername(String username) {
 
         try {
             Class.forName(jdbcDriver);
         } catch (ClassNotFoundException exp) {
             System.err.println("Could not load the JDBC driver " + jdbcDriver);
-            return;
+            return false;
         }
 
         try {
             c = DriverManager.getConnection(dbURL, dbUserId, dbPassword);
 
             try {
-                String currentuser = UserNameTextField.getText();
 
                 String getUsername
-                        = "Select * From accounts  where username ='" + currentuser + "'";
+                        = "Select * From accounts  where username ='" + username + "'";
                 try (PreparedStatement s = c.prepareStatement(getUsername)) {
                     ResultSet rset = s.executeQuery();
 
                     if (rset.next()) {
-                        usernameexist = true;
+                        ok = true;
                     }
                 }
 
@@ -70,10 +65,12 @@ public class RegisterFormDao {
             ok = false;
 
         }
+        
+        return ok;
 
     }
 
-    static public void registerValues() {
+    public void registerValues(String Username,String Password,String RePassword,String Email,String Q1,String Q2 ) {
 
         try {
             Class.forName(jdbcDriver);
@@ -86,14 +83,13 @@ public class RegisterFormDao {
             c = DriverManager.getConnection(dbURL, dbUserId, dbPassword);
 
             try {
-                String currentuser = UserNameTextField.getText();
-                String mail = EmailTextField.getText();
-                String password = PasswordPasswordField.getText();
-                String q1 = FavoritePet.getText();
-                String q2 = FavoriteCar.getText();
+                
+                
+                
+               
 
                 String registerValues
-                        = "Insert Into accounts (username,password,mail,q1,q2) VALUES ('" + currentuser + "','" + password + "','" + mail + "','" + q1 + "','" + q2 + "')";
+                        = "Insert Into accounts (username,password,mail,q1,q2) VALUES ('" + Username + "','" + Password + "','" + Email + "','" + Q1 + "','" + Q2 + "')";
                 try (PreparedStatement s = c.prepareStatement(registerValues)) {
                     s.execute();
                 }
