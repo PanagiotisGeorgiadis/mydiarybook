@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package controller;
 
 import junit.framework.TestCase;
@@ -12,16 +13,16 @@ import junit.framework.TestCase;
  * @author Stef
  */
 public class RegisterControllerTest extends TestCase {
-
+    
     public RegisterControllerTest(String testName) {
         super(testName);
     }
-
+    
     @Override
     protected void setUp() throws Exception {
         super.setUp();
     }
-
+    
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
@@ -37,76 +38,52 @@ public class RegisterControllerTest extends TestCase {
         boolean expResult = false;
         boolean result = instance.checkMail(email);
         assertEquals(expResult, result);
-
+     
     }
-
-    public void testCheckMail1() {
+   public void testCheckMail1() {
         System.out.println("checkMail");
         String email = "teiser@";
         RegisterController instance = new RegisterController();
         boolean expResult = false;
         boolean result = instance.checkMail(email);
         assertEquals(expResult, result);
-
+     
     }
-
-    public void testCheckMail2() {
+      public void testCheckMail2() {
         System.out.println("checkMail");
         String email = "w@y";
         RegisterController instance = new RegisterController();
         boolean expResult = false;
         boolean result = instance.checkMail(email);
         assertEquals(expResult, result);
-
+     
     }
-
-    public void testCheckMail3() {
+         public void testCheckMail3() {
         System.out.println("checkMail");
         String email = "SVD@yahoo";
         RegisterController instance = new RegisterController();
         boolean expResult = true;
         boolean result = instance.checkMail(email);
         assertEquals(expResult, result);
-
+     
     }
-
-    public void testCheckMail4() {
+         public void testCheckMail4() {
         System.out.println("checkMail");
         String email = "yahoo";
         RegisterController instance = new RegisterController();
         boolean expResult = false;
         boolean result = instance.checkMail(email);
         assertEquals(expResult, result);
-
+     
     }
-
-    public void testCheckMail5() {
+          public void testCheckMail5() {
         System.out.println("checkMail");
         String email = "dsdd@@yahoo";
         RegisterController instance = new RegisterController();
         boolean expResult = false;
         boolean result = instance.checkMail(email);
         assertEquals(expResult, result);
-
-    }
-
-    public void testCheckMail6() {
-        System.out.println("checkMail");
-        String email = "";
-        RegisterController instance = new RegisterController();
-        boolean expResult = false;
-        boolean result = instance.checkMail(email);
-        assertEquals(expResult, result);
-
-    }
-    public void testCheckMail7() {
-        System.out.println("checkMail");
-        String email = "d@sdd@yahoo";
-        RegisterController instance = new RegisterController();
-        boolean expResult = false;
-        boolean result = instance.checkMail(email);
-        assertEquals(expResult, result);
-
+     
     }
     /**
      * Test of checkUsername method, of class RegisterController.
@@ -118,78 +95,54 @@ public class RegisterControllerTest extends TestCase {
         boolean expResult = false;
         boolean result = instance.checkUsername(username);
         assertEquals(expResult, result);
-
+  
     }
-
-    public void testCheckUsername1() {
+     public void testCheckUsername1() {
         System.out.println("checkUsername");
         String username = "st";
         RegisterController instance = new RegisterController();
         boolean expResult = false;
         boolean result = instance.checkUsername(username);
         assertEquals(expResult, result);
-
+  
     }
-
-    public void testCheckUsername2() {
+       public void testCheckUsername2() {
         System.out.println("checkUsername");
         String username = "thesuperthedouperthetrooperme";
         RegisterController instance = new RegisterController();
         boolean expResult = false;
         boolean result = instance.checkUsername(username);
         assertEquals(expResult, result);
-
+  
     }
-
-    public void testCheckUsername3() {
+     public void testCheckUsername3() {
         System.out.println("checkUsername");
         String username = "";
         RegisterController instance = new RegisterController();
         boolean expResult = false;
         boolean result = instance.checkUsername(username);
         assertEquals(expResult, result);
-
+  
     }
-
-    public void testCheckUsername4() {
+          public void testCheckUsername4() {
         System.out.println("checkUsername");
         String username = "test";
         RegisterController instance = new RegisterController();
         boolean expResult = true;
         boolean result = instance.checkUsername(username);
         assertEquals(expResult, result);
-
+  
     }
-
-    public void testCheckUsername5() {
+             public void testCheckUsername5() {
         System.out.println("checkUsername");
         String username = "!succes!";
         RegisterController instance = new RegisterController();
         boolean expResult = true;
         boolean result = instance.checkUsername(username);
         assertEquals(expResult, result);
-
+  
     }
-
-    public void testCheckUsername6() {
-        System.out.println("checkUsername");
-        String username = "!@#$$%$%$";
-        RegisterController instance = new RegisterController();
-        boolean expResult = true;
-        boolean result = instance.checkUsername(username);
-        assertEquals(expResult, result);
-
-    }
-        public void testCheckUsername7() {
-        System.out.println("checkUsername");
-        String username = "";
-        RegisterController instance = new RegisterController();
-        boolean expResult = false;
-        boolean result = instance.checkUsername(username);
-        assertEquals(expResult, result);
-
-    }
-
+    
     /**
      * Test of checkPassword method, of class RegisterController.
      */
@@ -201,10 +154,9 @@ public class RegisterControllerTest extends TestCase {
         boolean expResult = false;
         boolean result = instance.checkPassword(password, repeatedpassword);
         assertEquals(expResult, result);
-
+  
     }
-
-    public void testCheckPassword1() {
+       public void testCheckPassword1() {
         System.out.println("checkPassword");
         String password = "12";
         String repeatedpassword = "12";
@@ -212,10 +164,9 @@ public class RegisterControllerTest extends TestCase {
         boolean expResult = false;
         boolean result = instance.checkPassword(password, repeatedpassword);
         assertEquals(expResult, result);
-
+  
     }
-
-    public void testCheckPassword3() {
+   public void testCheckPassword3(){
         System.out.println("checkPassword");
         String password = "12341234123412341234123412341234123412341234123412341234";
         String repeatedpassword = "12341234123412341234123412341234123412341234123412341234";
@@ -223,10 +174,9 @@ public class RegisterControllerTest extends TestCase {
         boolean expResult = false;
         boolean result = instance.checkPassword(password, repeatedpassword);
         assertEquals(expResult, result);
-
+  
     }
-
-    public void testCheckPassword4() {
+     public void testCheckPassword4(){
         System.out.println("checkPassword");
         String password = "the best";
         String repeatedpassword = "the best";
@@ -234,10 +184,9 @@ public class RegisterControllerTest extends TestCase {
         boolean expResult = false;
         boolean result = instance.checkPassword(password, repeatedpassword);
         assertEquals(expResult, result);
-
+  
     }
-
-    public void testCheckPassword5() {
+     public void testCheckPassword5(){
         System.out.println("checkPassword");
         String password = "1a2b";
         String repeatedpassword = "1a2c";
@@ -245,10 +194,9 @@ public class RegisterControllerTest extends TestCase {
         boolean expResult = false;
         boolean result = instance.checkPassword(password, repeatedpassword);
         assertEquals(expResult, result);
-
+  
     }
-
-    public void testCheckPassword6() {
+        public void testCheckPassword6(){
         System.out.println("checkPassword");
         String password = "a1234";
         String repeatedpassword = "a1234";
@@ -256,10 +204,9 @@ public class RegisterControllerTest extends TestCase {
         boolean expResult = true;
         boolean result = instance.checkPassword(password, repeatedpassword);
         assertEquals(expResult, result);
-
+  
     }
-
-    public void testCheckPassword7() {
+        public void testCheckPassword7(){
         System.out.println("checkPassword");
         String password = "12a34";
         String repeatedpassword = "12a34";
@@ -267,10 +214,9 @@ public class RegisterControllerTest extends TestCase {
         boolean expResult = true;
         boolean result = instance.checkPassword(password, repeatedpassword);
         assertEquals(expResult, result);
-
+  
     }
-
-    public void testCheckPassword8() {
+        public void testCheckPassword8(){
         System.out.println("checkPassword");
         String password = "1234a";
         String repeatedpassword = "1234a";
@@ -278,39 +224,7 @@ public class RegisterControllerTest extends TestCase {
         boolean expResult = true;
         boolean result = instance.checkPassword(password, repeatedpassword);
         assertEquals(expResult, result);
-
+  
     }
-
-    public void testCheckPassword9() {
-        System.out.println("checkPassword");
-        String password = "!!!!";
-        String repeatedpassword = "!!!!";
-        RegisterController instance = new RegisterController();
-        boolean expResult = true;
-        boolean result = instance.checkPassword(password, repeatedpassword);
-        assertEquals(expResult, result);
-
-    }
-
-    public void testCheckPassword10() {
-        System.out.println("checkPassword");
-        String password = "1";
-        String repeatedpassword = "1";
-        RegisterController instance = new RegisterController();
-        boolean expResult = false;
-        boolean result = instance.checkPassword(password, repeatedpassword);
-        assertEquals(expResult, result);
-
-    }
-
-    public void testCheckPassword11() {
-        System.out.println("checkPassword");
-        String password = "1!";
-        String repeatedpassword = "1!";
-        RegisterController instance = new RegisterController();
-        boolean expResult = false;
-        boolean result = instance.checkPassword(password, repeatedpassword);
-        assertEquals(expResult, result);
-
-    }
+  
 }

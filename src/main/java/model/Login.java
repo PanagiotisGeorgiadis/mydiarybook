@@ -6,30 +6,30 @@
 
 package model;
 
-
+import static ui.LoginForm.username;
 
 /**
  *
  * @author user
  */
 public class Login {
-    public static String username;
+    public String username;
     public String password;
     
-    public static String getUsername() {
+    public String getusername() {
         return username;
     }
     
-    public String getPassword() {
+    public String getpassword() {
         return password;
     }
     
-    public void setUsername(String user) {
-        username = user;
+    public void setusername(String user) {
+        this.username = user;
     }
     
-    public void setPassword(String pass) {
-        password = pass;
+    public void setpassword(String pass) {
+        this.password = pass;
     }
 }
 

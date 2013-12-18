@@ -1,18 +1,10 @@
 package ui;
 
-
-import controller.CheckMailController;
-import controller.CheckPasswordController;
-import controller.CheckQ1Controller;
-import controller.CheckQ2Controller;
-import controller.CheckUserController;
-import controller.CheckUsernameController;
-import controller.CheckValidPassword;
 import controller.RegisterController;
-import dao.RegisterFormDao;
+import java.io.PrintWriter;
 import javax.swing.JOptionPane;
 
-
+import static ui.ChangePassword.ok;
 
 /**
  *
@@ -20,52 +12,8 @@ import javax.swing.JOptionPane;
  */
 public class RegisterForm extends javax.swing.JFrame {
 
-    boolean usernamepass = false;
-    boolean passwordpass = false;
-    boolean repeatpassowrdpass = false;
-    boolean mailpass = false;
-    boolean q1pass = false;
-    boolean q2pass = false;
-
-    
-
     public RegisterForm() {
         initComponents();
-        usernameexistmsg.setVisible(false);
-        missmatchpasswords.setVisible(false);
-        invalidemail.setVisible(false);
-        invalidpassword.setVisible(false);
-        cndaccept.setVisible(false);
-        SubmitAccountButton.setEnabled(false);
-        q1msg.setVisible(false); 
-        usernameexistmsg.setName("usernameexistmsg");
-        password.setName("password");
-        repassword.setName("repassword");
-        invalidpassword.setName("invalidpassword");
-        email.setName("email");
-        missmatchpasswords.setName("missmatchpasswords");
-        FavoritePet.setName("FavoritePet");
-        invalidemail.setName("invalidemail");
-        FavoriteCar.setName("FavoriteCar");
-        q1msg.setName("q1msg");
-
-        q2msg.setVisible(false);
-        username.setName("username");
-        usernameexistmsg.setName("usernameexistmsg");
-        password.setName("password");
-        repassword.setName("repassword");
-        invalidpassword.setName("invalidpassword");
-        email.setName("email");
-        missmatchpasswords.setName("missmatchpasswords");
-        FavoritePet.setName("FavoritePet");
-        invalidemail.setName("invalidemail");
-        FavoriteCar.setName("FavoriteCar");
-        q1msg.setName("q1msg");
-       q2msg.setName("q2msg");
-       SubmitAccountButton.setName("SubmitAccountButton");
-       CancelButton.setName("CancelButton");
-       msg.setVisible(false);
-      
     }
 
     @SuppressWarnings("unchecked")
@@ -77,26 +25,18 @@ public class RegisterForm extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        username = new javax.swing.JTextField();
-        password = new javax.swing.JPasswordField();
-        repassword = new javax.swing.JPasswordField();
-        email = new javax.swing.JTextField();
+        UserNameTextField = new javax.swing.JTextField();
+        PasswordPasswordField = new javax.swing.JPasswordField();
+        RePasswordPasswordField = new javax.swing.JPasswordField();
+        EmailTextField = new javax.swing.JTextField();
         ConditionAndTemrsCheckBox = new javax.swing.JCheckBox();
         SubmitAccountButton = new javax.swing.JButton();
         CancelButton = new javax.swing.JButton();
-        cnd = new javax.swing.JLabel();
+        ConditionAndTerms = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         FavoritePet = new javax.swing.JTextField();
         FavoriteCar = new javax.swing.JTextField();
-        usernameexistmsg = new javax.swing.JLabel();
-        invalidpassword = new javax.swing.JLabel();
-        missmatchpasswords = new javax.swing.JLabel();
-        invalidemail = new javax.swing.JLabel();
-        cndaccept = new javax.swing.JLabel();
-        q1msg = new javax.swing.JLabel();
-        q2msg = new javax.swing.JLabel();
-        msg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -110,41 +50,6 @@ public class RegisterForm extends javax.swing.JFrame {
 
         jLabel5.setText("Sign Up Here");
         jLabel5.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-
-        username.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                usernameFocusLost(evt);
-            }
-        });
-        username.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                usernameKeyTyped(evt);
-            }
-        });
-
-        password.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                passwordKeyTyped(evt);
-            }
-        });
-
-        repassword.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                repasswordKeyTyped(evt);
-            }
-        });
-
-        email.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                emailKeyTyped(evt);
-            }
-        });
-
-        ConditionAndTemrsCheckBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ConditionAndTemrsCheckBoxActionPerformed(evt);
-            }
-        });
 
         SubmitAccountButton.setText("CreateAccount");
         SubmitAccountButton.addActionListener(new java.awt.event.ActionListener() {
@@ -160,17 +65,12 @@ public class RegisterForm extends javax.swing.JFrame {
             }
         });
 
-        cnd.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
-        cnd.setForeground(new java.awt.Color(0, 0, 255));
-        cnd.setText("Conditions & Terms");
-        cnd.addMouseListener(new java.awt.event.MouseAdapter() {
+        ConditionAndTerms.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
+        ConditionAndTerms.setForeground(new java.awt.Color(0, 0, 255));
+        ConditionAndTerms.setText("C&D");
+        ConditionAndTerms.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cndMouseClicked(evt);
-            }
-        });
-        cnd.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                cndPropertyChange(evt);
+                ConditionAndTermsMouseClicked(evt);
             }
         });
 
@@ -178,41 +78,17 @@ public class RegisterForm extends javax.swing.JFrame {
 
         jLabel8.setText("Αγαπημένη μάρκα αυτοκινήτου");
 
-        FavoritePet.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                FavoritePetKeyTyped(evt);
+        FavoritePet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FavoritePetActionPerformed(evt);
             }
         });
 
-        FavoriteCar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                FavoriteCarKeyTyped(evt);
+        FavoriteCar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FavoriteCarActionPerformed(evt);
             }
         });
-
-        usernameexistmsg.setForeground(new java.awt.Color(255, 0, 0));
-        usernameexistmsg.setText("username exist");
-
-        invalidpassword.setForeground(new java.awt.Color(255, 0, 0));
-        invalidpassword.setText("invalid password");
-
-        missmatchpasswords.setForeground(new java.awt.Color(255, 0, 0));
-        missmatchpasswords.setText("miss-match passwords");
-
-        invalidemail.setForeground(new java.awt.Color(255, 0, 0));
-        invalidemail.setText("invalid email");
-
-        cndaccept.setForeground(new java.awt.Color(255, 51, 51));
-        cndaccept.setText("please accept the terms and conditions");
-
-        q1msg.setForeground(new java.awt.Color(255, 0, 0));
-        q1msg.setText("answer must be at least 3 chars ");
-
-        q2msg.setForeground(new java.awt.Color(255, 0, 0));
-        q2msg.setText("answer must be at least 3 chars");
-
-        msg.setForeground(new java.awt.Color(255, 0, 0));
-        msg.setText("invalid username");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -221,55 +97,33 @@ public class RegisterForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
                             .addComponent(SubmitAccountButton)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))
-                            .addComponent(CancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(159, 159, 159)
-                                .addComponent(cndaccept, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(136, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel1))
-                                .addGap(128, 128, 128)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(password, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
-                                    .addComponent(username)
-                                    .addComponent(repassword)
-                                    .addComponent(email)
-                                    .addComponent(FavoritePet)
-                                    .addComponent(FavoriteCar)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(cnd, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(ConditionAndTemrsCheckBox)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(usernameexistmsg, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(msg, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(invalidpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(invalidemail, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(missmatchpasswords, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(q2msg, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(q1msg, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(ConditionAndTerms, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(ConditionAndTemrsCheckBox)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(CancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel1))
+                            .addGap(128, 128, 128)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(PasswordPasswordField, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
+                                .addComponent(UserNameTextField)
+                                .addComponent(RePasswordPasswordField)
+                                .addComponent(EmailTextField)
+                                .addComponent(FavoritePet)
+                                .addComponent(FavoriteCar))))
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(97, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -279,46 +133,35 @@ public class RegisterForm extends javax.swing.JFrame {
                 .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(usernameexistmsg)
-                    .addComponent(msg))
-                .addGap(38, 38, 38)
+                    .addComponent(UserNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(invalidpassword))
+                    .addComponent(PasswordPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(repassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(missmatchpasswords))
+                    .addComponent(RePasswordPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(invalidemail)))
+                    .addComponent(EmailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(FavoritePet, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(q1msg))
+                    .addComponent(FavoritePet, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(FavoriteCar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(q2msg))
+                    .addComponent(FavoriteCar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ConditionAndTemrsCheckBox)
+                    .addComponent(CancelButton)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(SubmitAccountButton)
-                        .addComponent(cnd, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cndaccept)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(CancelButton)
-                .addGap(22, 22, 22))
+                        .addComponent(ConditionAndTerms, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ConditionAndTemrsCheckBox))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         jLabel5.getAccessibleContext().setAccessibleDescription("");
@@ -327,166 +170,49 @@ public class RegisterForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelButtonActionPerformed
-             this.dispose();
-              LoginForm regFace = new LoginForm();
-                regFace.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_CancelButtonActionPerformed
 
-    private void cndMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cndMouseClicked
-        JOptionPane.showMessageDialog(null, "This is an open source application \n Owner rights: \n "
-            + "ΜΥΡΩΝΙΔΗΣ ΔΗΜΗΤΡΗΣ, ΧΡΗΣΤΟΥ ΑΠΟΣΤΟΛΗΣ \n TΣΙΛΟΠΟΥΛΟΣ ΠΑΝΑΓΙΩΤΗΣ, ΓΕΩΣΡΓΙΑΔΗΣ ΠΑΝΑΓΙΩΤΗΣ,\n ΤΣΑΜΗΣ ΙΩΑΝΝΗΣ"
-            + "ΣΤΕΦΑΝΙΔΗΣ ΣΤΕΦΑΝΟΣ,\n ΠΑΤΣΑΝΗΣ ΑΛΕΞΑΝΔΡΟΣ, ΤΑΣΣΙΟΣ ΜΑΡΙΟΣ, \n ΣΤΥΛΙΔΗΣ ΧΡΗΣΤΟΣ, ΔΗΜΤΣΑΣ ΒΙΚΤΩΡΑΣ ");
-    }//GEN-LAST:event_cndMouseClicked
+    private void ConditionAndTermsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ConditionAndTermsMouseClicked
+        JOptionPane.showMessageDialog(null, "you can not re-create this \n application "
+                + "or gain any profit \n RIGHTS BY THE DIARY ppl :P");
+    }//GEN-LAST:event_ConditionAndTermsMouseClicked
 
     private void SubmitAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitAccountButtonActionPerformed
+        dao.RegisterFormDao.checkUsername();
+        if (dao.RegisterFormDao.usernameexist == false) {
+            if (ConditionAndTemrsCheckBox.isSelected()) {
+                if (controller.RegisterController.checkValues()) {
+                    dao.RegisterFormDao.registerValues();
+                    if (dao.RegisterFormDao.ok == true) {
+                        JOptionPane.showMessageDialog(null, "Congratulations, \n Your Account Has Been Created!");
+                        ok = false;
+                        dispose();
+                        LoginForm regFace = new LoginForm();
+                        regFace.setVisible(true);
+                    }
 
-        RegisterController controller2 = new RegisterController();
-        RegisterFormDao formDao = new RegisterFormDao();
-        if (!ConditionAndTemrsCheckBox.isSelected()) {
-            cndaccept.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Invalid input values");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "CHECK THE CONDITIONS BOX");
 
-        } else {
-
-            formDao.registerValues(username.getText(), password.getText(), repassword.getText(), email.getText(), FavoritePet.getText(), FavoriteCar.getText());
-
-            if (!formDao.ok) {
-                JOptionPane.showMessageDialog(null, "Congratulations, \n Your Account Has Been Created!");
-
-                dispose();
-                LoginForm regFace = new LoginForm();
-                regFace.setVisible(true);
             }
 
+        } else {
+            JOptionPane.showMessageDialog(null, "Username Already Exists!");
+            dao.RegisterFormDao.usernameexist = false;
         }
-
-
     }//GEN-LAST:event_SubmitAccountButtonActionPerformed
 
-    private void usernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernameFocusLost
-        CheckUsernameController controller = new CheckUsernameController();
-        if (controller.usernameExists(username.getText())) {
-            usernamepass = false;
-            usernameexistmsg.setVisible(true);
-            SubmitAccountButton.setEnabled(false);
-
-        } else {
-            usernamepass = true;
-            usernameexistmsg.setVisible(false);
-            if (usernamepass && passwordpass && repeatpassowrdpass && mailpass && q1pass && q2pass) {
-                SubmitAccountButton.setEnabled(true);
-            }
-        }
-
-
-    }//GEN-LAST:event_usernameFocusLost
-
-    private void cndPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_cndPropertyChange
+    private void FavoritePetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FavoritePetActionPerformed
         // TODO add your handling code here:
+    }//GEN-LAST:event_FavoritePetActionPerformed
 
-    }//GEN-LAST:event_cndPropertyChange
-
-    private void ConditionAndTemrsCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConditionAndTemrsCheckBoxActionPerformed
-
-        cndaccept.setVisible(false);
-    }//GEN-LAST:event_ConditionAndTemrsCheckBoxActionPerformed
-
-    private void passwordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordKeyTyped
-
-        CheckValidPassword controller = new CheckValidPassword();
-        if (!controller.checkPassword(password.getText() + evt.getKeyChar())) {
-            passwordpass = false;
-            invalidpassword.setVisible(true);
-            SubmitAccountButton.setEnabled(false);
-
-        } else {
-            passwordpass = true;
-            invalidpassword.setVisible(false);
-            if (usernamepass && passwordpass && repeatpassowrdpass && mailpass && q1pass && q2pass) {
-                SubmitAccountButton.setEnabled(true);
-            }
-        }
-    }//GEN-LAST:event_passwordKeyTyped
-
-    private void repasswordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_repasswordKeyTyped
-        CheckPasswordController controller = new CheckPasswordController();
-        if (!controller.checkPassword(password.getText(), repassword.getText() + evt.getKeyChar())) {
-            repeatpassowrdpass = false;
-            missmatchpasswords.setVisible(true);
-            SubmitAccountButton.setEnabled(false);
-
-        } else {
-            repeatpassowrdpass = true;
-            missmatchpasswords.setVisible(false);
-            if (usernamepass && passwordpass && repeatpassowrdpass && mailpass && q1pass && q2pass) {
-                SubmitAccountButton.setEnabled(true);
-            }
-        }
-    }//GEN-LAST:event_repasswordKeyTyped
-
-    private void emailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailKeyTyped
-        CheckMailController controller = new CheckMailController();
-        if (!controller.checkMail(email.getText() + evt.getKeyChar())) {
-            mailpass = false;
-            invalidemail.setVisible(true);
-            SubmitAccountButton.setEnabled(false);
-
-        } else {
-            mailpass = true;
-            invalidemail.setVisible(false);
-            if (usernamepass && passwordpass && repeatpassowrdpass && mailpass && q1pass && q2pass) {
-                SubmitAccountButton.setEnabled(true);
-            }
-        }
-    }//GEN-LAST:event_emailKeyTyped
-
-    private void FavoritePetKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_FavoritePetKeyTyped
-
-        CheckQ1Controller controller = new CheckQ1Controller();
-        if (!controller.checkQ1(FavoritePet.getText() + evt.getKeyChar())) {
-            q1pass = false;
-            q1msg.setVisible(true);
-            SubmitAccountButton.setEnabled(false);
-
-        } else {
-            q1pass = true;
-            q1msg.setVisible(false);
-            if (usernamepass && passwordpass && repeatpassowrdpass && mailpass && q1pass && q2pass) {
-                SubmitAccountButton.setEnabled(true);
-            }
-        }
-    }//GEN-LAST:event_FavoritePetKeyTyped
-
-    private void FavoriteCarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_FavoriteCarKeyTyped
-        CheckQ2Controller controller = new CheckQ2Controller();
-        if (!controller.checkQ2(FavoriteCar.getText() + evt.getKeyChar())) {
-            q2pass = false;
-            q2msg.setVisible(true);
-            SubmitAccountButton.setEnabled(false);
-
-        } else {
-            q2pass = true;
-            q2msg.setVisible(false);
-            if (usernamepass && passwordpass && repeatpassowrdpass && mailpass && q1pass && q2pass) {
-                SubmitAccountButton.setEnabled(true);
-            }
-        }
-    }//GEN-LAST:event_FavoriteCarKeyTyped
-
-    private void usernameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usernameKeyTyped
-           CheckUserController controller = new CheckUserController();
-        if (!controller.checkUser(username.getText() + evt.getKeyChar())) {
-            usernamepass = false;
-            msg.setVisible(true);
-            SubmitAccountButton.setEnabled(false);
-
-        } else {
-            usernamepass = true;
-            msg.setVisible(false);
-            if (usernamepass && passwordpass && repeatpassowrdpass && mailpass && q1pass && q2pass) {
-                SubmitAccountButton.setEnabled(true);
-            }
-        } 
-    }//GEN-LAST:event_usernameKeyTyped
+    private void FavoriteCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FavoriteCarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FavoriteCarActionPerformed
 
     /**
      * @param args
@@ -504,14 +230,14 @@ public class RegisterForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CancelButton;
     private javax.swing.JCheckBox ConditionAndTemrsCheckBox;
-    private javax.swing.JTextField FavoriteCar;
-    private javax.swing.JTextField FavoritePet;
+    private javax.swing.JLabel ConditionAndTerms;
+    public static javax.swing.JTextField EmailTextField;
+    public static javax.swing.JTextField FavoriteCar;
+    public static javax.swing.JTextField FavoritePet;
+    public static javax.swing.JPasswordField PasswordPasswordField;
+    public static javax.swing.JPasswordField RePasswordPasswordField;
     private javax.swing.JButton SubmitAccountButton;
-    private javax.swing.JLabel cnd;
-    private javax.swing.JLabel cndaccept;
-    private javax.swing.JTextField email;
-    private javax.swing.JLabel invalidemail;
-    private javax.swing.JLabel invalidpassword;
+    public static javax.swing.JTextField UserNameTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -519,14 +245,6 @@ public class RegisterForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel missmatchpasswords;
-    private javax.swing.JLabel msg;
-    private javax.swing.JPasswordField password;
-    private javax.swing.JLabel q1msg;
-    private javax.swing.JLabel q2msg;
-    private javax.swing.JPasswordField repassword;
-    private javax.swing.JTextField username;
-    private javax.swing.JLabel usernameexistmsg;
     // End of variables declaration//GEN-END:variables
 
 }
