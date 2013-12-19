@@ -161,7 +161,7 @@ public class FilesDao {
 //        }
 //        subFoldersList[0]= getMostRecentFile(subFolders);
 //        j=0;
-        for(int i=1;i<children.length;i++)
+        for(int i=0;i<children.length;i++)
         {
             subFile = new File(entriesPath+File.separator+children[i]);
             if(subFile.isDirectory())

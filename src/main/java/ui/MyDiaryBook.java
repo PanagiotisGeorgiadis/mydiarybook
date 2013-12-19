@@ -51,7 +51,7 @@ public class MyDiaryBook extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         entriesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        loadEntiesList();
+        loadEntriesList();
         entriesList.setSelectedIndex(0);
         jScrollPane4.getVerticalScrollBar().setUnitIncrement(20);
         jScrollPane4.getHorizontalScrollBar().setUnitIncrement(20);
@@ -121,7 +121,7 @@ public class MyDiaryBook extends javax.swing.JFrame {
         }
     }
     
-    public void loadEntiesList()
+    public void loadEntriesList()
     {
         MyDiaryBookController controller = new MyDiaryBookController();
         DefaultListModel listModel = new DefaultListModel();
@@ -585,6 +585,7 @@ public class MyDiaryBook extends javax.swing.JFrame {
         try{
         loadEntryText();
         loadImageList();
+        loadEntriesList();
         entryTitleField.setText(entriesList.getSelectedValue().toString());
         }catch(NullPointerException ex){
             //logger
@@ -619,8 +620,8 @@ public class MyDiaryBook extends javax.swing.JFrame {
     private void newEntryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newEntryActionPerformed
         NewEntryView newEntry = new NewEntryView();
         newEntry.setVisible(true);
-        newEntry.requestFocusInWindow();
-        this.setFocusable(false);
+        loadEntriesList();
+        
     }//GEN-LAST:event_newEntryActionPerformed
 
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
