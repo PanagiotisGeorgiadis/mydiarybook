@@ -142,7 +142,7 @@ public class ViewFavorites extends javax.swing.JFrame {
 
       ViewFavoritesDao dao = new ViewFavoritesDao()  ;
       msg.setText(null);
-      dao.clearfavorites("test");
+      dao.clearfavorites(Login.getUsername());
       if (dao.ok)
       {
       links.setText(null);
