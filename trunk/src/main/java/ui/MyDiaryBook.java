@@ -280,6 +280,7 @@ public class MyDiaryBook extends javax.swing.JFrame {
         newPersonalGoal = new javax.swing.JMenuItem();
         favoritesMenu = new javax.swing.JMenu();
         newFavorites = new javax.swing.JMenuItem();
+        viewFavorites = new javax.swing.JMenuItem();
         importantMommentsMenu = new javax.swing.JMenu();
         searchMenu = new javax.swing.JMenu();
         jRadioButtonMenuItem1 = new javax.swing.JRadioButtonMenuItem();
@@ -509,6 +510,14 @@ public class MyDiaryBook extends javax.swing.JFrame {
         });
         favoritesMenu.add(newFavorites);
 
+        viewFavorites.setText("View Favorites");
+        viewFavorites.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewFavoritesActionPerformed(evt);
+            }
+        });
+        favoritesMenu.add(viewFavorites);
+
         jMenuBar.add(favoritesMenu);
 
         importantMommentsMenu.setText("Important Momments");
@@ -646,6 +655,19 @@ public class MyDiaryBook extends javax.swing.JFrame {
         theView.setVisible(true);
     }//GEN-LAST:event_newFavoritesActionPerformed
 
+    private void viewFavoritesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewFavoritesActionPerformed
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        ViewFavorites theView = new ViewFavorites();
+
+        theView.setDefaultLookAndFeelDecorated(true);
+        theView.setLocationRelativeTo(null);
+        theView.setVisible(true);    
+    }//GEN-LAST:event_viewFavoritesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -717,6 +739,7 @@ public class MyDiaryBook extends javax.swing.JFrame {
     private javax.swing.JMenu searchMenu;
     private javax.swing.JPanel textPanel;
     private javax.swing.JPanel videoPanel;
+    private javax.swing.JMenuItem viewFavorites;
     private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables
 }
