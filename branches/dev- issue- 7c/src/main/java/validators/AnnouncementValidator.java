@@ -24,7 +24,6 @@ public class AnnouncementValidator {
         if (announcement.length() > 100 ) {
             return false;
         }
-
         return true;
     }
  

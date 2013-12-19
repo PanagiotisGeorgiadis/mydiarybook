@@ -4,6 +4,7 @@
  */
 package ui;
 
+import java.awt.Color;
 import javax.swing.UIManager;
 
 /**
@@ -202,6 +203,7 @@ public class MyMainForm extends javax.swing.JFrame {
         theView.setDefaultLookAndFeelDecorated(true);
         theView.setLocationRelativeTo(null);
         theView.setVisible(true);
+        theView.getContentPane().setBackground(Color.LIGHT_GRAY);
     }//GEN-LAST:event_PersonalGoalButtonActionPerformed
 
     private void ImportantMomentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImportantMomentButtonActionPerformed
