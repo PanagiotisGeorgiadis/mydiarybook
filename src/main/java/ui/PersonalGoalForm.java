@@ -3,11 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ui;
 
-
 import controller.PersonalGoalController;
+import controller.PersonalGoalTextController;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -15,42 +14,44 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
-import javax.swing.JSpinner;
-import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import dao.PersonalGoalDao;
-import dao.PersonalGoalPathDao;
+import dao.PersonalGoalTxtDao;
+import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import validators.LocationValidator;
+import validators.TitleValidator;
+import validators.WhenDateValidator;
+import validators.WithPersonValidator;
+import validators.*;
+
 
 /*
  ** Μια φόρμα που υλοποιή το μοντέλου του Προσωπικού στόχου (Personal Goal)
  *@author alex
  */
-public class PersonalGoalForm extends javax.swing.JFrame implements IPersonalGoalForm{
+public class PersonalGoalForm extends javax.swing.JFrame implements IPersonalGoalForm {
+
     private PersonalGoalController PersonalGoalController;
     private final String database = "alexis.txt";
-   
 
     /**
      * Creates new form PersonalGoalForm
      */
     public PersonalGoalForm() {
         initComponents();
-      //  PersonalGoalDao db = new PersonalGoalDao();
-     //         db.loadDatabase(database);
+        //  PersonalGoalDao db = new PersonalGoalDao();
+        //         db.loadDatabase(database);
     }
-    
+
     public PersonalGoalForm(String txt) {
         initComponents();
-      
-      
+
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -80,10 +81,12 @@ public class PersonalGoalForm extends javax.swing.JFrame implements IPersonalGoa
         imageLabel = new javax.swing.JLabel();
         browseFotoTextField = new javax.swing.JTextField();
         buttonUploadFoto = new javax.swing.JButton();
+        checkFieldTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setForeground(java.awt.Color.orange);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tempus Sans ITC", 0, 24)); // NOI18N
         jLabel1.setText("New Personal Goal");
 
         titleLabel.setText("Title:");
@@ -91,6 +94,24 @@ public class PersonalGoalForm extends javax.swing.JFrame implements IPersonalGoa
         locationLabel.setText("Location:");
 
         withPersonLabel.setText("With Person:");
+
+        titleTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                titleTextFieldFocusLost(evt);
+            }
+        });
+
+        locationTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                locationTextFieldFocusLost(evt);
+            }
+        });
+
+        withPersonTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                withPersonTextFieldFocusLost(evt);
+            }
+        });
 
         WhenDate.setText("WhenDate");
 
@@ -108,6 +129,11 @@ public class PersonalGoalForm extends javax.swing.JFrame implements IPersonalGoa
             }
         });
 
+        announcementEditorPane.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                announcementEditorPaneFocusLost(evt);
+            }
+        });
         jScrollPane1.setViewportView(announcementEditorPane);
 
         AnnouncementLabel.setText("Announcement");
@@ -115,8 +141,13 @@ public class PersonalGoalForm extends javax.swing.JFrame implements IPersonalGoa
         whenDateSpinner.setModel(new javax.swing.SpinnerDateModel());
         whenDateSpinner.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         whenDateSpinner.setEditor(new javax.swing.JSpinner.DateEditor(whenDateSpinner, "dd/MM/yyyy"));
+        whenDateSpinner.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                whenDateSpinnerFocusLost(evt);
+            }
+        });
 
-        addNewFotoLabel.setText("UPLOAD YOUR FOTO");
+        addNewFotoLabel.setText("     UPLOAD YOUR FOTO");
         addNewFotoLabel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         browseFotoFile.setText("Browse..");
@@ -156,39 +187,37 @@ public class PersonalGoalForm extends javax.swing.JFrame implements IPersonalGoa
                     .addComponent(AnnouncementLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(whenDateSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(locationTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
+                        .addComponent(titleTextField, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(withPersonTextField, javax.swing.GroupLayout.Alignment.LEADING))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(saveButton)
                         .addGap(51, 51, 51)
-                        .addComponent(cancelButton))
+                        .addComponent(cancelButton)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(whenDateSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(locationTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
-                                .addComponent(titleTextField, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(withPersonTextField, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(50, 50, 50)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(browseFotoFile)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(buttonUploadFoto)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(addNewFotoLabel)
-                                        .addContainerGap(142, Short.MAX_VALUE))))
+                                .addComponent(browseFotoFile)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                                .addComponent(buttonUploadFoto)
+                                .addGap(136, 136, 136))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(addNewFotoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(browseFotoTextField)
-                                        .addContainerGap())
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(28, 28, 28))))))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(imageLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(browseFotoTextField))
+                                .addContainerGap())))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(checkFieldTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(162, 162, 162)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -199,7 +228,7 @@ public class PersonalGoalForm extends javax.swing.JFrame implements IPersonalGoa
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -229,150 +258,222 @@ public class PersonalGoalForm extends javax.swing.JFrame implements IPersonalGoa
                             .addComponent(cancelButton))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
+                        .addGap(17, 17, 17)
                         .addComponent(addNewFotoLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(browseFotoFile)
                             .addComponent(buttonUploadFoto))
-                        .addGap(32, 32, 32)
+                        .addGap(18, 18, 18)
                         .addComponent(browseFotoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(checkFieldTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
     /**
      * cancelButton για να γίνει close η φόρμα.
-     * @param evt 
+     *
+     * @param evt
      */
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         this.dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
-  
+
     /**
-     * saveButton για να γίνεται τυχόν έλενχος πεδίον και το τελικό save. 
-     * @param evt 
+     * saveButton για να γίνεται τυχόν έλενχος πεδίον και το τελικό save.
+     *
+     * @param evt
      */
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
-        try {
-            
-           PersonalGoalController newController = new PersonalGoalController();
-           newController.createPersonalGoal(titleTextField.getText(),locationTextField.getText(),withPersonTextField.getText(),whenDateSpinner.getValue().toString(),announcementEditorPane.getText());
-            
-                              
-     
-        } catch (Exception ex) {
-            Logger.getLogger(PersonalGoalForm.class.getName()).log(Level.SEVERE, null, ex);
+        String title = titleTextField.getText();
+        String location = locationTextField.getText();
+        String withPerson = withPersonTextField.getText();
+        String whenDate = whenDateSpinner.getValue().toString();
+        String announcement = announcementEditorPane.getText();
+
+        PersonalGoalController newController = new PersonalGoalController();
+        //check if all Field is correct and return if is all ok success or tha name the wrong value.
+        String allFieldSuccess = newController.createPersonalGoal(titleTextField.getText(), locationTextField.getText(), withPersonTextField.getText(), whenDateSpinner.getValue().toString(), announcementEditorPane.getText());
+
+        if ("success".equals(allFieldSuccess)) {
+
+            PersonalGoalTextController newTextController = new PersonalGoalTextController();
+            PersonalGoalTxtDao newTxtDao = new PersonalGoalTxtDao();
+
+            boolean Success = newTextController.createTextFile(titleTextField.getText(), locationTextField.getText(), withPersonTextField.getText(), whenDateSpinner.getValue().toString(), announcementEditorPane.getText());
+            if (Success) {
+                checkFieldTextField.setText("success");
+                checkFieldTextField.setForeground(Color.green);
+            }
+        } else {
+
+            checkFieldTextField.setText(allFieldSuccess + " is incorect!");
+            checkFieldTextField.setForeground(Color.red);
+
         }
-         
+
     }//GEN-LAST:event_saveButtonActionPerformed
 
     //FIXME: refactor  σε μια νέα κλάση 
     /**
-     * 
+     *
      * @param fileDescription
      * @param fileSuffixes
      * @param dialog
-     * @return 
+     * @return
      */
-    private File getFile(String fileDescription, String[] fileSuffixes, String dialog )
-    {
+    private File getFile(String fileDescription, String[] fileSuffixes, String dialog) {
         JFileChooser f = new JFileChooser();
-        f.setFileFilter( new FileNameExtensionFilter(fileDescription,fileSuffixes)); 
+        f.setFileFilter(new FileNameExtensionFilter(fileDescription, fileSuffixes));
         f.setAcceptAllFileFilterUsed(false);
-        if(f.showDialog(this, dialog) == JFileChooser.CANCEL_OPTION )
+        if (f.showDialog(this, dialog) == JFileChooser.CANCEL_OPTION) {
             return null;
-        else
+        } else {
             return f.getSelectedFile();
+        }
     }
-     //FIXME: refactor  σε μια νέα κλάση 
+    //FIXME: refactor  σε μια νέα κλάση 
     /**
-     * 
-     * @param evt 
+     *
+     * @param evt
      */
     private void browseFotoFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseFotoFileActionPerformed
 
         File file = getFile("Image", ImageIO.getReaderFileSuffixes(), "Select");
-        if(file != null)
+        if (file != null) {
             browseFotoTextField.setText(file.getAbsolutePath());
+        }
 
     }//GEN-LAST:event_browseFotoFileActionPerformed
-/**
- * 
- * @param evt 
- */
+    /**
+     *
+     * @param evt
+     */
     private void browseFotoTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseFotoTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_browseFotoTextFieldActionPerformed
-      
-     //FIXME: refactor  σε μια νέα κλάση 
+
+    //FIXME: refactor  σε μια νέα κλάση and fix system outs 
     /**
      * buttonUpload για να εμφανίζεται η εικόνα μέσα στην φόρμα.
-     * @param evt 
+     *
+     * @param evt
      */
     private void buttonUploadFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUploadFotoActionPerformed
-           
-           String fileName = browseFotoTextField.getText();
-           if(fileName.equals(""))
-               System.out.println("Error[buttonUpload()]: File not selected");
-           else
-           {
-               File file = new File(fileName);
-               if(file == null)
-                   System.out.println("Error[buttonUpload()]: Can not load file");
-               else
-               {
-                    BufferedImage img = null;
-                    try {
-                        img = ImageIO.read(file);
-                    } catch (IOException e) {
-                        System.out.println("Error[ddButtonActionPerformed()] Can not add image");    
-                    }
-                    int w = imageLabel.getWidth();
-                    int h = imageLabel.getHeight();
 
-                    int type = img.getType() == 0? BufferedImage.TYPE_INT_ARGB : img.getType();
+        String fileName = browseFotoTextField.getText();
 
-                    BufferedImage resizedImg = new BufferedImage(w, h, type);
-                    Graphics g = resizedImg.createGraphics();
-                    g.drawImage(img, 0, 0, w, h, null);
-                    g.dispose();
-                    imageLabel.setIcon(new ImageIcon(resizedImg));
-               } 
-           }
+        File file = new File(fileName);
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(file);
+        } catch (IOException ex) {
+            Logger.getLogger(PersonalGoalForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        int w = imageLabel.getWidth();
+        int h = imageLabel.getHeight();
+
+        int type = img.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : img.getType();
+
+        BufferedImage resizedImg = new BufferedImage(w, h, type);
+        Graphics g = resizedImg.createGraphics();
+        g.drawImage(img, 0, 0, w, h, null);
+        g.dispose();
+        imageLabel.setIcon(new ImageIcon(resizedImg));
+
+
     }//GEN-LAST:event_buttonUploadFotoActionPerformed
+
+    private void titleTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_titleTextFieldFocusLost
+        TitleValidator newTitle = new TitleValidator();
+        boolean isValid = newTitle.titleIsValid(titleTextField.getText());
+        saveButton.setEnabled(isValid);
+        if (!isValid) {
+
+            titleTextField.setForeground(Color.red);
+        } else {
+
+            titleTextField.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_titleTextFieldFocusLost
+
+    private void locationTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_locationTextFieldFocusLost
+        LocationValidator newLocation = new LocationValidator();
+        boolean isValid = newLocation.locationIsValid(locationTextField.getText());
+        if (!isValid) {
+
+            locationTextField.setForeground(Color.red);
+        } else {
+
+            locationTextField.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_locationTextFieldFocusLost
+
+    private void withPersonTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_withPersonTextFieldFocusLost
+        WithPersonValidator withPerson = new WithPersonValidator();
+        boolean isValid = withPerson.withPersonIsValid(withPersonTextField.getText());
+        if (!isValid) {
+
+            withPersonTextField.setForeground(Color.red);
+        } else {
+
+            withPersonTextField.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_withPersonTextFieldFocusLost
+
+    private void whenDateSpinnerFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_whenDateSpinnerFocusLost
+        WhenDateValidator whenDate = new WhenDateValidator();
+        boolean isValid = whenDate.whenDateIsValid(whenDateSpinner.getName().toString());
+        if (!isValid) {
+
+            locationTextField.setForeground(Color.red);
+        } else {
+
+            locationTextField.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_whenDateSpinnerFocusLost
+
+    private void announcementEditorPaneFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_announcementEditorPaneFocusLost
+        AnnouncementValidator announcement = new AnnouncementValidator();
+        boolean isValid = announcement.announcementIsValid(announcementEditorPane.getText());
+        if (!isValid) {
+
+            withPersonTextField.setForeground(Color.red);
+        } else {
+
+            withPersonTextField.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_announcementEditorPaneFocusLost
     //FIXME: refactor  σε μια νέα κλάση και να βάλω interface
     // displayErrorMessage εαν υπάρχει κάποιο λάθος.
     @Override
-       public void displayErrorMessage(String errorMessage)
-    {
+    public void displayErrorMessage(String errorMessage) {
         JOptionPane.showMessageDialog(this, errorMessage);
     }
-     @Override  
-          public void displaySuccessMessage(String successMessage)
-    {
+
+    @Override
+    public void displaySuccessMessage(String successMessage) {
         JOptionPane.showMessageDialog(this, successMessage);
     }
-       
-      
-       
-      public class Utils {
 
-    public final static String jpeg = "jpeg";
-    public final static String jpg = "jpg";
-    public final static String gif = "gif";
-    public final static String tiff = "tiff";
-    public final static String tif = "tif";
-    public final static String png = "png";
+    public class Utils {
 
-   
-} 
-      
+        public final static String jpeg = "jpeg";
+        public final static String jpg = "jpg";
+        public final static String gif = "gif";
+        public final static String tiff = "tiff";
+        public final static String tif = "tif";
+        public final static String png = "png";
+
+    }
+
     /**
      * @param args the command line arguments
      * @throws java.io.UnsupportedEncodingException
@@ -402,10 +503,7 @@ public class PersonalGoalForm extends javax.swing.JFrame implements IPersonalGoa
                 new PersonalGoalForm().setVisible(true);
             }
         });
-        
-       
-        
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -417,6 +515,7 @@ public class PersonalGoalForm extends javax.swing.JFrame implements IPersonalGoa
     private javax.swing.JTextField browseFotoTextField;
     private javax.swing.JButton buttonUploadFoto;
     private javax.swing.JButton cancelButton;
+    private javax.swing.JTextField checkFieldTextField;
     private javax.swing.JLabel imageLabel;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;

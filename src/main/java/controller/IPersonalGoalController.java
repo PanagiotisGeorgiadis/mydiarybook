@@ -6,8 +6,6 @@
 
 package controller;
 
-import ui.IPersonalGoalForm;
-
 /**
  *
  * @author alex
@@ -25,6 +23,7 @@ public interface IPersonalGoalController {
      * @return βάζει την εγγραφή μέσα σε ενα αρχείο.
      * @throws Exception
      */
-    boolean createPersonalGoal( String title, String location, String withPerson, String whenDate, String announcement);
+    //TODO : Make createPersonalGoal string for success testing
+    String createPersonalGoal(String title, String location, String withPerson, String whenDate, String announcement);
     
 }

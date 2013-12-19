@@ -4,6 +4,7 @@
  */
 package ui;
 
+import java.awt.Color;
 import javax.swing.UIManager;
 
 /**
@@ -143,20 +144,20 @@ public class MyMainForm extends javax.swing.JFrame {
     private void RegisterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterButtonActionPerformed
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         RegisterForm theView = new RegisterForm();
 
         theView.setDefaultLookAndFeelDecorated(true);
         theView.setLocationRelativeTo(null);
-        theView.setVisible(true);        
+        theView.setVisible(true);
     }//GEN-LAST:event_RegisterButtonActionPerformed
 
     private void NewEntryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewEntryButtonActionPerformed
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         NewEntryView theView = new NewEntryView();
@@ -168,7 +169,7 @@ public class MyMainForm extends javax.swing.JFrame {
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         LoginForm theView = new LoginForm();
@@ -181,7 +182,7 @@ public class MyMainForm extends javax.swing.JFrame {
     private void EditEntryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditEntryButtonActionPerformed
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         EditForm theView = new EditForm();
@@ -194,7 +195,7 @@ public class MyMainForm extends javax.swing.JFrame {
     private void PersonalGoalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PersonalGoalButtonActionPerformed
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         PersonalGoalForm theView = new PersonalGoalForm();
@@ -202,15 +203,16 @@ public class MyMainForm extends javax.swing.JFrame {
         theView.setDefaultLookAndFeelDecorated(true);
         theView.setLocationRelativeTo(null);
         theView.setVisible(true);
+        theView.getContentPane().setBackground(Color.LIGHT_GRAY);
     }//GEN-LAST:event_PersonalGoalButtonActionPerformed
 
     private void ImportantMomentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImportantMomentButtonActionPerformed
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-         momentsframe theView = new momentsframe();
+        momentsframe theView = new momentsframe();
 
         theView.setDefaultLookAndFeelDecorated(true);
         theView.setLocationRelativeTo(null);
@@ -246,6 +248,7 @@ public class MyMainForm extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new MyMainForm().setVisible(true);
             }

@@ -6,9 +6,7 @@
 package controller;
 
 import dao.IPersonalGoalDao;
-import dao.PersonalGoalDao;
-import ui.IPersonalGoalForm;
-import ui.PersonalGoalForm;
+import validators.PersonalGoalCheckField;
 
 
 /*
@@ -43,7 +41,7 @@ public class PersonalGoalController implements IPersonalGoalController {
     public PersonalGoalController() {
 
     }
- 
+
     /**
      * Boolean συνάρτηση που ελένχει όλα τα πεδία της φόρμας εάν είναι σωστά
      *
@@ -52,43 +50,26 @@ public class PersonalGoalController implements IPersonalGoalController {
      * @param withPerson
      * @param whenDate
      * @param announcement
-     * @return βάζει την εγγραφή μέσα σε ενα αρχείο.
-     * @throws Exception
+     * @return puts the record in a file.
      */
     //TODO : Make createPersonalGoal string for success testing
     @Override
-    public boolean createPersonalGoal(String title, String location, String withPerson, String whenDate, String announcement) {
+    public String createPersonalGoal(String title, String location, String withPerson, String whenDate, String announcement) {
         this.title = title;
         this.location = location;
         this.withPerson = withPerson;
         this.whenDate = whenDate;
         this.announcement = announcement;
+        PersonalGoalCheckField eval = new PersonalGoalCheckField();
+        //check if allFieldSuccess
 
-
-        PersonalGoalForm theForm = new PersonalGoalForm();
-        PersonalGoalDao newDao = new PersonalGoalDao();
-        PersonalGoalEvaluator eval = new PersonalGoalEvaluator();
-        PersonalGoalForm newPersonalGoalForm = new PersonalGoalForm();
-
-        //check if allFieldSuccess 
         String allFieldSuccess = eval.CheckField(title, location, withPerson, whenDate, announcement);
         //if all is ok save to file
-        if (allFieldSuccess == "success") {
-            //TODO: make name of file the real name of user
-            String file = "user.txt";
-            newDao.saveToFile(file, title, location, withPerson, whenDate, announcement);
-           theForm.displaySuccessMessage("success");
-            return true;
+        if ("success".equals(allFieldSuccess)) {
+            return allFieldSuccess;
         } else {
-            theForm.displayErrorMessage(allFieldSuccess+" is incorect!");
-            return false;
+            return allFieldSuccess;
         }
-
-            }
-        
-        
     }
-    
 
-       
-
+}

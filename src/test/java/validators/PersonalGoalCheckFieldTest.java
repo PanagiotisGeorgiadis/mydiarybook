@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package validators;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -17,9 +17,9 @@ import static org.junit.Assert.*;
  *
  * @author alex
  */
-public class PersonalGoalControllerTest {
+public class PersonalGoalCheckFieldTest {
 
-    public PersonalGoalControllerTest() {
+    public PersonalGoalCheckFieldTest() {
     }
 
     @BeforeClass
@@ -42,17 +42,17 @@ public class PersonalGoalControllerTest {
      * Test of CheckField method, of class PersonalGoalCheckField.
      */
     @Test
-    public void testCreatePersonalGoalSuccess() {
-        System.out.println("testCreatePersonalGoalSuccess");
+    public void testCheckFieldSuccess() {
+        System.out.println("testCheckFieldSuccess");
         String title = "Title";
         String location = "asdasd";
         String withPerson = "asdasd";
         String whenDate = "12/12/1991";
         String announcement = "adsasdas";
-        PersonalGoalController instance = new PersonalGoalController();
+        PersonalGoalCheckField instance = new PersonalGoalCheckField();
         String expResult = "success";
-        String result = instance.createPersonalGoal(title, location, withPerson, whenDate, announcement);
-        Assert.assertEquals(expResult, result);;
+        String result = instance.CheckField(title, location, withPerson, whenDate, announcement);
+        assertEquals(expResult, result);
 
     }
 
@@ -60,76 +60,76 @@ public class PersonalGoalControllerTest {
      * Test of CheckField method, of class PersonalGoalEvaluator.
      */
     @Test
-    public void testCreatePersonalGoalFieldTitle() {
-        System.out.println("testCreatePersonalGoalFieldTitle");
+    public void testCheckFieldTitle() {
+        System.out.println("testCheckFieldTitle");
         String title = "";
         String location = "Location";
         String withPerson = "WithPerson";
         String whenDate = "WhenPerson";
         String announcement = "Announcement";
-        PersonalGoalController instance = new PersonalGoalController();
+        PersonalGoalCheckField instance = new PersonalGoalCheckField();
         String expResult = "Title";
-        String result = instance.createPersonalGoal(title, location, withPerson, whenDate, announcement);
+        String result = instance.CheckField(title, location, withPerson, whenDate, announcement);
         Assert.assertEquals(expResult, result);
 
     }
 
     @Test
-    public void testCreatePersonalGoalFieldLocation() {
-        System.out.println("testCreatePersonalGoalFieldLocation");
+    public void testCheckFieldLocation() {
+        System.out.println("testCheckFieldLocation");
         String title = "Title";
         String location = "";
         String withPerson = "WithPerson";
         String whenDate = "WhenPerson";
         String announcement = "Announcement";
-        PersonalGoalController instance = new PersonalGoalController();
+        PersonalGoalCheckField instance = new PersonalGoalCheckField();
         String expResult = "Location";
-        String result = instance.createPersonalGoal(title, location, withPerson, whenDate, announcement);
+        String result = instance.CheckField(title, location, withPerson, whenDate, announcement);
         Assert.assertEquals(expResult, result);
 
     }
 
     @Test
-    public void testCreatePersonalGoalFieldWithPerson() {
-        System.out.println("testCreatePersonalGoalFieldWithPerson");
+    public void testCheckFieldWithPerson() {
+        System.out.println("testCheckFieldWithPerson");
         String title = "Title";
         String location = "Location";
         String withPerson = "123456789012345678901234567890";
         String whenDate = "WhenDate";
         String announcement = "Announcement";
-        PersonalGoalController instance = new PersonalGoalController();
+        PersonalGoalCheckField instance = new PersonalGoalCheckField();
         String expResult = "WithPerson";
-        String result = instance.createPersonalGoal(title, location, withPerson, whenDate, announcement);
+        String result = instance.CheckField(title, location, withPerson, whenDate, announcement);
         Assert.assertEquals(expResult, result);
 
     }
 
     @Test
-    public void testCreatePersonalGoalWhenDate() {
-        System.out.println("testCreatePersonalGoalWhenDate");
+    public void testCheckFieldWhenDate() {
+        System.out.println("testCheckFieldWhenDate");
         String title = "Title";
         String location = "Location";
         String withPerson = "WithPerson";
         String whenDate = "";
         String announcement = "Announcement";
-        PersonalGoalController instance = new PersonalGoalController();
+        PersonalGoalCheckField instance = new PersonalGoalCheckField();
         String expResult = "WhenDate";
-        String result = instance.createPersonalGoal(title, location, withPerson, whenDate, announcement);
+        String result = instance.CheckField(title, location, withPerson, whenDate, announcement);
         Assert.assertEquals(expResult, result);
 
     }
 
     @Test
-    public void testCreatePersonalGoalAnnouncement() {
-        System.out.println("testCreatePersonalGoalAnnouncement");
+    public void testCheckFieldAnnouncement() {
+        System.out.println("testCheckFieldAnnouncement");
         String title = "Title";
         String location = "Location";
         String withPerson = "WithPerson";
         String whenDate = "27/12/1991";
         String announcement = "12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901";
-        PersonalGoalController instance = new PersonalGoalController();
+        PersonalGoalCheckField instance = new PersonalGoalCheckField();
         String expResult = "Announcement";
-        String result = instance.createPersonalGoal(title, location, withPerson, whenDate, announcement);
+        String result = instance.CheckField(title, location, withPerson, whenDate, announcement);
         Assert.assertEquals(expResult, result);
 
     }
