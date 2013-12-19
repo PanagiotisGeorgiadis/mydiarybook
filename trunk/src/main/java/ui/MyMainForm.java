@@ -38,8 +38,8 @@ public class MyMainForm extends javax.swing.JFrame {
         EditEntryButton = new javax.swing.JButton();
         ExitButton = new javax.swing.JButton();
         demoButton = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        viewFavorites = new javax.swing.JButton();
+        addFavorites = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MyDiaryBook Version 0.3");
@@ -105,12 +105,12 @@ public class MyMainForm extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("View Favorites");
+        viewFavorites.setText("View Favorites");
 
-        jButton2.setText("Add Favorites");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        addFavorites.setText("Add Favorites");
+        addFavorites.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                addFavoritesActionPerformed(evt);
             }
         });
 
@@ -136,8 +136,8 @@ public class MyMainForm extends javax.swing.JFrame {
                         .addGap(60, 60, 60)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(demoButton, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(viewFavorites, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(addFavorites, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(99, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -150,11 +150,11 @@ public class MyMainForm extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(LoginButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(viewFavorites))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(NewEntryButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
+                    .addComponent(addFavorites))
                 .addGap(18, 18, 18)
                 .addComponent(EditEntryButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -264,9 +264,18 @@ public class MyMainForm extends javax.swing.JFrame {
         theView.setVisible(true);
     }//GEN-LAST:event_demoButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void addFavoritesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFavoritesActionPerformed
+       try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        ViewFavorites theView = new ViewFavorites();
+
+        theView.setDefaultLookAndFeelDecorated(true);
+        theView.setLocationRelativeTo(null);
+        theView.setVisible(true);
+    }//GEN-LAST:event_addFavoritesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -311,8 +320,8 @@ public class MyMainForm extends javax.swing.JFrame {
     private javax.swing.JButton NewEntryButton;
     private javax.swing.JButton PersonalGoalButton;
     private javax.swing.JButton RegisterButton;
+    private javax.swing.JButton addFavorites;
     private javax.swing.JButton demoButton;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton viewFavorites;
     // End of variables declaration//GEN-END:variables
 }
