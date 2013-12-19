@@ -42,7 +42,7 @@ public class MyMainForm extends javax.swing.JFrame {
         addFavorites = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("MyDiaryBook Version 0.3");
+        setTitle("MyDiaryBook Version 0.5\n");
 
         LoginButton.setText("Login Demo");
         LoginButton.setPreferredSize(new java.awt.Dimension(151, 23));
