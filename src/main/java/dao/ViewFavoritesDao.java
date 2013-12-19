@@ -101,7 +101,7 @@ public class ViewFavoritesDao {
             try {
 
 
-                      String delete = ("Delete From favorites where username='test'");
+                      String delete = ("Delete From favorites where username='"+username+"'");
                 
                 try (PreparedStatement s = c.prepareStatement(delete)) {
                     s.execute();

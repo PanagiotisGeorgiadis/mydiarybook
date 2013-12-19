@@ -7,6 +7,7 @@ package ui;
 
 import controller.CheckUsernameController;
 import dao.LoginFormDao;
+import javax.swing.UIManager;
 import model.Login;
 
 /**
@@ -23,8 +24,8 @@ public class LoginForm extends javax.swing.JFrame {
         login.setName("login");
         exit.setName("exit");
         wrongmsg.setName("wrongmsg");
-        login.setEnabled(false);
-        usermsg.setVisible(false);
+     
+//        usermsg.setVisible(false);
      
 
     }
@@ -43,7 +44,6 @@ public class LoginForm extends javax.swing.JFrame {
         CreateAccountPopUpLabel = new javax.swing.JLabel();
         ResetPasswordPopUpjLabel = new javax.swing.JLabel();
         wrongmsg = new javax.swing.JLabel();
-        usermsg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("User Login");
@@ -105,9 +105,6 @@ public class LoginForm extends javax.swing.JFrame {
         wrongmsg.setForeground(new java.awt.Color(255, 51, 51));
         wrongmsg.setText("Wrong Password!");
 
-        usermsg.setForeground(new java.awt.Color(255, 0, 0));
-        usermsg.setText("not validuser name");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -126,19 +123,17 @@ public class LoginForm extends javax.swing.JFrame {
                 .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(pass)
-                            .addComponent(username)
-                            .addComponent(login, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(usermsg, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(wrongmsg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(114, 114, 114)))
+                        .addGap(114, 114, 114))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(pass)
+                                .addComponent(username)
+                                .addComponent(login, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -149,8 +144,7 @@ public class LoginForm extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(usermsg))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -177,8 +171,16 @@ public class LoginForm extends javax.swing.JFrame {
         if (dao.checkLogin(username.getText(), pass.getText())) {
             Login lgn = new Login();
             lgn.setUsername(username.getText());
-            DiaryForm regFace = new DiaryForm();
-            regFace.setVisible(true);
+            try {
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            MyDiaryBook theView = new MyDiaryBook();
+
+            theView.setDefaultLookAndFeelDecorated(true);
+            theView.setLocationRelativeTo(null);
+            theView.setVisible(true);
 
             dispose();
 
@@ -221,17 +223,17 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_usernameFocusGained
 
     private void usernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernameFocusLost
-        wrongmsg.setVisible(false);
-        CheckUsernameController controller = new CheckUsernameController();
-        if (controller.usernameExists(username.getText())) {
-            usermsg.setVisible(false);
-            login.setEnabled(true);
-
-
-        } else {
-            usermsg.setVisible(true);
-
-        }
+//        wrongmsg.setVisible(false);
+//        CheckUsernameController controller = new CheckUsernameController();
+//        if (controller.usernameExists(username.getText())) {
+//            usermsg.setVisible(false);
+//            login.setEnabled(true);
+//
+//
+//        } else {
+//            usermsg.setVisible(true);
+//
+//        }
     }//GEN-LAST:event_usernameFocusLost
 
     /**
@@ -280,7 +282,6 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     public static javax.swing.JButton login;
     private javax.swing.JPasswordField pass;
-    private javax.swing.JLabel usermsg;
     private javax.swing.JTextField username;
     private javax.swing.JLabel wrongmsg;
     // End of variables declaration//GEN-END:variables

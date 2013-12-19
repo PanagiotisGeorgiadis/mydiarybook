@@ -23,6 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
+import model.Login;
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 
 /**
@@ -58,6 +59,9 @@ public class MyDiaryBook extends javax.swing.JFrame {
         loadImageButton.setVisible(false);
         loadAlbumButton.setVisible(false);
         imageListScrollPane.setVisible(false);
+        welcomeLabel.setText("Welcome, "+model.Login.getUsername());
+        saveEditButton.setVisible(false);
+        cancelEditButton.setVisible(false);
     }
     
     /** Displays the new Image Specified in 2 different modes: 
@@ -253,8 +257,8 @@ public class MyDiaryBook extends javax.swing.JFrame {
         entriesList = new javax.swing.JList();
         entryTitleField = new javax.swing.JTextField();
         entryTitleLabel = new javax.swing.JLabel();
-        newEntryButton = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        saveEditButton = new javax.swing.JButton();
+        cancelEditButton = new javax.swing.JButton();
         imagePanelContainer = new javax.swing.JPanel();
         imageListScrollPane = new javax.swing.JScrollPane();
         imagesList = new javax.swing.JList();
@@ -266,15 +270,18 @@ public class MyDiaryBook extends javax.swing.JFrame {
         alexPanel = new javax.swing.JPanel();
         favouritesPanel = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        welcomeLabel = new javax.swing.JLabel();
         jMenuBar = new javax.swing.JMenuBar();
         entryMenu = new javax.swing.JMenu();
         newEntry = new javax.swing.JMenuItem();
         editEntry = new javax.swing.JMenuItem();
         deleteSelectedEntry = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
-        jMenu1 = new javax.swing.JMenu();
+        personalGoalMenu = new javax.swing.JMenu();
+        newPersonalGoal = new javax.swing.JMenuItem();
+        favoritesMenu = new javax.swing.JMenu();
+        newFavorites = new javax.swing.JMenuItem();
+        importantMommentsMenu = new javax.swing.JMenu();
+        searchMenu = new javax.swing.JMenu();
         jRadioButtonMenuItem1 = new javax.swing.JRadioButtonMenuItem();
         jRadioButtonMenuItem2 = new javax.swing.JRadioButtonMenuItem();
 
@@ -310,14 +317,14 @@ public class MyDiaryBook extends javax.swing.JFrame {
         entryTitleLabel.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
         entryTitleLabel.setText("Entry Title");
 
-        newEntryButton.setText("Save");
-        newEntryButton.addActionListener(new java.awt.event.ActionListener() {
+        saveEditButton.setText("Save");
+        saveEditButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newEntryButtonActionPerformed(evt);
+                saveEditButtonActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Cancel");
+        cancelEditButton.setText("Cancel");
 
         javax.swing.GroupLayout textPanelLayout = new javax.swing.GroupLayout(textPanel);
         textPanel.setLayout(textPanelLayout);
@@ -330,8 +337,8 @@ public class MyDiaryBook extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(newEntryButton)
-                            .addComponent(jButton1)))
+                            .addComponent(saveEditButton)
+                            .addComponent(cancelEditButton)))
                     .addGroup(textPanelLayout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addComponent(entryTitleField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -349,9 +356,9 @@ public class MyDiaryBook extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(textPanelLayout.createSequentialGroup()
-                        .addComponent(newEntryButton)
+                        .addComponent(saveEditButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1)
+                        .addComponent(cancelEditButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(entryTextAreaScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE))
@@ -460,9 +467,11 @@ public class MyDiaryBook extends javax.swing.JFrame {
             .addGap(0, 190, Short.MAX_VALUE)
         );
 
+        welcomeLabel.setText("Welcome, ");
+
         entryMenu.setText("Entries");
 
-        newEntry.setText("New..");
+        newEntry.setText("New Entry..");
         newEntry.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 newEntryActionPerformed(evt);
@@ -470,7 +479,7 @@ public class MyDiaryBook extends javax.swing.JFrame {
         });
         entryMenu.add(newEntry);
 
-        editEntry.setText("Edit..");
+        editEntry.setText("Edit Entry..");
         entryMenu.add(editEntry);
 
         deleteSelectedEntry.setText("Delete Selected..");
@@ -478,26 +487,44 @@ public class MyDiaryBook extends javax.swing.JFrame {
 
         jMenuBar.add(entryMenu);
 
-        jMenu2.setText("Personal Goals");
-        jMenuBar.add(jMenu2);
+        personalGoalMenu.setText("Personal Goals");
 
-        jMenu3.setText("Favourites");
-        jMenuBar.add(jMenu3);
+        newPersonalGoal.setText("New Personal Goal..");
+        newPersonalGoal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newPersonalGoalActionPerformed(evt);
+            }
+        });
+        personalGoalMenu.add(newPersonalGoal);
 
-        jMenu4.setText("Important Momments");
-        jMenuBar.add(jMenu4);
+        jMenuBar.add(personalGoalMenu);
 
-        jMenu1.setText("Search..");
+        favoritesMenu.setText("Favourites");
+
+        newFavorites.setText("New Favorite..");
+        newFavorites.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newFavoritesActionPerformed(evt);
+            }
+        });
+        favoritesMenu.add(newFavorites);
+
+        jMenuBar.add(favoritesMenu);
+
+        importantMommentsMenu.setText("Important Momments");
+        jMenuBar.add(importantMommentsMenu);
+
+        searchMenu.setText("Search..");
 
         jRadioButtonMenuItem1.setSelected(true);
         jRadioButtonMenuItem1.setText("Entries By Name");
-        jMenu1.add(jRadioButtonMenuItem1);
+        searchMenu.add(jRadioButtonMenuItem1);
 
         jRadioButtonMenuItem2.setSelected(true);
         jRadioButtonMenuItem2.setText("Entries By Date");
-        jMenu1.add(jRadioButtonMenuItem2);
+        searchMenu.add(jRadioButtonMenuItem2);
 
-        jMenuBar.add(jMenu1);
+        jMenuBar.add(searchMenu);
 
         setJMenuBar(jMenuBar);
 
@@ -507,7 +534,11 @@ public class MyDiaryBook extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(displayEntryPane, javax.swing.GroupLayout.PREFERRED_SIZE, 785, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(displayEntryPane, javax.swing.GroupLayout.PREFERRED_SIZE, 785, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(welcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(exitButton)
@@ -519,19 +550,22 @@ public class MyDiaryBook extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(alexPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(favouritesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(exitButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(82, 82, 82)
-                .addComponent(displayEntryPane)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(welcomeLabel)
+                        .addGap(57, 57, 57)
+                        .addComponent(displayEntryPane))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(alexPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(favouritesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(exitButton)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -549,10 +583,10 @@ public class MyDiaryBook extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_entriesListValueChanged
 
-    private void newEntryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newEntryButtonActionPerformed
+    private void saveEditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveEditButtonActionPerformed
         loadEntryImages();
         loadEntryVideo();
-    }//GEN-LAST:event_newEntryButtonActionPerformed
+    }//GEN-LAST:event_saveEditButtonActionPerformed
 
     private void imagesListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_imagesListValueChanged
         loadEntryImage();
@@ -585,6 +619,32 @@ public class MyDiaryBook extends javax.swing.JFrame {
         if(ret == JOptionPane.YES_OPTION)
             System.exit(0);
     }//GEN-LAST:event_exitButtonActionPerformed
+
+    private void newPersonalGoalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newPersonalGoalActionPerformed
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        PersonalGoalForm theView = new PersonalGoalForm();
+
+        theView.setDefaultLookAndFeelDecorated(true);
+        theView.setLocationRelativeTo(null);
+        theView.setVisible(true);
+    }//GEN-LAST:event_newPersonalGoalActionPerformed
+
+    private void newFavoritesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newFavoritesActionPerformed
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        FavoritesForm theView = new FavoritesForm();
+
+        theView.setDefaultLookAndFeelDecorated(true);
+        theView.setLocationRelativeTo(null);
+        theView.setVisible(true);
+    }//GEN-LAST:event_newFavoritesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -623,6 +683,7 @@ public class MyDiaryBook extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel alexPanel;
+    private javax.swing.JButton cancelEditButton;
     private javax.swing.JMenuItem deleteSelectedEntry;
     private javax.swing.JTabbedPane displayEntryPane;
     private javax.swing.JMenuItem editEntry;
@@ -633,16 +694,13 @@ public class MyDiaryBook extends javax.swing.JFrame {
     private javax.swing.JTextField entryTitleField;
     private javax.swing.JLabel entryTitleLabel;
     private javax.swing.JButton exitButton;
+    private javax.swing.JMenu favoritesMenu;
     private javax.swing.JPanel favouritesPanel;
     private javax.swing.JScrollPane imageListScrollPane;
     private javax.swing.JPanel imagePanel;
     private javax.swing.JPanel imagePanelContainer;
     private javax.swing.JList imagesList;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu importantMommentsMenu;
     private javax.swing.JMenuBar jMenuBar;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
@@ -652,8 +710,13 @@ public class MyDiaryBook extends javax.swing.JFrame {
     private javax.swing.JButton loadAlbumButton;
     private javax.swing.JButton loadImageButton;
     private javax.swing.JMenuItem newEntry;
-    private javax.swing.JButton newEntryButton;
+    private javax.swing.JMenuItem newFavorites;
+    private javax.swing.JMenuItem newPersonalGoal;
+    private javax.swing.JMenu personalGoalMenu;
+    private javax.swing.JButton saveEditButton;
+    private javax.swing.JMenu searchMenu;
     private javax.swing.JPanel textPanel;
     private javax.swing.JPanel videoPanel;
+    private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables
 }
