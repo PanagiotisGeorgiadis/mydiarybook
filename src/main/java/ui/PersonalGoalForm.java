@@ -82,8 +82,9 @@ public class PersonalGoalForm extends javax.swing.JFrame implements IPersonalGoa
         checkFieldTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setForeground(java.awt.Color.orange);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tempus Sans ITC", 0, 24)); // NOI18N
         jLabel1.setText("New Personal Goal");
 
         titleLabel.setText("Title:");

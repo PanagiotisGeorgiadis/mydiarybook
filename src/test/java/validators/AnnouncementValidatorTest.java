@@ -12,6 +12,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  *
@@ -38,6 +39,7 @@ public class AnnouncementValidatorTest {
     public void tearDown() {
     }
 
+   
       /**
      * Test of checkPersonalGoalAnnouncement method, of class
      * AnnouncementValidator.
@@ -97,5 +99,6 @@ public class AnnouncementValidatorTest {
         Assert.assertEquals(expResult, result);
 
     }
+    
     
 }
