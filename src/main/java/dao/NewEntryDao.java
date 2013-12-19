@@ -14,9 +14,9 @@ import static org.mockito.Mockito.when;
  *
  * @author Zarc
  */
-public class NewEntryDeleteDao {
+public class NewEntryDao {
     
-    public boolean prepareForDeleting(String userTitle)
+    public boolean deleteEntry(String entryTitle)
     {
         String fSeparator = File.separator;
         INewEntryMockDefaultPath rootPathMock = mock(INewEntryMockDefaultPath.class);
@@ -24,7 +24,7 @@ public class NewEntryDeleteDao {
         INewEntryMockUsername userMock = mock(INewEntryMockUsername.class);
         when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
         
-        String fileToDeletePath = rootPathMock.getDefaultPath()+userMock.getUsername()+fSeparator+userTitle;
+        String fileToDeletePath = rootPathMock.getDefaultPath()+userMock.getUsername()+fSeparator+"Entries"+fSeparator+entryTitle+fSeparator;
         
         FilesDao deleteDao = new FilesDao();
         File file = new File(fileToDeletePath);

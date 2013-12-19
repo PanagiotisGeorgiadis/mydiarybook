@@ -14,24 +14,19 @@ import static org.mockito.Mockito.when;
  *
  * @author Zarc
  */
-public class CheckIfFileExistsDao {
+public class EntriesListDao {
     
-    /**
-    * Checks if the given string exists as file in the Directory you are looking for.
-    * @param title
-    * @return true if the filePathExists or false if not found
-    */
-    public boolean filePathExists(String title)
+    public String[] getListOfEntries()
     {
         String fSeparator = File.separator;
         INewEntryMockDefaultPath rootPathMock = mock(INewEntryMockDefaultPath.class);
         when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator);
-        
         INewEntryMockUsername userMock = mock(INewEntryMockUsername.class);
         when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
-        
-        File file = new File(rootPathMock.getDefaultPath()+userMock.getUsername()+fSeparator+"Entries"+fSeparator+title);
-        return file.exists();
+    
+        String entriesPath = rootPathMock.getDefaultPath()+userMock.getUsername()+fSeparator+"Entries";
+        FilesDao entriesDao = new FilesDao();
+        return entriesDao.getDirectoryList(entriesPath);
     }
     
 }
