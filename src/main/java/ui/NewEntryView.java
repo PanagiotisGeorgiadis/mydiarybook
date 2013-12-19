@@ -4,14 +4,11 @@
  */
 package ui;
 
-import com.sun.jna.NativeLibrary;
-import controller.NewEntryController;
 import controller.NewEntryDeleteController;
 import controller.NewEntryImageController;
 import controller.NewEntryTextController;
 import controller.NewEntryVideoController;
 import dao.CheckIfFileExistsDao;
-import dao.FilesDao;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
@@ -29,7 +26,6 @@ import static javax.swing.JOptionPane.WARNING_MESSAGE;
 import static javax.swing.JOptionPane.YES_NO_OPTION;
 import javax.swing.UIManager;
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
-import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 
 
 /**
@@ -38,15 +34,13 @@ import uk.co.caprica.vlcj.runtime.RuntimeUtil;
  */
 public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
 
-    static int imagePositionX = 25;
-    static int imagePositionY = 30;
     static int imageNumber;
     private final String fSeparator = File.separator;
     private String vlcPath = System.getProperty("user.dir")+fSeparator+"VLC"+fSeparator;
     private int maxImageNumber;
     private String videoPath = null;
     private EmbeddedMediaPlayerComponent mediaPlayer2 =null;
-    private static File[] imageFiles = new File[31];
+    private static File[] imageFiles;
     /**
      * Creates new form NewEntryView sets the size and location 
      * on the center of the screen. Also initializes the NativeLibraries
@@ -66,10 +60,11 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
         pauseButton.setVisible(false);
         stopButton.setVisible(false);  
         imageNumber = 0;
+        imageFiles = new File[30];
         maxImageNumber = 30;
         entryAlreadyExistsLabel.setVisible(false);
         entryAlreadyExistsLabel.setText("Warning! An Entry With This Title Already Exists!");
-        titleField.requestFocusInWindow();
+        submitButton.setEnabled(false);
     }
     
     @Override
@@ -435,35 +430,41 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
         NewEntryImageController imageController = new NewEntryImageController();
         NewEntryTextController textController = new NewEntryTextController();
         NewEntryDeleteController deleteController = new NewEntryDeleteController();   
-        if(titleField.getBackground() == Color.orange)
-        {
-            int ret = JOptionPane.showConfirmDialog(this, "Do You Want To Overwrite It?\n", "Duplicate Entry Found!",YES_NO_OPTION , WARNING_MESSAGE);
-            if(ret == JOptionPane.YES_OPTION)
+        if(!textArea.getText().equals("") || imageNumber!=0 || mediaPlayer2!=null)
+            if(titleField.getBackground() == Color.orange)
             {
-                deleteController.deleteDirectory(titleField.getText());
-                titleField.setBackground(Color.green);
-                this.submitButtonActionPerformed(evt);
-                this.dispose();
+                int ret = JOptionPane.showConfirmDialog(this, "Do You Want To Overwrite It?\n", "Duplicate Entry Found!",YES_NO_OPTION , WARNING_MESSAGE);
+                if(ret == JOptionPane.YES_OPTION)
+                {
+                    deleteController.deleteDirectory(titleField.getText());
+                    titleField.setBackground(Color.green);
+                    this.submitButtonActionPerformed(evt);
+                    this.dispose();
+                }
+                else
+                {
+                    titleField.setText("");
+                    titleField.requestFocusInWindow();
+                    titleField.setBackground(Color.white);
+                    entryAlreadyExistsLabel.setVisible(false);                
+                }
             }
             else
             {
-                titleField.setText("");
-                titleField.requestFocusInWindow();
-                titleField.setBackground(Color.white);
-                entryAlreadyExistsLabel.setVisible(false);                
+                textController.createTextFile(titleField.getText(), textArea.getText());
+                if(imageNumber!=0)
+                    for(int i=0;i<imageNumber;i++)  
+                        imageController.copyImage(titleField.getText(), imageFiles[i].toString());
+                if(videoPath != null)
+                    videoController.copyVideo(titleField.getText(), videoPath);
+                if(mediaPlayer2!=null)
+                    displayVideo(videoPath,"hhg");
+                this.dispose();
             }
-        }
         else
         {
-            textController.createTextFile(titleField.getText(), textArea.getText());
-            if(imageNumber!=0)
-                for(int i=0;i<imageNumber;i++)  
-                    imageController.copyImage(titleField.getText(), imageFiles[i].toString());
-            if(videoPath != null)
-                videoController.copyVideo(titleField.getText(), videoPath);
-            if(mediaPlayer2!=null)
-                displayVideo(videoPath,"hhg");
-            this.dispose();
+            entryAlreadyExistsLabel.setText("Sorry, you can't submit a null Entry!");
+            entryAlreadyExistsLabel.setVisible(true);
         }
         
         
@@ -500,7 +501,7 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
     private void titleFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_titleFieldFocusLost
         if(!titleField.getText().trim().isEmpty())
         {
-            submitButton.setVisible(true);
+            submitButton.setEnabled(true);
             CheckIfFileExistsDao entryExistance = new CheckIfFileExistsDao();
             if(entryExistance.filePathExists(titleField.getText())) 
             {
@@ -524,7 +525,7 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
         }
         else
         {
-            submitButton.setVisible(false);
+            submitButton.setEnabled(false);
             entryAlreadyExistsLabel.setVisible(true);
             entryAlreadyExistsLabel.setText("Warning! You Must Feel In An Entry Title!");
             titleField.requestFocusInWindow();

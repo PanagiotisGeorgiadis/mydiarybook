@@ -7,6 +7,7 @@
 package controller;
 
 import dao.NewEntryVideoDao;
+import java.io.File;
 
 /**
  *
@@ -18,7 +19,12 @@ public class NewEntryVideoController {
     {
         NewEntryVideoDao videoDao = new NewEntryVideoDao();
         
-        return videoDao.prepareVideoForCopy(userTitle, sourcePath);
+        return videoDao.copyVideo(userTitle, sourcePath);
+    }
+    
+        public File getVideo(String entryTitle) {
+        NewEntryVideoDao video = new NewEntryVideoDao();
+        return video.getVideo(entryTitle);
     }
     
 }

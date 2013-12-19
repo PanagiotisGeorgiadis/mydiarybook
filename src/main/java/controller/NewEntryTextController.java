@@ -18,7 +18,13 @@ public class NewEntryTextController {
     {
        NewEntryTextDao textDao = new NewEntryTextDao();
        
-       return textDao.prepareForCreatingTextFile(userTitle, userText);
+       return textDao.createTextFile(userTitle, userText);
     }
     
+    public String returnTextFile(String entryTitle)
+    {
+        NewEntryTextDao getText = new NewEntryTextDao();
+        return getText.returnTextFile(entryTitle);
+
+    }
 }

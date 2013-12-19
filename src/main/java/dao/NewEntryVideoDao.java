@@ -23,14 +23,14 @@ public class NewEntryVideoDao {
     {     
     }
         
-    public boolean prepareVideoForCopy(String userTitle,String sourcePath)
+    public boolean copyVideo(String entryTitle,String sourcePath)
     {
         INewEntryMockDefaultPath rootPathMock = mock(INewEntryMockDefaultPath.class);
         when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator);
         INewEntryMockUsername userMock = mock(INewEntryMockUsername.class);
         when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
         
-        String videoDestPath = rootPathMock.getDefaultPath()+userMock.getUsername()+fSeparator+userTitle+fSeparator+"Videos"+fSeparator;
+        String videoDestPath = rootPathMock.getDefaultPath()+userMock.getUsername()+fSeparator+"Entries"+fSeparator+entryTitle+fSeparator+"Videos"+fSeparator;
         
         File destFile = new File(videoDestPath);
         File sourceFile = new File(sourcePath);        
@@ -52,4 +52,16 @@ public class NewEntryVideoDao {
         return true;
     }
     
+    public File getVideo(String entryTitle)
+    {
+        INewEntryMockDefaultPath rootPathMock = mock(INewEntryMockDefaultPath.class);
+        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator);
+        INewEntryMockUsername userMock = mock(INewEntryMockUsername.class);
+        when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
+        
+        String videoPath = rootPathMock.getDefaultPath()+userMock.getUsername()+fSeparator+"Entries"+fSeparator+entryTitle+fSeparator+"Videos"+fSeparator;
+        
+        FilesDao video = new FilesDao();
+        return video.getFile(videoPath);
+    }
 }

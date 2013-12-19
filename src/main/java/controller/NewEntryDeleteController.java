@@ -6,7 +6,7 @@
 
 package controller;
 
-import dao.NewEntryDeleteDao;
+import dao.NewEntryDao;
 
 /**
  *
@@ -16,9 +16,9 @@ public class NewEntryDeleteController {
     
     public boolean deleteDirectory(String userTitle)
     {
-        NewEntryDeleteDao deleteDao = new NewEntryDeleteDao();
+        NewEntryDao deleteDao = new NewEntryDao();
         
-        return deleteDao.prepareForDeleting(userTitle);
+        return deleteDao.deleteEntry(userTitle);
         
         
     }

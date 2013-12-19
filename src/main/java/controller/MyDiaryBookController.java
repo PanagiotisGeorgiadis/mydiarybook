@@ -6,6 +6,9 @@
 
 package controller;
 
+import dao.EntriesListDao;
+import dao.NewEntryImageDao;
+
 /**
  *
  * @author Zarc
@@ -17,4 +20,15 @@ public class MyDiaryBookController {
         //File file = new File("");
     }
     
+    public String[] getEntriesList()
+    {
+        EntriesListDao entryList = new EntriesListDao();
+        return entryList.getListOfEntries();
+    }
+    
+    public String[] getImageList(String entryTitle)
+    {
+        NewEntryImageDao imageDao = new NewEntryImageDao();
+        return imageDao.getImageList(entryTitle);       
+    }    
 }
