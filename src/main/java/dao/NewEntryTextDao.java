@@ -7,6 +7,7 @@
 package dao;
 
 import java.io.File;
+import java.io.IOException;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -46,7 +47,11 @@ public class NewEntryTextDao {
         when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
         
         String textPath = rootPathMock.getDefaultPath()+userMock.getUsername()+fSeparator+"Entries"+fSeparator+entryTitle+fSeparator+"Texts"+fSeparator+entryTitle+".txt";
-        FilesDao getTextDao = new FilesDao();
-        return getTextDao.returnTextFile(textPath);
+        FilesDao textDao = new FilesDao();
+        try{
+            return textDao.returnTextFile(textPath);
+        }catch(IOException ex){
+            return "";
+        }
     }
 }

@@ -6,16 +6,13 @@
 
 package dao;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.FilenameFilter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.util.Date;
-import javax.swing.JOptionPane;
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.commons.io.FileUtils;
 
 /**
@@ -58,17 +55,18 @@ public class FilesDao {
      */
     public boolean createTextFile(String destPath,String text,String fileName)
     {
+        FileWriter fw = null;
+        BufferedWriter bw = null;
         try
         {
             File file = new File(destPath+fileName+".txt");
             boolean exists = createFilePath(destPath);
             if(exists)
             {
-                FileWriter fw = new FileWriter(file,true);
-                BufferedWriter bw = new BufferedWriter(fw);
+                fw = new FileWriter(file,true);
+                bw = new BufferedWriter(fw);
                 bw.write(text);
-                bw.close();
-                fw.close();
+                
                 return true;
             }
             else
@@ -77,9 +75,25 @@ public class FilesDao {
                 createTextFile(destPath,text,fileName);
             }
         }
-        catch(Exception e)
+        catch(IOException ex)
         {
+            //TODO: Add logger.
             return false;
+        }
+        finally
+        {
+            try{
+                if(bw!=null)
+                    bw.close();
+            }catch(IOException ex){
+                //logger
+            }
+            try{
+                if(fw!=null)
+                    fw.close();
+            }catch(IOException ex){
+                //logger
+            }
         }
         return false;
     }
@@ -178,7 +192,7 @@ public class FilesDao {
         File file = new File(entryPath);
         String[] children = file.list();
         File subFile;
-        String [] subFolders = new String[children.length];
+        String[] subFolders = new String[children.length];
         int j=0;
         for(int i=0;i<children.length;i++)
         {
@@ -198,19 +212,19 @@ public class FilesDao {
      * @param path The path of the target Directory.
      * @return File[] that contains only Files and not Directories.
      */
-    public File[] getSubFiles(String path)
+    public List<URI> getSubFiles(String path) throws NullPointerException
     {
         File file = new File(path);
         String[] children = file.list();
         File subFile;
-        File[] subFolders = new File[children.length];
+        List<URI> subFolders = new ArrayList<URI>();
         int j=0;
-        for(int i=0;i<children.length;i++)
+         for(int i=0;i<children.length;i++)
         {
             subFile = new File(path+File.separator+children[i]);
             if(!subFile.isDirectory())
             {
-                subFolders[j] = subFile;
+                subFolders.add(subFile.toURI());
                 j++;
             }
         }
@@ -242,7 +256,7 @@ public class FilesDao {
         return subFolders;
     }
     
-    public File getFile(String path)
+    public File getFile(String path) throws NullPointerException
     {
         File file = new File(path);
         String[] children = file.list();
@@ -279,17 +293,11 @@ public class FilesDao {
      * @param path The path of the text file you want to read.
      * @return The text of the specified File if it exists else returns null.
      */
-    public String returnTextFile(String path)
+    public String returnTextFile(String path) throws IOException
     {
         File textFile = new File(path);
         String text;
-        try{
         text = FileUtils.readFileToString(textFile);
-        }
-        catch(IOException e)
-        {
-            return null;
-        }
         return text;
     }
     

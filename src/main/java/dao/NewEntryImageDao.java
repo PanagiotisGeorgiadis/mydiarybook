@@ -8,7 +8,8 @@ package dao;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
+import java.net.URI;
+import java.util.List;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -72,7 +73,7 @@ public class NewEntryImageDao {
         }
     }
     
-    public File[] getImageFiles(String entryTitle)
+    public List<URI> getImageFiles(String entryTitle)
     {
         INewEntryMockDefaultPath rootPathMock = mock(INewEntryMockDefaultPath.class);
         when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator);
@@ -83,7 +84,12 @@ public class NewEntryImageDao {
         String imagePath = rootPathMock.getDefaultPath()+userMock.getUsername()+fSeparator+"Entries"+fSeparator+entryTitle+fSeparator+"Images"+fSeparator;
         
         FilesDao imageDao = new FilesDao();
-        return imageDao.getSubFiles(imagePath);
+        try{
+            return imageDao.getSubFiles(imagePath);
+        }catch(NullPointerException ex){
+            return null;
+        }
+        
     }
     
 }

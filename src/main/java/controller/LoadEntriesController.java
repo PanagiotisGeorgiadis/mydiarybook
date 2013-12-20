@@ -7,21 +7,17 @@
 package controller;
 
 import dao.EntriesListDao;
-import dao.EntryDao;
-import model.Entry;
 
 /**
  *
  * @author Zarc
  */
-public class MyDiaryBookController {
+public class LoadEntriesController {
     
-    public MyDiaryBookController()
+    public String[] getEntriesList()
     {
+        EntriesListDao listOfEntries = new EntriesListDao();
+        return listOfEntries.getListOfEntries();
     }
     
-    public Entry getEntry(String entryTitle)
-    {
-        return EntryDao.getEntryByTitle(entryTitle);
-    }
 }
