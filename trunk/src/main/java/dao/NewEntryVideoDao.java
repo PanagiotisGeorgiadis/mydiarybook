@@ -46,7 +46,7 @@ public class NewEntryVideoDao {
         }
         return true;
     }
-    
+    //tsamis
     public boolean videoDelete(String sourcePath, String destPath)
     {
         return true;
@@ -62,6 +62,10 @@ public class NewEntryVideoDao {
         String videoPath = rootPathMock.getDefaultPath()+userMock.getUsername()+fSeparator+"Entries"+fSeparator+entryTitle+fSeparator+"Videos"+fSeparator;
         
         FilesDao video = new FilesDao();
-        return video.getFile(videoPath);
+        try{
+            return video.getFile(videoPath);
+        }catch(NullPointerException ex){
+            return null;
+        }
     }
 }

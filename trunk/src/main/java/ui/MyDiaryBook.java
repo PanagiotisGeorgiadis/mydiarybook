@@ -6,6 +6,7 @@
 
 package ui;
 
+import controller.LoadEntriesController;
 import controller.MyDiaryBookController;
 import controller.NewEntryImageController;
 import controller.NewEntryTextController;
@@ -17,6 +18,7 @@ import java.awt.Image;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -24,6 +26,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
 import model.Login;
+import model.Entry;
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 
 /**
@@ -31,37 +34,33 @@ import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
  * @author Zarc
  */
 public class MyDiaryBook extends javax.swing.JFrame {
-    private File[] images;
+    private List<URI> images;
     private String imageMode;
     private final String fSeparator = File.separator;
-    private EmbeddedMediaPlayerComponent mediaPlayer2 =null;
+    private EmbeddedMediaPlayerComponent mediaPlayer2 = null;
     private String vlcPath = System.getProperty("user.dir")+fSeparator+"VLC"+fSeparator;
-
+    private Entry entry;
     /**
      * Creates new form MyDiaryBook
      */
     public MyDiaryBook() 
     {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-        MyDiaryBook.setDefaultLookAndFeelDecorated(true);
         initComponents();
         this.setLocationRelativeTo(null);
         entriesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         loadEntriesList();
-        entriesList.setSelectedIndex(0);
-        jScrollPane4.getVerticalScrollBar().setUnitIncrement(20);
-        jScrollPane4.getHorizontalScrollBar().setUnitIncrement(20);
+        imagePanelScrollPane.getVerticalScrollBar().setUnitIncrement(20);
+        imagePanelScrollPane.getHorizontalScrollBar().setUnitIncrement(20);
         System.setProperty("jna.library.path", vlcPath);
         loadImageButton.setVisible(false);
         loadAlbumButton.setVisible(false);
         imageListScrollPane.setVisible(false);
-        welcomeLabel.setText("Welcome, "+model.Login.getUsername());
+        welcomeLabel.setText("Welcome, " + model.Login.getUsername());
         saveEditButton.setVisible(false);
         cancelEditButton.setVisible(false);
+        
+        //entriesList.setSelectedIndex(0);
+        //entry = new Entries(entriesList.getSelectedValue().toString());
     }
     
     /** Displays the new Image Specified in 2 different modes: 
@@ -123,10 +122,10 @@ public class MyDiaryBook extends javax.swing.JFrame {
     
     public void loadEntriesList()
     {
-        MyDiaryBookController controller = new MyDiaryBookController();
+        LoadEntriesController controller = new LoadEntriesController();
         DefaultListModel listModel = new DefaultListModel();
         try
-        {
+        {            
             String[] entries = controller.getEntriesList();
             for(int i=0;i<entries.length;i++)
             {
@@ -138,20 +137,19 @@ public class MyDiaryBook extends javax.swing.JFrame {
         {
             listModel.clear();
             entriesList.setModel(listModel);
-            //logger
+            //TODO: Add Logger
         }
     }    
     
     public void loadImageList()
     {
-        MyDiaryBookController controller = new MyDiaryBookController();
         DefaultListModel listModel = new DefaultListModel();
         try
         {
-            String[] images = controller.getImageList(entriesList.getSelectedValue().toString());
-            for(int i=0;i<images.length;i++)
+            String[] imageNames = entry.getImageList(); //controller.getImageList(entriesList.getSelectedValue().toString());
+            for(int i=0;i<imageNames.length;i++)
             {
-                listModel.addElement(images[i]);    
+                listModel.addElement(imageNames[i]);    
             }
             imagesList.setModel(listModel);
             loadAlbumButton.setVisible(true);
@@ -162,7 +160,9 @@ public class MyDiaryBook extends javax.swing.JFrame {
             imagesList.setModel(listModel);
             loadAlbumButton.setVisible(false);
             imageListScrollPane.setVisible(false);
-            //logger
+            imagePanel.removeAll();
+            loadImageButton.setVisible(false);
+            //TODO: Add Logger
         }
     }
     
@@ -174,17 +174,16 @@ public class MyDiaryBook extends javax.swing.JFrame {
         layout.setColumns(10);
         layout.setRows(3);
         imagePanel.setLayout(layout);
-        NewEntryImageController controller = new NewEntryImageController();
         try{
-            images = controller.getImageFiles(entriesList.getSelectedValue().toString());
-            for(int i=0;i<images.length;i++)
+            images = entry.getEntryImages();
+            for(int i=0;i<images.size();i++)
             {
-                displayNewImage(images[i].toURI(),imageMode);
+                displayNewImage(images.get(i),imageMode);
             }
         }
         catch(NullPointerException ex)
         {
-            //logger
+            //TODO: Add Logger
         }
     }
     
@@ -198,45 +197,38 @@ public class MyDiaryBook extends javax.swing.JFrame {
             imagePanel.setLayout(border);
             String imageName = imagesList.getSelectedValue().toString();
             int i=0;
-            while(!images[i].getName().equals(imageName))
+            
+            while(!images.get(i).toString().contains(imageName))
             {
                 i++;
             }
-            File image = images[i];
-            displayNewImage(images[i].toURI(),imageMode);
+            displayNewImage(images.get(i),imageMode);
         }
         catch(NullPointerException ex)
         {
-            //logger
+            //TODO: Add Logger
         }
     }
     
     public void loadEntryText()
     {
-        NewEntryTextController controller = new NewEntryTextController();
-        try
-        {
-            entryTextArea.setText(controller.returnTextFile(entriesList.getSelectedValue().toString()));
-        }
-        catch(NullPointerException ex)
-        {
-            //logger
-        }
+        String text = entry.getEntryText();
+        if(!text.equals(""))
+            entryTextArea.setText(entry.getEntryText());
     }
     
     public void loadEntryVideo()
     {
-        NewEntryVideoController controller = new NewEntryVideoController();
         File video;
         try
         {
-            video = controller.getVideo(entriesList.getSelectedValue().toString());
+            video =  entry.getEntryVideo();
             mediaPlayer2 = new EmbeddedMediaPlayerComponent(); 
             displayVideo(video.toString(),"Display");
         }
         catch(NullPointerException ex)
         {
-            //logger
+            //TODO: Add Logger
         }
     }
     /**
@@ -253,7 +245,7 @@ public class MyDiaryBook extends javax.swing.JFrame {
         textPanel = new javax.swing.JPanel();
         entryTextAreaScrollPane = new javax.swing.JScrollPane();
         entryTextArea = new javax.swing.JTextArea();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        entriesListScrollPane = new javax.swing.JScrollPane();
         entriesList = new javax.swing.JList();
         entryTitleField = new javax.swing.JTextField();
         entryTitleLabel = new javax.swing.JLabel();
@@ -262,7 +254,7 @@ public class MyDiaryBook extends javax.swing.JFrame {
         imagePanelContainer = new javax.swing.JPanel();
         imageListScrollPane = new javax.swing.JScrollPane();
         imagesList = new javax.swing.JList();
-        jScrollPane4 = new javax.swing.JScrollPane();
+        imagePanelScrollPane = new javax.swing.JScrollPane();
         imagePanel = new javax.swing.JPanel();
         loadImageButton = new javax.swing.JButton();
         loadAlbumButton = new javax.swing.JButton();
@@ -288,6 +280,11 @@ public class MyDiaryBook extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("My Diary Book v0.5!");
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
 
         exitButton.setText("Exit");
         exitButton.addActionListener(new java.awt.event.ActionListener() {
@@ -311,7 +308,7 @@ public class MyDiaryBook extends javax.swing.JFrame {
                 entriesListValueChanged(evt);
             }
         });
-        jScrollPane2.setViewportView(entriesList);
+        entriesListScrollPane.setViewportView(entriesList);
 
         entryTitleField.setEditable(false);
 
@@ -334,10 +331,10 @@ public class MyDiaryBook extends javax.swing.JFrame {
             .addGroup(textPanelLayout.createSequentialGroup()
                 .addGroup(textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(textPanelLayout.createSequentialGroup()
-                        .addComponent(entryTextAreaScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 674, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(entryTextAreaScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 673, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(entriesListScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
                             .addComponent(saveEditButton)
                             .addComponent(cancelEditButton)))
                     .addGroup(textPanelLayout.createSequentialGroup()
@@ -346,7 +343,7 @@ public class MyDiaryBook extends javax.swing.JFrame {
                     .addGroup(textPanelLayout.createSequentialGroup()
                         .addGap(54, 54, 54)
                         .addComponent(entryTitleLabel)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         textPanelLayout.setVerticalGroup(
             textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -360,8 +357,8 @@ public class MyDiaryBook extends javax.swing.JFrame {
                         .addComponent(saveEditButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cancelEditButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(280, 280, 280)
+                        .addComponent(entriesListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addComponent(entryTextAreaScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -376,7 +373,7 @@ public class MyDiaryBook extends javax.swing.JFrame {
         imageListScrollPane.setViewportView(imagesList);
 
         imagePanel.setLayout(new java.awt.GridLayout(1, 0));
-        jScrollPane4.setViewportView(imagePanel);
+        imagePanelScrollPane.setViewportView(imagePanel);
 
         loadImageButton.setText("View Image..");
         loadImageButton.addActionListener(new java.awt.event.ActionListener() {
@@ -397,7 +394,7 @@ public class MyDiaryBook extends javax.swing.JFrame {
         imagePanelContainerLayout.setHorizontalGroup(
             imagePanelContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(imagePanelContainerLayout.createSequentialGroup()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 662, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(imagePanelScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 662, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(imagePanelContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(imageListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -417,7 +414,7 @@ public class MyDiaryBook extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 332, Short.MAX_VALUE)
                         .addComponent(imageListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
-                    .addComponent(jScrollPane4)))
+                    .addComponent(imagePanelScrollPane)))
         );
 
         displayEntryPane.addTab("Images", imagePanelContainer);
@@ -582,13 +579,14 @@ public class MyDiaryBook extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void entriesListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_entriesListValueChanged
+        MyDiaryBookController controller = new MyDiaryBookController();
+        entry = controller.getEntry(entriesList.getSelectedValue().toString());
         try{
-        loadEntryText();
-        loadImageList();
-        loadEntriesList();
-        entryTitleField.setText(entriesList.getSelectedValue().toString());
+            entryTitleField.setText(entriesList.getSelectedValue().toString());
+            loadEntryText();
+            loadImageList();
         }catch(NullPointerException ex){
-            //logger
+            //TODO: Add Logger
             entriesList.setSelectedIndex(0);
         }
     }//GEN-LAST:event_entriesListValueChanged
@@ -619,9 +617,7 @@ public class MyDiaryBook extends javax.swing.JFrame {
 
     private void newEntryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newEntryActionPerformed
         NewEntryView newEntry = new NewEntryView();
-        newEntry.setVisible(true);
-        loadEntriesList();
-        
+        newEntry.setVisible(true);        
     }//GEN-LAST:event_newEntryActionPerformed
 
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
@@ -669,6 +665,10 @@ public class MyDiaryBook extends javax.swing.JFrame {
         theView.setVisible(true);    
     }//GEN-LAST:event_viewFavoritesActionPerformed
 
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+        loadEntriesList();
+    }//GEN-LAST:event_formFocusGained
+
     /**
      * @param args the command line arguments
      */
@@ -711,6 +711,7 @@ public class MyDiaryBook extends javax.swing.JFrame {
     private javax.swing.JTabbedPane displayEntryPane;
     private javax.swing.JMenuItem editEntry;
     private javax.swing.JList entriesList;
+    private javax.swing.JScrollPane entriesListScrollPane;
     private javax.swing.JMenu entryMenu;
     private javax.swing.JTextArea entryTextArea;
     private javax.swing.JScrollPane entryTextAreaScrollPane;
@@ -722,14 +723,13 @@ public class MyDiaryBook extends javax.swing.JFrame {
     private javax.swing.JScrollPane imageListScrollPane;
     private javax.swing.JPanel imagePanel;
     private javax.swing.JPanel imagePanelContainer;
+    private javax.swing.JScrollPane imagePanelScrollPane;
     private javax.swing.JList imagesList;
     private javax.swing.JMenu importantMommentsMenu;
     private javax.swing.JMenuBar jMenuBar;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem2;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JButton loadAlbumButton;
     private javax.swing.JButton loadImageButton;
     private javax.swing.JMenuItem newEntry;

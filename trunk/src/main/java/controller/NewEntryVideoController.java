@@ -20,11 +20,5 @@ public class NewEntryVideoController {
         NewEntryVideoDao videoDao = new NewEntryVideoDao();
         
         return videoDao.copyVideo(userTitle, sourcePath);
-    }
-    
-        public File getVideo(String entryTitle) {
-        NewEntryVideoDao video = new NewEntryVideoDao();
-        return video.getVideo(entryTitle);
-    }
-    
+    }    
 }

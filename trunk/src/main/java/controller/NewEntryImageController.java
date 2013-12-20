@@ -20,12 +20,5 @@ public class NewEntryImageController {
         NewEntryImageDao imageDao = new NewEntryImageDao();
         
         return imageDao.prepareImageForCopy(userTitle, sourcePath);
-    }
-    
-    public File[] getImageFiles(String entryTitle)
-    {
-        NewEntryImageDao imageFilesDao = new NewEntryImageDao();
-        return imageFilesDao.getImageFiles(entryTitle);
-    }
-    
+    }    
 }
