@@ -84,7 +84,6 @@ public class RegisterForm extends javax.swing.JFrame {
         ConditionAndTemrsCheckBox = new javax.swing.JCheckBox();
         SubmitAccountButton = new javax.swing.JButton();
         CancelButton = new javax.swing.JButton();
-        cnd = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         FavoritePet = new javax.swing.JTextField();
@@ -97,6 +96,7 @@ public class RegisterForm extends javax.swing.JFrame {
         q1msg = new javax.swing.JLabel();
         q2msg = new javax.swing.JLabel();
         msg = new javax.swing.JLabel();
+        cnd = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -112,6 +112,9 @@ public class RegisterForm extends javax.swing.JFrame {
         jLabel5.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         username.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                usernameFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 usernameFocusLost(evt);
             }
@@ -160,20 +163,6 @@ public class RegisterForm extends javax.swing.JFrame {
             }
         });
 
-        cnd.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
-        cnd.setForeground(new java.awt.Color(0, 0, 255));
-        cnd.setText("Conditions & Terms");
-        cnd.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cndMouseClicked(evt);
-            }
-        });
-        cnd.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                cndPropertyChange(evt);
-            }
-        });
-
         jLabel7.setText("Αγαπημένο κατοικίδιο");
 
         jLabel8.setText("Αγαπημένη μάρκα αυτοκινήτου");
@@ -214,6 +203,18 @@ public class RegisterForm extends javax.swing.JFrame {
         msg.setForeground(new java.awt.Color(255, 0, 0));
         msg.setText("invalid username");
 
+        cnd.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
+        cnd.setForeground(new java.awt.Color(0, 51, 204));
+        cnd.setText("Conditions & Terms");
+        cnd.setBorder(null);
+        cnd.setBorderPainted(false);
+        cnd.setContentAreaFilled(false);
+        cnd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cndActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -223,7 +224,6 @@ public class RegisterForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(SubmitAccountButton)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))
@@ -233,7 +233,7 @@ public class RegisterForm extends javax.swing.JFrame {
                                 .addComponent(cndaccept, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(136, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -248,18 +248,8 @@ public class RegisterForm extends javax.swing.JFrame {
                                     .addComponent(repassword)
                                     .addComponent(email)
                                     .addComponent(FavoritePet)
-                                    .addComponent(FavoriteCar)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(cnd, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(ConditionAndTemrsCheckBox)))
+                                    .addComponent(FavoriteCar))))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(usernameexistmsg, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(msg, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -269,7 +259,20 @@ public class RegisterForm extends javax.swing.JFrame {
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(q2msg, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(q1msg, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(usernameexistmsg, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(msg, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(SubmitAccountButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cnd, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ConditionAndTemrsCheckBox)
+                        .addGap(275, 275, 275))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -277,46 +280,49 @@ public class RegisterForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(usernameexistmsg)
-                    .addComponent(msg))
-                .addGap(38, 38, 38)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(invalidpassword))
-                .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(repassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(missmatchpasswords))
-                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(invalidemail)))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(FavoritePet, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(q1msg))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(FavoriteCar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(q2msg))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ConditionAndTemrsCheckBox)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(SubmitAccountButton)
-                        .addComponent(cnd, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(usernameexistmsg)
+                                .addComponent(msg))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel1)
+                                .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(38, 38, 38)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(invalidpassword))
+                        .addGap(32, 32, 32)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(repassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(missmatchpasswords))
+                        .addGap(21, 21, 21)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(invalidemail)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(FavoritePet, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(q1msg))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(FavoriteCar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(q2msg))
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cnd, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(SubmitAccountButton)))
+                    .addComponent(ConditionAndTemrsCheckBox))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cndaccept)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addComponent(CancelButton)
                 .addGap(22, 22, 22))
         );
@@ -331,12 +337,6 @@ public class RegisterForm extends javax.swing.JFrame {
               LoginForm regFace = new LoginForm();
                 regFace.setVisible(true);
     }//GEN-LAST:event_CancelButtonActionPerformed
-
-    private void cndMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cndMouseClicked
-        JOptionPane.showMessageDialog(null, "This is an open source application \n Owner rights: \n "
-            + "ΜΥΡΩΝΙΔΗΣ ΔΗΜΗΤΡΗΣ, ΧΡΗΣΤΟΥ ΑΠΟΣΤΟΛΗΣ \n TΣΙΛΟΠΟΥΛΟΣ ΠΑΝΑΓΙΩΤΗΣ, ΓΕΩΣΡΓΙΑΔΗΣ ΠΑΝΑΓΙΩΤΗΣ,\n ΤΣΑΜΗΣ ΙΩΑΝΝΗΣ"
-            + "ΣΤΕΦΑΝΙΔΗΣ ΣΤΕΦΑΝΟΣ,\n ΠΑΤΣΑΝΗΣ ΑΛΕΞΑΝΔΡΟΣ, ΤΑΣΣΙΟΣ ΜΑΡΙΟΣ, \n ΣΤΥΛΙΔΗΣ ΧΡΗΣΤΟΣ, ΔΗΜΤΣΑΣ ΒΙΚΤΩΡΑΣ ");
-    }//GEN-LAST:event_cndMouseClicked
 
     private void SubmitAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitAccountButtonActionPerformed
 
@@ -379,11 +379,6 @@ public class RegisterForm extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_usernameFocusLost
-
-    private void cndPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_cndPropertyChange
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_cndPropertyChange
 
     private void ConditionAndTemrsCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConditionAndTemrsCheckBoxActionPerformed
 
@@ -474,19 +469,35 @@ public class RegisterForm extends javax.swing.JFrame {
 
     private void usernameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usernameKeyTyped
            CheckUserController controller = new CheckUserController();
-        if (!controller.checkUser(username.getText() + evt.getKeyChar())) {
+           //CheckUserController controller2 = new CheckUserController();
+           
+        if (!controller.checkUser(username.getText() + evt.getKeyChar()))
+           //if (controller2.checkUser(username.getText()))     
+        {
             usernamepass = false;
+            
             msg.setVisible(true);
             SubmitAccountButton.setEnabled(false);
 
         } else {
             usernamepass = true;
             msg.setVisible(false);
+            
             if (usernamepass && passwordpass && repeatpassowrdpass && mailpass && q1pass && q2pass) {
                 SubmitAccountButton.setEnabled(true);
             }
         } 
     }//GEN-LAST:event_usernameKeyTyped
+
+    private void usernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernameFocusGained
+       usernameexistmsg.setVisible(false);
+    }//GEN-LAST:event_usernameFocusGained
+
+    private void cndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cndActionPerformed
+       JOptionPane.showMessageDialog(null, "This is an open source application \n Owner rights: \n "
+            + "ΜΥΡΩΝΙΔΗΣ ΔΗΜΗΤΡΗΣ, ΧΡΗΣΤΟΥ ΑΠΟΣΤΟΛΗΣ \n TΣΙΛΟΠΟΥΛΟΣ ΠΑΝΑΓΙΩΤΗΣ, ΓΕΩΣΡΓΙΑΔΗΣ ΠΑΝΑΓΙΩΤΗΣ,\n ΤΣΑΜΗΣ ΙΩΑΝΝΗΣ"
+            + "ΣΤΕΦΑΝΙΔΗΣ ΣΤΕΦΑΝΟΣ,\n ΠΑΤΣΑΝΗΣ ΑΛΕΞΑΝΔΡΟΣ, ΤΑΣΣΙΟΣ ΜΑΡΙΟΣ, \n ΣΤΥΛΙΔΗΣ ΧΡΗΣΤΟΣ, ΔΗΜΤΣΑΣ ΒΙΚΤΩΡΑΣ ");
+    }//GEN-LAST:event_cndActionPerformed
 
     /**
      * @param args
@@ -507,7 +518,7 @@ public class RegisterForm extends javax.swing.JFrame {
     private javax.swing.JTextField FavoriteCar;
     private javax.swing.JTextField FavoritePet;
     private javax.swing.JButton SubmitAccountButton;
-    private javax.swing.JLabel cnd;
+    private javax.swing.JButton cnd;
     private javax.swing.JLabel cndaccept;
     private javax.swing.JTextField email;
     private javax.swing.JLabel invalidemail;
