@@ -1,6 +1,5 @@
 package ui;
 
-
 import controller.CheckMailController;
 import controller.CheckPasswordController;
 import controller.CheckQ1Controller;
@@ -11,8 +10,6 @@ import controller.CheckValidPassword;
 import controller.RegisterController;
 import dao.RegisterFormDao;
 import javax.swing.JOptionPane;
-
-
 
 /**
  *
@@ -27,8 +24,6 @@ public class RegisterForm extends javax.swing.JFrame {
     boolean q1pass = false;
     boolean q2pass = false;
 
-    
-
     public RegisterForm() {
         initComponents();
         usernameexistmsg.setVisible(false);
@@ -37,7 +32,7 @@ public class RegisterForm extends javax.swing.JFrame {
         invalidpassword.setVisible(false);
         cndaccept.setVisible(false);
         SubmitAccountButton.setEnabled(false);
-        q1msg.setVisible(false); 
+        q1msg.setVisible(false);
         usernameexistmsg.setName("usernameexistmsg");
         password.setName("password");
         repassword.setName("repassword");
@@ -61,11 +56,11 @@ public class RegisterForm extends javax.swing.JFrame {
         invalidemail.setName("invalidemail");
         FavoriteCar.setName("FavoriteCar");
         q1msg.setName("q1msg");
-       q2msg.setName("q2msg");
-       SubmitAccountButton.setName("SubmitAccountButton");
-       CancelButton.setName("CancelButton");
-       msg.setVisible(false);
-      
+        q2msg.setName("q2msg");
+        SubmitAccountButton.setName("SubmitAccountButton");
+        CancelButton.setName("CancelButton");
+        msg.setVisible(false);
+
     }
 
     @SuppressWarnings("unchecked")
@@ -125,12 +120,22 @@ public class RegisterForm extends javax.swing.JFrame {
             }
         });
 
+        password.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                passwordFocusLost(evt);
+            }
+        });
         password.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 passwordKeyTyped(evt);
             }
         });
 
+        repassword.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                repasswordFocusLost(evt);
+            }
+        });
         repassword.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 repasswordKeyTyped(evt);
@@ -167,12 +172,22 @@ public class RegisterForm extends javax.swing.JFrame {
 
         jLabel8.setText("Αγαπημένη μάρκα αυτοκινήτου");
 
+        FavoritePet.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                FavoritePetFocusLost(evt);
+            }
+        });
         FavoritePet.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 FavoritePetKeyTyped(evt);
             }
         });
 
+        FavoriteCar.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                FavoriteCarFocusLost(evt);
+            }
+        });
         FavoriteCar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 FavoriteCarKeyTyped(evt);
@@ -227,9 +242,9 @@ public class RegisterForm extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))
-                            .addComponent(CancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(159, 159, 159)
+                                .addComponent(CancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(44, 44, 44)
                                 .addComponent(cndaccept, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(136, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
@@ -320,11 +335,14 @@ public class RegisterForm extends javax.swing.JFrame {
                             .addComponent(cnd, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(SubmitAccountButton)))
                     .addComponent(ConditionAndTemrsCheckBox))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cndaccept)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                .addComponent(CancelButton)
-                .addGap(22, 22, 22))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cndaccept))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(CancelButton)))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         jLabel5.getAccessibleContext().setAccessibleDescription("");
@@ -333,9 +351,9 @@ public class RegisterForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelButtonActionPerformed
-             this.dispose();
-              LoginForm regFace = new LoginForm();
-                regFace.setVisible(true);
+        this.dispose();
+        LoginForm regFace = new LoginForm();
+        regFace.setVisible(true);
     }//GEN-LAST:event_CancelButtonActionPerformed
 
     private void SubmitAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitAccountButtonActionPerformed
@@ -364,9 +382,18 @@ public class RegisterForm extends javax.swing.JFrame {
 
     private void usernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernameFocusLost
         CheckUsernameController controller = new CheckUsernameController();
+        CheckUserController controller1 = new CheckUserController();
         if (controller.usernameExists(username.getText())) {
             usernamepass = false;
             usernameexistmsg.setVisible(true);
+            SubmitAccountButton.setEnabled(false);
+
+        }
+
+        if (!controller1.checkUser(username.getText())) {
+            usernamepass = false;
+
+            msg.setVisible(true);
             SubmitAccountButton.setEnabled(false);
 
         } else {
@@ -468,36 +495,105 @@ public class RegisterForm extends javax.swing.JFrame {
     }//GEN-LAST:event_FavoriteCarKeyTyped
 
     private void usernameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usernameKeyTyped
-           CheckUserController controller = new CheckUserController();
+        CheckUserController controller = new CheckUserController();
            //CheckUserController controller2 = new CheckUserController();
-           
-        if (!controller.checkUser(username.getText() + evt.getKeyChar()))
-           //if (controller2.checkUser(username.getText()))     
+
+        if (!controller.checkUser(username.getText() + evt.getKeyChar())) //if (controller2.checkUser(username.getText()))     
         {
             usernamepass = false;
-            
+
             msg.setVisible(true);
             SubmitAccountButton.setEnabled(false);
 
         } else {
             usernamepass = true;
             msg.setVisible(false);
-            
+
             if (usernamepass && passwordpass && repeatpassowrdpass && mailpass && q1pass && q2pass) {
                 SubmitAccountButton.setEnabled(true);
             }
-        } 
+        }
     }//GEN-LAST:event_usernameKeyTyped
 
     private void usernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernameFocusGained
-       usernameexistmsg.setVisible(false);
+        usernameexistmsg.setVisible(false);
     }//GEN-LAST:event_usernameFocusGained
 
     private void cndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cndActionPerformed
-       JOptionPane.showMessageDialog(null, "This is an open source application \n Owner rights: \n "
-            + "ΜΥΡΩΝΙΔΗΣ ΔΗΜΗΤΡΗΣ, ΧΡΗΣΤΟΥ ΑΠΟΣΤΟΛΗΣ \n TΣΙΛΟΠΟΥΛΟΣ ΠΑΝΑΓΙΩΤΗΣ, ΓΕΩΣΡΓΙΑΔΗΣ ΠΑΝΑΓΙΩΤΗΣ,\n ΤΣΑΜΗΣ ΙΩΑΝΝΗΣ"
-            + "ΣΤΕΦΑΝΙΔΗΣ ΣΤΕΦΑΝΟΣ,\n ΠΑΤΣΑΝΗΣ ΑΛΕΞΑΝΔΡΟΣ, ΤΑΣΣΙΟΣ ΜΑΡΙΟΣ, \n ΣΤΥΛΙΔΗΣ ΧΡΗΣΤΟΣ, ΔΗΜΤΣΑΣ ΒΙΚΤΩΡΑΣ ");
+        JOptionPane.showMessageDialog(null, "This is an open source application \n Owner rights: \n "
+                + "ΜΥΡΩΝΙΔΗΣ ΔΗΜΗΤΡΗΣ, ΧΡΗΣΤΟΥ ΑΠΟΣΤΟΛΗΣ \n TΣΙΛΟΠΟΥΛΟΣ ΠΑΝΑΓΙΩΤΗΣ, ΓΕΩΣΡΓΙΑΔΗΣ ΠΑΝΑΓΙΩΤΗΣ,\n ΤΣΑΜΗΣ ΙΩΑΝΝΗΣ"
+                + "ΣΤΕΦΑΝΙΔΗΣ ΣΤΕΦΑΝΟΣ,\n ΠΑΤΣΑΝΗΣ ΑΛΕΞΑΝΔΡΟΣ, ΤΑΣΣΙΟΣ ΜΑΡΙΟΣ, \n ΣΤΥΛΙΔΗΣ ΧΡΗΣΤΟΣ, ΔΗΜΤΣΑΣ ΒΙΚΤΩΡΑΣ ");
     }//GEN-LAST:event_cndActionPerformed
+
+    private void passwordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFocusLost
+        CheckValidPassword controller = new CheckValidPassword();
+        CheckPasswordController controller1 = new CheckPasswordController();
+        if (!controller.checkPassword(password.getText())) {
+            passwordpass = false;
+            invalidpassword.setVisible(true);
+            SubmitAccountButton.setEnabled(false);
+
+        }
+        if (!controller1.checkPassword(password.getText(), repassword.getText())) {
+            repeatpassowrdpass = false;
+            missmatchpasswords.setVisible(true);
+            SubmitAccountButton.setEnabled(false);
+        } else {
+            passwordpass = true;
+            invalidpassword.setVisible(false);
+            if (usernamepass && passwordpass && repeatpassowrdpass && mailpass && q1pass && q2pass) {
+                SubmitAccountButton.setEnabled(true);
+            }
+        }
+    }//GEN-LAST:event_passwordFocusLost
+
+    private void FavoritePetFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FavoritePetFocusLost
+        CheckQ1Controller controller = new CheckQ1Controller();
+        if (!controller.checkQ1(FavoritePet.getText())) {
+            q1pass = false;
+            q1msg.setVisible(true);
+            SubmitAccountButton.setEnabled(false);
+
+        } else {
+            q1pass = true;
+            q1msg.setVisible(false);
+            if (usernamepass && passwordpass && repeatpassowrdpass && mailpass && q1pass && q2pass) {
+                SubmitAccountButton.setEnabled(true);
+            }
+        }
+    }//GEN-LAST:event_FavoritePetFocusLost
+
+    private void FavoriteCarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FavoriteCarFocusLost
+        CheckQ2Controller controller = new CheckQ2Controller();
+        if (!controller.checkQ2(FavoriteCar.getText())) {
+            q2pass = false;
+            q2msg.setVisible(true);
+            SubmitAccountButton.setEnabled(false);
+
+        } else {
+            q2pass = true;
+            q2msg.setVisible(false);
+            if (usernamepass && passwordpass && repeatpassowrdpass && mailpass && q1pass && q2pass) {
+                SubmitAccountButton.setEnabled(true);
+            }
+        }
+    }//GEN-LAST:event_FavoriteCarFocusLost
+
+    private void repasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_repasswordFocusLost
+        CheckPasswordController controller = new CheckPasswordController();
+        if (!controller.checkPassword(password.getText(), repassword.getText())) {
+            repeatpassowrdpass = false;
+            missmatchpasswords.setVisible(true);
+            SubmitAccountButton.setEnabled(false);
+
+        } else {
+            repeatpassowrdpass = true;
+            missmatchpasswords.setVisible(false);
+            if (usernamepass && passwordpass && repeatpassowrdpass && mailpass && q1pass && q2pass) {
+                SubmitAccountButton.setEnabled(true);
+            }
+        }
+    }//GEN-LAST:event_repasswordFocusLost
 
     /**
      * @param args
