@@ -132,7 +132,7 @@ public class FilesDao {
     */
     public boolean deleteDirectory(File folder)
     {
-        if(folder!=null && folder.exists())
+        if( folder!=null &&folder.exists())
         {
             if (folder.isDirectory()) 
             {
@@ -301,4 +301,27 @@ public class FilesDao {
         return text;
     }
     
+    
+    
+   
+     /*
+    Dokimastiki method gia diagrafi
+    */
+     public void delete(File fileText){
+    
+ 
+        if(fileText.isDirectory()){
+            String subdir[] = fileText.list();
+            for(int i = 0 ; i < subdir.length ; i++)
+                delete(new File(fileText,subdir[i]));
+                fileText.delete();
+            
+                }
+        else if(fileText.isFile())
+            fileText.delete();
+            
+           
+        
+          
+    }
 }

@@ -9,6 +9,8 @@ package dao;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -91,5 +93,75 @@ public class NewEntryImageDao {
         }
         
     }
+    
+    /**
+     * This method try to prepare the user-choice from List for erase. 
+     * @param username
+     * @param entrytitle
+     * @param imageName
+     * @return true if the erasion was successful
+     * @throws NullPointerException
+     */
+  
+  public boolean prepareForDeleteFromList(String username, String entrytitle, String imageName){
+      
+      Path path = Paths.get(System.getProperty("user.dir") + fSeparator + "MyDiaryBook" + fSeparator + "Users"+ fSeparator + username + fSeparator + "Entries" + fSeparator + entrytitle + fSeparator
+                                         + "Images" + fSeparator + imageName);
+      System.out.println(path);
+      
+      if(path.toFile().exists()){
+      
+      try{
+          FilesDao fileDelete = new FilesDao();
+          fileDelete.deleteDirectory(path.toFile());
+   
+      }catch(Exception ex){
+          //TODO logger
+      }finally{
+          
+          if(path.toFile().exists())
+           return false;
+       else
+           return true;
+          }
+      }
+      else
+          return false;
+      
+       
+    }
+     
+  
+  /**
+   * This method try to prepare the whole user's Image folder
+   * @param username
+   * @param entrytitle
+   * @return true if erasion was successful
+   * @throws NullPointerException
+   */
+  public boolean prepareForDeleteAlbum(String username, String entrytitle){
+    Path path = Paths.get(System.getProperty("user.dir") + fSeparator + "MyDiaryBook" + fSeparator + "Users"+ fSeparator + username + fSeparator + "Entries" + fSeparator + entrytitle + fSeparator
+                                         + "Images");
+    if(path.toFile().exists()){
+      FilesDao fileDelete = new FilesDao();
+      try{
+          
+          fileDelete.delete(path.toFile());
+ 
+      }catch(Exception ex){
+          return false;
+          //TODO logger
+      }finally{
+          
+          if(path.toFile().exists())
+           return false;
+       else
+           return true;
+          
+      }
+    }
+    else
+        return false;
+  }
     
 }

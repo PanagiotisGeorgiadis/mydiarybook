@@ -8,6 +8,8 @@ package dao;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -54,4 +56,57 @@ public class NewEntryTextDao {
             return "";
         }
     }
+    
+    
+    public boolean prepareForDeleteFromList(String username, String entrytitle, String textName){
+        
+         Path path = Paths.get(System.getProperty("user.dir") + fSeparator + "MyDiaryBook" + fSeparator + "Users"+ fSeparator + username + fSeparator + "Entries" + fSeparator + entrytitle + fSeparator
+                                         + "Text" + fSeparator + textName);
+      System.out.println(path);
+      
+      if(path.toFile().exists()){
+      
+      try{
+          FilesDao fileDelete = new FilesDao();
+          fileDelete.deleteDirectory(path.toFile());
+   
+      }catch(Exception ex){
+          //TODO logger
+      }finally{
+          
+          if(path.toFile().exists())
+           return false;
+       else
+           return true;
+          }
+      }
+      else
+          return false;
+      
+    }
+    
+     public boolean prepareForDeleteAlbum(String username, String entrytitle){
+    Path path = Paths.get(System.getProperty("user.dir") + fSeparator + "MyDiaryBook" + fSeparator + "Users"+ fSeparator + username + fSeparator + "Entries" + fSeparator + entrytitle + fSeparator
+                                         + "Text");
+    if(path.toFile().exists()){
+      FilesDao fileDelete = new FilesDao();
+      try{
+          
+          fileDelete.delete(path.toFile());
+ 
+      }catch(Exception ex){
+          return false;
+          //TODO logger
+      }finally{
+          
+          if(path.toFile().exists())
+           return false;
+       else
+           return true;
+          
+      }
+    }
+    else
+        return false;
+  }
 }
