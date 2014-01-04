@@ -75,6 +75,18 @@ public class NewEntryImageDao {
         }
     }
     
+     public String getImageEntry(String entryTitle)
+    {
+        INewEntryMockDefaultPath rootPathMock = mock(INewEntryMockDefaultPath.class);
+        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator);
+        
+        INewEntryMockUsername userMock = mock(INewEntryMockUsername.class);
+        when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
+    
+        String imagePath = rootPathMock.getDefaultPath()+userMock.getUsername()+fSeparator+"Entries"+fSeparator+entryTitle+fSeparator+"Images"+fSeparator;
+        return imagePath;
+    }
+    
     public List<URI> getImageFiles(String entryTitle)
     {
         INewEntryMockDefaultPath rootPathMock = mock(INewEntryMockDefaultPath.class);
@@ -103,23 +115,22 @@ public class NewEntryImageDao {
      * @throws NullPointerException
      */
   
-  public boolean prepareForDeleteFromList(String username, String entrytitle, String imageName){
+  public boolean prepareForDeleteFromList( String imagePath){
+     
+      File file = new File(imagePath);
+      System.out.println(file);
       
-      Path path = Paths.get(System.getProperty("user.dir") + fSeparator + "MyDiaryBook" + fSeparator + "Users"+ fSeparator + username + fSeparator + "Entries" + fSeparator + entrytitle + fSeparator
-                                         + "Images" + fSeparator + imageName);
-      System.out.println(path);
-      
-      if(path.toFile().exists()){
+      if(file.exists()){
       
       try{
           FilesDao fileDelete = new FilesDao();
-          fileDelete.deleteDirectory(path.toFile());
+          fileDelete.deleteDirectory(file);
    
       }catch(Exception ex){
           //TODO logger
       }finally{
           
-          if(path.toFile().exists())
+          if(file.exists())
            return false;
        else
            return true;
@@ -139,21 +150,21 @@ public class NewEntryImageDao {
    * @return true if erasion was successful
    * @throws NullPointerException
    */
-  public boolean prepareForDeleteAlbum(String username, String entrytitle){
-    Path path = Paths.get(System.getProperty("user.dir") + fSeparator + "MyDiaryBook" + fSeparator + "Users"+ fSeparator + username + fSeparator + "Entries" + fSeparator + entrytitle + fSeparator
-                                         + "Images");
-    if(path.toFile().exists()){
+  public boolean prepareForDeleteAlbum(String imagePath){
+       File imageFile = new File(imagePath);
+      System.out.println(imageFile);
+      
+    if(imageFile.exists()){
       FilesDao fileDelete = new FilesDao();
       try{
-          
-          fileDelete.delete(path.toFile());
+          fileDelete.delete(imageFile);
  
       }catch(Exception ex){
           return false;
           //TODO logger
       }finally{
           
-          if(path.toFile().exists())
+          if(imageFile.exists())
            return false;
        else
            return true;
