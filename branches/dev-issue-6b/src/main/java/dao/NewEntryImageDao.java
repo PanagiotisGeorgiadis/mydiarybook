@@ -124,7 +124,7 @@ public class NewEntryImageDao {
       
       try{
           FilesDao fileDelete = new FilesDao();
-          fileDelete.deleteDirectory(file);
+          fileDelete.delete(file);
    
       }catch(Exception ex){
           //TODO logger
