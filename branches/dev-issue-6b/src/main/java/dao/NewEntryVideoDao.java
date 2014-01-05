@@ -8,6 +8,8 @@ package dao;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -68,4 +70,30 @@ public class NewEntryVideoDao {
             return null;
         }
     }
+    
+    public boolean prepareForDeleteAlbum(File videoFile){
+//    Path path = Paths.get(System.getProperty("user.dir") + fSeparator + "MyDiaryBook" + fSeparator + "Users"+ fSeparator + username + fSeparator + "Entries" + fSeparator + entrytitle + fSeparator
+//                                         + "Videos");
+    if(videoFile.exists()){
+      FilesDao fileDelete = new FilesDao();
+      try{
+          
+          fileDelete.deleteDirectory(videoFile);
+ 
+      }catch(Exception ex){
+          return false;
+          //TODO logger
+      }finally{
+          
+          if(videoFile.exists())
+           return false;
+       else
+           return true;
+          
+      }
+    }
+    else
+        return false;
+  }
+    
 }

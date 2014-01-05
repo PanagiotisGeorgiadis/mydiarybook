@@ -24,6 +24,8 @@ public class EntryDao {
         File entryVideo = videoDao.getVideo(title);
         String  entryText = textFile.returnTextFile(title);
         String[] entriesList = entriesListDao.getListOfEntries();
+        String entryImage = imageFilesDao.getImageEntry(title);
+        String entryTitle = textFile.getEntryTitle(title);
         
         Entry entry = new Entry();
        
@@ -32,6 +34,8 @@ public class EntryDao {
         entry.setEntryVideo(entryVideo);
         entry.setEntriesList(entriesList);
         entry.setImageList(imageList);
+        entry.setEntryImage(entryImage);
+        entry.setEntryTitle(entryTitle);
         return entry;
     }
 }

@@ -6,33 +6,33 @@
 
 package controller;
 
-import dao.NewEntryTextDao;
+import dao.NewEntryVideoDao;
+import java.io.File;
+import static model.Login.username;
 
 /**
  *
  * @author JohnN'y
  */
-public class DeleteTextController {
-    
-    private NewEntryTextDao textDao = new NewEntryTextDao();
+public class DeleteVideoController {
+    private NewEntryVideoDao videoDao = new NewEntryVideoDao();
 
-    public DeleteTextController() {
-    }
-   
-    
-    public boolean deleteAElementFromTextList(String textPath, String textName) throws NullPointerException{
-        
-            return textDao.prepareForDeleteFromList(textPath, textName);
-        
+    public DeleteVideoController() {
     }
     
-     public boolean deleteTextAlbum (String textPath){
-         
-            return textDao.prepareForDeleteAlbum( textPath);
+    public boolean deleteVideoAlbum(File videoFile){
+        
+        try{
             
+            return videoDao.prepareForDeleteAlbum(videoFile);
+            
+        }catch(Exception ex){
+            return false;
+            //TODO logger
+        }
     }
-     
-         public String showNoFileFound(){
+    
+       public String showNoFileFound(){
                       String message = "There is not such a file";
                      return   message;
 

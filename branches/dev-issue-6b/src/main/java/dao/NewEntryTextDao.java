@@ -57,24 +57,37 @@ public class NewEntryTextDao {
         }
     }
     
-    
-    public boolean prepareForDeleteFromList(String username, String entrytitle, String textName){
+    public String getEntryTitle(String entryTitle){
         
-         Path path = Paths.get(System.getProperty("user.dir") + fSeparator + "MyDiaryBook" + fSeparator + "Users"+ fSeparator + username + fSeparator + "Entries" + fSeparator + entrytitle + fSeparator
-                                         + "Text" + fSeparator + textName);
-      System.out.println(path);
+         INewEntryMockDefaultPath rootPathMock = mock(INewEntryMockDefaultPath.class);
+        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator);
+        INewEntryMockUsername userMock = mock(INewEntryMockUsername.class);
+        when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
+        
+        return rootPathMock.getDefaultPath()+userMock.getUsername()+fSeparator+"Entries"+fSeparator+entryTitle+fSeparator+"Texts"+fSeparator;
+        
+    }
+    
+    public boolean prepareForDeleteFromList( String textPath, String textName){
+//        Path textFile = Paths.get(System.getProperty("user.dir") + fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+Username +fSeparator + "Entries" + fSeparator +
+//                                textPath + fSeparator + "Texts"+fSeparator+textPath+".txt");
+        //TODO Na kanw ti dimiourgia tou path pio dunamiki
+        String textFile = textPath +File.separator + textName +".txt";
+        
+        File file = new File(textFile);
+        System.out.println(file);
       
-      if(path.toFile().exists()){
+      if(file.exists()){
       
       try{
           FilesDao fileDelete = new FilesDao();
-          fileDelete.deleteDirectory(path.toFile());
+          fileDelete.deleteDirectory(file);
    
       }catch(Exception ex){
           //TODO logger
       }finally{
           
-          if(path.toFile().exists())
+          if(file.exists())
            return false;
        else
            return true;
@@ -85,21 +98,22 @@ public class NewEntryTextDao {
       
     }
     
-     public boolean prepareForDeleteAlbum(String username, String entrytitle){
-    Path path = Paths.get(System.getProperty("user.dir") + fSeparator + "MyDiaryBook" + fSeparator + "Users"+ fSeparator + username + fSeparator + "Entries" + fSeparator + entrytitle + fSeparator
-                                         + "Text");
-    if(path.toFile().exists()){
+     public boolean prepareForDeleteAlbum( String textPath){
+//    Path path = Paths.get(System.getProperty("user.dir") + fSeparator + "MyDiaryBook" + fSeparator + "Users"+ fSeparator + Username + fSeparator + "Entries" + fSeparator + textPath + fSeparator
+//                                         + "Texts");
+         File textFile = new File(textPath);
+    if(textFile.exists()){
       FilesDao fileDelete = new FilesDao();
       try{
           
-          fileDelete.delete(path.toFile());
+          fileDelete.delete(textFile);
  
       }catch(Exception ex){
           return false;
           //TODO logger
       }finally{
           
-          if(path.toFile().exists())
+          if(textFile.exists())
            return false;
        else
            return true;

@@ -43,8 +43,10 @@ public class DeleteImageControllerTest {
 
     
     public DeleteImageControllerTest() throws URISyntaxException {
-        when(mockEntry.getEntryImages()).thenReturn(pathListURI);
+       
         pathListURI.add(path.toUri());
+        when(mockEntry.getEntryImages()).thenReturn(pathListURI);
+        
     }
 
     @BeforeClass

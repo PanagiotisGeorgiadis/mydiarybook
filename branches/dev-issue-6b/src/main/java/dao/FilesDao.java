@@ -319,6 +319,7 @@ public class FilesDao {
                 }
         else if(fileText.isFile())
             fileText.delete();
+        fileText.delete();
             
            
         

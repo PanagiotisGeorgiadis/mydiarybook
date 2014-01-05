@@ -22,6 +22,7 @@ import static org.mockito.Mockito.when;
 public class NewEntryImageDao {
    
     private final String fSeparator = File.separator;
+
     
     public NewEntryImageDao()
     {

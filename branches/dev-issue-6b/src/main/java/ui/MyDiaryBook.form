@@ -201,8 +201,14 @@
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="entriesListScrollPane" pref="91" max="32767" attributes="0"/>
-                                  <Component id="saveEditButton" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cancelEditButton" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="saveEditButton" min="-2" max="-2" attributes="0"/>
+                                          <Component id="cancelEditButton" min="-2" max="-2" attributes="0"/>
+                                          <Component id="deleteTextButton" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
                           <Group type="102" attributes="0">
@@ -230,7 +236,9 @@
                               <Component id="saveEditButton" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                               <Component id="cancelEditButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="280" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="deleteTextButton" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="239" max="-2" attributes="0"/>
                               <Component id="entriesListScrollPane" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <Component id="entryTextAreaScrollPane" pref="487" max="32767" attributes="0"/>
@@ -307,6 +315,17 @@
                 <Property name="text" type="java.lang.String" value="Cancel"/>
               </Properties>
             </Component>
+            <Component class="javax.swing.JButton" name="deleteTextButton">
+              <Properties>
+                <Property name="label" type="java.lang.String" value="Delete Text"/>
+              </Properties>
+              <AccessibilityProperties>
+                <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="deleteTextButton"/>
+              </AccessibilityProperties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteTextButtonActionPerformed"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="imagePanelContainer">
@@ -324,10 +343,12 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="imagePanelScrollPane" min="-2" pref="662" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="imageListScrollPane" min="-2" pref="91" max="-2" attributes="0"/>
-                          <Component id="loadImageButton" min="-2" max="-2" attributes="0"/>
-                          <Component id="loadAlbumButton" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="loadImageButton" max="32767" attributes="0"/>
+                          <Component id="loadAlbumButton" max="32767" attributes="0"/>
+                          <Component id="imageListScrollPane" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
+                          <Component id="deleteImageAlbumButton" alignment="0" max="32767" attributes="0"/>
+                          <Component id="deleteImageButton" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -342,7 +363,11 @@
                               <Component id="loadImageButton" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="loadAlbumButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="332" max="32767" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="deleteImageAlbumButton" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="deleteImageButton" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="264" max="32767" attributes="0"/>
                               <Component id="imageListScrollPane" min="-2" pref="150" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -401,6 +426,22 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="loadAlbumButtonActionPerformed"/>
               </Events>
             </Component>
+            <Component class="javax.swing.JButton" name="deleteImageAlbumButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Delete Album"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteImageAlbumButtonActionPerformed,deleteImageButtonActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="deleteImageButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Delete Image"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteImageButtonActionPerformed"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="videoPanel">
@@ -415,15 +456,33 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="781" max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace pref="668" max="32767" attributes="0"/>
+                      <Component id="deleteVideoButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="556" max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace pref="288" max="32767" attributes="0"/>
+                      <Component id="deleteVideoButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="245" max="-2" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
           </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JButton" name="deleteVideoButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Delete Video"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteVideoButtonActionPerformed"/>
+              </Events>
+            </Component>
+          </SubComponents>
         </Container>
       </SubComponents>
     </Container>
@@ -476,6 +535,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Welcome, "/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="MyDiaryBook_welcomeLabel"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>
