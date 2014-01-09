@@ -83,7 +83,9 @@ public class EntriesListDaoTest {
         expResult[0] = "PAOK";
         expResult[1] = "TexnologiaLogismikou2";
         expResult[2] = "Trela";
+        Arrays.sort(expResult);
         String[] result = instance.getListOfEntries();
+        Arrays.sort(result);
         assertArrayEquals("getListOfEntries With Existant Entries",expResult, result);
     }
     
