@@ -156,7 +156,7 @@ public class FilesDaoTest {
             result = false;
         }
         boolean expResult = true;
-        assertEquals(expResult,result);
+        assertEquals("Some message",expResult,result);
     }
     
     @Test
@@ -180,7 +180,7 @@ public class FilesDaoTest {
         }
         
         boolean expResult = false;
-        assertEquals(expResult,result);
+        assertEquals("Some message",expResult,result);
     }
     
     @Test
@@ -204,7 +204,7 @@ public class FilesDaoTest {
             result = false;
         }
         boolean expResult = true;
-        assertEquals(expResult,result);
+        assertEquals("Some message",expResult,result);
     }
     
     @Test
@@ -228,7 +228,7 @@ public class FilesDaoTest {
             result = false;
         }
         boolean expResult = true;
-        assertEquals(expResult,result);
+        assertEquals("Some message",expResult,result);
     }
 
     /**
@@ -243,7 +243,7 @@ public class FilesDaoTest {
         FilesDao instance = new FilesDao();
         boolean expResult = true;
         boolean result = instance.createTextFile(destPath, text, fileName);
-        assertEquals(expResult, result);
+        assertEquals("Some message",expResult, result);
     }
     
     @Test
@@ -255,7 +255,7 @@ public class FilesDaoTest {
         FilesDao instance = new FilesDao();
         boolean expResult = true;
         boolean result = instance.createTextFile(destPath, text, fileName);
-        assertEquals(expResult, result);
+        assertEquals("Some message",expResult, result);
     }
     
     @Test
@@ -272,7 +272,7 @@ public class FilesDaoTest {
         }catch(StackOverflowError error){
             result = false;
         }
-        assertEquals(expResult, result);
+         assertEquals("Expected False",expResult, result);
     }
     
     @Test
@@ -289,7 +289,7 @@ public class FilesDaoTest {
         }catch(StackOverflowError error){
             result = false;
         }
-        assertEquals(expResult, result);
+        assertEquals("Expected False",expResult, result);
     }
 
     /**
@@ -304,24 +304,9 @@ public class FilesDaoTest {
         FilesDao instance = new FilesDao();
         boolean expResult = true;
         boolean result = instance.createFilePath(path);
-        assertEquals(expResult, result);
+        assertEquals("Some message",expResult, result);
     }
-    
-    @Test
-    public void testCreateFilePath2() {
-        System.out.println("createFilePath with non realistic path");
-        String path = "//qwe//..////.../../././";
-        FilesDao instance = new FilesDao();
-        boolean expResult = false;
-        boolean result;
-        try{
-            result = instance.createFilePath(path);
-        }catch(StackOverflowError error){
-            result = false;
-        }
-        assertEquals(expResult, result);
-    }
-    
+        
     @Test
     public void testCreateFilePath3() {
         System.out.println("createFilePath with null path");
@@ -334,7 +319,7 @@ public class FilesDaoTest {
         }catch(StackOverflowError error){
             result = false;
         }
-        assertEquals(expResult, result);
+        assertEquals("Some message",expResult, result);
     }
 
     /**
@@ -347,7 +332,7 @@ public class FilesDaoTest {
         FilesDao instance = new FilesDao();
         boolean expResult = true;
         boolean result = instance.deleteDirectory(testFolder);
-        assertEquals(expResult, result);
+        assertEquals("Some message",expResult, result);
     }
     
     @Test
@@ -357,7 +342,7 @@ public class FilesDaoTest {
         FilesDao instance = new FilesDao();
         boolean expResult = false;
         boolean result = instance.deleteDirectory(testFolder);
-        assertEquals(expResult, result);
+        assertEquals("Some message",expResult, result);
     }
     
     @Test
@@ -367,7 +352,7 @@ public class FilesDaoTest {
         FilesDao instance = new FilesDao();
         boolean expResult = false;
         boolean result = instance.deleteDirectory(testFolder);
-        assertEquals(expResult, result);
+        assertEquals("Some message",expResult, result);
     }
     
 
@@ -499,7 +484,7 @@ public class FilesDaoTest {
         expResult.add(firstImageFile.toURI());
         expResult.add(secondImageFile.toURI());
         List<URI> result = instance.getSubFiles(path);
-        assertEquals(expResult, result);
+        assertEquals("Some message",expResult, result);
     }
     
     @Test
@@ -511,7 +496,7 @@ public class FilesDaoTest {
         List<URI> expResult = new ArrayList<URI>();
         expResult.removeAll(expResult);
         List<URI> result = instance.getSubFiles(path);
-        assertEquals(expResult, result);
+        assertEquals("Some message",expResult, result);
     }
 
     /**
@@ -615,7 +600,7 @@ public class FilesDaoTest {
         FilesDao instance = new FilesDao();
         File expResult = new File(path+fSeparator+"testImg.jpg");
         File result = instance.getFile(path);
-        assertEquals(expResult, result);
+        assertEquals("Some message",expResult, result);
     }
     
     @Test
@@ -630,7 +615,7 @@ public class FilesDaoTest {
         }catch(NullPointerException ex){
             result=null;
         }
-        assertEquals(expResult, result);
+        assertEquals("Some message",expResult, result);
     }
     
     @Test
@@ -641,7 +626,7 @@ public class FilesDaoTest {
         FilesDao instance = new FilesDao();
         File expResult = null;
         File result = instance.getFile(path);
-        assertEquals(expResult, result);
+        assertEquals("Some message",expResult, result);
     }
 
     /**
@@ -654,7 +639,7 @@ public class FilesDaoTest {
         FilesDao instance = new FilesDao();
         String expResult = "textOfTextFile";
         String result = instance.returnTextFile(path);
-        assertEquals(expResult, result);
+        assertEquals("Some message",expResult, result);
     }
     
     @Test
@@ -664,7 +649,7 @@ public class FilesDaoTest {
         FilesDao instance = new FilesDao();
         String expResult = "";
         String result = instance.returnTextFile(path);
-        assertEquals(expResult, result);
+        assertEquals("Some message",expResult, result);
     }
     
     @Test
@@ -679,7 +664,7 @@ public class FilesDaoTest {
         }catch(IOException ex){
             result = "";
         }
-        assertEquals(expResult, result);
+        assertEquals("Some message",expResult, result);
     }
     
 }
