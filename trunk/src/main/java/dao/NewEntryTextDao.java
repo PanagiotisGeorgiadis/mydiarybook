@@ -39,7 +39,7 @@ public class NewEntryTextDao {
         
     }
     
-    public String returnTextFile(String entryTitle)
+    public String returnTextFromTextFile(String entryTitle)
     {
         INewEntryMockDefaultPath rootPathMock = mock(INewEntryMockDefaultPath.class);
         when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator);
@@ -54,4 +54,12 @@ public class NewEntryTextDao {
             return "";
         }
     }
+    
+    public String returnTextFilePath(String entryTitle,String userName)
+    {
+        String textPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+
+                userName+fSeparator+"Entries"+fSeparator+entryTitle+fSeparator+"Texts";
+        return textPath;
+    }
+    
 }

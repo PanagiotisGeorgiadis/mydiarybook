@@ -159,7 +159,7 @@ public class FilesDao {
      * @param entriesPath String denotes the folder that contains all the entries.
      * @return the names of the entries.
      */
-    public String[] getDirectoryList(String entriesPath)
+    public String[] getDirectoryList(String entriesPath) throws NullPointerException
     {
         File file = new File(entriesPath);
         String[] children = file.list();
@@ -187,6 +187,14 @@ public class FilesDao {
         return subFoldersList;
     }
     
+    /**
+     * Gets a path and if it is a folder returns the names of the Files that 
+     * the folder contains. If the path is empty, null or does not exist throws 
+     * NullPointerException. NOTE: returns only File names and NOT Directories.
+     * @param entryPath the path of the Folder that you want to check. 
+     * @return String[] of the file names of the files that the folder contains. 
+     * @throws NullPointerException
+     */
     public String[] getFilesList(String entryPath) throws NullPointerException
     {
         File file = new File(entryPath);
@@ -208,9 +216,11 @@ public class FilesDao {
     
     /**
      * Gets a path and returns a list of the Files that are in the folder 
-     * specified by the path. NOTE: returns only Files and NOT Directories.
+     * specified by the path. If the path is empty, null or does not exist throws 
+     * NullPointerException. NOTE: returns only Files and NOT Directories.
      * @param path The path of the target Directory.
      * @return File[] that contains only Files and not Directories.
+     * @throws NullPointerException
      */
     public List<URI> getSubFiles(String path) throws NullPointerException
     {
@@ -256,6 +266,17 @@ public class FilesDao {
         return subFolders;
     }
     
+    /**
+     * Gets a path and returns a single File that is in the folder 
+     * specified by the path. Used to return a single file that is placed in a 
+     * Folder. If the path is empty, null or does not exist throws 
+     * NullPointerException. If the Folder Specified is null returns null. If the 
+     * path specified points to a File and not a Folder returns null.
+     * NOTE: returns only Files and NOT Directories.
+     * @param path
+     * @return File which is the last file of the Folder. 
+     * @throws NullPointerException
+     */
     public File getFile(String path) throws NullPointerException
     {
         File file = new File(path);

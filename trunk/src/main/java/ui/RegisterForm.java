@@ -122,12 +122,22 @@ public class RegisterForm extends javax.swing.JFrame {
             }
         });
 
+        password.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                passwordFocusLost(evt);
+            }
+        });
         password.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 passwordKeyTyped(evt);
             }
         });
 
+        repassword.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                repasswordFocusLost(evt);
+            }
+        });
         repassword.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 repasswordKeyTyped(evt);
@@ -178,12 +188,22 @@ public class RegisterForm extends javax.swing.JFrame {
 
         jLabel8.setText("Αγαπημένη μάρκα αυτοκινήτου");
 
+        FavoritePet.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                FavoritePetFocusLost(evt);
+            }
+        });
         FavoritePet.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 FavoritePetKeyTyped(evt);
             }
         });
 
+        FavoriteCar.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                FavoriteCarFocusLost(evt);
+            }
+        });
         FavoriteCar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 FavoriteCarKeyTyped(evt);
@@ -277,11 +297,12 @@ public class RegisterForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(usernameexistmsg)
-                    .addComponent(msg))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(usernameexistmsg, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(msg)))
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -487,6 +508,76 @@ public class RegisterForm extends javax.swing.JFrame {
             }
         } 
     }//GEN-LAST:event_usernameKeyTyped
+
+    private void passwordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFocusLost
+        CheckValidPassword controller = new CheckValidPassword();
+        CheckPasswordController controller1 = new CheckPasswordController();
+        if (!controller.checkPassword(password.getText())) {
+            passwordpass = false;
+            invalidpassword.setVisible(true);
+            SubmitAccountButton.setEnabled(false);
+
+        }
+        if (!controller1.checkPassword(password.getText(), repassword.getText())) {
+            repeatpassowrdpass = false;
+            missmatchpasswords.setVisible(true);
+            SubmitAccountButton.setEnabled(false);
+        } else {
+            passwordpass = true;
+            invalidpassword.setVisible(false);
+            if (usernamepass && passwordpass && repeatpassowrdpass && mailpass && q1pass && q2pass) {
+                SubmitAccountButton.setEnabled(true);
+            }
+        }
+    }//GEN-LAST:event_passwordFocusLost
+
+    private void FavoritePetFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FavoritePetFocusLost
+        CheckQ1Controller controller = new CheckQ1Controller();
+        if (!controller.checkQ1(FavoritePet.getText())) {
+            q1pass = false;
+            q1msg.setVisible(true);
+            SubmitAccountButton.setEnabled(false);
+
+        } else {
+            q1pass = true;
+            q1msg.setVisible(false);
+            if (usernamepass && passwordpass && repeatpassowrdpass && mailpass && q1pass && q2pass) {
+                SubmitAccountButton.setEnabled(true);
+            }
+        }
+    }//GEN-LAST:event_FavoritePetFocusLost
+
+    private void FavoriteCarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FavoriteCarFocusLost
+         CheckQ2Controller controller = new CheckQ2Controller();
+        if (!controller.checkQ2(FavoriteCar.getText())) {
+            q2pass = false;
+            q2msg.setVisible(true);
+            SubmitAccountButton.setEnabled(false);
+
+        } else {
+            q2pass = true;
+            q2msg.setVisible(false);
+            if (usernamepass && passwordpass && repeatpassowrdpass && mailpass && q1pass && q2pass) {
+                SubmitAccountButton.setEnabled(true);
+            }
+        }
+    }//GEN-LAST:event_FavoriteCarFocusLost
+
+    private void repasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_repasswordFocusLost
+        CheckPasswordController controller = new CheckPasswordController();
+        if (!controller.checkPassword(password.getText(), repassword.getText())) {
+            repeatpassowrdpass = false;
+            missmatchpasswords.setVisible(true);
+            SubmitAccountButton.setEnabled(false);
+
+        } else {
+            repeatpassowrdpass = true;
+            missmatchpasswords.setVisible(false);
+            if (usernamepass && passwordpass && repeatpassowrdpass && mailpass && q1pass && q2pass) {
+                SubmitAccountButton.setEnabled(true);
+            }
+        }
+    }//GEN-LAST:event_repasswordFocusLost
 
     /**
      * @param args

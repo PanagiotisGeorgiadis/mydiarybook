@@ -8,7 +8,9 @@ package controller;
 
 import dao.EntriesListDao;
 import dao.EntryDao;
+import dao.PersonalGoalDao;
 import model.Entry;
+import model.PersonalGoalModel;
 
 /**
  *
@@ -23,5 +25,9 @@ public class MyDiaryBookController {
     public Entry getEntry(String entryTitle)
     {
         return EntryDao.getEntryByTitle(entryTitle);
+    }
+    public PersonalGoalModel getPersonalGoal (String Title)
+    {
+        return PersonalGoalDao.getPersonalGoalByTitle(Title);
     }
 }

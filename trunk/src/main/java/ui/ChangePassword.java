@@ -31,6 +31,7 @@ public class ChangePassword extends javax.swing.JFrame {
         passwordsmsg.setName("passwordsmsg");
         submit.setName("submit");
         close.setName("close");
+        this.setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")

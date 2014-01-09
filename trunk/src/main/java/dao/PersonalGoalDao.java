@@ -84,11 +84,15 @@ public class PersonalGoalDao implements IPersonalGoalDao {
 
         try {
 
-            //FIXME: take the real title name and greate the txt.
-            File file = new File(path + "TitleName.txt");
+           
+               File titleFile = new File(path +"title.txt");
+               File locationFile = new File(path + "location.txt");
+               File withPersonFile= new File(path + "withPerson.txt");
+               File whenDateFile = new File(path + "whenDate.txt");
+               File  announcementFile =  new File(path + "announcement.txt");
             boolean exists = createFilePath(path);
             if (exists) {
-
+                /*
                 FileWriter fw = new FileWriter(file, true);
                 BufferedWriter bw = new BufferedWriter(fw);
                 bw.write("\n" + "Title:" + title + "\t Location:" + location + "\t With:"
@@ -96,6 +100,38 @@ public class PersonalGoalDao implements IPersonalGoalDao {
                         + "\t Annoucement:" + announcement);
                 bw.close();
                 fw.close();
+                */
+                FileWriter titleWritter = new FileWriter(titleFile, true);
+                BufferedWriter titleBufferedWriter = new BufferedWriter(titleWritter);
+                titleBufferedWriter.write(title);
+                titleBufferedWriter.close();
+                titleWritter.close();
+                
+                 FileWriter locationWritter = new FileWriter(locationFile, true);
+                BufferedWriter locationBufferedWriter = new BufferedWriter(locationWritter);
+                locationBufferedWriter.write(location);
+                locationBufferedWriter.close();
+                locationWritter.close();
+                
+                FileWriter withPersonWritter = new FileWriter(withPersonFile, true);
+                BufferedWriter withPersonBufferedWriter = new BufferedWriter(withPersonWritter);
+                withPersonBufferedWriter.write(withPerson);
+                withPersonBufferedWriter.close();
+                withPersonWritter.close();
+                
+                FileWriter whenDateWritter = new FileWriter(whenDateFile, true);
+                BufferedWriter whenDateBufferedWriter = new BufferedWriter(whenDateWritter);
+                whenDateBufferedWriter.write(whenDate);
+               whenDateBufferedWriter.close();
+                whenDateWritter.close();
+                
+                FileWriter announcementWritter = new FileWriter(announcementFile, true);
+                BufferedWriter announcementBufferedWriter = new BufferedWriter(announcementWritter);
+               announcementBufferedWriter.write(announcement);
+               announcementBufferedWriter.close();
+                announcementWritter.close();
+                
+                
                 return true;
             }
         } catch (Exception e) {
@@ -123,6 +159,39 @@ public class PersonalGoalDao implements IPersonalGoalDao {
         } catch (Exception e) {
             return false;
         }
+    }
+    
+     public static PersonalGoalModel getPersonalGoalByTitle(String title)
+    {
+        //NewEntryImageDao imageFilesDao = new NewEntryImageDao();
+        PersonalGoalTxtDao textFile = new PersonalGoalTxtDao();
+        PersonalGoalListDao personalGoalListDao = new PersonalGoalListDao();
+        
+       // String imageList[] = imageFilesDao.getImageList(title);
+       
+        String  personalGoalTitle = textFile.returnTextTitleFile(title);
+        String  personalGoalLocation = textFile.returnTextLocationFile(title);
+        String  personalGoalWithPerson = textFile.returnTextWithPersonFile(title);
+        String  personalGoalWhenDate = textFile.returnTextWhenDateFile(title);
+        String  personalGoalAnnouncement = textFile.returnTextAnnouncementFile(title);
+        String  personalGoalImage = textFile.returnTextImageDestPath(title);
+        
+        String[] entriesList = personalGoalListDao.getListOfPersonalGoal();
+        
+        PersonalGoalModel personalGoal = new PersonalGoalModel();
+        personalGoal.setPersonalGoalTitle(personalGoalTitle);
+        personalGoal.setPersonalGoalLocation(personalGoalLocation);
+        personalGoal.setPersonalGoalWithPerson(personalGoalWithPerson);
+        //FIX DATE
+        //personalGoal.setPersonalGoalWhenDate(personalGoalWhenDate);
+        personalGoal.setPersonalGoalAnnouncement(personalGoalAnnouncement);
+        personalGoal.setPersonalGoalImage(personalGoalImage);
+        personalGoal.setPersonalGoalList(entriesList);
+        
+         
+        return personalGoal;
+     
+            
     }
 
 }

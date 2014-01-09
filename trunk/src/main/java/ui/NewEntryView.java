@@ -41,6 +41,7 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
     private String videoPath = null;
     private EmbeddedMediaPlayerComponent mediaPlayer2 =null;
     private static File[] imageFiles;
+    private IMyDiaryBook callerFrame;
     /**
      * Creates new form NewEntryView sets the size and location 
      * on the center of the screen. Also initializes the NativeLibraries
@@ -65,6 +66,12 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
         entryAlreadyExistsLabel.setVisible(false);
         entryAlreadyExistsLabel.setText("Warning! An Entry With This Title Already Exists!");
         submitButton.setEnabled(false);
+    }
+    
+    @Override
+    public void setCallerForm(IMyDiaryBook callerFrame)
+    {
+        this.callerFrame = callerFrame;
     }
     
     @Override
@@ -459,6 +466,7 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
                     videoController.copyVideo(titleField.getText(), videoPath);
                 if(mediaPlayer2!=null)
                     displayVideo(videoPath,"hhg");
+                callerFrame.refreshEntries();
                 this.dispose();
             }
         else

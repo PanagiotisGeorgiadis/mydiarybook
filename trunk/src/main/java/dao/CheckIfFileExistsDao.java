@@ -30,6 +30,8 @@ public class CheckIfFileExistsDao {
         INewEntryMockUsername userMock = mock(INewEntryMockUsername.class);
         when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
         
+        if(title==null || title.trim().isEmpty())
+            return false;
         File file = new File(rootPathMock.getDefaultPath()+userMock.getUsername()+fSeparator+"Entries"+fSeparator+title);
         return file.exists();
     }
