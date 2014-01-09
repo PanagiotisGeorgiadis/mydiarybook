@@ -19,6 +19,7 @@ public interface INewEntryView {
      */
     void displayErrorMessage(String errorMessage);
     
+    public void setCallerForm(IMyDiaryBook callerFrame);
 
     void displayNewImage(URI imagePath);
 

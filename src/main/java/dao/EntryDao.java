@@ -20,13 +20,15 @@ public class EntryDao {
         NewEntryVideoDao videoDao = new NewEntryVideoDao();
         NewEntryTextDao textFile = new NewEntryTextDao();
         EntriesListDao entriesListDao = new EntriesListDao();
+        
+
         String[] imageList = imageFilesDao.getImageList(title);
-        File entryVideo = videoDao.getVideo(title);
-        String  entryText = textFile.returnTextFile(title);
         String[] entriesList = entriesListDao.getListOfEntries();
+        String  entryText = textFile.returnTextFromTextFile(title);
+        File entryVideo = videoDao.getVideo(title);
         
         Entry entry = new Entry();
-       
+        
         entry.setEntryText(entryText);
         entry.setEntryImages(imageFilesDao.getImageFiles(title));
         entry.setEntryVideo(entryVideo);

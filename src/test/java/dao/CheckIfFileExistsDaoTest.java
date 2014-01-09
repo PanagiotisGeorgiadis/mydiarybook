@@ -6,7 +6,6 @@
 
 package dao;
 
-import controller.NewEntryController;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -24,47 +23,42 @@ import static org.junit.Assert.*;
  * @author Zarc
  */
 public class CheckIfFileExistsDaoTest {
-    private String fSeparator = File.separator;
+    
     public CheckIfFileExistsDaoTest() {
     }
     
-@BeforeClass
+    @BeforeClass
     public static void setUpClass() {
+        String fSeparator = File.separator;
+        File file = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator
+                +"Panagiwtis Georgiadis"+fSeparator+"Entries"+fSeparator+"PAOK");
+        file.mkdirs();
+        file = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator
+                +"Panagiwtis Georgiadis"+fSeparator+"Entries"+fSeparator+"TexnologiaLogismikou2"); 
+        file.mkdirs();
     }
     
     @AfterClass
-    public static void tearDownClass() {  
-        String fSeparator = File.separator;
-        File file = new File("."+fSeparator+"MyDiaryBook"+fSeparator);
-        try {
-            FileUtils.deleteDirectory(file);
-            file = new File(System.getProperty("user.dir")+fSeparator+"qweqwe.txt");
-            file.delete();
-        } catch (IOException ex) {
-            Logger.getLogger(CheckIfFileExistsDaoTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+    public static void tearDownClass() {
     }
     
     @Before
     public void setUp() {
-        String fSeparator = File.separator; //System.getProperty("file.separator");
-        File file = new File("."+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+"Panagiwtis Georgiadis"+fSeparator+"PAOK"+fSeparator);
+        String fSeparator = File.separator;
+        File file = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator
+                +"Panagiwtis Georgiadis"+fSeparator+"Entries"+fSeparator+"PAOK");
         file.mkdirs();
-        file = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Mitsos");
+        file = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator
+                +"Panagiwtis Georgiadis"+fSeparator+"Entries"+fSeparator+"TexnologiaLogismikou2"); 
         file.mkdirs();
-        file = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Makis");
-        file.mkdirs();        
     }
     
     @After
     public void tearDown() {
         String fSeparator = File.separator;
-        File file = new File("."+fSeparator+"MyDiaryBook"+fSeparator);
+        File file = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook");
         try {
             FileUtils.deleteDirectory(file);
-            file = new File(System.getProperty("user.dir")+fSeparator+"qweqwe.txt");
-            file.delete();
         } catch (IOException ex) {
             Logger.getLogger(CheckIfFileExistsDaoTest.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -73,39 +67,73 @@ public class CheckIfFileExistsDaoTest {
     /**
      * Test of filePathExists method, of class CheckIfFileExistsDao.
      */
-    /**
-     * Test of filePathExists method, of class NewEntryController.
-     */
     @Test
     public void testFilePathExists() {
-        System.out.println("filePathExistsWithNonExistantPath");
-        String title = "F:"+fSeparator+"BLABLA"+fSeparator+"BLABLA"+fSeparator+"BLABLA";
-        NewEntryController instance = new NewEntryController();
-        boolean expResult = false;
+        System.out.println("filePathExists");
+        String title = "PAOK";
+        CheckIfFileExistsDao instance = new CheckIfFileExistsDao();
+        boolean expResult = true;
         boolean result = instance.filePathExists(title);
         assertEquals(expResult, result);
     }
     
-
+    @Test
+    public void testFilePathExists2() {
+        System.out.println("filePathExists");
+        String title = "PAOK2";
+        CheckIfFileExistsDao instance = new CheckIfFileExistsDao();
+        boolean expResult = false;
+        boolean result = instance.filePathExists(title);
+        assertEquals(expResult, result);
+    }
     
     @Test
     public void testFilePathExists3() {
-        System.out.println("filePathExistsWithNonPathTypeEntry");
-        String title = "1541546565665545897";
-        NewEntryController instance = new NewEntryController();
+        System.out.println("filePathExists");
+        String title = "C:\\qweqweq\\qweqwee\\qweqweqwe";
+        CheckIfFileExistsDao instance = new CheckIfFileExistsDao();
         boolean expResult = false;
         boolean result = instance.filePathExists(title);
         assertEquals(expResult, result);
     }
     
     @Test
-    public void testFilePathExists4() {
-        System.out.println("filePathExistsWithNullTitle");
+    public void testFilePathExist4() {
+        System.out.println("filePathExists");
         String title = null;
-        NewEntryController instance = new NewEntryController();
+        CheckIfFileExistsDao instance = new CheckIfFileExistsDao();
         boolean expResult = false;
         boolean result = instance.filePathExists(title);
         assertEquals(expResult, result);
     }
     
+    @Test
+    public void testFilePathExists5() {
+        System.out.println("filePathExists");
+        String title = "";
+        CheckIfFileExistsDao instance = new CheckIfFileExistsDao();
+        boolean expResult = false;
+        boolean result = instance.filePathExists(title);
+        assertEquals(expResult, result);
+    }
+    
+    @Test
+    public void testFilePathExists6() {
+        System.out.println("filePathExists");
+        String title = "     ";
+        CheckIfFileExistsDao instance = new CheckIfFileExistsDao();
+        boolean expResult = false;
+        boolean result = instance.filePathExists(title);
+        assertEquals(expResult, result);
+    }
+    
+    @Test
+    public void testFilePathExists7() {
+        System.out.println("filePathExists");
+        String title = "TexnologiaLogismikou2";
+        CheckIfFileExistsDao instance = new CheckIfFileExistsDao();
+        boolean expResult = true;
+        boolean result = instance.filePathExists(title);
+        assertEquals(expResult, result);
+    }
 }

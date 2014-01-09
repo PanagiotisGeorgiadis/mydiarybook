@@ -5,7 +5,9 @@
  */
 package ui;
 
+import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.String;
 import controller.PersonalGoalController;
+import controller.PersonalGoalImageController;
 import controller.PersonalGoalTextController;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -22,6 +24,8 @@ import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
+import static ui.NewEntryView.imageNumber;
 import validators.LocationValidator;
 import validators.TitleValidator;
 import validators.WhenDateValidator;
@@ -36,20 +40,46 @@ import validators.*;
 public class PersonalGoalForm extends javax.swing.JFrame implements IPersonalGoalForm {
 
     private PersonalGoalController PersonalGoalController;
-    private final String database = "alexis.txt";
-
+   
+    public boolean ifImageExist = false;
+  
     /**
      * Creates new form PersonalGoalForm
      */
     public PersonalGoalForm() {
         initComponents();
-        //  PersonalGoalDao db = new PersonalGoalDao();
-        //         db.loadDatabase(database);
+        
+       
     }
 
     public PersonalGoalForm(String txt) {
         initComponents();
 
+    }
+    
+    public void displayImage(String fileName){
+        File file = new File(fileName);
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(file);
+        } catch (IOException ex) {
+            Logger.getLogger(PersonalGoalForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        int w = imageLabel.getWidth();
+        int h = imageLabel.getHeight();
+
+        int type = img.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : img.getType();
+
+        BufferedImage resizedImg = new BufferedImage(w, h, type);
+        Graphics g = resizedImg.createGraphics();
+        g.drawImage(img, 0, 0, w, h, null);
+        g.dispose();
+        imageLabel.setIcon(new ImageIcon(resizedImg));
+        boolean ifImageExist =true;
+        
+         
+        
     }
 
     /**
@@ -178,59 +208,65 @@ public class PersonalGoalForm extends javax.swing.JFrame implements IPersonalGoa
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(locationLabel)
-                    .addComponent(withPersonLabel)
-                    .addComponent(titleLabel)
-                    .addComponent(WhenDate)
-                    .addComponent(AnnouncementLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(whenDateSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(locationTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
-                        .addComponent(titleTextField, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(withPersonTextField, javax.swing.GroupLayout.Alignment.LEADING))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(saveButton)
-                        .addGap(51, 51, 51)
-                        .addComponent(cancelButton)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(checkFieldTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(locationLabel)
+                            .addComponent(withPersonLabel)
+                            .addComponent(titleLabel)
+                            .addComponent(WhenDate)
+                            .addComponent(AnnouncementLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(saveButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cancelButton))
+                            .addComponent(whenDateSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(locationTextField)
+                            .addComponent(titleTextField)
+                            .addComponent(withPersonTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(17, 17, 17)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(browseFotoTextField)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(browseFotoFile)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
-                                .addComponent(buttonUploadFoto)
-                                .addGap(136, 136, 136))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(addNewFotoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(imageLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(browseFotoTextField))
-                                .addContainerGap())))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(checkFieldTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(browseFotoFile)
+                                        .addGap(64, 64, 64)
+                                        .addComponent(buttonUploadFoto))
+                                    .addComponent(addNewFotoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 22, Short.MAX_VALUE)))))
+                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(162, 162, 162)
+                .addGap(284, 284, 284)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(17, 17, 17)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
+                        .addComponent(addNewFotoLabel)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(browseFotoFile)
+                            .addComponent(buttonUploadFoto))
+                        .addGap(18, 18, 18)
+                        .addComponent(browseFotoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(titleLabel)
                             .addComponent(titleTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -246,31 +282,17 @@ public class PersonalGoalForm extends javax.swing.JFrame implements IPersonalGoa
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(WhenDate)
                             .addComponent(whenDateSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(26, 26, 26)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(AnnouncementLabel)
-                                .addGap(0, 181, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(AnnouncementLabel)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(saveButton)
                             .addComponent(cancelButton))
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(addNewFotoLabel)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(browseFotoFile)
-                            .addComponent(buttonUploadFoto))
-                        .addGap(18, 18, 18)
-                        .addComponent(browseFotoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(checkFieldTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(checkFieldTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         pack();
@@ -298,6 +320,7 @@ public class PersonalGoalForm extends javax.swing.JFrame implements IPersonalGoa
         String announcement = announcementEditorPane.getText();
 
         PersonalGoalController newController = new PersonalGoalController();
+        PersonalGoalImageController newImageController = new PersonalGoalImageController();
         //check if all Field is correct and return if is all ok success or tha name the wrong value.
         String allFieldSuccess = newController.createPersonalGoal(titleTextField.getText(), locationTextField.getText(), withPersonTextField.getText(), whenDateSpinner.getValue().toString(), announcementEditorPane.getText());
 
@@ -307,6 +330,11 @@ public class PersonalGoalForm extends javax.swing.JFrame implements IPersonalGoa
             PersonalGoalTxtDao newTxtDao = new PersonalGoalTxtDao();
 
             boolean Success = newTextController.createTextFile(titleTextField.getText(), locationTextField.getText(), withPersonTextField.getText(), whenDateSpinner.getValue().toString(), announcementEditorPane.getText());
+            //if(ifImageExist =true){
+                newImageController.saveImage(titleTextField.getText(), browseFotoTextField.getText());
+               
+               
+            //}
             if (Success) {
                 checkFieldTextField.setText("success");
                 checkFieldTextField.setForeground(Color.green);
@@ -344,10 +372,13 @@ public class PersonalGoalForm extends javax.swing.JFrame implements IPersonalGoa
      * @param evt
      */
     private void browseFotoFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseFotoFileActionPerformed
-
+        
         File file = getFile("Image", ImageIO.getReaderFileSuffixes(), "Select");
+
         if (file != null) {
             browseFotoTextField.setText(file.getAbsolutePath());
+            browseFotoTextField.setEnabled(false);
+            
         }
 
     }//GEN-LAST:event_browseFotoFileActionPerformed
@@ -359,34 +390,21 @@ public class PersonalGoalForm extends javax.swing.JFrame implements IPersonalGoa
         // TODO add your handling code here:
     }//GEN-LAST:event_browseFotoTextFieldActionPerformed
 
-    //FIXME: refactor  σε μια νέα κλάση and fix system outs 
+    
     /**
      * buttonUpload για να εμφανίζεται η εικόνα μέσα στην φόρμα.
      *
      * @param evt
      */
     private void buttonUploadFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUploadFotoActionPerformed
-
+        
+       
         String fileName = browseFotoTextField.getText();
-
-        File file = new File(fileName);
-        BufferedImage img = null;
-        try {
-            img = ImageIO.read(file);
-        } catch (IOException ex) {
-            Logger.getLogger(PersonalGoalForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        int w = imageLabel.getWidth();
-        int h = imageLabel.getHeight();
-
-        int type = img.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : img.getType();
-
-        BufferedImage resizedImg = new BufferedImage(w, h, type);
-        Graphics g = resizedImg.createGraphics();
-        g.drawImage(img, 0, 0, w, h, null);
-        g.dispose();
-        imageLabel.setIcon(new ImageIcon(resizedImg));
+        displayImage(fileName);
+       
+        
+        //TODO make some checks..
+       
 
 
     }//GEN-LAST:event_buttonUploadFotoActionPerformed

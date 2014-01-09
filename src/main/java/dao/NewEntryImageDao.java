@@ -42,9 +42,9 @@ public class NewEntryImageDao {
         try
         {
             copyDao.copyFile(sourceFile,destFile);
-        }
-        catch(IOException e)
-        {
+        }catch(IOException e){
+            return false;
+        }catch(StackOverflowError error){
             return false;
         }
         
