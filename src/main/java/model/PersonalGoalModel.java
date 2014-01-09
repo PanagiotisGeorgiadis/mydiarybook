@@ -20,6 +20,24 @@ public class PersonalGoalModel {
     private String personalGoalWithPerson;
     private Date personalGoalWhenDate;
     private String personalGoalAnnouncement;
+    private String[] personalGoalList;
+    private String personalGoalImage;
+
+    public String getPersonalGoalImage() {
+        return personalGoalImage;
+    }
+
+    public void setPersonalGoalImage(String personalGoalImage) {
+        this.personalGoalImage = personalGoalImage;
+    }
+
+    public String[] getPersonalGoalList() {
+        return personalGoalList;
+    }
+
+    public void setPersonalGoalList(String[] personalGoalList) {
+        this.personalGoalList = personalGoalList;
+    }
 
     public String getPersonalGoalTitle() {
         return personalGoalTitle;
