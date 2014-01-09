@@ -6,7 +6,6 @@
 
 package dao;
 
-import static dao.NewEntryDaoTest.fSeparator;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
