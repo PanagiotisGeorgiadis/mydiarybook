@@ -84,7 +84,7 @@ public class EntriesListDaoTest {
         expResult[1] = "TexnologiaLogismikou2";
         expResult[2] = "Trela";
         String[] result = instance.getListOfEntries();
-        assertArrayEquals(expResult, result);
+        assertArrayEquals("getListOfEntries With Existant Entries",expResult, result);
     }
     
     @Test
@@ -99,7 +99,7 @@ public class EntriesListDaoTest {
         String[] result = instance.getListOfEntries();
         boolean booleanActualResult = Arrays.deepEquals(expResult, result);
         boolean booleanExpResult = false;
-        assertEquals(booleanExpResult, booleanActualResult);
+        assertEquals("getListOfEntries With non Existant Entries",booleanExpResult, booleanActualResult);
     }
     
     @Test
@@ -114,7 +114,7 @@ public class EntriesListDaoTest {
         String[] result = instance.getListOfEntries();
         boolean booleanActualResult = Arrays.deepEquals(expResult, result);
         boolean booleanExpResult = true;
-        assertEquals(booleanExpResult, booleanActualResult);
+        assertEquals("getListOfEntries With Existant Entries And Boolean Assert",booleanExpResult, booleanActualResult);
     }
     
     @Test
@@ -126,7 +126,7 @@ public class EntriesListDaoTest {
         String[] result = instance.getListOfEntries();
         boolean booleanActualResult = Arrays.deepEquals(expResult, result);
         boolean booleanExpResult = false;
-        assertEquals(booleanExpResult, booleanActualResult);
+        assertEquals("Non Existant Entries And Boolean Assert With Empty String Array",booleanExpResult, booleanActualResult);
     }
     
 }
