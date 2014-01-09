@@ -12,6 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -369,7 +370,9 @@ public class FilesDaoTest {
         expResult[1]="Images";
         expResult[2]="Texts";
         expResult[3]="Videos";
+        Arrays.sort(expResult);
         String[] result = instance.getDirectoryList(entriesPath);
+        Arrays.sort(result);
         assertArrayEquals(expResult, result);
     }
     

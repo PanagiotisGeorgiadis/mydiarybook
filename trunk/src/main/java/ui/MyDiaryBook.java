@@ -80,7 +80,6 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         entriesList.setSelectedIndex(0);
         //this.entriesListValueChanged(null);
         //entryName=entriesList.getSelectedValue().toString();
-        this.setSize(1300, 780);
     }
     
     /** Displays the new Image Specified in 2 different modes: 

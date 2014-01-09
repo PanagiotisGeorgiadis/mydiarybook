@@ -96,7 +96,9 @@ public class EntriesListDaoTest {
         expResult[0] = "";
         expResult[1] = "Texnologia2";
         expResult[2] = "";
+        Arrays.sort(expResult);
         String[] result = instance.getListOfEntries();
+        Arrays.sort(result);
         boolean booleanActualResult = Arrays.deepEquals(expResult, result);
         boolean booleanExpResult = false;
         assertEquals("getListOfEntries With non Existant Entries",booleanExpResult, booleanActualResult);
@@ -104,14 +106,16 @@ public class EntriesListDaoTest {
     
     @Test
     public void testGetListOfEntries3() {
-        System.out.println("getListOfEntries With Existant Entries And Boolean Assert");
+        System.out.println("getListOfEntries With Existant Entries");
         EntriesListDao instance = new EntriesListDao();
         
         String[] expResult = new String[3]; 
         expResult[0] = "PAOK";
         expResult[1] = "TexnologiaLogismikou2";
         expResult[2] = "Trela";
+        Arrays.sort(expResult);
         String[] result = instance.getListOfEntries();
+        Arrays.sort(result);
         boolean booleanActualResult = Arrays.deepEquals(expResult, result);
         boolean booleanExpResult = true;
         assertEquals("getListOfEntries With Existant Entries And Boolean Assert",booleanExpResult, booleanActualResult);
@@ -119,14 +123,21 @@ public class EntriesListDaoTest {
     
     @Test
     public void testGetListOfEntries4() {
-        System.out.println("getListOfEntries With Non Existant Entries And Boolean Assert With Empty String Array");
+        System.out.println("getListOfEntries With Non Existant Entries");
         EntriesListDao instance = new EntriesListDao();
-        
-        String[] expResult = new String[3]; 
-        String[] result = instance.getListOfEntries();
-        boolean booleanActualResult = Arrays.deepEquals(expResult, result);
-        boolean booleanExpResult = false;
-        assertEquals("Non Existant Entries And Boolean Assert With Empty String Array",booleanExpResult, booleanActualResult);
+        try {
+            FileUtils.deleteDirectory(new File(System.getProperty("user.dir")+File.separator+"MyDiaryBook"));
+        } catch (IOException ex) {
+            Logger.getLogger(EntriesListDaoTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String[] expResult = null; 
+        String[] result;
+        try{
+            result = instance.getListOfEntries();
+        }catch(NullPointerException ex){
+            result = null;
+        }
+            assertArrayEquals(expResult, result);
     }
     
 }
