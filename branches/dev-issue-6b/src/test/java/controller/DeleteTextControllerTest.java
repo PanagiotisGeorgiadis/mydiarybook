@@ -25,7 +25,7 @@ public class DeleteTextControllerTest {
     String rightTextPath = System.getProperty("user.dir") + File.separator + "MyDiaryBook" + File.separator + "Users" + File.separator + "John" + File.separator + "Entries" + File.separator
             + "Allo_ena_test" + File.separator + "Texts";
     String failTextPath =System.getProperty("user.dir") + File.separator + "MyDiaryBook" + File.separator + "Users" + File.separator + "John" + File.separator + "Entries" + File.separator
-            + "Fail_Test" + File.separator + "Texts";
+            + "Fail_Test" + File.separator + "Texts" + File.separator +File.separator ;
     String rightTextName = "text";
     String failTextName = "fail";
     
@@ -67,7 +67,7 @@ public class DeleteTextControllerTest {
         String pathChoice = home + File.separator + "text.txt";
         File fileChoice = new File(pathChoice);
         fileChoice.createNewFile();
-
+      
     }
     
     @After

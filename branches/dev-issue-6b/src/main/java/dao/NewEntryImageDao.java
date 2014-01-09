@@ -121,26 +121,28 @@ public class NewEntryImageDao {
       File file = new File(imagePath);
       System.out.println(file);
       
-      if(file.exists()){
-      
+//      if(file.exists()){
+      FilesDao fileDelete = new FilesDao();
       try{
-          FilesDao fileDelete = new FilesDao();
-          fileDelete.delete(file);
+          
+          return fileDelete.delete(file);
    
       }catch(Exception ex){
-          //TODO logger
-      }finally{
-          
-          if(file.exists())
-           return false;
-       else
-           return true;
-          }
-      }
-      else
           return false;
-      
-       
+          //TODO logger
+      }
+//      finally{
+//          
+//          if(file.exists())
+//           return false;
+//       else
+//           return true;
+//          }
+//      }
+//      else
+//          return false;
+//      
+//       
     }
      
   
@@ -155,25 +157,26 @@ public class NewEntryImageDao {
        File imageFile = new File(imagePath);
       System.out.println(imageFile);
       
-    if(imageFile.exists()){
+//    if(imageFile.exists()){
       FilesDao fileDelete = new FilesDao();
       try{
-          fileDelete.delete(imageFile);
+          return fileDelete.delete(imageFile);
  
       }catch(Exception ex){
           return false;
           //TODO logger
-      }finally{
-          
-          if(imageFile.exists())
-           return false;
-       else
-           return true;
-          
       }
-    }
-    else
-        return false;
+//      finally{
+//          
+//          if(imageFile.exists())
+//           return false;
+//       else
+//           return true;
+          
+//      }
+//    }
+//    else
+//        return false;
   }
     
 }

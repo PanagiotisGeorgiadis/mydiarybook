@@ -102,25 +102,25 @@ public class NewEntryTextDao {
 //    Path path = Paths.get(System.getProperty("user.dir") + fSeparator + "MyDiaryBook" + fSeparator + "Users"+ fSeparator + Username + fSeparator + "Entries" + fSeparator + textPath + fSeparator
 //                                         + "Texts");
          File textFile = new File(textPath);
-    if(textFile.exists()){
+//    if(textFile.exists()){
       FilesDao fileDelete = new FilesDao();
       try{
           
-          fileDelete.delete(textFile);
+         return fileDelete.delete(textFile);
  
       }catch(Exception ex){
           return false;
           //TODO logger
-      }finally{
-          
-          if(textFile.exists())
-           return false;
-       else
-           return true;
-          
       }
-    }
-    else
-        return false;
+          
+//          if(textFile.exists())
+//           return false;
+//       else
+//           return true;
+          
+      
+//    }
+//    else
+//        return false;
   }
 }

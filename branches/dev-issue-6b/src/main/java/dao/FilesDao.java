@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.io.FileUtils;
 
 /**
@@ -307,22 +309,27 @@ public class FilesDao {
      /*
     Dokimastiki method gia diagrafi
     */
-     public void delete(File fileText){
+     public boolean delete(File fileText){
     
  
-        if(fileText.isDirectory()){
-            String subdir[] = fileText.list();
-            for(int i = 0 ; i < subdir.length ; i++)
-                delete(new File(fileText,subdir[i]));
-                fileText.delete();
-            
-                }
-        else if(fileText.isFile())
-            fileText.delete();
-        fileText.delete();
-            
-           
-        
-          
+         if(fileText.exists())
+               
+                    if(fileText.isDirectory()){
+                        String[] subFile = fileText.list();
+                        for(String childFile : subFile){
+                        delete(new File(fileText, childFile));
+                        fileText.delete();
+                        }
+                    }
+                    else
+                        fileText.delete();
+          //         FileUtils.deleteDirectory(fileText); 
+                         
+         else
+             return false;
+         if(fileText.exists())
+             return false;
+         else
+             return true;
     }
 }
