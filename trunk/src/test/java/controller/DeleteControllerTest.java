@@ -32,14 +32,14 @@ public class DeleteControllerTest {
     @BeforeClass
     public static void setUpClass() throws IOException {
         
-     Path path = Paths.get(System.getProperty("user.dir") + "\\Text\\");
+     Path path = Paths.get(System.getProperty("user.dir") +File.separator +"Text" +File.separator);
         Path path1;
         File file = new File(path.toString());
         file.mkdirs();
-        path1 = Paths.get(path + "\\text.txt");
+        path1 = Paths.get(path + File.separator+"text.txt");
         file = new File(path1.toString());
        
-        path = Paths.get(path + "\\text1.txt");
+        path = Paths.get(path + File.separator+"text1.txt");
         file = new File(path1.toString());
     }
 
@@ -50,7 +50,7 @@ public class DeleteControllerTest {
 
     @Before
     public void setUp()  {        
-        File file = new File("."+"\\Text\\");
+        File file = new File("."+File.separator+"Text"+File.separator);
         file.mkdir();
     }
 
@@ -82,7 +82,7 @@ public class DeleteControllerTest {
       @Test
     public void testFailCheckFileExistance() {
         System.out.println("Fail CheckFileExistance");
-        File fileText = new File(System.getProperty("user.dir")+"\\babis");
+        File fileText = new File(System.getProperty("user.dir")+File.separator+"babis");
         DeleteController instance = new DeleteController(new MockFileNoExist());
         boolean expResult = false;
         boolean result = instance.checkFileExistance(fileText);
@@ -95,7 +95,7 @@ public class DeleteControllerTest {
     @Test
     public void testSuccessDelete() {
         System.out.println("Successful delete");
-        File fileText = new File(System.getProperty("user.dir")+"\\Text");
+        File fileText = new File(System.getProperty("user.dir")+File.separator+"Text");
         DeleteController instance = new DeleteController(new MockFileExist());
         boolean expResult = true;
         boolean result = instance.delete(fileText);
