@@ -6,27 +6,24 @@
 
 package dao;
 
+import exception.EntryException;
 import java.io.File;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 /**
  *
  * @author Zarc
  */
 public class EntriesListDao {
-    
+    String fSeparator = File.separator;
     public String[] getListOfEntries()
     {
-        String fSeparator = File.separator;
-        INewEntryMockDefaultPath rootPathMock = mock(INewEntryMockDefaultPath.class);
-        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator);
-        INewEntryMockUsername userMock = mock(INewEntryMockUsername.class);
-        when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
-    
-        String entriesPath = rootPathMock.getDefaultPath()+userMock.getUsername()+fSeparator+"Entries";
+        String entriesPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+"Panagiwtis Georgiadis"+fSeparator+"Entries";
         FilesDao entriesDao = new FilesDao();
-        return entriesDao.getDirectoryList(entriesPath);
+        try{
+            return entriesDao.getDirectoryList(entriesPath);
+        }catch(EntryException ex){
+            return null;
+        }
     }
     
 }

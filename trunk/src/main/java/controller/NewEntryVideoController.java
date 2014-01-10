@@ -7,7 +7,6 @@
 package controller;
 
 import dao.NewEntryVideoDao;
-import java.io.File;
 
 /**
  *

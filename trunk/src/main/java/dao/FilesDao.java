@@ -6,6 +6,7 @@
 
 package dao;
 
+import exception.EntryException;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -30,13 +31,17 @@ public class FilesDao {
      * If the destination path doesn't exist it creates it automatically.
      * @param source source path of the file.
      * @param dest destination path of the file.
-     * @throws IOException if the file doesn't exist. 
+     * @throws EntryException if the file doesn't exist. 
      */
-    public void copyFile(File source,File dest) throws IOException
+    public void copyFile(File source,File dest) throws EntryException
     {
         boolean exists = createFilePath(dest.toString());
         if(exists)
-            FileUtils.copyFileToDirectory(source, dest);
+            try{
+                FileUtils.copyFileToDirectory(source, dest);
+            }catch(IOException ex){
+                throw new EntryException();
+            }
         else
         {
             createFilePath(dest.toString());
@@ -55,46 +60,55 @@ public class FilesDao {
      */
     public boolean createTextFile(String destPath,String text,String fileName)
     {
-        FileWriter fw = null;
-        BufferedWriter bw = null;
-        try
+        if(!fileName.trim().equals(""))
         {
-            File file = new File(destPath+fileName+".txt");
-            boolean exists = createFilePath(destPath);
-            if(exists)
+            FileWriter fw = null;
+            BufferedWriter bw = null;
+            try
             {
-                fw = new FileWriter(file,true);
-                bw = new BufferedWriter(fw);
-                bw.write(text);
-                
-                return true;
+                File file = new File(destPath+fileName+".txt");
+                boolean exists = createFilePath(destPath);
+                if(exists)
+                {
+                    fw = new FileWriter(file,true);
+                    bw = new BufferedWriter(fw);
+                    bw.write(text);
+
+                    return true;
+                }
+                else
+                {
+                    try{
+                        createFilePath(destPath);
+                        createTextFile(destPath,text,fileName);
+                    }catch(StackOverflowError error){
+                        return false;
+                    }
+                }
             }
-            else
+            catch(IOException ex)
             {
-                createFilePath(destPath);
-                createTextFile(destPath,text,fileName);
+                //TODO: Add logger.
+                return false;
+            }
+            finally
+            {
+                try{
+                    if(bw!=null)
+                        bw.close();
+                }catch(IOException ex){
+                    //logger
+                }
+                try{
+                    if(fw!=null)
+                        fw.close();
+                }catch(IOException ex){
+                    //logger
+                }
             }
         }
-        catch(IOException ex)
-        {
-            //TODO: Add logger.
+        else
             return false;
-        }
-        finally
-        {
-            try{
-                if(bw!=null)
-                    bw.close();
-            }catch(IOException ex){
-                //logger
-            }
-            try{
-                if(fw!=null)
-                    fw.close();
-            }catch(IOException ex){
-                //logger
-            }
-        }
         return false;
     }
        
@@ -113,12 +127,16 @@ public class FilesDao {
                 return true;
             else
             {
-                file.mkdirs();
-                createFilePath(path);
+                try{
+                    file.mkdirs();
+                    createFilePath(path);
+                }catch(StackOverflowError error){
+                    return false;
+                }
             }
             return true;
         }
-        catch(Exception e)
+        catch(NullPointerException ex)
         {
             return false;
         }
@@ -158,34 +176,39 @@ public class FilesDao {
      * Loads a list of the children of the Folder denoted by the entriesPath 
      * @param entriesPath String denotes the folder that contains all the entries.
      * @return the names of the entries.
+     * @throws EntryException
      */
-    public String[] getDirectoryList(String entriesPath) throws NullPointerException
+    public String[] getDirectoryList(String entriesPath) throws EntryException
     {
-        File file = new File(entriesPath);
-        String[] children = file.list();
-        File subFile;
-        String[] subFoldersList = new String[children.length];
-//        File[] subFolders = new File[children.length];
-        int j=0;
-//        for(int i=0;i<children.length;i++)
-//        {
-//            subFile = new File(entriesPath+File.separator+children[i]);
-//            if(subFile.isDirectory())
-//                subFolders[j] = subFile;
-//        }
-//        subFoldersList[0]= getMostRecentFile(subFolders);
-//        j=0;
-        for(int i=0;i<children.length;i++)
-        {
-            subFile = new File(entriesPath+File.separator+children[i]);
-            if(subFile.isDirectory())
+        try{
+            File file = new File(entriesPath);
+            String[] children = file.list();
+            File subFile;
+            String[] subFoldersList = new String[children.length];
+    //        File[] subFolders = new File[children.length];
+            int j=0;
+    //        for(int i=0;i<children.length;i++)
+    //        {
+    //            subFile = new File(entriesPath+File.separator+children[i]);
+    //            if(subFile.isDirectory())
+    //                subFolders[j] = subFile;
+    //        }
+    //        subFoldersList[0]= getMostRecentFile(subFolders);
+    //        j=0;
+            for(int i=0;i<children.length;i++)
             {
-                subFoldersList[j] = children[i];
-                j++;
+                subFile = new File(entriesPath+File.separator+children[i]);
+                if(subFile.isDirectory())
+                {
+                    subFoldersList[j] = children[i];
+                    j++;
+                }
             }
+            return subFoldersList;
+        }catch(NullPointerException ex){
+            throw new EntryException();
         }
-        return subFoldersList;
-    }
+   }
     
     /**
      * Gets a path and if it is a folder returns the names of the Files that 
@@ -193,25 +216,29 @@ public class FilesDao {
      * NullPointerException. NOTE: returns only File names and NOT Directories.
      * @param entryPath the path of the Folder that you want to check. 
      * @return String[] of the file names of the files that the folder contains. 
-     * @throws NullPointerException
+     * @throws EntryException
      */
-    public String[] getFilesList(String entryPath) throws NullPointerException
+    public String[] getFilesList(String entryPath) throws EntryException
     {
-        File file = new File(entryPath);
-        String[] children = file.list();
-        File subFile;
-        String[] subFolders = new String[children.length];
-        int j=0;
-        for(int i=0;i<children.length;i++)
-        {
-            subFile = new File(entryPath+File.separator+children[i]);
-            if(!subFile.isDirectory())
+        try{
+            File file = new File(entryPath);
+            String[] children = file.list();
+            File subFile;
+            String[] subFolders = new String[children.length];
+            int j=0;
+            for(int i=0;i<children.length;i++)
             {
-                subFolders[j] = children[i];
-                j++;
+                subFile = new File(entryPath+File.separator+children[i]);
+                if(!subFile.isDirectory())
+                {
+                    subFolders[j] = children[i];
+                    j++;
+                }
             }
+            return subFolders;
+        }catch(NullPointerException ex){
+            throw new EntryException();
         }
-        return subFolders;
     }    
     
     /**
@@ -220,25 +247,29 @@ public class FilesDao {
      * NullPointerException. NOTE: returns only Files and NOT Directories.
      * @param path The path of the target Directory.
      * @return File[] that contains only Files and not Directories.
-     * @throws NullPointerException
+     * @throws EntryException
      */
-    public List<URI> getSubFiles(String path) throws NullPointerException
+    public List<URI> getSubFiles(String path) throws EntryException
     {
-        File file = new File(path);
-        String[] children = file.list();
-        File subFile;
-        List<URI> subFolders = new ArrayList<URI>();
-        int j=0;
-         for(int i=0;i<children.length;i++)
-        {
-            subFile = new File(path+File.separator+children[i]);
-            if(!subFile.isDirectory())
+        try{
+            File file = new File(path);
+            String[] children = file.list();
+            File subFile;
+            List<URI> subFolders = new ArrayList<URI>();
+            int j=0;
+             for(int i=0;i<children.length;i++)
             {
-                subFolders.add(subFile.toURI());
-                j++;
+                subFile = new File(path+File.separator+children[i]);
+                if(!subFile.isDirectory())
+                {
+                    subFolders.add(subFile.toURI());
+                    j++;
+                }
             }
+            return subFolders;
+        }catch(NullPointerException ex){
+            return null;
         }
-        return subFolders;
     }
     
     /**
@@ -275,20 +306,24 @@ public class FilesDao {
      * NOTE: returns only Files and NOT Directories.
      * @param path
      * @return File which is the last file of the Folder. 
-     * @throws NullPointerException
+     * @throws EntryException
      */
-    public File getFile(String path) throws NullPointerException
-    {
-        File file = new File(path);
-        String[] children = file.list();
-        File subFile;
-        for(int i=0;i<children.length;i++)
-        {
-            subFile = new File(path+File.separator+children[i]);
-            if(!subFile.isDirectory())
-                return subFile;
+    public File getFile(String path) throws EntryException
+    {   
+        try{
+            File file = new File(path);
+            String[] children = file.list();
+            File subFile;
+            for(int i=0;i<children.length;i++)
+            {
+                subFile = new File(path+File.separator+children[i]);
+                if(!subFile.isDirectory())
+                    return subFile;
+            }
+            return null;
+        }catch(NullPointerException ex){
+            throw new EntryException();
         }
-        return null;
     }
     
 //    public String getMostRecentFile(File[] input)
@@ -313,6 +348,7 @@ public class FilesDao {
      * Returns the text of the specified text file if it exists.
      * @param path The path of the text file you want to read.
      * @return The text of the specified File if it exists else returns null.
+     * @throws java.io.IOException
      */
     public String returnTextFile(String path) throws IOException
     {

@@ -6,6 +6,7 @@
 
 package dao;
 
+import exception.EntryException;
 import java.io.File;
 import java.io.IOException;
 import static org.mockito.Mockito.mock;
@@ -25,23 +26,21 @@ public class NewEntryVideoDao {
         
     public boolean copyVideo(String entryTitle,String sourcePath)
     {
-        INewEntryMockDefaultPath rootPathMock = mock(INewEntryMockDefaultPath.class);
-        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator);
-        INewEntryMockUsername userMock = mock(INewEntryMockUsername.class);
-        when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
-        
-        String videoDestPath = rootPathMock.getDefaultPath()+userMock.getUsername()+fSeparator+"Entries"+fSeparator+entryTitle+fSeparator+"Videos"+fSeparator;
-        
-        File destFile = new File(videoDestPath);
-        File sourceFile = new File(sourcePath);        
-        FilesDao copyDao = new FilesDao();
-        
+        String videoDestPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+"Panagiwtis Georgiadis"
+                +fSeparator+"Entries"+fSeparator+entryTitle+fSeparator+"Videos"+fSeparator;
+                
         try
         {
+            File destFile = new File(videoDestPath);
+            File sourceFile = new File(sourcePath);        
+            FilesDao copyDao = new FilesDao();
             copyDao.copyFile(sourceFile,destFile);
         }
-        catch(IOException e)
+        catch(EntryException ex)
         {
+            return false;
+        }
+        catch(NullPointerException ex){
             return false;
         }
         return true;
@@ -54,17 +53,13 @@ public class NewEntryVideoDao {
     
     public File getVideo(String entryTitle)
     {
-        INewEntryMockDefaultPath rootPathMock = mock(INewEntryMockDefaultPath.class);
-        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator);
-        INewEntryMockUsername userMock = mock(INewEntryMockUsername.class);
-        when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
-        
-        String videoPath = rootPathMock.getDefaultPath()+userMock.getUsername()+fSeparator+"Entries"+fSeparator+entryTitle+fSeparator+"Videos"+fSeparator;
+        String videoPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+"Panagiwtis Georgiadis"
+                +fSeparator+"Entries"+fSeparator+entryTitle+fSeparator+"Videos"+fSeparator;
         
         FilesDao video = new FilesDao();
         try{
             return video.getFile(videoPath);
-        }catch(NullPointerException ex){
+        }catch(EntryException ex){
             return null;
         }
     }

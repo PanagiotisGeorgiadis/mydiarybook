@@ -26,12 +26,8 @@ public class NewEntryTextDao {
     
     public boolean createTextFile(String entryTitle,String userText)
     {
-        INewEntryMockDefaultPath rootPathMock = mock(INewEntryMockDefaultPath.class);
-        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator);
-        INewEntryMockUsername userMock = mock(INewEntryMockUsername.class);
-        when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
-        
-        String textDestPath = rootPathMock.getDefaultPath()+userMock.getUsername()+fSeparator+"Entries"+fSeparator+entryTitle+fSeparator+"Texts"+fSeparator;
+        String textDestPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+"Panagiwtis Georgiadis"
+                +fSeparator+"Entries"+fSeparator+entryTitle+fSeparator+"Texts"+fSeparator;
         
         FilesDao textDao = new FilesDao();
         
@@ -41,12 +37,7 @@ public class NewEntryTextDao {
     
     public String returnTextFromTextFile(String entryTitle)
     {
-        INewEntryMockDefaultPath rootPathMock = mock(INewEntryMockDefaultPath.class);
-        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator);
-        INewEntryMockUsername userMock = mock(INewEntryMockUsername.class);
-        when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
-        
-        String textPath = rootPathMock.getDefaultPath()+userMock.getUsername()+fSeparator+"Entries"+fSeparator+entryTitle+fSeparator+"Texts"+fSeparator+entryTitle+".txt";
+        String textPath =System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+"Panagiwtis Georgiadis"+fSeparator+"Entries"+fSeparator+entryTitle+fSeparator+"Texts"+fSeparator+entryTitle+".txt";
         FilesDao textDao = new FilesDao();
         try{
             return textDao.returnTextFile(textPath);

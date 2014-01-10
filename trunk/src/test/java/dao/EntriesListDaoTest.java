@@ -24,13 +24,12 @@ import static org.junit.Assert.*;
  * @author Zarc
  */
 public class EntriesListDaoTest {
-    
+    static String fSeparator = File.separator;
     public EntriesListDaoTest() {
     }
     
     @BeforeClass
     public static void setUpClass() {
-        String fSeparator = File.separator;
         File file = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator
                 +"Panagiwtis Georgiadis"+fSeparator+"Entries"+fSeparator+"PAOK");
         file.mkdirs();
@@ -48,7 +47,6 @@ public class EntriesListDaoTest {
     
     @Before
     public void setUp() {
-        String fSeparator = File.separator;
         File file = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator
                 +"Panagiwtis Georgiadis"+fSeparator+"Entries"+fSeparator+"PAOK");
         file.mkdirs();
@@ -62,7 +60,6 @@ public class EntriesListDaoTest {
     
     @After
     public void tearDown() {
-        String fSeparator = File.separator;
         File file = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook");
         try {
             FileUtils.deleteDirectory(file);
@@ -93,34 +90,23 @@ public class EntriesListDaoTest {
     public void testGetListOfEntries2() {
         System.out.println("getListOfEntries With Non Existant Entries");
         EntriesListDao instance = new EntriesListDao();
-        
-        String[] expResult = new String[3]; 
-        expResult[0] = "";
-        expResult[1] = "Texnologia2";
-        expResult[2] = "";
-        Arrays.sort(expResult);
+        File file = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator
+                +"Panagiwtis Georgiadis"+fSeparator+"Entries"+fSeparator+"TexnologiaLogismikou2");        
+        File file2;
+        try{
+            file2 = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator
+                +"Panagiwtis Georgiadis"+fSeparator+"Entries"+fSeparator+"PAOK");
+            FileUtils.deleteDirectory(file2);
+            file2 = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator
+                +"Panagiwtis Georgiadis"+fSeparator+"Entries"+fSeparator+"Trela");
+            FileUtils.deleteDirectory(file2);
+        }catch(IOException ex){
+            
+        }
+        String[] expResult = new String[1]; 
+        expResult[0] = "TexnologiaLogismikou2";
         String[] result = instance.getListOfEntries();
-        Arrays.sort(result);
-        boolean booleanActualResult = Arrays.deepEquals(expResult, result);
-        boolean booleanExpResult = false;
-        assertEquals("getListOfEntries With non Existant Entries",booleanExpResult, booleanActualResult);
-    }
-    
-    @Test
-    public void testGetListOfEntries3() {
-        System.out.println("getListOfEntries With Existant Entries");
-        EntriesListDao instance = new EntriesListDao();
-        
-        String[] expResult = new String[3]; 
-        expResult[0] = "PAOK";
-        expResult[1] = "TexnologiaLogismikou2";
-        expResult[2] = "Trela";
-        Arrays.sort(expResult);
-        String[] result = instance.getListOfEntries();
-        Arrays.sort(result);
-        boolean booleanActualResult = Arrays.deepEquals(expResult, result);
-        boolean booleanExpResult = true;
-        assertEquals("getListOfEntries With Existant Entries And Boolean Assert",booleanExpResult, booleanActualResult);
+        assertArrayEquals(expResult,result);
     }
     
     @Test
@@ -128,18 +114,14 @@ public class EntriesListDaoTest {
         System.out.println("getListOfEntries With Non Existant Entries");
         EntriesListDao instance = new EntriesListDao();
         try {
-            FileUtils.deleteDirectory(new File(System.getProperty("user.dir")+File.separator+"MyDiaryBook"));
+            FileUtils.deleteDirectory(new File(System.getProperty("user.dir")+File.separator+"MyDiaryBook"+File.separator+"Users"+File.separator+"Panagiwtis Georgiadis"+File.separator
+                +"Entries"));
         } catch (IOException ex) {
             Logger.getLogger(EntriesListDaoTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         String[] expResult = null; 
-        String[] result;
-        try{
-            result = instance.getListOfEntries();
-        }catch(NullPointerException ex){
-            result = null;
-        }
-            assertArrayEquals(expResult, result);
+        String[] result = instance.getListOfEntries();
+        assertArrayEquals(expResult, result);
     }
     
 }

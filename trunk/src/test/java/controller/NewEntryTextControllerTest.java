@@ -23,7 +23,7 @@ import static org.junit.Assert.*;
  * @author Zarc
  */
 public class NewEntryTextControllerTest {
-    private String fSeparator = File.separator;
+    static String fSeparator = File.separator;
     public NewEntryTextControllerTest() {
     }
     
@@ -33,12 +33,9 @@ public class NewEntryTextControllerTest {
     
    @AfterClass
     public static void tearDownClass() {  
-        String fSeparator = File.separator;
-        File file = new File("."+fSeparator+"MyDiaryBook"+fSeparator);
+        File file = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator);
         try {
             FileUtils.deleteDirectory(file);
-            file = new File(System.getProperty("user.dir")+fSeparator+"qweqwe.txt");
-            file.delete();
         } catch (IOException ex) {
             Logger.getLogger(NewEntryTextControllerTest.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -47,26 +44,13 @@ public class NewEntryTextControllerTest {
     
     @Before
     public void setUp() {
-        String fSeparator = File.separator; //System.getProperty("file.separator");
-        File file = new File("."+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+"Panagiwtis Georgiadis"+fSeparator+"PAOK"+fSeparator);
-        file.mkdirs();
-        file = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Mitsos");
-        file.mkdirs();
-        file = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Makis");
-        file.mkdirs();        
+        File file = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+"Panagiwtis Georgiadis"+fSeparator
+                +"Entries"+fSeparator+"ExistingEntry"+fSeparator+"Texts");
+        file.mkdirs();       
     }
     
     @After
     public void tearDown() {
-        String fSeparator = File.separator;
-        File file = new File("."+fSeparator+"MyDiaryBook"+fSeparator);
-        try {
-            FileUtils.deleteDirectory(file);
-            file = new File(System.getProperty("user.dir")+fSeparator+"qweqwe.txt");
-            file.delete();
-        } catch (IOException ex) {
-            Logger.getLogger(NewEntryTextControllerTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     /**
@@ -74,66 +58,73 @@ public class NewEntryTextControllerTest {
      */
 @Test
     public void testCreateTextFile() {
-        System.out.println("createFileWithTitleWithTextToExistingDest");
-        String title = "Paparounas";
-        String text = "wqeqwewqeqwewqeqwewqeqwewqeqwewqeqwewqeqwewqeqwewqeqwe";
-        String destPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Makis"+fSeparator+"Texts"+fSeparator;
-        NewEntryController instance = new NewEntryController();
+        System.out.println("createFile to existing empty entry");
+        String entryTitle = "ExistingEntry";
+        String userText = "wqeqwewqeqwewqeqwewqeqwewqeqwewqeqwewqeqwewqeqwewqeqqeqwewqeqwe";
+        
+        NewEntryTextController instance = new NewEntryTextController();
         boolean expResult = true;
-        boolean result = instance.createFile(title, text, destPath);
-        instance.createFile(title, text, destPath);
+        boolean result = instance.createTextFile(entryTitle, userText);
         assertEquals(expResult, result);
     }
     
     @Test
     public void testCreateTextFile2() {
-        System.out.println("createFileWithoutTitleWithTextToExistingDest");
-        String title = "";
-        String text = "wqeqwewqeqwewqeqwewqeqwewqeqwewqeqwewqeqwewqeqwewqeqwe";
-        String destPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Makis"+fSeparator+"Texts"+fSeparator;
-        NewEntryController instance = new NewEntryController();
-        boolean expResult = true;
-        boolean result = instance.createFile(title, text, destPath);
-        instance.createFile(title, text, destPath);
+        System.out.println("createFile to null titled Entry but with text");
+        String entryTitle = "";
+        String userText = "wqeqwewqeqwewqeqwewqeqwewqeqwewqeqwewqeqwewqeqwewqeqqeqwewqeqwe";
+        
+        NewEntryTextController instance = new NewEntryTextController();
+        boolean expResult = false;
+        boolean result = instance.createTextFile(entryTitle, userText);
         assertEquals(expResult, result);
     }
     
     @Test
     public void testCreateTextFile3() {
-        System.out.println("createFileWithNullTitleWithTextToExistingDest");
-        String title = null;
-        String text = "wqeqwewqeqwewqeqwewqeqwewqeqwewqeqwewqeqwewqeqwewqeqwe";
-        String destPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Makis"+fSeparator+"Texts"+fSeparator;
-        NewEntryController instance = new NewEntryController();
+        System.out.println("createFile with null text");
+        String entryTitle = "Entry2";
+        String userText = "";
+        
+        NewEntryTextController instance = new NewEntryTextController();
         boolean expResult = true;
-        boolean result = instance.createFile(title, text, destPath);
-        instance.createFile(title, text, destPath);
+        boolean result = instance.createTextFile(entryTitle, userText);
         assertEquals(expResult, result);
     }
     
     @Test
     public void testCreateTextFile4() {
-        System.out.println("createFileWithNullTitleAndTextToExistingDest");
-        String title = "";
-        String text = "";
-        String destPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Makis"+fSeparator+"Texts"+fSeparator;
-        NewEntryController instance = new NewEntryController();
-        boolean expResult = true;
-        boolean result = instance.createFile(title, text, destPath);
-        instance.createFile(title, text, destPath);
+        System.out.println("createFile with null title and text");
+        String entryTitle = "";
+        String userText = "";
+        
+        NewEntryTextController instance = new NewEntryTextController();
+        boolean expResult = false;
+        boolean result = instance.createTextFile(entryTitle, userText);
         assertEquals(expResult, result);
     }
     
     @Test
     public void testCreateTextFile5() {
-        System.out.println("createFileWithCurrentPathAsPath");
-        String title = "qweqwe";
-        String text = "qweqweqe";
-        String destPath = System.getProperty("user.dir")+fSeparator;
-        NewEntryController instance = new NewEntryController();
+        System.out.println("createFile with already existing entry title");
+        String entryTitle = "ExistingEntry";
+        String userText = "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
+        
+        NewEntryTextController instance = new NewEntryTextController();
         boolean expResult = true;
-        boolean result = instance.createFile(title, text, destPath);
-        instance.createFile(title, text, destPath);
+        boolean result = instance.createTextFile(entryTitle, userText);
+        assertEquals(expResult, result);
+    }
+    
+    @Test
+    public void testCreateTextFile6() {
+        System.out.println("createFile with invalid file name");
+        String entryTitle = ":::::::::::";
+        String userText = "eeeeeeeeeeeeeeeeeeeeeeqweqwqqqqeeeeeeeeeeeeeee";
+        
+        NewEntryTextController instance = new NewEntryTextController();
+        boolean expResult = false;
+        boolean result = instance.createTextFile(entryTitle, userText);
         assertEquals(expResult, result);
     }
 

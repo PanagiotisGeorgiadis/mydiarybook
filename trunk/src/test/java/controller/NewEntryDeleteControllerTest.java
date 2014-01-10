@@ -23,22 +23,32 @@ import static org.junit.Assert.*;
  * @author Zarc
  */
 public class NewEntryDeleteControllerTest {
-    private final String fSeparator = File.separator;    
+    static String fSeparator = File.separator;    
     public NewEntryDeleteControllerTest() {
     }
     
     @BeforeClass
     public static void setUpClass() {
+        File file = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+"Panagiwtis Georgiadis"
+                +fSeparator+"Entries"+fSeparator+"Entry1");
+        file.mkdirs();
+        file = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+"Panagiwtis Georgiadis"
+                +fSeparator+"Entries"+fSeparator+"Entry2");
+        file.mkdirs();
+        File imageFile = new File(System.getProperty("user.dir")+fSeparator+"src"+fSeparator+"test"+fSeparator+"java"+fSeparator+"resources"
+                +fSeparator+"testImg.jpg");
+        try {
+            FileUtils.copyFileToDirectory(imageFile, file);
+        } catch (IOException ex) {
+            Logger.getLogger(NewEntryDeleteControllerTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     @AfterClass
     public static void tearDownClass() {
-        String fSeparator = File.separator;
-        File file = new File("."+fSeparator+"MyDiaryBook"+fSeparator);
+        File file = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook");
         try {
             FileUtils.deleteDirectory(file);
-            file = new File(System.getProperty("user.dir")+fSeparator+"qweqwe.txt");
-            file.delete();
         } catch (IOException ex) {
             Logger.getLogger(NewEntryDeleteControllerTest.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -46,26 +56,23 @@ public class NewEntryDeleteControllerTest {
     
     @Before
     public void setUp() {
-        String fSeparator = File.separator; //System.getProperty("file.separator");
-        File file = new File("."+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+"Panagiwtis Georgiadis"+fSeparator+"PAOK"+fSeparator);
+        File file = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+"Panagiwtis Georgiadis"
+                +fSeparator+"Entries"+fSeparator+"Entry1");
         file.mkdirs();
-        file = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Mitsos");
+        file = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+"Panagiwtis Georgiadis"
+                +fSeparator+"Entries"+fSeparator+"Entry2"+fSeparator+"Images");
         file.mkdirs();
-        file = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Makis");
-        file.mkdirs();
+        File imageFile = new File(System.getProperty("user.dir")+fSeparator+"src"+fSeparator+"test"+fSeparator+"java"+fSeparator+"resources"
+                +fSeparator+"testImg.jpg");
+        try {
+            FileUtils.copyFileToDirectory(imageFile, file);
+        } catch (IOException ex) {
+            Logger.getLogger(NewEntryDeleteControllerTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     @After
     public void tearDown() {
-        String fSeparator = File.separator;
-        File file = new File("."+fSeparator+"MyDiaryBook"+fSeparator);
-        try {
-            FileUtils.deleteDirectory(file);
-            file = new File(System.getProperty("user.dir")+fSeparator+"qweqwe.txt");
-            file.delete();
-        } catch (IOException ex) {
-            Logger.getLogger(NewEntryDeleteControllerTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     /**
@@ -73,51 +80,51 @@ public class NewEntryDeleteControllerTest {
      */
     @Test
     public void testDeleteDirectory() {
-        System.out.println("deleteDirectoryWithNullPath");
-        File folder = null;
-        NewEntryController instance = new NewEntryController();
+        System.out.println("deleteDirectory With Null entryTitle");
+        String entryTitle = null;
+        NewEntryDeleteController instance = new NewEntryDeleteController();
         boolean expResult = false;
-        boolean result = instance.deleteDirectory(folder);
+        boolean result = instance.deleteDirectory(entryTitle);
         assertEquals(expResult, result);
     }
     
     @Test
     public void testDeleteDirectory2() {
-        System.out.println("deleteDirectoryWithExistandPath");
-        File folder = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Makis");
-        NewEntryController instance = new NewEntryController();
+        System.out.println("deleteDirectory that is an existing entryTitle of an empty Entry");
+        String entryTitle = "Entry1";
+        NewEntryDeleteController instance = new NewEntryDeleteController();
         boolean expResult = true;
-        boolean result = instance.deleteDirectory(folder);
+        boolean result = instance.deleteDirectory(entryTitle);
         assertEquals(expResult, result);
     }
     
     @Test
     public void testDeleteDirectory3() {
-        System.out.println("deleteDirectoryWithNonPathVariable");
-        File folder = new File("asdas");
-        NewEntryController instance = new NewEntryController();
-        boolean expResult = false;
-        boolean result = instance.deleteDirectory(folder);
+        System.out.println("deleteDirectory that is an existing entryTitle containing an image");
+        String entryTitle = "Entry2";
+        NewEntryDeleteController instance = new NewEntryDeleteController();
+        boolean expResult = true;
+        boolean result = instance.deleteDirectory(entryTitle);
         assertEquals(expResult, result);
     }
     
     @Test
     public void testDeleteDirectory4() {
-        System.out.println("deleteDirectoryWithNonExistantPath");
-        File folder = new File("F:"+fSeparator+"adasdas"+fSeparator+"BLABLA"+fSeparator+"qweqweqw");
-        NewEntryController instance = new NewEntryController();
+        System.out.println("deleteDirectory that is a non existant Entry");
+        String entryTitle = "NonExistantEntry";
+        NewEntryDeleteController instance = new NewEntryDeleteController();
         boolean expResult = false;
-        boolean result = instance.deleteDirectory(folder);
+        boolean result = instance.deleteDirectory(entryTitle);
         assertEquals(expResult, result);
     }
     
     @Test
     public void testDeleteDirectory5() {
-        System.out.println("deleteDirectoryWithExistantPathCreatedFromTests");
-        File folder = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Mitsos");
-        NewEntryController instance = new NewEntryController();
-        boolean expResult = true;
-        boolean result = instance.deleteDirectory(folder);
+        System.out.println("deleteDirectory non valid Entry Name");
+        String entryTitle = "Non-Existant-Entry";
+        NewEntryDeleteController instance = new NewEntryDeleteController();
+        boolean expResult = false;
+        boolean result = instance.deleteDirectory(entryTitle);
         assertEquals(expResult, result);
     }
 }

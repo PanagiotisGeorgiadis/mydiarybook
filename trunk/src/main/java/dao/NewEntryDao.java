@@ -7,30 +7,33 @@
 package dao;
 
 import java.io.File;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import java.text.SimpleDateFormat;
 
 /**
  *
  * @author Zarc
  */
 public class NewEntryDao {
-    
+    String fSeparator = File.separator;
     public boolean deleteEntry(String entryTitle)
     {
-        String fSeparator = File.separator;
-        INewEntryMockDefaultPath rootPathMock = mock(INewEntryMockDefaultPath.class);
-        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator);
-        INewEntryMockUsername userMock = mock(INewEntryMockUsername.class);
-        when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
-        
-        String fileToDeletePath = rootPathMock.getDefaultPath()+userMock.getUsername()+fSeparator+"Entries"+fSeparator+entryTitle+fSeparator;
+        String fileToDeletePath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+"Panagiwtis Georgiadis"
+                +fSeparator+"Entries"+fSeparator+entryTitle+fSeparator;
         
         FilesDao deleteDao = new FilesDao();
         File file = new File(fileToDeletePath);
         return deleteDao.deleteDirectory(file);
     }
     
+    public String getEntryLastModified(String entryTitle)
+    {
+        
+        String entryPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+"Panagiwtis Georgiadis"+
+                fSeparator+"Entries"+fSeparator+entryTitle+fSeparator;
+        File entryFile = new File(entryPath);
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy     HH:mm:ss");
+        return sdf.format(entryFile.lastModified());
+    }
     
 
     
