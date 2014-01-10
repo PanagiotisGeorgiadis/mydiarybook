@@ -19,7 +19,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -73,12 +72,13 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         cancelEditButton.setVisible(false);
         playVideoButton.setVisible(false);
         pauseOrPlayVideoButton.setVisible(false);
+        lastModifiedLabel.setVisible(false);
+        this.entryDateLabel.setVisible(false);
         entriesList.setSelectedIndex(0);
         //Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         //this.setSize(d);
         this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
         this.setExtendedState(JFrame.NORMAL);
-        
         loadListOfPersonalGoal();
         this.setLocationRelativeTo(null);
     }
@@ -275,7 +275,8 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
     {
         NewEntryDao entryDao = new NewEntryDao();
         entryDateLabel.setText(entryDao.getEntryLastModified(entriesList.getSelectedValue().toString()));
-        //entryDateLabel.setText();
+        lastModifiedLabel.setVisible(true);
+        entryDateLabel.setVisible(true);
     }
     
     @Override
