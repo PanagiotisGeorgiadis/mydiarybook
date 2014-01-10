@@ -23,31 +23,34 @@ import static org.junit.Assert.*;
  * @author Zarc
  */
 public class NewEntryImageControllerTest {
-    private String fSeparator = File.separator;
+    static String fSeparator = File.separator;
+    String imageSourcePath = System.getProperty("user.dir")+fSeparator+"src"+fSeparator+"test"+fSeparator+"java"+fSeparator+"resources"
+                +fSeparator+"testImg.jpg";
     public NewEntryImageControllerTest() {
     }
     
     @BeforeClass
     public static void setUpClass() {
-        String fSeparator = File.separator;
-        File file = new File("."+fSeparator+"MyDiaryBook"+fSeparator);
-        try {
-            FileUtils.deleteDirectory(file);
-            file = new File(System.getProperty("user.dir")+fSeparator+"qweqwe.txt");
-            file.delete();
-        } catch (IOException ex) {
-            Logger.getLogger(NewEntryImageControllerTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+        File file = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+"Panagiwtis Georgiadis"
+                +fSeparator+"Entries"+fSeparator+"Entry1");
+        file.mkdirs();
+        file = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+"Panagiwtis Georgiadis"
+                +fSeparator+"Entries"+fSeparator+"Entry2");
+        file.mkdirs();        
     }
     
     @AfterClass
     public static void tearDownClass() {
+        File file = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook");
+        try {
+            FileUtils.deleteDirectory(file);
+        } catch (IOException ex) {
+            Logger.getLogger(NewEntryImageControllerTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     @Before
     public void setUp() {
-        String fSeparator = File.separator; //System.getProperty("file.separator");
         File file = new File("."+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+"Panagiwtis Georgiadis"+fSeparator+"PAOK"+fSeparator);
         file.mkdirs();
         file = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Mitsos");
@@ -58,15 +61,6 @@ public class NewEntryImageControllerTest {
     
     @After
     public void tearDown() {
-        String fSeparator = File.separator;
-        File file = new File("."+fSeparator+"MyDiaryBook"+fSeparator);
-        try {
-            FileUtils.deleteDirectory(file);
-            file = new File(System.getProperty("user.dir")+fSeparator+"qweqwe.txt");
-            file.delete();
-        } catch (IOException ex) {
-            Logger.getLogger(NewEntryImageControllerTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     /**
@@ -74,61 +68,61 @@ public class NewEntryImageControllerTest {
      */
 @Test
     public void testCopyImage() {
-        System.out.println("copyImageFromExistingSourceToExistingDest");
-        String sourcePath = System.getProperty("user.dir")+fSeparator+"src"+fSeparator+"test"+fSeparator+"java"+fSeparator+"resources"+fSeparator+"testImg.jpg";
-        String destPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Mitsos"+fSeparator+"Images"+fSeparator;
-        int imageNumber = 0;
-        NewEntryController instance = new NewEntryController();
+        System.out.println("copyImage From Existing Source To Existing Entry");
+        String userTitle = "Entry1";
+        String sourcePath = imageSourcePath;
+        
+        NewEntryImageController instance = new NewEntryImageController();
         boolean expResult = true;
-        boolean result = instance.copyImage(sourcePath, destPath, imageNumber);
+        boolean result = instance.copyImage(userTitle, sourcePath);
         assertEquals(expResult, result);
     }
     
     @Test
     public void testCopyImage2() {
-        System.out.println("copyImageFromNonExistingSourceToExistingDest");
-        String sourcePath = "C.jpg";
-        String destPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Mitsos"+fSeparator+"Images"+fSeparator;
-        int imageNumber = 2;
-        NewEntryController instance = new NewEntryController();
+        System.out.println("copyImage From Non Existing Source To Existing Entry");
+        String userTitle = "Entry1";
+        String sourcePath = imageSourcePath+fSeparator+"asdasdd"; 
+        
+        NewEntryImageController instance = new NewEntryImageController();
         boolean expResult = false;
-        boolean result = instance.copyImage(sourcePath, destPath, imageNumber);
+        boolean result = instance.copyImage(userTitle, sourcePath);
         assertEquals(expResult, result);
     }
     
     @Test
     public void testCopyImage3() {
-        System.out.println("copyImageFromNonExistingSourceToExistingDest");
-        String sourcePath = "F:"+fSeparator+"Bla"+fSeparator+"Blabla"+fSeparator+"Blablabla";
-        String destPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Mitsos"+fSeparator+"Images"+fSeparator;
-        int imageNumber = 3;
-        NewEntryController instance = new NewEntryController();
-        boolean expResult = false;
-        boolean result = instance.copyImage(sourcePath, destPath, imageNumber);
+        System.out.println("copyImage From Existing Source To Non Existing Entry Which will be created");
+        String userTitle = "NonExistingEntry";
+        String sourcePath = imageSourcePath;
+        
+        NewEntryImageController instance = new NewEntryImageController();
+        boolean expResult = true;
+        boolean result = instance.copyImage(userTitle, sourcePath);
         assertEquals(expResult, result);
     }
     
     @Test
     public void testCopyImage4() {
-        System.out.println("copyImageFromExistingSourceToExistingDestWhileCreatingTheDestPath");
-        String sourcePath = System.getProperty("user.dir")+fSeparator+"src"+fSeparator+"test"+fSeparator+"java"+fSeparator+"resources"+fSeparator+"testImg.jpg";
-        String destPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Makis"+fSeparator+"Images"+fSeparator;
-        int imageNumber = 3;
-        NewEntryController instance = new NewEntryController();
-        boolean expResult = true;
-        boolean result = instance.copyImage(sourcePath, destPath, imageNumber);
+        System.out.println("copyImage From null sourcePath with a null userTitle");
+        String userTitle = "";
+        String sourcePath = "";
+        
+        NewEntryImageController instance = new NewEntryImageController();
+        boolean expResult = false;
+        boolean result = instance.copyImage(userTitle, sourcePath);
         assertEquals(expResult, result);
     }
     
     @Test
     public void testCopyImage5() {
-        System.out.println("copyImageFromExistingPathButBigImageNumber");
-        String sourcePath = System.getProperty("user.dir")+fSeparator+"src"+fSeparator+"test"+fSeparator+"java"+fSeparator+"resources"+fSeparator+"testImg.jpg"+fSeparator;
-        String destPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Makis"+fSeparator+"Images"+fSeparator;
-        int imageNumber = 100;
-        NewEntryController instance = new NewEntryController();
-        boolean expResult = false;
-        boolean result = instance.copyImage(sourcePath, destPath, imageNumber);
+        System.out.println("copyImage From Existing Path to existing Entry But replacing an image");
+        String userTitle = "Entry1";
+        String sourcePath = imageSourcePath;
+        
+        NewEntryImageController instance = new NewEntryImageController();
+        boolean expResult = true;
+        boolean result = instance.copyImage(userTitle, sourcePath);
         assertEquals(expResult, result);
     }
 

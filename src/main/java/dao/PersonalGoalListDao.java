@@ -6,6 +6,7 @@
 
 package dao;
 
+import exception.EntryException;
 import java.io.File;
 
 /**
@@ -18,7 +19,11 @@ public class PersonalGoalListDao {
     {
         String personalGoalPath = System.getProperty("user.dir") + fSeparator + "MyDiaryBook" + fSeparator + "Users" + fSeparator + "Alex Patsanis"  + fSeparator + "PersonalGoal";
         FilesDao personalGoalDao = new FilesDao();
-        return personalGoalDao.getDirectoryList(personalGoalPath);
+        try{
+            return personalGoalDao.getDirectoryList(personalGoalPath);
+        }catch(EntryException ex){
+            return null;
+        }
         //check apo to FilesDaos to getDirectoryList an yparxei kapoio problima
     }
     

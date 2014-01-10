@@ -6,6 +6,7 @@
 
 package dao;
 
+import exception.EntryException;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -194,18 +195,14 @@ public class FilesDaoTest {
         File dest = new File(folder.toString()+fSeparator+"Videos");
         FilesDao instance = new FilesDao();
         boolean result;
-        try{
         instance.copyFile(source, dest);
         File copiedFile = new File(dest+fSeparator+"testVideo.mp4");
         if(copiedFile.exists())
             result = true;
         else
             result = false;
-        }catch(IOException ex){
-            result = false;
-        }
         boolean expResult = true;
-        assertEquals("Some message",expResult,result);
+        assertEquals(expResult,result);
     }
     
     @Test
@@ -218,16 +215,12 @@ public class FilesDaoTest {
         File dest = new File(folder.toString()+fSeparator+"Videos");
         FilesDao instance = new FilesDao();
         boolean result;
-        try{
         instance.copyFile(source, dest);
         File copiedFile = new File(dest+fSeparator+"testVideo.mp4");
         if(copiedFile.exists())
             result = true;
         else
             result = false;
-        }catch(IOException ex){
-            result = false;
-        }
         boolean expResult = true;
         assertEquals("Some message",expResult,result);
     }
@@ -284,12 +277,8 @@ public class FilesDaoTest {
         String fileName = "test";
         FilesDao instance = new FilesDao();
         boolean expResult = false;
-        boolean result;
-        try{
-            result = instance.createTextFile(destPath, text, fileName);
-        }catch(StackOverflowError error){
-            result = false;
-        }
+        boolean result = instance.createTextFile(destPath, text, fileName);
+        
         assertEquals("Expected False",expResult, result);
     }
 
@@ -311,15 +300,11 @@ public class FilesDaoTest {
     @Test
     public void testCreateFilePath3() {
         System.out.println("createFilePath with null path");
-        String path = "";
+        String path = null;
         FilesDao instance = new FilesDao();
         boolean expResult = false;
-        boolean result;
-        try{
-            result = instance.createFilePath(path);
-        }catch(StackOverflowError error){
-            result = false;
-        }
+        boolean result = instance.createFilePath(path);
+
         assertEquals("Some message",expResult, result);
     }
 
@@ -371,8 +356,14 @@ public class FilesDaoTest {
         expResult[2]="Texts";
         expResult[3]="Videos";
         Arrays.sort(expResult);
-        String[] result = instance.getDirectoryList(entriesPath);
-        Arrays.sort(result);
+        String[] result;
+        try{
+            result = instance.getDirectoryList(entriesPath);
+            Arrays.sort(result);
+        }catch(EntryException ex){
+            result = null;
+        }
+        
         assertArrayEquals(expResult, result);
     }
     
@@ -383,7 +374,12 @@ public class FilesDaoTest {
                 fSeparator+"Entries"+fSeparator+"Test1";
         FilesDao instance = new FilesDao();
         String[] expResult = new String[0];
-        String[] result = instance.getDirectoryList(entriesPath);
+        String[] result;
+        try{
+            result = instance.getDirectoryList(entriesPath);
+        }catch(EntryException ex){
+            result = null;
+        }
         assertArrayEquals(expResult, result);
     }
     
@@ -396,7 +392,7 @@ public class FilesDaoTest {
         String[] result;
         try{
             result = instance.getDirectoryList(entriesPath);
-        }catch(NullPointerException ex){
+        }catch(EntryException ex){
             result = null;
         }
         assertArrayEquals(expResult, result);
@@ -411,7 +407,7 @@ public class FilesDaoTest {
         String[] result;
         try{
             result = instance.getDirectoryList(entriesPath);
-        }catch(NullPointerException ex){
+        }catch(EntryException ex){
             result = null;
         }
         assertArrayEquals(expResult, result);
@@ -428,7 +424,12 @@ public class FilesDaoTest {
         String[] expResult = new String[2];
         expResult[0] = "testImg.jpg";
         expResult[1] = "testImg2.jpg";
-        String[] result = instance.getFilesList(entryPath);
+        String[] result;
+        try{
+            result = instance.getFilesList(entryPath);
+        }catch(EntryException ex){
+            result = null;
+        }
         assertArrayEquals(expResult, result);
     }
     
@@ -438,7 +439,12 @@ public class FilesDaoTest {
         String entryPath = folder.toString()+fSeparator+"EmptyFolder";
         FilesDao instance = new FilesDao();
         String[] expResult = new String[0];
-        String[] result = instance.getFilesList(entryPath);
+        String[] result;
+        try{
+            result = instance.getFilesList(entryPath);
+        }catch(EntryException ex){
+            result = null;
+        }
         assertArrayEquals(expResult, result);
     }
     
@@ -451,7 +457,7 @@ public class FilesDaoTest {
         String[] result;
         try{
             result = instance.getFilesList(entryPath);
-        }catch(NullPointerException ex){
+        }catch(EntryException ex){
             result = null;
         }
         assertArrayEquals(expResult, result);
@@ -459,14 +465,14 @@ public class FilesDaoTest {
     
     @Test
     public void testGetFilesList4() {
-        System.out.println("getFilesList with null");
+        System.out.println("getFilesList with null entry path");
         String entryPath = null;
         FilesDao instance = new FilesDao();
         String[] expResult = null;
         String[] result = null;
         try{
             result = instance.getFilesList(entryPath);
-        }catch(NullPointerException ex){
+        }catch(EntryException ex){
             result = null;
         }
         assertArrayEquals(expResult, result);
@@ -477,7 +483,7 @@ public class FilesDaoTest {
      */
     @Test
     public void testGetSubFiles() {
-        System.out.println("getSubFiles from ");
+        System.out.println("getSubFiles from Existing path with 2 images");
         String path = folder.toString()+fSeparator+"Images";
         FilesDao instance = new FilesDao();
         
@@ -486,7 +492,12 @@ public class FilesDaoTest {
         List<URI> expResult = new ArrayList<>();
         expResult.add(firstImageFile.toURI());
         expResult.add(secondImageFile.toURI());
-        List<URI> result = instance.getSubFiles(path);
+        List<URI> result;
+        try{
+            result = instance.getSubFiles(path);
+        }catch(EntryException ex){
+            result = null;
+        }
         assertEquals("Some message",expResult, result);
     }
     
@@ -498,7 +509,12 @@ public class FilesDaoTest {
 
         List<URI> expResult = new ArrayList<URI>();
         expResult.removeAll(expResult);
-        List<URI> result = instance.getSubFiles(path);
+        List<URI> result;
+        try{
+            result = instance.getSubFiles(path);
+        }catch(EntryException ex){
+            result = null;
+        }
         assertEquals("Some message",expResult, result);
     }
 
@@ -602,7 +618,12 @@ public class FilesDaoTest {
                 "Panagiwtis Georgiadis"+fSeparator+"Entries"+fSeparator+"Texnologia2"+fSeparator+"Images";
         FilesDao instance = new FilesDao();
         File expResult = new File(path+fSeparator+"testImg.jpg");
-        File result = instance.getFile(path);
+        File result;
+        try{
+            result = instance.getFile(path);
+        }catch(EntryException ex){
+            result = null;
+        }
         assertEquals("Some message",expResult, result);
     }
     
@@ -615,7 +636,7 @@ public class FilesDaoTest {
         File result;
         try{
             result = instance.getFile(path);
-        }catch(NullPointerException ex){
+        }catch(EntryException ex){
             result=null;
         }
         assertEquals("Some message",expResult, result);
@@ -628,7 +649,12 @@ public class FilesDaoTest {
                 "Panagiwtis Georgiadis"+fSeparator+"Entries"+fSeparator+"Texnologia2"+fSeparator+"EmptyFolder";
         FilesDao instance = new FilesDao();
         File expResult = null;
-        File result = instance.getFile(path);
+        File result;
+        try{
+            result = instance.getFile(path);
+        }catch(EntryException ex){
+            result = null;
+        }
         assertEquals("Some message",expResult, result);
     }
 

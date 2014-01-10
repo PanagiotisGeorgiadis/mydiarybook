@@ -6,8 +6,6 @@
 
 package model;
 
-import dao.EntriesListDao;
-import dao.NewEntryImageDao;
 import java.io.File;
 import java.net.URI;
 import java.util.List;
