@@ -60,6 +60,8 @@ public class RegisterForm extends javax.swing.JFrame {
         SubmitAccountButton.setName("SubmitAccountButton");
         CancelButton.setName("CancelButton");
         msg.setVisible(false);
+        msg.setName("msg");
+        ConditionAndTemrsCheckBox.setName("ConditionAndTemrsCheckBox");
 
     }
 
@@ -94,6 +96,7 @@ public class RegisterForm extends javax.swing.JFrame {
         cnd = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Register Form");
 
         jLabel1.setText("UserName");
 

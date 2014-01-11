@@ -21,6 +21,14 @@ public class FavoritesForm extends javax.swing.JFrame {
     public FavoritesForm() {
         initComponents();
         emptymsg.setVisible(false);
+        link.setName("link");
+        emptymsg.setName("emptymsg");
+        comment.setName("comment");
+        save.setName("save");
+        clear.setName("clear");
+        back.setName("back");
+        msg.setName("msg");
+        
     }
 
     /**
@@ -166,6 +174,8 @@ public class FavoritesForm extends javax.swing.JFrame {
                 .addComponent(msg)
                 .addContainerGap(25, Short.MAX_VALUE))
         );
+
+        link.getAccessibleContext().setAccessibleName("link");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
