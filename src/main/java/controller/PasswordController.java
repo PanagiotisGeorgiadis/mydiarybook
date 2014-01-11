@@ -6,14 +6,16 @@
 
 package controller;
 
+import validators.RegisterValidator;
+
 /**
  *
  * @author w7user
  */
-public class CheckPasswordController {
+public class PasswordController {
      public boolean checkPassword(String pass, String repass)
     {
-        RegisterController passController = new RegisterController();
+        RegisterValidator passController = new RegisterValidator();
         return passController.checkPassword(pass,repass);
     }
 }

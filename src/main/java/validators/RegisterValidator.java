@@ -2,13 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package validators;
 
 /**
  *
  * @author user
  */
-public class RegisterController {
+public class RegisterValidator {
 
     public boolean checkMail(String email) {
 
@@ -75,7 +75,7 @@ public class RegisterController {
     }
 
     public static boolean checkValues(String username, String password, String repeatedpassword, String email,String Q1,String Q2) {
-        RegisterController e = new RegisterController();
+        RegisterValidator e = new RegisterValidator();
         if (!e.checkMail(email)) {
             return false;
 

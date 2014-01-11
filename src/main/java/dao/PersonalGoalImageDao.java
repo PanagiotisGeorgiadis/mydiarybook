@@ -6,12 +6,11 @@
 
 package dao;
 
+import exception.EntryException;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 
 /**
@@ -49,6 +48,8 @@ public class PersonalGoalImageDao {
         }
         catch(IOException e)
         {
+            return false;
+        }catch(EntryException ex){
             return false;
         }
         

@@ -6,6 +6,8 @@
 
 package controller;
 
+import validators.RegisterValidator;
+
 /**
  *
  * @author w7user
@@ -13,7 +15,7 @@ package controller;
 public class CheckValidPassword {
      public boolean checkPassword(String password)
     {
-        RegisterController passController = new RegisterController();
+        RegisterValidator passController = new RegisterValidator();
         return passController.checkPassword(password);
     }
     

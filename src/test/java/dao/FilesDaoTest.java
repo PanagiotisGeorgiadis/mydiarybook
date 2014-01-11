@@ -173,10 +173,7 @@ public class FilesDaoTest {
         try{
             instance.copyFile(source, dest);
             File copiedFile = new File(dest+fSeparator+"testImg4.jpg");
-            if(copiedFile.exists())
-                result = true;
-            else
-                result = false;
+            result = copiedFile.exists();
         }catch(Exception ex){
             result = false;
         }
@@ -469,7 +466,7 @@ public class FilesDaoTest {
         String entryPath = null;
         FilesDao instance = new FilesDao();
         String[] expResult = null;
-        String[] result = null;
+        String[] result;
         try{
             result = instance.getFilesList(entryPath);
         }catch(EntryException ex){
@@ -507,7 +504,7 @@ public class FilesDaoTest {
         String path = folder.toString()+fSeparator+"EmptyFolder";
         FilesDao instance = new FilesDao();
 
-        List<URI> expResult = new ArrayList<URI>();
+        List<URI> expResult = new ArrayList<>();
         expResult.removeAll(expResult);
         List<URI> result;
         try{
@@ -598,13 +595,7 @@ public class FilesDaoTest {
         
         FilesDao instance = new FilesDao();
         File[] expResult = null;
-        File[] result;
-        
-        try{
-            result = instance.getSubDirectories(path);
-        }catch(NullPointerException ex){
-            result = null;
-        }        
+        File[] result = instance.getSubDirectories(path);       
         assertArrayEquals(expResult, result);
     }
 
@@ -637,7 +628,7 @@ public class FilesDaoTest {
         try{
             result = instance.getFile(path);
         }catch(EntryException ex){
-            result=null;
+            result = null;
         }
         assertEquals("Some message",expResult, result);
     }
@@ -686,13 +677,8 @@ public class FilesDaoTest {
         System.out.println("returnTextFile from Empty path");
         String path = "";
         FilesDao instance = new FilesDao();
-        String expResult = "";
-        String result;
-        try{
-            result = instance.returnTextFile(path);
-        }catch(IOException ex){
-            result = "";
-        }
+        String expResult = null;
+        String result = instance.returnTextFile(path);
         assertEquals("Some message",expResult, result);
     }
     

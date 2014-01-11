@@ -8,6 +8,7 @@ package dao;
 
 import exception.EntryException;
 import java.io.File;
+import model.Login;
 
 /**
  *
@@ -15,6 +16,7 @@ import java.io.File;
  */
 public class EntriesListDao {
     String fSeparator = File.separator;
+    
     public String[] getListOfEntries()
     {
         String entriesPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+"Panagiwtis Georgiadis"+fSeparator+"Entries";

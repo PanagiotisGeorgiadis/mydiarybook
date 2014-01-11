@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package validators;
 
 import junit.framework.TestCase;
 
@@ -11,9 +11,9 @@ import junit.framework.TestCase;
  *
  * @author Stef
  */
-public class ChangePasswordControllerTest extends TestCase {
+public class ChangePasswordValidatorTest extends TestCase {
 
-    public ChangePasswordControllerTest(String testName) {
+    public ChangePasswordValidatorTest(String testName) {
         super(testName);
     }
 
@@ -31,88 +31,88 @@ public class ChangePasswordControllerTest extends TestCase {
      * Test of checkChangePasswordController method, of class
      * ChangePasswordController.
      */
-    public void testCheckChangePasswordController() {
+    public void testCheckChangePasswordValidator() {
         System.out.println("checkChangePasswordController");
         String pass = "1";
         String repeatpass = "1";
-        ChangePasswordController instance = new ChangePasswordController();
+        ChangePasswordValidator instance = new ChangePasswordValidator();
         boolean expResult = false;
         boolean result = instance.checkChangePasswordController(pass, repeatpass);
         assertEquals(expResult, result);
 
     }
 
-    public void testCheckChangePasswordController1() {
+    public void testCheckChangePasswordValidator1() {
         System.out.println("checkChangePasswordController");
         String pass = "12";
         String repeatpass = "13";
-        ChangePasswordController instance = new ChangePasswordController();
+        ChangePasswordValidator instance = new ChangePasswordValidator();
         boolean expResult = false;
         boolean result = instance.checkChangePasswordController(pass, repeatpass);
         assertEquals(expResult, result);
 
     }
 
-    public void testCheckChangePasswordController3() {
+    public void testCheckChangePasswordValidator2() {
         System.out.println("checkChangePasswordController");
         String pass = "123";
         String repeatpass = "123";
-        ChangePasswordController instance = new ChangePasswordController();
+        ChangePasswordValidator instance = new ChangePasswordValidator();
         boolean expResult = false;
         boolean result = instance.checkChangePasswordController(pass, repeatpass);
         assertEquals(expResult, result);
 
     }
 
-    public void testCheckChangePasswordController4() {
+    public void testCheckChangePasswordValidator3() {
         System.out.println("checkChangePasswordController");
         String pass = "123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123";
         String repeatpass = "123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123";
-        ChangePasswordController instance = new ChangePasswordController();
+        ChangePasswordValidator instance = new ChangePasswordValidator();
         boolean expResult = false;
         boolean result = instance.checkChangePasswordController(pass, repeatpass);
         assertEquals(expResult, result);
 
     }
 
-    public void testCheckChangePasswordController5() {
+    public void testCheckChangePasswordValidator4() {
         System.out.println("checkChangePasswordController");
         String pass = "the  best";
         String repeatpass = "the  best";
-        ChangePasswordController instance = new ChangePasswordController();
+        ChangePasswordValidator instance = new ChangePasswordValidator();
         boolean expResult = false;
         boolean result = instance.checkChangePasswordController(pass, repeatpass);
         assertEquals(expResult, result);
 
     }
 
-    public void testCheckChangePasswordController6() {
+    public void testCheckChangePasswordValidator5() {
         System.out.println("checkChangePasswordController");
         String pass = "mayname1";
         String repeatpass = "mynme1";
-        ChangePasswordController instance = new ChangePasswordController();
+        ChangePasswordValidator instance = new ChangePasswordValidator();
         boolean expResult = false;
         boolean result = instance.checkChangePasswordController(pass, repeatpass);
         assertEquals(expResult, result);
 
     }
 
-    public void testCheckChangePasswordController7() {
+    public void testCheckChangePasswordValidator6() {
         System.out.println("checkChangePasswordController");
         String pass = "myname_1";
         String repeatpass = "myname_1";
-        ChangePasswordController instance = new ChangePasswordController();
+        ChangePasswordValidator instance = new ChangePasswordValidator();
         boolean expResult = true;
         boolean result = instance.checkChangePasswordController(pass, repeatpass);
         assertEquals(expResult, result);
 
     }
 
-    public void testCheckChangePasswordController8() {
+    public void testCheckChangePasswordValidator7() {
         System.out.println("checkChangePasswordController");
         String pass = "13p14";
         String repeatpass = "13p14";
-        ChangePasswordController instance = new ChangePasswordController();
+        ChangePasswordValidator instance = new ChangePasswordValidator();
         boolean expResult = true;
         boolean result = instance.checkChangePasswordController(pass, repeatpass);
         assertEquals(expResult, result);

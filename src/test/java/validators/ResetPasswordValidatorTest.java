@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package controller;
+package validators;
 
 import junit.framework.TestCase;
 
@@ -12,9 +12,9 @@ import junit.framework.TestCase;
  *
  * @author Stef
  */
-public class ResetPasswordControllerTest extends TestCase {
+public class ResetPasswordValidatorTest extends TestCase {
     
-    public ResetPasswordControllerTest(String testName) {
+    public ResetPasswordValidatorTest(String testName) {
         super(testName);
     }
     
@@ -35,7 +35,7 @@ public class ResetPasswordControllerTest extends TestCase {
         System.out.println("ResetPasswordController");
         String q1 = "g";
         String q2 = "g";
-        ResetPasswordController instance = new ResetPasswordController();
+        ResetPasswordValidator instance = new ResetPasswordValidator();
         boolean expResult = false;
         boolean result = instance.ResetPasswordController(q1, q2);
         assertEquals(expResult, result);
@@ -45,7 +45,7 @@ public class ResetPasswordControllerTest extends TestCase {
         System.out.println("ResetPasswordController");
         String q1 = "gata";
         String q2 = "g";
-        ResetPasswordController instance = new ResetPasswordController();
+        ResetPasswordValidator instance = new ResetPasswordValidator();
         boolean expResult = false;
         boolean result = instance.ResetPasswordController(q1, q2);
         assertEquals(expResult, result);
@@ -55,7 +55,7 @@ public class ResetPasswordControllerTest extends TestCase {
         System.out.println("ResetPasswordController");
         String q1 = "g";
         String q2 = "fiat";
-        ResetPasswordController instance = new ResetPasswordController();
+        ResetPasswordValidator instance = new ResetPasswordValidator();
         boolean expResult = false;
         boolean result = instance.ResetPasswordController(q1, q2);
         assertEquals(expResult, result);
@@ -65,7 +65,7 @@ public class ResetPasswordControllerTest extends TestCase {
         System.out.println("ResetPasswordController");
         String q1 = "gata";
         String q2 = "fiat";
-        ResetPasswordController instance = new ResetPasswordController();
+        ResetPasswordValidator instance = new ResetPasswordValidator();
         boolean expResult = true;
         boolean result = instance.ResetPasswordController(q1, q2);
         assertEquals(expResult, result);
@@ -76,7 +76,7 @@ public class ResetPasswordControllerTest extends TestCase {
         System.out.println("ResetPasswordController");
         String q1 = "miapoluomorfhgatapouthhnagapopolu";
         String q2 = "fiat";
-        ResetPasswordController instance = new ResetPasswordController();
+        ResetPasswordValidator instance = new ResetPasswordValidator();
         boolean expResult = false;
         boolean result = instance.ResetPasswordController(q1, q2);
         assertEquals(expResult, result);
@@ -86,7 +86,7 @@ public class ResetPasswordControllerTest extends TestCase {
         System.out.println("ResetPasswordController");
         String q1 = "gata";
         String q2 = "enaparapolygrhgorofiat";
-        ResetPasswordController instance = new ResetPasswordController();
+        ResetPasswordValidator instance = new ResetPasswordValidator();
         boolean expResult = false;
         boolean result = instance.ResetPasswordController(q1, q2);
         assertEquals(expResult, result);
@@ -96,7 +96,7 @@ public class ResetPasswordControllerTest extends TestCase {
         System.out.println("ResetPasswordController");
         String q1 = "!h gata mou!";
         String q2 = "!to toyota moy!";
-        ResetPasswordController instance = new ResetPasswordController();
+        ResetPasswordValidator instance = new ResetPasswordValidator();
         boolean expResult = true;
         boolean result = instance.ResetPasswordController(q1, q2);
         assertEquals(expResult, result);
@@ -106,7 +106,7 @@ public class ResetPasswordControllerTest extends TestCase {
         System.out.println("ResetPasswordController");
         String q1 = "gata3";
         String q2 = "ferrari4";
-        ResetPasswordController instance = new ResetPasswordController();
+        ResetPasswordValidator instance = new ResetPasswordValidator();
         boolean expResult = true;
         boolean result = instance.ResetPasswordController(q1, q2);
         assertEquals(expResult, result);
@@ -116,7 +116,7 @@ public class ResetPasswordControllerTest extends TestCase {
         System.out.println("ResetPasswordController");
         String q1 = " ";
         String q2 = "ferrari4";
-        ResetPasswordController instance = new ResetPasswordController();
+        ResetPasswordValidator instance = new ResetPasswordValidator();
         boolean expResult = false;
         boolean result = instance.ResetPasswordController(q1, q2);
         assertEquals(expResult, result);
@@ -127,7 +127,7 @@ public class ResetPasswordControllerTest extends TestCase {
         System.out.println("ResetPasswordController");
         String q1 = " gata";
         String q2 = " ";
-        ResetPasswordController instance = new ResetPasswordController();
+        ResetPasswordValidator instance = new ResetPasswordValidator();
         boolean expResult = false;
         boolean result = instance.ResetPasswordController(q1, q2);
         assertEquals(expResult, result);
@@ -137,7 +137,7 @@ public class ResetPasswordControllerTest extends TestCase {
         System.out.println("ResetPasswordController");
         String q1 = " ";
         String q2 = " ";
-        ResetPasswordController instance = new ResetPasswordController();
+        ResetPasswordValidator instance = new ResetPasswordValidator();
         boolean expResult = false;
         boolean result = instance.ResetPasswordController(q1, q2);
         assertEquals(expResult, result);
@@ -148,7 +148,7 @@ public class ResetPasswordControllerTest extends TestCase {
         System.out.println("ResetPasswordController");
         String q1 = " gatopsaroantarktikispoumetanasteuesestonindikowkeano";
         String q2 = "ferrari4";
-        ResetPasswordController instance = new ResetPasswordController();
+        ResetPasswordValidator instance = new ResetPasswordValidator();
         boolean expResult = false;
         boolean result = instance.ResetPasswordController(q1, q2);
         assertEquals(expResult, result);
@@ -158,7 +158,7 @@ public class ResetPasswordControllerTest extends TestCase {
         System.out.println("ResetPasswordController");
         String q1 = " kolimpri";
         String q2 = "otidipotemetesserisrodermixanikaitasaki";
-        ResetPasswordController instance = new ResetPasswordController();
+        ResetPasswordValidator instance = new ResetPasswordValidator();
         boolean expResult = false;
         boolean result = instance.ResetPasswordController(q1, q2);
         assertEquals(expResult, result);
@@ -168,7 +168,7 @@ public class ResetPasswordControllerTest extends TestCase {
         System.out.println("ResetPasswordController");
         String q1 = " gata";
         String q2 = " ferrari4";
-        ResetPasswordController instance = new ResetPasswordController();
+        ResetPasswordValidator instance = new ResetPasswordValidator();
         boolean expResult = true;
         boolean result = instance.ResetPasswordController(q1, q2);
         assertEquals(expResult, result);
@@ -179,7 +179,7 @@ public class ResetPasswordControllerTest extends TestCase {
         System.out.println("ResetPasswordController");
         String q1 = " gata!!!";
         String q2 = " ferrari4!!!";
-        ResetPasswordController instance = new ResetPasswordController();
+        ResetPasswordValidator instance = new ResetPasswordValidator();
         boolean expResult = true;
         boolean result = instance.ResetPasswordController(q1, q2);
         assertEquals(expResult, result);
@@ -189,7 +189,7 @@ public class ResetPasswordControllerTest extends TestCase {
         System.out.println("ResetPasswordController");
         String q1 = "    !gata";
         String q2 = " ferrari4";
-        ResetPasswordController instance = new ResetPasswordController();
+        ResetPasswordValidator instance = new ResetPasswordValidator();
         boolean expResult = true;
         boolean result = instance.ResetPasswordController(q1, q2);
         assertEquals(expResult, result);
@@ -200,7 +200,7 @@ public void testResetPasswordController16() {
         System.out.println("ResetPasswordController");
         String q1 = "    !gata";
         String q2 = "                                     ferrari4";
-        ResetPasswordController instance = new ResetPasswordController();
+        ResetPasswordValidator instance = new ResetPasswordValidator();
         boolean expResult = false;
         boolean result = instance.ResetPasswordController(q1, q2);
         assertEquals(expResult, result);

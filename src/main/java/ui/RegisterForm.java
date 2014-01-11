@@ -1,14 +1,14 @@
 package ui;
 
 
-import controller.CheckMailController;
-import controller.CheckPasswordController;
-import controller.CheckQ1Controller;
-import controller.CheckQ2Controller;
+import controller.MailController;
+import controller.PasswordController;
+import controller.Q1Controller;
+import controller.Q2Controller;
 import controller.CheckUserController;
 import controller.CheckUsernameController;
 import controller.CheckValidPassword;
-import controller.RegisterController;
+import validators.RegisterValidator;
 import dao.RegisterFormDao;
 import javax.swing.JOptionPane;
 
@@ -361,7 +361,7 @@ public class RegisterForm extends javax.swing.JFrame {
 
     private void SubmitAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitAccountButtonActionPerformed
 
-        RegisterController controller2 = new RegisterController();
+        RegisterValidator controller2 = new RegisterValidator();
         RegisterFormDao formDao = new RegisterFormDao();
         if (!ConditionAndTemrsCheckBox.isSelected()) {
             cndaccept.setVisible(true);
@@ -429,7 +429,7 @@ public class RegisterForm extends javax.swing.JFrame {
     }//GEN-LAST:event_passwordKeyTyped
 
     private void repasswordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_repasswordKeyTyped
-        CheckPasswordController controller = new CheckPasswordController();
+        PasswordController controller = new PasswordController();
         if (!controller.checkPassword(password.getText(), repassword.getText() + evt.getKeyChar())) {
             repeatpassowrdpass = false;
             missmatchpasswords.setVisible(true);
@@ -445,7 +445,7 @@ public class RegisterForm extends javax.swing.JFrame {
     }//GEN-LAST:event_repasswordKeyTyped
 
     private void emailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailKeyTyped
-        CheckMailController controller = new CheckMailController();
+        MailController controller = new MailController();
         if (!controller.checkMail(email.getText() + evt.getKeyChar())) {
             mailpass = false;
             invalidemail.setVisible(true);
@@ -462,7 +462,7 @@ public class RegisterForm extends javax.swing.JFrame {
 
     private void FavoritePetKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_FavoritePetKeyTyped
 
-        CheckQ1Controller controller = new CheckQ1Controller();
+        Q1Controller controller = new Q1Controller();
         if (!controller.checkQ1(FavoritePet.getText() + evt.getKeyChar())) {
             q1pass = false;
             q1msg.setVisible(true);
@@ -478,7 +478,7 @@ public class RegisterForm extends javax.swing.JFrame {
     }//GEN-LAST:event_FavoritePetKeyTyped
 
     private void FavoriteCarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_FavoriteCarKeyTyped
-        CheckQ2Controller controller = new CheckQ2Controller();
+        Q2Controller controller = new Q2Controller();
         if (!controller.checkQ2(FavoriteCar.getText() + evt.getKeyChar())) {
             q2pass = false;
             q2msg.setVisible(true);
@@ -511,7 +511,7 @@ public class RegisterForm extends javax.swing.JFrame {
 
     private void passwordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFocusLost
         CheckValidPassword controller = new CheckValidPassword();
-        CheckPasswordController controller1 = new CheckPasswordController();
+        PasswordController controller1 = new PasswordController();
         if (!controller.checkPassword(password.getText())) {
             passwordpass = false;
             invalidpassword.setVisible(true);
@@ -532,7 +532,7 @@ public class RegisterForm extends javax.swing.JFrame {
     }//GEN-LAST:event_passwordFocusLost
 
     private void FavoritePetFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FavoritePetFocusLost
-        CheckQ1Controller controller = new CheckQ1Controller();
+        Q1Controller controller = new Q1Controller();
         if (!controller.checkQ1(FavoritePet.getText())) {
             q1pass = false;
             q1msg.setVisible(true);
@@ -548,7 +548,7 @@ public class RegisterForm extends javax.swing.JFrame {
     }//GEN-LAST:event_FavoritePetFocusLost
 
     private void FavoriteCarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FavoriteCarFocusLost
-         CheckQ2Controller controller = new CheckQ2Controller();
+         Q2Controller controller = new Q2Controller();
         if (!controller.checkQ2(FavoriteCar.getText())) {
             q2pass = false;
             q2msg.setVisible(true);
@@ -564,7 +564,7 @@ public class RegisterForm extends javax.swing.JFrame {
     }//GEN-LAST:event_FavoriteCarFocusLost
 
     private void repasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_repasswordFocusLost
-        CheckPasswordController controller = new CheckPasswordController();
+        PasswordController controller = new PasswordController();
         if (!controller.checkPassword(password.getText(), repassword.getText())) {
             repeatpassowrdpass = false;
             missmatchpasswords.setVisible(true);

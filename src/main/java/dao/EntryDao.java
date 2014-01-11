@@ -14,6 +14,12 @@ import model.Entry;
  * @author Zarc
  */
 public class EntryDao {
+    
+    public EntryDao()
+    {
+        
+    }
+    
     public static Entry getEntryByTitle(String title)
     {
         NewEntryImageDao imageFilesDao = new NewEntryImageDao();
@@ -25,7 +31,7 @@ public class EntryDao {
         String[] imageList = imageFilesDao.getImageList(title);
         String[] entriesList = entriesListDao.getListOfEntries();
         String  entryText = textFile.returnTextFromTextFile(title);
-        File entryVideo = videoDao.getVideo(title);
+        File entryVideo = videoDao.getVideoFile(title);
         
         Entry entry = new Entry();
         
