@@ -8,6 +8,7 @@ package ui;
 import controller.CheckUsernameController;
 import dao.LoginFormDao;
 import javax.swing.UIManager;
+import model.DefaultPath;
 import model.Login;
 
 /**
@@ -171,6 +172,8 @@ public class LoginForm extends javax.swing.JFrame {
         if (dao.checkLogin(username.getText(), pass.getText())) {
             Login lgn = new Login();
             lgn.setUsername(username.getText());
+            DefaultPath defaultPath = new DefaultPath();
+            defaultPath.setDefaultPath(System.getProperty("user.dir"));
             try {
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             } catch (Exception e) {
