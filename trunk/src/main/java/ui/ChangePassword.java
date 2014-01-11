@@ -5,7 +5,7 @@
  */
 package ui;
 
-import controller.ChangePasswordController;
+import validators.ChangePasswordValidator;
 import dao.ChangePasswordDao;
 import javax.swing.JOptionPane;
 
@@ -51,7 +51,7 @@ public class ChangePassword extends javax.swing.JFrame {
         passwordsmsg = new javax.swing.JLabel();
         wrongmsg = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Change Password");
 
         username.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -166,7 +166,7 @@ public class ChangePassword extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
-        ChangePasswordController controller = new ChangePasswordController();
+        ChangePasswordValidator controller = new ChangePasswordValidator();
         
         if (!controller.checkValues(password.getText(),repeatpassword.getText())) {
             passwordsmsg.setVisible(true);

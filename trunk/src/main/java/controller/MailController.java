@@ -6,15 +6,17 @@
 
 package controller;
 
+import validators.RegisterValidator;
+
 /**
  *
  * @author w7user
  */
-public class CheckQ1Controller {
-         public boolean checkQ1(String Q1)
+public class MailController {
+    public boolean checkMail(String email)
     {
-        RegisterController q1Controller = new RegisterController();
-        return q1Controller.checkPassword(Q1);
+        RegisterValidator mailController = new RegisterValidator();
+        return mailController.checkMail(email);
     }
     
 }

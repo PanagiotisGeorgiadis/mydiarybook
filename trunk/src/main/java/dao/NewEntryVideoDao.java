@@ -26,9 +26,10 @@ public class NewEntryVideoDao {
         
     public boolean copyVideo(String entryTitle,String sourcePath)
     {
+        if(entryTitle==null || sourcePath == null || entryTitle.trim().equals("") || sourcePath.trim().equals("")) 
+            return false;
         String videoDestPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+"Panagiwtis Georgiadis"
                 +fSeparator+"Entries"+fSeparator+entryTitle+fSeparator+"Videos"+fSeparator;
-                
         try
         {
             File destFile = new File(videoDestPath);
@@ -40,18 +41,15 @@ public class NewEntryVideoDao {
         {
             return false;
         }
-        catch(NullPointerException ex){
-            return false;
-        }
         return true;
     }
-    //tsamis
-    public boolean videoDelete(String sourcePath, String destPath)
-    {
-        return true;
-    }
+
+//    public boolean videoDelete(String sourcePath, String destPath)
+//    {
+//        return true;
+//    }
     
-    public File getVideo(String entryTitle)
+    public File getVideoFile(String entryTitle)
     {
         String videoPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+"Panagiwtis Georgiadis"
                 +fSeparator+"Entries"+fSeparator+entryTitle+fSeparator+"Videos"+fSeparator;

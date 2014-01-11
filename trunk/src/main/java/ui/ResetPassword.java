@@ -1,6 +1,6 @@
 package ui;
 
-import controller.ResetPasswordController;
+import validators.ResetPasswordValidator;
 import dao.ResetPasswordDao;
 import javax.swing.JOptionPane;
 
@@ -107,7 +107,7 @@ public class ResetPassword extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
-       ResetPasswordController controller = new ResetPasswordController();
+       ResetPasswordValidator controller = new ResetPasswordValidator();
        ResetPasswordDao dao = new ResetPasswordDao();
         
         if (!controller.checkValues(q1.getText(),q2.getText())) {

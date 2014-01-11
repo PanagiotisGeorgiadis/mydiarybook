@@ -5,6 +5,7 @@
  */
 package dao;
 
+import exception.EntryException;
 import java.io.File;
 import java.io.IOException;
 import static org.mockito.Mockito.mock;
@@ -44,13 +45,13 @@ public class PersonalGoalTxtDao {
         FilesDao textDao = new FilesDao();
         try{
             return textDao.returnTextFile(textTitlePath);
-        }catch(IOException ex){
+        }catch(EntryException ex){
             return "";
         }
         
     }
     
-       public String returnTextLocationFile(String Title)
+    public String returnTextLocationFile(String Title)
     {
         
     
@@ -58,13 +59,13 @@ public class PersonalGoalTxtDao {
         FilesDao textDao = new FilesDao();
         try{
             return textDao.returnTextFile(textLocationPath);
-        }catch(IOException ex){
+        }catch(EntryException ex){
             return "";
         }
 
     }
        
-         public String returnTextWithPersonFile(String Title)
+    public String returnTextWithPersonFile(String Title)
     {
         
     
@@ -72,13 +73,13 @@ public class PersonalGoalTxtDao {
         FilesDao textDao = new FilesDao();
         try{
             return textDao.returnTextFile(textWithPersonPath);
-        }catch(IOException ex){
+        }catch(EntryException ex){
             return "";
         }
 
     }
          
-      public String returnTextWhenDateFile(String Title)
+    public String returnTextWhenDateFile(String Title)
     {
         
     
@@ -86,7 +87,7 @@ public class PersonalGoalTxtDao {
         FilesDao textDao = new FilesDao();
         try{
             return textDao.returnTextFile(textWhenDatePath);
-        }catch(IOException ex){
+        }catch(EntryException ex){
             return "";
         }
 
@@ -102,7 +103,7 @@ public class PersonalGoalTxtDao {
         FilesDao textDao = new FilesDao();
         try{
             return textDao.returnTextFile(textAnnouncementPath);
-        }catch(IOException ex){
+        }catch(EntryException ex){
             return "";
         }
 
@@ -116,7 +117,7 @@ public class PersonalGoalTxtDao {
         FilesDao textDao = new FilesDao();
         try{
             return textDao.returnTextFile(textImageDestPath);
-        }catch(IOException ex){
+        }catch(EntryException ex){
             return "";
         }
 

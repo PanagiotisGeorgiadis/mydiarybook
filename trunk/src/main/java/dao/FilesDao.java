@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.io.FileUtils;
 
 /**
@@ -48,6 +50,7 @@ public class FilesDao {
             copyFile(source,dest);
         }
     }
+    
     /**
      * Creates a simple text file on the destination path specified with text
      * from the text parameter.If the destination path doesn't exist it 
@@ -60,7 +63,12 @@ public class FilesDao {
      */
     public boolean createTextFile(String destPath,String text,String fileName)
     {
-        if(!fileName.trim().equals(""))
+        int loops = 0;
+        if(destPath==null || fileName==null)
+        {
+            return false;
+        }
+        else if(!fileName.trim().equals("") && !destPath.trim().equals(""))
         {
             FileWriter fw = null;
             BufferedWriter bw = null;
@@ -78,12 +86,8 @@ public class FilesDao {
                 }
                 else
                 {
-                    try{
-                        createFilePath(destPath);
-                        createTextFile(destPath,text,fileName);
-                    }catch(StackOverflowError error){
-                        return false;
-                    }
+                    createFilePath(destPath);                    
+                    createTextFile(destPath,text,fileName,loops);
                 }
             }
             catch(IOException ex)
@@ -97,18 +101,84 @@ public class FilesDao {
                     if(bw!=null)
                         bw.close();
                 }catch(IOException ex){
-                    //logger
+                    //TODO: Add logger
                 }
                 try{
                     if(fw!=null)
                         fw.close();
                 }catch(IOException ex){
-                    //logger
+                    //TODO: Add logger
                 }
             }
         }
         else
             return false;
+        return false;
+    }
+    /**
+     * Private version of createTextFile with one extra parameter named loops and used 
+     * for Recursive Function calls with max loop count of 10 calls.
+     * @param destPath destination path of the file to be created
+     * @param text the text that the file created will contain.
+     * @param fileName the name of the created text file.
+     * @param loops the loop counter which has been initialized in the original
+     * version of createTextFile function.
+     * @return true only if the file(and the path if needed) was created 
+     * else returns false. 
+     */
+    private boolean createTextFile(String destPath,String text,String fileName,int loops)
+    {
+        loops++;
+        if(!fileName.trim().equals("") && !destPath.trim().equals("") && loops<6)
+        {
+            FileWriter fw = null;
+            BufferedWriter bw = null;
+            try
+            {
+                File file = new File(destPath+fileName+".txt");
+                boolean exists = createFilePath(destPath);
+                if(exists)
+                {
+                    fw = new FileWriter(file,true);
+                    bw = new BufferedWriter(fw);
+                    bw.write(text);
+
+                    return true;
+                }
+                else
+                {
+                    createFilePath(destPath);
+                    createTextFile(destPath,text,fileName,loops);
+                }
+            }
+            catch(IOException ex)
+            {
+                //TODO: Add logger.
+                return false;
+            }
+            finally
+            {
+                try{
+                    if(bw!=null)
+                        bw.close();
+                }catch(IOException ex){
+                    //TODO: Add logger
+                }
+                try{
+                    if(fw!=null)
+                        fw.close();
+                }catch(IOException ex){
+                    //TODO: Add logger
+                }
+            }
+        }
+        else
+        {
+            if(loops==6)
+            {
+                //TODO: Add logger
+            }
+        }
         return false;
     }
        
@@ -120,32 +190,58 @@ public class FilesDao {
      */
     public boolean createFilePath(String path)
     {
-        try
-        {
-            File file = new File(path);
-            if(file.exists())
-                return true;
-            else
-            {
-                try{
-                    file.mkdirs();
-                    createFilePath(path);
-                }catch(StackOverflowError error){
-                    return false;
-                }
-            }
-            return true;
-        }
-        catch(NullPointerException ex)
+        int loops=0;
+        if(path==null || path.trim().equals(""))
         {
             return false;
         }
+        File file = new File(path);
+        if(file.exists())
+            return true;
+        else
+        {
+            file.mkdirs();
+            createFilePath(path,loops);
+        }
+        if(file.exists())
+            return true;
+        else
+            return false;
+    }
+    
+    /**
+     * Private version of createFilePath with one extra parameter named loops and used
+     * for Recursive call of this function with max loop count of 5 calls.
+     * @param path the path do be created.
+     * @param loops the loop counter which has been initialized in the original
+     * version of createFilePath function. 
+     * @return true if the FilePath exists or is Created, false if some error
+     * occurs. 
+     */
+    private boolean createFilePath(String path,int loops)
+    {        
+        if(path==null || path.trim().equals("") || loops==5)
+        {
+            //if(loops==5)
+                //TODO: Add logger
+            return false;
+        }
+        loops++;
+        File file = new File(path);
+        if(file.exists())
+            return true;
+        else
+        {
+            file.mkdirs();
+            createFilePath(path,loops);
+        }
+        return file.exists();
     }
     
     /**
     * Deletes a directory and all of its components.
     * @param folder File type parameter used to point at the directory you want to delete
-    * @returns true if and only if the directory pointed exists and is deleted with its
+    * @return true if and only if the directory pointed exists and is deleted with its
     * components else returns false.
     */
     public boolean deleteDirectory(File folder)
@@ -180,13 +276,20 @@ public class FilesDao {
      */
     public String[] getDirectoryList(String entriesPath) throws EntryException
     {
-        try{
+        if(entriesPath==null)
+        {
+            return null;
+        }
+        else if(!entriesPath.trim().isEmpty() && !entriesPath.trim().equals(""))
+        {
             File file = new File(entriesPath);
+            if(file.list()==null)
+                return null;
             String[] children = file.list();
             File subFile;
             String[] subFoldersList = new String[children.length];
-    //        File[] subFolders = new File[children.length];
             int j=0;
+    //        File[] subFolders = new File[children.length];
     //        for(int i=0;i<children.length;i++)
     //        {
     //            subFile = new File(entriesPath+File.separator+children[i]);
@@ -205,8 +308,10 @@ public class FilesDao {
                 }
             }
             return subFoldersList;
-        }catch(NullPointerException ex){
-            throw new EntryException();
+        }
+        else
+        {
+            return null;
         }
    }
     
@@ -220,8 +325,13 @@ public class FilesDao {
      */
     public String[] getFilesList(String entryPath) throws EntryException
     {
-        try{
+        if(entryPath == null)
+            return null;
+        else if(!entryPath.trim().equals("") && !entryPath.trim().isEmpty())
+        {
             File file = new File(entryPath);
+            if(file.list()==null)
+                return null;
             String[] children = file.list();
             File subFile;
             String[] subFolders = new String[children.length];
@@ -236,9 +346,8 @@ public class FilesDao {
                 }
             }
             return subFolders;
-        }catch(NullPointerException ex){
-            throw new EntryException();
         }
+        return null;
     }    
     
     /**
@@ -251,11 +360,16 @@ public class FilesDao {
      */
     public List<URI> getSubFiles(String path) throws EntryException
     {
-        try{
+        if(path == null)
+            return null;
+        else if(!path.trim().isEmpty() && !path.trim().equals(""))
+        {
             File file = new File(path);
+            if(file.list()==null)
+                return null;
             String[] children = file.list();
             File subFile;
-            List<URI> subFolders = new ArrayList<URI>();
+            List<URI> subFolders = new ArrayList<>();
             int j=0;
              for(int i=0;i<children.length;i++)
             {
@@ -267,9 +381,9 @@ public class FilesDao {
                 }
             }
             return subFolders;
-        }catch(NullPointerException ex){
-            return null;
         }
+        return null;
+        
     }
     
     /**
@@ -280,21 +394,29 @@ public class FilesDao {
      */
     public File[] getSubDirectories(String path)
     {
-        File file = new File(path);
-        String[] children = file.list();
-        File subFile;
-        File[] subFolders = new File[children.length];
-        int j=0;
-        for(int i=0;i<children.length;i++)
+        if(path == null)
+            return null;
+        else if(!path.trim().isEmpty() && !path.trim().equals(""))
         {
-            subFile = new File(path+File.separator+children[i]);
-            if(subFile.isDirectory())
+            File file = new File(path);
+            String[] children = file.list();
+            if(file.list()==null)
+                return null;
+            File subFile;
+            File[] subFolders = new File[children.length];
+            int j=0;
+            for(int i=0;i<children.length;i++)
             {
-                subFolders[j] = subFile;
-                j++;
+                subFile = new File(path+File.separator+children[i]);
+                if(subFile.isDirectory())
+                {
+                    subFolders[j] = subFile;
+                    j++;
+                }
             }
+            return subFolders;
         }
-        return subFolders;
+        return null;
     }
     
     /**
@@ -310,8 +432,13 @@ public class FilesDao {
      */
     public File getFile(String path) throws EntryException
     {   
-        try{
+        if(path == null)
+            return null;
+        else if(!path.trim().equals("") && !path.trim().isEmpty())
+        {    
             File file = new File(path);
+            if(file.list() == null)
+                return null;
             String[] children = file.list();
             File subFile;
             for(int i=0;i<children.length;i++)
@@ -320,10 +447,8 @@ public class FilesDao {
                 if(!subFile.isDirectory())
                     return subFile;
             }
-            return null;
-        }catch(NullPointerException ex){
-            throw new EntryException();
         }
+        return null;
     }
     
 //    public String getMostRecentFile(File[] input)
@@ -348,13 +473,19 @@ public class FilesDao {
      * Returns the text of the specified text file if it exists.
      * @param path The path of the text file you want to read.
      * @return The text of the specified File if it exists else returns null.
-     * @throws java.io.IOException
+     * @throws exception.EntryException
      */
-    public String returnTextFile(String path) throws IOException
+    public String returnTextFile(String path) throws EntryException
     {
+        if(path==null || path.isEmpty() || path.trim().equals(""))
+            return null;
         File textFile = new File(path);
         String text;
-        text = FileUtils.readFileToString(textFile);
+        try {
+            text = FileUtils.readFileToString(textFile);
+        } catch (IOException ex) {
+            text = "";
+        }
         return text;
     }
     

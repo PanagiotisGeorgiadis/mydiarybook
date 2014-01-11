@@ -6,7 +6,7 @@
 
 package ui;
 
-import controller.CheckFavoritesController;
+import controller.FavoritesController;
 import dao.FavoritesDao;
 import model.Login;
 
@@ -205,7 +205,7 @@ public class FavoritesForm extends javax.swing.JFrame {
     }//GEN-LAST:event_linkMouseClicked
 
     private void linkFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_linkFocusLost
-      CheckFavoritesController controller = new CheckFavoritesController();
+      FavoritesController controller = new FavoritesController();
    
          
      if(!controller.checklink(link.getText()))

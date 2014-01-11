@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package controller;
+package validators;
 
 
 
@@ -12,7 +12,7 @@ package controller;
  *
  * @author w7user
  */
-public class ResetPasswordController {
+public class ResetPasswordValidator {
     public boolean ResetPasswordController(String q1, String q2)
     {
         
@@ -26,7 +26,7 @@ public class ResetPasswordController {
   
     
     public boolean checkValues(String q1,String q2) {
-        ResetPasswordController e = new ResetPasswordController();
+        ResetPasswordValidator e = new ResetPasswordValidator();
 
         if (!e.ResetPasswordController(q1, q2)) {
             return false;

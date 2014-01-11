@@ -171,7 +171,9 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
     public void loadImageList()
     {
         DefaultListModel listModel = new DefaultListModel();
-        try
+      //  try
+      //  {
+        if(entry.getImageList()!=null)
         {
             String[] imageNames = entry.getImageList(); //controller.getImageList(entriesList.getSelectedValue().toString());
             for(int i=0;i<imageNames.length;i++)
@@ -181,7 +183,8 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
             imagesList.setModel(listModel);
             loadAlbumButton.setVisible(true);
         }
-        catch(NullPointerException ex)
+        //catch(NullPointerException ex)
+        else
         {
             listModel.clear();
             imagesList.setModel(listModel);
@@ -961,6 +964,10 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
             }
             entry = controller.getEntry(entriesList.getSelectedValue().toString());
             entryTitleField.setText(entriesList.getSelectedValue().toString());
+            imageListScrollPane.setVisible(false);
+            loadImageButton.setVisible(false);
+            loadAlbumButton.setVisible(false);
+            imagePanel.removeAll();
             loadEntryText();
             loadEntryDateLabel();
             loadImageList();

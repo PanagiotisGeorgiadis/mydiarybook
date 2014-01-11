@@ -6,6 +6,8 @@
 
 package controller;
 
+import validators.RegisterValidator;
+
 /**
  *
  * @author Stef
@@ -13,7 +15,7 @@ package controller;
 public class CheckUserController {
                 public boolean checkUser(String Username)
     {
-        RegisterController UserController = new RegisterController();
+        RegisterValidator UserController = new RegisterValidator();
         return UserController.checkUsername(Username);
     }
     

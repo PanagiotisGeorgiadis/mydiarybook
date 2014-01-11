@@ -15,7 +15,7 @@ import java.io.File;
  */
 public class PersonalGoalListDao {
     String fSeparator = File.separator;
-       public String[] getListOfPersonalGoal()
+    public String[] getListOfPersonalGoal()
     {
         String personalGoalPath = System.getProperty("user.dir") + fSeparator + "MyDiaryBook" + fSeparator + "Users" + fSeparator + "Alex Patsanis"  + fSeparator + "PersonalGoal";
         FilesDao personalGoalDao = new FilesDao();

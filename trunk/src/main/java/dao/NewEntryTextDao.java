@@ -6,10 +6,11 @@
 
 package dao;
 
+import exception.EntryException;
 import java.io.File;
 import java.io.IOException;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -39,18 +40,24 @@ public class NewEntryTextDao {
     {
         String textPath =System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+"Panagiwtis Georgiadis"+fSeparator+"Entries"+fSeparator+entryTitle+fSeparator+"Texts"+fSeparator+entryTitle+".txt";
         FilesDao textDao = new FilesDao();
-        try{
+        try {
             return textDao.returnTextFile(textPath);
-        }catch(IOException ex){
+        } catch (EntryException ex) {
+            Logger.getLogger(NewEntryTextDao.class.getName()).log(Level.SEVERE, null, ex);
             return "";
         }
+
     }
     
     public String returnTextFilePath(String entryTitle,String userName)
     {
         String textPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+
                 userName+fSeparator+"Entries"+fSeparator+entryTitle+fSeparator+"Texts";
-        return textPath;
+        File file = new File(textPath);
+        if(file.exists())
+            return textPath;
+        else
+            return null;
     }
     
 }

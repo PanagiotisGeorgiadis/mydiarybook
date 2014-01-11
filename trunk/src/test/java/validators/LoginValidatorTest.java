@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package controller;
+package validators;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -17,9 +17,9 @@ import static org.junit.Assert.*;
  *
  * @author user
  */
-public class LoginControllerTest {
+public class LoginValidatorTest {
     
-    public LoginControllerTest() {
+    public LoginValidatorTest() {
     }
     
     @BeforeClass
@@ -45,7 +45,7 @@ public class LoginControllerTest {
     public void testCheckUsername() {
         System.out.println("checkUsername");
         String username = "aqwersdfggfhcxvbsdfgercvfdtgdcfvbaerbvadfrg";
-        LoginController instance = new LoginController();
+        LoginValidator instance = new LoginValidator();
         boolean expResult = false;
         boolean result = instance.checkUsername(username);
         assertEquals(expResult, result);
@@ -55,7 +55,7 @@ public class LoginControllerTest {
      public void testCheckUsername1() {
         System.out.println("checkUsername");
         String username = "a";
-        LoginController instance = new LoginController();
+        LoginValidator instance = new LoginValidator();
         boolean expResult = false;
         boolean result = instance.checkUsername(username);
         assertEquals(expResult, result);
@@ -65,7 +65,7 @@ public class LoginControllerTest {
        public void testCheckUsername3() {
         System.out.println("checkUsername");
         String username = " ";
-        LoginController instance = new LoginController();
+        LoginValidator instance = new LoginValidator();
         boolean expResult = false;
         boolean result = instance.checkUsername(username);
         assertEquals(expResult, result);
@@ -75,7 +75,7 @@ public class LoginControllerTest {
           public void testCheckUsername4() {
         System.out.println("checkUsername");
         String username = "a1s2f3";
-        LoginController instance = new LoginController();
+        LoginValidator instance = new LoginValidator();
         boolean expResult = true;
         boolean result = instance.checkUsername(username);
         assertEquals(expResult, result);
@@ -85,7 +85,7 @@ public class LoginControllerTest {
             public void testCheckUsername5() {
         System.out.println("checkUsername");
         String username = "pr1nc3";
-        LoginController instance = new LoginController();
+        LoginValidator instance = new LoginValidator();
         boolean expResult = true;
         boolean result = instance.checkUsername(username);
         assertEquals(expResult, result);
@@ -95,7 +95,7 @@ public class LoginControllerTest {
           public void testCheckUsername6() {
         System.out.println("checkUsername");
         String username = "6";
-        LoginController instance = new LoginController();
+        LoginValidator instance = new LoginValidator();
         boolean expResult = false;
         boolean result = instance.checkUsername(username);
         assertEquals(expResult, result);
@@ -105,7 +105,7 @@ public class LoginControllerTest {
                public void testCheckUsername7() {
         System.out.println("checkUsername");
         String username = "6a";
-        LoginController instance = new LoginController();
+        LoginValidator instance = new LoginValidator();
         boolean expResult = false;
         boolean result = instance.checkUsername(username);
         assertEquals(expResult, result);
@@ -115,7 +115,7 @@ public class LoginControllerTest {
            public void testCheckUsername8() {
         System.out.println("checkUsername");
         String username = "pr1gk1p4 s";
-        LoginController instance = new LoginController();
+        LoginValidator instance = new LoginValidator();
         boolean expResult = false;
         boolean result = instance.checkUsername(username);
         assertEquals(expResult, result);
@@ -125,7 +125,7 @@ public class LoginControllerTest {
           public void testCheckUsername9() {
         System.out.println("checkUsername");
         String username = " pr1gk1p4s";
-        LoginController instance = new LoginController();
+        LoginValidator instance = new LoginValidator();
         boolean expResult = false;
         boolean result = instance.checkUsername(username);
         assertEquals(expResult, result);
@@ -135,7 +135,7 @@ public class LoginControllerTest {
          public void testCheckUsername10() {
         System.out.println("checkUsername");
         String username = "@pr1nc3";
-        LoginController instance = new LoginController();
+        LoginValidator instance = new LoginValidator();
         boolean expResult = true;
         boolean result = instance.checkUsername(username);
         assertEquals(expResult, result);
@@ -145,7 +145,7 @@ public class LoginControllerTest {
          public void testCheckUsername11() {
         System.out.println("checkUsername");
         String username = "pr1gk1p4@s";
-        LoginController instance = new LoginController();
+        LoginValidator instance = new LoginValidator();
         boolean expResult = true;
         boolean result = instance.checkUsername(username);
         assertEquals(expResult, result);
@@ -155,7 +155,7 @@ public class LoginControllerTest {
              public void testCheckUsername12() {
         System.out.println("checkUsername");
         String username = "@ ";
-        LoginController instance = new LoginController();
+        LoginValidator instance = new LoginValidator();
         boolean expResult = false;
         boolean result = instance.checkUsername(username);
         assertEquals(expResult, result);
@@ -165,7 +165,7 @@ public class LoginControllerTest {
        public void testCheckUsername13() {
         System.out.println("checkUsername");
         String username = " @ p r";
-        LoginController instance = new LoginController();
+        LoginValidator instance = new LoginValidator();
         boolean expResult = false;
         boolean result = instance.checkUsername(username);
         assertEquals(expResult, result);
@@ -175,7 +175,7 @@ public class LoginControllerTest {
             public void testCheckUsername14() {
         System.out.println("checkUsername");
         String username = "!@#$$%#%";
-        LoginController instance = new LoginController();
+        LoginValidator instance = new LoginValidator();
         boolean expResult = true;
         boolean result = instance.checkUsername(username);
         assertEquals(expResult, result);
@@ -188,7 +188,7 @@ public class LoginControllerTest {
     public void testCheckPass() {
         System.out.println("checkPass");
         String pass = " ";
-        LoginController instance = new LoginController();
+        LoginValidator instance = new LoginValidator();
         boolean expResult = false;
         boolean result = instance.checkPass(pass);
         assertEquals(expResult, result);
@@ -198,7 +198,7 @@ public class LoginControllerTest {
       public void testCheckPass1() {
         System.out.println("checkPass");
         String pass = " 1";
-        LoginController instance = new LoginController();
+        LoginValidator instance = new LoginValidator();
         boolean expResult = false;
         boolean result = instance.checkPass(pass);
         assertEquals(expResult, result);
@@ -208,7 +208,7 @@ public class LoginControllerTest {
         public void testCheckPass2() {
         System.out.println("checkPass");
         String pass = "12 ";
-        LoginController instance = new LoginController();
+        LoginValidator instance = new LoginValidator();
         boolean expResult = false;
         boolean result = instance.checkPass(pass);
         assertEquals(expResult, result);
@@ -218,7 +218,7 @@ public class LoginControllerTest {
           public void testCheckPass3() {
         System.out.println("checkPass");
         String pass = " 123";
-        LoginController instance = new LoginController();
+        LoginValidator instance = new LoginValidator();
         boolean expResult = false;
         boolean result = instance.checkPass(pass);
         assertEquals(expResult, result);
@@ -228,7 +228,7 @@ public class LoginControllerTest {
          public void testCheckPass4() {
         System.out.println("checkPass");
         String pass = "123";
-        LoginController instance = new LoginController();
+        LoginValidator instance = new LoginValidator();
         boolean expResult = false;
         boolean result = instance.checkPass(pass);
         assertEquals(expResult, result);
@@ -239,7 +239,7 @@ public class LoginControllerTest {
          public void testCheckPass5() {
         System.out.println("checkPass");
         String pass = "!@#%$%";
-        LoginController instance = new LoginController();
+        LoginValidator instance = new LoginValidator();
         boolean expResult = true;
         boolean result = instance.checkPass(pass);
         assertEquals(expResult, result);
@@ -250,7 +250,7 @@ public class LoginControllerTest {
          public void testCheckPass6() {
         System.out.println("checkPass");
         String pass = "123456";
-        LoginController instance = new LoginController();
+        LoginValidator instance = new LoginValidator();
         boolean expResult = false;
         boolean result = instance.checkPass(pass);
         assertEquals(expResult, result);
@@ -261,7 +261,7 @@ public class LoginControllerTest {
          public void testCheckPass7() {
         System.out.println("checkPass");
         String pass = "qwertyt@$";
-        LoginController instance = new LoginController();
+        LoginValidator instance = new LoginValidator();
         boolean expResult = true;
         boolean result = instance.checkPass(pass);
         assertEquals(expResult, result);
@@ -271,7 +271,7 @@ public class LoginControllerTest {
          public void testCheckPass8() {
         System.out.println("checkPass");
         String pass = "@$";
-        LoginController instance = new LoginController();
+        LoginValidator instance = new LoginValidator();
         boolean expResult = false;
         boolean result = instance.checkPass(pass);
         assertEquals(expResult, result);
@@ -281,7 +281,7 @@ public class LoginControllerTest {
          public void testCheckPass9() {
         System.out.println("checkPass");
         String pass = "!@$";
-        LoginController instance = new LoginController();
+        LoginValidator instance = new LoginValidator();
         boolean expResult = true;
         boolean result = instance.checkPass(pass);
         assertEquals(expResult, result);
@@ -291,7 +291,7 @@ public class LoginControllerTest {
          public void testCheckPass10() {
         System.out.println("checkPass");
         String pass = "qwertyt@$dfsjgafdsgnadnfgiaudfngpiuadnfhstfhs";
-        LoginController instance = new LoginController();
+        LoginValidator instance = new LoginValidator();
         boolean expResult = false;
         boolean result = instance.checkPass(pass);
         assertEquals(expResult, result);
@@ -306,7 +306,7 @@ public class LoginControllerTest {
         System.out.println("checkValues");
         String username = "stef";
         String pass = "stef";
-        LoginController instance = new LoginController();
+        LoginValidator instance = new LoginValidator();
         boolean expResult = true;
         boolean result = instance.checkValues(username, pass);
         assertEquals(expResult, result);
@@ -317,7 +317,7 @@ public class LoginControllerTest {
         System.out.println("checkValues");
         String username = "asdf";
         String pass = "asdfasdasdasd";
-        LoginController instance = new LoginController();
+        LoginValidator instance = new LoginValidator();
         boolean expResult = false;
         boolean result = instance.checkValues(username, pass);
         assertEquals(expResult, result);
@@ -328,7 +328,7 @@ public class LoginControllerTest {
         System.out.println("checkValues");
         String username = "victoras";
         String pass = "1234567789";
-        LoginController instance = new LoginController();
+        LoginValidator instance = new LoginValidator();
         boolean expResult = false;
         boolean result = instance.checkValues(username, pass);
         assertEquals(expResult, result);

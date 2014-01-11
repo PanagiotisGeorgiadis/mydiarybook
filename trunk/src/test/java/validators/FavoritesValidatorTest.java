@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package controller;
+package validators;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -17,9 +17,9 @@ import static org.junit.Assert.*;
  *
  * @author user
  */
-public class FavoritesControllerTest {
+public class FavoritesValidatorTest {
     
-    public FavoritesControllerTest() {
+    public FavoritesValidatorTest() {
     }
     
     @BeforeClass
@@ -45,7 +45,7 @@ public class FavoritesControllerTest {
     public void testChecklink() {
         System.out.println("checklink");
         String link = " ";
-        FavoritesController instance = new FavoritesController();
+        FavoritesValidator instance = new FavoritesValidator();
         boolean expResult = false;
         boolean result = instance.checklink(link);
         assertEquals(expResult, result);
@@ -56,7 +56,7 @@ public class FavoritesControllerTest {
     public void testChecklink1() {
         System.out.println("checklink");
         String link = "wwwgooglecom";
-        FavoritesController instance = new FavoritesController();
+        FavoritesValidator instance = new FavoritesValidator();
         boolean expResult = false;
         boolean result = instance.checklink(link);
         assertEquals(expResult, result);
@@ -66,7 +66,7 @@ public class FavoritesControllerTest {
     public void testChecklink2() {
         System.out.println("checklink");
         String link = "google.com";
-        FavoritesController instance = new FavoritesController();
+        FavoritesValidator instance = new FavoritesValidator();
         boolean expResult = false;
         boolean result = instance.checklink(link);
         assertEquals(expResult, result);
@@ -76,7 +76,7 @@ public class FavoritesControllerTest {
     public void testChecklink3() {
         System.out.println("checklink");
         String link = "http://www.google.com";
-        FavoritesController instance = new FavoritesController();
+        FavoritesValidator instance = new FavoritesValidator();
         boolean expResult = true;
         boolean result = instance.checklink(link);
         assertEquals(expResult, result);
@@ -87,7 +87,7 @@ public class FavoritesControllerTest {
     public void testChecklink4() {
         System.out.println("checklink");
         String link = ".google.com";
-        FavoritesController instance = new FavoritesController();
+        FavoritesValidator instance = new FavoritesValidator();
         boolean expResult = false;
         boolean result = instance.checklink(link);
         assertEquals(expResult, result);
@@ -97,7 +97,7 @@ public class FavoritesControllerTest {
     public void testChecklink5() {
         System.out.println("checklink");
         String link = "!!!!!!!!!!!";
-        FavoritesController instance = new FavoritesController();
+        FavoritesValidator instance = new FavoritesValidator();
         boolean expResult = false;
         boolean result = instance.checklink(link);
         assertEquals(expResult, result);
@@ -107,7 +107,7 @@ public class FavoritesControllerTest {
     public void testChecklink6() {
         System.out.println("checklink");
         String link = "http://www google.com";
-        FavoritesController instance = new FavoritesController();
+        FavoritesValidator instance = new FavoritesValidator();
         boolean expResult = false;
         boolean result = instance.checklink(link);
         assertEquals(expResult, result);
@@ -117,7 +117,7 @@ public class FavoritesControllerTest {
     public void testChecklink7() {
         System.out.println("checklink");
         String link = "http://www.goo.gle.co.m";
-        FavoritesController instance = new FavoritesController();
+        FavoritesValidator instance = new FavoritesValidator();
         boolean expResult = false;
         boolean result = instance.checklink(link);
         assertEquals(expResult, result);
@@ -127,7 +127,7 @@ public class FavoritesControllerTest {
       public void testChecklink8() {
         System.out.println("checklink");
         String link = "http://www.goo.gle.com";
-        FavoritesController instance = new FavoritesController();
+        FavoritesValidator instance = new FavoritesValidator();
         boolean expResult = false;
         boolean result = instance.checklink(link);
         assertEquals(expResult, result);
@@ -136,7 +136,7 @@ public class FavoritesControllerTest {
        public void testChecklink9() {
         System.out.println("checklink");
         String link = "http://stackoverflow.com/";
-        FavoritesController instance = new FavoritesController();
+        FavoritesValidator instance = new FavoritesValidator();
         boolean expResult = true;
         boolean result = instance.checklink(link);
         assertEquals(expResult, result);
@@ -145,7 +145,7 @@ public class FavoritesControllerTest {
             public void testChecklink10() {
         System.out.println("checklink");
         String link = "ftp://ftp.teiser.gr/";
-        FavoritesController instance = new FavoritesController();
+        FavoritesValidator instance = new FavoritesValidator();
         boolean expResult = true;
         boolean result = instance.checklink(link);
         assertEquals(expResult, result);
@@ -159,7 +159,7 @@ public class FavoritesControllerTest {
         System.out.println("checkValues");
         String link = "http://www.paok.gr";
         boolean expResult = true;
-        boolean result = FavoritesController.checkValues(link);
+        boolean result = FavoritesValidator.checkValues(link);
         assertEquals(expResult, result);
        
     }

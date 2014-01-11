@@ -6,17 +6,17 @@
 
 package controller;
 
+import validators.RegisterValidator;
+
 /**
  *
- * @author Stef
+ * @author w7user
  */
-public class CheckFavoritesController {
-    public boolean checklink(String link)
+public class Q2Controller {
+             public boolean checkQ2(String Q2)
     {
-        FavoritesController linkController= new FavoritesController();
-        
-        return  linkController.checklink(link);
+        RegisterValidator q2Controller = new RegisterValidator();
+        return q2Controller.checkPassword(Q2);
     }
-    
     
 }
