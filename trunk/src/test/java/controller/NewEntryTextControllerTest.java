@@ -116,31 +116,4 @@ public class NewEntryTextControllerTest {
         assertEquals(expResult, result);
     }
     
-    @Test
-    public void testCreateTextFile6() {
-        System.out.println("createFile with invalid file name");
-        String entryTitle = ":::::::::::";
-        String userText = "eeeeeeeeeeeeeeeeeeeeeeqweqwqqqqeeeeeeeeeeeeeee";
-        
-        NewEntryTextController instance = new NewEntryTextController();
-        boolean expResult = false;
-        boolean result = instance.createTextFile(entryTitle, userText);
-        assertEquals(expResult, result);
-    }
-
-
-    /**
-     * Test of returnTextFile method, of class NewEntryTextController.
-     */
-    //TODO Tests for return text file
-//    @Test
-//    public void testReturnTextFile() {
-//        System.out.println("returnTextFile");
-//        String entryTitle = "";
-//        NewEntryTextController instance = new NewEntryTextController();
-//        String expResult = "";
-//        String result = instance.returnTextFile(entryTitle);
-//        assertEquals(expResult, result);
-//    }
-    
 }
