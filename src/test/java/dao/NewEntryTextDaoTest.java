@@ -129,17 +129,6 @@ public class NewEntryTextDaoTest {
         assertEquals(expResult, result);
     }
     
-    @Test
-    public void testCreateTextFile6() {
-        System.out.println("createTextFile with non-valid entryTitle and valid userText");
-        String entryTitle = ":::::qweqwe::::";
-        String userText = "qweqweqwqewqqeqeqwq";
-        NewEntryTextDao instance = new NewEntryTextDao();
-        boolean expResult = false;
-        boolean result = instance.createTextFile(entryTitle, userText);
-        assertEquals(expResult, result);
-    }
-    
     /**
      * Test of returnTextFromTextFile method, of class NewEntryTextDao.
      */
