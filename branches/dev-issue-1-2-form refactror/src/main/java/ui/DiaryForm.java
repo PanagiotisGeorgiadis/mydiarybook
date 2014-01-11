@@ -42,6 +42,7 @@ public class DiaryForm extends javax.swing.JFrame {
         resetpass = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Diary Form");
 
         jTextField1.setText("Enter New Entry");
 
