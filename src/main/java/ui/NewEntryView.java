@@ -436,7 +436,7 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
         NewEntryVideoController videoController = new NewEntryVideoController();
         NewEntryImageController imageController = new NewEntryImageController();
         NewEntryTextController textController = new NewEntryTextController();
-        NewEntryDeleteController deleteController = new NewEntryDeleteController();   
+        NewEntryDeleteController deleteController = new NewEntryDeleteController(); 
         if(!textArea.getText().equals("") || imageNumber!=0 || mediaPlayer2!=null)
             if(titleField.getBackground() == Color.orange)
             {
@@ -446,7 +446,6 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
                     deleteController.deleteDirectory(titleField.getText());
                     titleField.setBackground(Color.green);
                     this.submitButtonActionPerformed(evt);
-                    this.dispose();
                 }
                 else
                 {
@@ -459,7 +458,7 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
             else
             {
                 textController.createTextFile(titleField.getText(), textArea.getText());
-                if(imageNumber!=0)
+                if(imageNumber>0)
                     for(int i=0;i<imageNumber;i++)  
                         imageController.copyImage(titleField.getText(), imageFiles[i].toString());
                 if(videoPath != null)

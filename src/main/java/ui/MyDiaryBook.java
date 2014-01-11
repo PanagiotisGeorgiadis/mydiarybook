@@ -30,7 +30,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
+import model.DefaultPath;
 import model.Entry;
+import model.Login;
 import model.PersonalGoalModel;
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 import validators.AnnouncementValidator;
@@ -52,7 +54,7 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
     private Entry entry;
     private File video;
     private String pauseOrPlay = "Pause";
-    private PersonalGoalModel personalGoal;
+    private PersonalGoalModel personalGoalModel;
     /**
      * Creates new form MyDiaryBook
      */
@@ -67,7 +69,7 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         loadImageButton.setVisible(false);
         loadAlbumButton.setVisible(false);
         imageListScrollPane.setVisible(false);
-        welcomeLabel.setText("Welcome, " + model.Login.getUsername());
+        welcomeLabel.setText("Welcome, " + Login.getUsername());
         saveEditButton.setVisible(false);
         cancelEditButton.setVisible(false);
         playVideoButton.setVisible(false);
@@ -81,6 +83,7 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         this.setExtendedState(JFrame.NORMAL);
         loadListOfPersonalGoal();
         this.setLocationRelativeTo(null);
+        JOptionPane.showMessageDialog(this, DefaultPath.getDefaultPath());
     }
     
     /** Displays the new Image Specified in 2 different modes: 
@@ -171,8 +174,8 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
     public void loadImageList()
     {
         DefaultListModel listModel = new DefaultListModel();
-      //  try
-      //  {
+//        try
+//        {
         if(entry.getImageList()!=null)
         {
             String[] imageNames = entry.getImageList(); //controller.getImageList(entriesList.getSelectedValue().toString());
@@ -183,7 +186,7 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
             imagesList.setModel(listModel);
             loadAlbumButton.setVisible(true);
         }
-        //catch(NullPointerException ex)
+//        catch(NullPointerException ex)
         else
         {
             listModel.clear();
@@ -257,7 +260,7 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
     {
         if(entry.getEntryVideo()!= null)
         {
-            video =  entry.getEntryVideo();
+            video = entry.getEntryVideo();
             mediaPlayer2 = new EmbeddedMediaPlayerComponent(); 
             playVideoButton.setVisible(true);
         }
@@ -315,38 +318,38 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
      
      public void loadPersonalGoalTitle()
     {
-        String text = personalGoal.getPersonalGoalTitle();
+        String text = personalGoalModel.getPersonalGoalTitle();
         if(!text.equals(""))
-            entryTextArea.setText(personalGoal.getPersonalGoalTitle());
+            entryTextArea.setText(personalGoalModel.getPersonalGoalTitle());
         
     }
        public void loadPersonalGoalLocation()
     {
-        String textLocation = personalGoal.getPersonalGoalLocation();
+        String textLocation = personalGoalModel.getPersonalGoalLocation();
         if(!textLocation.equals(""))
-            locationTextField.setText(personalGoal.getPersonalGoalLocation());
+            locationTextField.setText(personalGoalModel.getPersonalGoalLocation());
         
     }
        public void loadPersonalGoalWithPerson()
     {
-        String textWithPerson = personalGoal.getPersonalGoalWithPerson();
+        String textWithPerson = personalGoalModel.getPersonalGoalWithPerson();
         if(!textWithPerson.equals(""))
-            withPersonTextField.setText(personalGoal.getPersonalGoalLocation());
+            withPersonTextField.setText(personalGoalModel.getPersonalGoalLocation());
         
     }
          public void loadPersonalGoalwhenDate()
     {
-        String textWithPerson = personalGoal.getPersonalGoalWithPerson();
+        String textWithPerson = personalGoalModel.getPersonalGoalWithPerson();
         if(!textWithPerson.equals(""))
-            withPersonTextField.setText(personalGoal.getPersonalGoalLocation());
+            withPersonTextField.setText(personalGoalModel.getPersonalGoalLocation());
         
     }
        
        public void loadPersonalGoalAnnouncement()
     {
-        String textAnnouncement = personalGoal.getPersonalGoalAnnouncement();
+        String textAnnouncement = personalGoalModel.getPersonalGoalAnnouncement();
         if(!textAnnouncement.equals(""))
-            announcementEditorPane.setText(personalGoal.getPersonalGoalAnnouncement());
+            announcementEditorPane.setText(personalGoalModel.getPersonalGoalAnnouncement());
         
     }
        
@@ -1003,9 +1006,9 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
     }//GEN-LAST:event_loadAlbumButtonActionPerformed
 
     private void newEntryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newEntryActionPerformed
-        NewEntryView newEntry = new NewEntryView();
-        newEntry.setVisible(true);
-        newEntry.setCallerForm(this);
+        NewEntryView theView = new NewEntryView();
+        theView.setVisible(true);
+        theView.setCallerForm(this);
     }//GEN-LAST:event_newEntryActionPerformed
 
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
@@ -1072,7 +1075,7 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
 
         MyDiaryBookController controller = new MyDiaryBookController();
 
-        personalGoal = controller.getPersonalGoal(personalGoalList.getSelectedValue().toString());
+        personalGoalModel = controller.getPersonalGoal(personalGoalList.getSelectedValue().toString());
         try{
             titleTextField.setText(personalGoalList.getSelectedValue().toString());
 

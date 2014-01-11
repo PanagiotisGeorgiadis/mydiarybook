@@ -5,7 +5,6 @@
  */
 package ui;
 
-import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.String;
 import controller.PersonalGoalController;
 import controller.PersonalGoalImageController;
 import controller.PersonalGoalTextController;
@@ -24,8 +23,6 @@ import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileFilter;
-import static ui.NewEntryView.imageNumber;
 import validators.LocationValidator;
 import validators.TitleValidator;
 import validators.WhenDateValidator;
