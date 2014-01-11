@@ -8,7 +8,7 @@ package controller;
 
 import dao.NewEntryImageDao;
 import java.net.URI;
-import model.IEntry;
+import java.util.List;
 
 /**
  *
@@ -16,10 +16,10 @@ import model.IEntry;
  */
 public class DeleteImageController {
     private NewEntryImageDao imageDao = new NewEntryImageDao();
-    private IEntry entry;
+   // private IEntry entry;
 
-    public DeleteImageController(IEntry entry) {
-               this.entry = entry;
+    public DeleteImageController(){//IEntry entry) {
+//               this.entry = entry;
     }
     
     /*
@@ -30,19 +30,22 @@ public class DeleteImageController {
     }
     */
     
-    public boolean deleteAElementFromImageList ( String imageName) throws NullPointerException{
-        boolean success = false;            
-          //  String[] imageNames = entry.getImageList();
-        for(URI imageURI : entry.getEntryImages()){
-                     String image = imageURI.getPath();
-                     if(image.contains(imageName)){
-                    System.out.println("To Path einai: " + image);
-                    success = imageDao.prepareForDeleteFromList( image);
-                      }else continue;
-                     break;
-        }
-            System.out.println(success);
-            return success;
+    public boolean deleteAElementFromImageList (  String entryTitle, String imageName) throws NullPointerException{
+//        boolean success = false;            
+//          //  String[] imageNames = entry.getImageList();
+//        //for(URI imageURI : entry.getEntryImages()){
+//        for(URI imageURI : imageList){
+//                     String image = imageURI.getPath();
+//                     if(image.contains(imageName)){
+//                    System.out.println("To Path einai: " + imageURI);
+                            return imageDao.prepareForDeleteFromList( entryTitle, imageName);
+
+//                    success = imageDao.prepareForDeleteFromList( image);
+//                      }else continue;
+//                     break;
+//        }
+//            System.out.println(success);
+//            return success;
     }
     
     

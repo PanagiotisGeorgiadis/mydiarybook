@@ -37,22 +37,24 @@ public class DeleteImageControllerTest {
     INewEntryMockDefaultPath rootPathMock = mock(INewEntryMockDefaultPath.class);
     List<URI> pathListURI = new ArrayList();
     URI pathURI;
-    Path path = Paths.get(System.getProperty("user.dir") + File.separator + "MyDiaryBook" + File.separator + "Users" + File.separator + "John" + File.separator + "Entries" + File.separator
+    Path path = Paths.get(System.getProperty("user.dir") + File.separator + "MyDiaryBook" + File.separator + "Users" + File.separator + "Panagiwtis Georgiadis" + File.separator + "Entries" + File.separator
             + "Allo_ena_test" + File.separator + "Images" + File.separator + "image.txt");
     String image = "image.txt";
+    String entryTitle = "Allo_ena_test";
+    String imageEntry = path.toString() + image;
 
-    
+      
     public DeleteImageControllerTest() throws URISyntaxException {
        
         pathListURI.add(path.toUri());
         when(mockEntry.getEntryImages()).thenReturn(pathListURI);
-        
+               
     }
 
     @BeforeClass
     public static void setUpClass() throws IOException {
 
-        String home = System.getProperty("user.dir") + File.separator + "MyDiaryBook" + File.separator + "Users" + File.separator + "John" + File.separator + "Entries" + File.separator
+        String home = System.getProperty("user.dir") + File.separator + "MyDiaryBook" + File.separator + "Users" + File.separator + "Panagiwtis Georgiadis" + File.separator + "Entries" + File.separator
                 + "Allo_ena_test" + File.separator + "Images";
 
         File homeFile = new File(home);
@@ -77,7 +79,7 @@ public class DeleteImageControllerTest {
     @Before
     public void setUp() throws IOException {
 
-        String home = System.getProperty("user.dir") + File.separator + "MyDiaryBook" + File.separator + "Users" + File.separator + "John" + File.separator + "Entries" + File.separator
+        String home = System.getProperty("user.dir") + File.separator + "MyDiaryBook" + File.separator + "Users" + File.separator + "Panagiwtis Georgiadis" + File.separator + "Entries" + File.separator
                 + "Allo_ena_test" + File.separator + "Images";
 
         File homeFile = new File(home);
@@ -109,9 +111,9 @@ public class DeleteImageControllerTest {
         System.out.println("deleteAElementFromImageList");
      //   when(mockEntry.getEntryImages()).thenReturn(pathListURI);
         String imageName = image;
-        DeleteImageController instance = new DeleteImageController(mockEntry);
+        DeleteImageController instance = new DeleteImageController();//mockEntry);s
         boolean expResult = true;
-        boolean result = instance.deleteAElementFromImageList(imageName);
+        boolean result = instance.deleteAElementFromImageList(entryTitle, imageName);
         assertEquals(expResult, result);
 
     }
@@ -121,9 +123,9 @@ public class DeleteImageControllerTest {
         System.out.println("FailureDeleteAElementFromImageList");
         when(mockEntry.getEntryImages()).thenReturn(pathListURI);
         String imageName = "fail";
-        DeleteImageController instance = new DeleteImageController(mockEntry);
+        DeleteImageController instance = new DeleteImageController();//mockEntry);
         boolean expResult = false;
-        boolean result = instance.deleteAElementFromImageList(imageName);
+        boolean result = instance.deleteAElementFromImageList(entryTitle,imageName);
         assertEquals(expResult, result);
 
     }
@@ -135,7 +137,7 @@ public class DeleteImageControllerTest {
     public void testFailDeleteImageAlbum() {
         System.out.println("FailureDeleteImageAlbum");
         String imagePath = "fail";
-        DeleteImageController instance = new DeleteImageController(mockEntry);
+        DeleteImageController instance = new DeleteImageController();//mockEntry);
         boolean expResult = false;
         boolean result = instance.deleteImageAlbum(imagePath);
  
@@ -145,8 +147,8 @@ public class DeleteImageControllerTest {
     @Test
     public void testDeleteImageAlbum() {
         System.out.println("deleteImageAlbum");
-        String imagePath = image;
-        DeleteImageController instance = new DeleteImageController(mockEntry);
+        String imagePath = imageEntry;
+        DeleteImageController instance = new DeleteImageController();//mockEntry);
         boolean expResult = true;
         boolean result = instance.deleteImageAlbum(imagePath);
     }
@@ -157,7 +159,7 @@ public class DeleteImageControllerTest {
     @Test
     public void testShowNoFileFound() {
         System.out.println("showNoFileFound");
-        DeleteImageController instance = new DeleteImageController(mockEntry);
+        DeleteImageController instance = new DeleteImageController();//mockEntry);
         String expResult = "There is not such a file";
         String result = instance.showNoFileFound();
         assertEquals(expResult, result);
@@ -170,7 +172,7 @@ public class DeleteImageControllerTest {
     @Test
     public void testShowError() {
         System.out.println("showError");
-        DeleteImageController instance = new DeleteImageController(mockEntry);
+        DeleteImageController instance = new DeleteImageController();//mockEntry);
         String expResult = "There was  a undefinied error";
         String result = instance.showError();
         assertEquals(expResult, result);
@@ -183,7 +185,7 @@ public class DeleteImageControllerTest {
     @Test
     public void testShowSuccess() {
         System.out.println("showSuccess");
-        DeleteImageController instance = new DeleteImageController(mockEntry);
+        DeleteImageController instance = new DeleteImageController();//mockEntry);
         String expResult = "Successful Erase";
         String result = instance.showSuccess();
         assertEquals(expResult, result);

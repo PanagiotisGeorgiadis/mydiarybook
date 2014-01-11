@@ -116,9 +116,18 @@ public class NewEntryImageDao {
      * @throws NullPointerException
      */
   
-  public boolean prepareForDeleteFromList( String imagePath){
-     
-      File file = new File(imagePath);
+  public boolean prepareForDeleteFromList( String entrytitle, String imageName){
+      List<URI> imagePath = getImageFiles(entrytitle);
+      String image = "";
+      for(URI imageURI : imagePath){
+                     image = imageURI.toString();
+                     if(image.contains(imageName)){
+                    System.out.println("To Path einai: " + image);
+                    image = imageURI.getPath();
+                      }else continue;
+                     break;
+      }
+      File file = new File(image);
       System.out.println(file);
       
 //      if(file.exists()){

@@ -319,6 +319,7 @@ public class FilesDao {
                         for(String childFile : subFile){
                         delete(new File(fileText, childFile));
                         fileText.delete();
+                        fileText.delete();
                         }
                     }
                     else

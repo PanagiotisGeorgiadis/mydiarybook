@@ -20,9 +20,9 @@ public class DeleteTextController {
     }
    
     
-    public boolean deleteAElementFromTextList(String textPath, String textName) throws NullPointerException{
+    public boolean deleteAElementFromTextList( String textName) throws NullPointerException{
         
-            return textDao.prepareForDeleteFromList(textPath, textName);
+            return textDao.prepareForDeleteFromList( textName);
         
     }
     

@@ -703,18 +703,20 @@ public class MyDiaryBook extends javax.swing.JFrame {
      
         MyDiaryBookController controller = new MyDiaryBookController();
         Entry entry = controller.getEntry(entriesList.getSelectedValue().toString());   
-        DeleteImageController imageDelete = new DeleteImageController(entry);
+        DeleteImageController imageDelete = new DeleteImageController();
         int dialog = JOptionPane.showConfirmDialog(this, "Are You sure for this delete?", "Confirm Message",JOptionPane.OK_CANCEL_OPTION);
         if (imageMode == "Single") {
 
             
             if(dialog == JOptionPane.YES_OPTION){
               try {
-
                         
-                        imageDelete.deleteAElementFromImageList( imagesList.getSelectedValue().toString());
+                        imageDelete.deleteAElementFromImageList(entryTitleField.getText(),  imagesList.getSelectedValue().toString());
                         entriesListValueChanged(null); // tha mpei to idio gia to textlistdelete
                        loadImageButtonActionPerformed(evt);
+                       
+                       if(imagesList == null)
+                       imageDelete.deleteImageAlbum(entry.getEntryImage());
                         
 //                  }
 //                     break;
@@ -750,8 +752,7 @@ public class MyDiaryBook extends javax.swing.JFrame {
             }
 
         }
-        if(imagesList.isSelectionEmpty())
-            imageDelete.deleteImageAlbum(entry.getEntryImage());
+  
         
             
     }//GEN-LAST:event_deleteImageButtonActionPerformed
@@ -767,7 +768,7 @@ public class MyDiaryBook extends javax.swing.JFrame {
         
         try {                                        
                         
-                        textDelete.deleteAElementFromTextList(entry.getEntryTitle(), entriesList.getSelectedValue().toString());
+                        textDelete.deleteAElementFromTextList( entriesList.getSelectedValue().toString());
                         entriesListValueChanged(null);
                         JOptionPane.showConfirmDialog(this, textDelete.showSuccess(), "Success", JOptionPane.CANCEL_OPTION);
                         // Prepei na ginei to listModel private wste na mporw na to xrisimopoihsw

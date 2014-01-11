@@ -22,11 +22,11 @@ import static org.junit.Assert.*;
  */
 public class DeleteTextControllerTest {
     
-    String rightTextPath = System.getProperty("user.dir") + File.separator + "MyDiaryBook" + File.separator + "Users" + File.separator + "John" + File.separator + "Entries" + File.separator
+    String rightTextPath = System.getProperty("user.dir") + File.separator + "MyDiaryBook" + File.separator + "Users" + File.separator + "Panagiwtis Georgiadis" + File.separator + "Entries" + File.separator
             + "Allo_ena_test" + File.separator + "Texts";
-    String failTextPath =System.getProperty("user.dir") + File.separator + "MyDiaryBook" + File.separator + "Users" + File.separator + "John" + File.separator + "Entries" + File.separator
+    String failTextPath =System.getProperty("user.dir") + File.separator + "MyDiaryBook" + File.separator + "Users" + File.separator + "Panagiwtis Georgiadis" + File.separator + "Entries" + File.separator
             + "Fail_Test" + File.separator + "Texts" + File.separator +File.separator ;
-    String rightTextName = "text";
+    String rightTextName = "Allo_ena_test";
     String failTextName = "fail";
     
     public DeleteTextControllerTest() {
@@ -34,13 +34,13 @@ public class DeleteTextControllerTest {
     
     @BeforeClass
     public static void setUpClass() {
-        String home = System.getProperty("user.dir") + File.separator + "MyDiaryBook" + File.separator + "Users" + File.separator + "John" + File.separator + "Entries" + File.separator
+        String home = System.getProperty("user.dir") + File.separator + "MyDiaryBook" + File.separator + "Users" + File.separator + "Panagiwtis Georgiadis" + File.separator + "Entries" + File.separator
                 + "Allo_ena_test" + File.separator + "Texts";
 
         File homeFile = new File(home);
         homeFile.mkdirs();
 
-        String pathChoice = home + File.separator + "text.txt";
+        String pathChoice = home + File.separator + "Allo_ena_test.txt";
         File fileChoice = new File(pathChoice);
     }
     
@@ -58,13 +58,13 @@ public class DeleteTextControllerTest {
     
     @Before
     public void setUp() throws IOException {
-        String home = System.getProperty("user.dir") + File.separator + "MyDiaryBook" + File.separator + "Users" + File.separator + "John" + File.separator + "Entries" + File.separator
+        String home = System.getProperty("user.dir") + File.separator + "MyDiaryBook" + File.separator + "Users" + File.separator + "Panagiwtis Georgiadis" + File.separator + "Entries" + File.separator
                 + "Allo_ena_test" + File.separator + "Texts";
 
         File homeFile = new File(home);
         homeFile.mkdirs();
 
-        String pathChoice = home + File.separator + "text.txt";
+        String pathChoice = home + File.separator + "Allo_ena_test.txt";
         File fileChoice = new File(pathChoice);
         fileChoice.createNewFile();
       
@@ -85,25 +85,26 @@ public class DeleteTextControllerTest {
     /**
      * Test of deleteAElementFromTextList method, of class DeleteTextController.
      */
+    //GIA NA TRE3EI SWSTA TO TEST EPREPE NA ALLA3W THN SYNARTHSH returnTextFile(String entryTitle)
     @Test
     public void testDeleteAElementFromTextList() {
         System.out.println("deleteAElementFromTextList");
-        String textPath = rightTextPath;
+        //String textPath = rightTextPath;
         String textName = rightTextName;
         DeleteTextController instance = new DeleteTextController();
         boolean expResult = true;
-        boolean result = instance.deleteAElementFromTextList(textPath, textName);
+        boolean result = instance.deleteAElementFromTextList( textName);
         assertEquals(expResult, result);
        
     }
     @Test
     public void testFailDeleteAElementFromTextList() {
         System.out.println("FailureDeleteAElementFromTextList");
-        String textPath = rightTextPath;
+        //String textPath = rightTextPath;
         String textName = failTextName;
         DeleteTextController instance = new DeleteTextController();
         boolean expResult = false;
-        boolean result = instance.deleteAElementFromTextList(textPath, textName);
+        boolean result = instance.deleteAElementFromTextList( textName);
         assertEquals(expResult, result);
        
     }
