@@ -11,6 +11,7 @@ import controller.CheckValidPassword;
 import validators.RegisterValidator;
 import dao.RegisterFormDao;
 import javax.swing.JOptionPane;
+import model.Login;
 
 
 
@@ -65,7 +66,8 @@ public class RegisterForm extends javax.swing.JFrame {
        SubmitAccountButton.setName("SubmitAccountButton");
        CancelButton.setName("CancelButton");
        msg.setVisible(false);
-      
+       this.setLocationRelativeTo(null);
+ 
     }
 
     @SuppressWarnings("unchecked")
@@ -98,7 +100,7 @@ public class RegisterForm extends javax.swing.JFrame {
         q2msg = new javax.swing.JLabel();
         msg = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("UserName");
 
@@ -349,8 +351,6 @@ public class RegisterForm extends javax.swing.JFrame {
 
     private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelButtonActionPerformed
              this.dispose();
-              LoginForm regFace = new LoginForm();
-                regFace.setVisible(true);
     }//GEN-LAST:event_CancelButtonActionPerformed
 
     private void cndMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cndMouseClicked
@@ -374,8 +374,6 @@ public class RegisterForm extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Congratulations, \n Your Account Has Been Created!");
 
                 dispose();
-                LoginForm regFace = new LoginForm();
-                regFace.setVisible(true);
             }
 
         }

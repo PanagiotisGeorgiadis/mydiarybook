@@ -182,6 +182,7 @@ public class ChangePassword extends javax.swing.JFrame {
                 String newpass = password.getText();
                 JOptionPane.showMessageDialog(null, "Password Successfully Changed To " + newpass);
                 dao.updatePass(username.getText(),repeatpassword.getText());
+                dispose();
                 
                 
             } else {

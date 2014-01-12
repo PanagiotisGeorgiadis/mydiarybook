@@ -36,6 +36,7 @@ public class ViewFavorites extends javax.swing.JFrame {
           confirm.setEnabled(false);
           msg.setText("No Links Added Yet!");
       }
+      this.setLocationRelativeTo(null);
     }
 
     /**
@@ -55,7 +56,7 @@ public class ViewFavorites extends javax.swing.JFrame {
         confirm = new javax.swing.JCheckBox();
         msg = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         links.setColumns(20);
         links.setRows(5);

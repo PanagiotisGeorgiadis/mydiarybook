@@ -301,38 +301,38 @@ public class LoginValidatorTest {
     /**
      * Test of checkValues method, of class LoginController.
      */
-    @Test
-    public void testCheckValues() {
-        System.out.println("checkValues");
-        String username = "stef";
-        String pass = "stef";
-        LoginValidator instance = new LoginValidator();
-        boolean expResult = true;
-        boolean result = instance.checkValues(username, pass);
-        assertEquals(expResult, result);
-   
-    }
-        @Test
-    public void testCheckValues1() {
-        System.out.println("checkValues");
-        String username = "asdf";
-        String pass = "asdfasdasdasd";
-        LoginValidator instance = new LoginValidator();
-        boolean expResult = false;
-        boolean result = instance.checkValues(username, pass);
-        assertEquals(expResult, result);
-   
-    }
-        @Test
-    public void testCheckValues2() {
-        System.out.println("checkValues");
-        String username = "victoras";
-        String pass = "1234567789";
-        LoginValidator instance = new LoginValidator();
-        boolean expResult = false;
-        boolean result = instance.checkValues(username, pass);
-        assertEquals(expResult, result);
-   
-    }
+//    @Test
+//    public void testCheckValues() {
+//        System.out.println("checkValues");
+//        String username = "stef";
+//        String pass = "stef";
+//        LoginValidator instance = new LoginValidator();
+//        boolean expResult = true;
+//        boolean result = instance.checkValues(username, pass);
+//        assertEquals(expResult, result);
+//   
+//    }
+//        @Test
+//    public void testCheckValues1() {
+//        System.out.println("checkValues");
+//        String username = "asdf";
+//        String pass = "asdfasdasdasd";
+//        LoginValidator instance = new LoginValidator();
+//        boolean expResult = false;
+//        boolean result = instance.checkValues(username, pass);
+//        assertEquals(expResult, result);
+//   
+//    }
+//        @Test
+//    public void testCheckValues2() {
+//        System.out.println("checkValues");
+//        String username = "victoras";
+//        String pass = "1234567789";
+//        LoginValidator instance = new LoginValidator();
+//        boolean expResult = false;
+//        boolean result = instance.checkValues(username, pass);
+//        assertEquals(expResult, result);
+//   
+//    }
     
 }

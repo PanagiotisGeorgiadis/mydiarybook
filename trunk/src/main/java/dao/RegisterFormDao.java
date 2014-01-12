@@ -44,12 +44,11 @@ public class RegisterFormDao {
 
                 String getUsername
                         = "Select * From accounts  where username ='" + username + "'";
-                try (PreparedStatement s = c.prepareStatement(getUsername)) {
-                    ResultSet rset = s.executeQuery();
+                PreparedStatement s = c.prepareStatement(getUsername);
+                ResultSet rset = s.executeQuery();
 
-                    if (rset.next()) {
-                        ok = true;
-                    }
+                if (rset.next()) {
+                    ok = true;
                 }
 
             } catch (SQLException sqlexp) {
@@ -90,9 +89,9 @@ public class RegisterFormDao {
 
                 String registerValues
                         = "Insert Into accounts (username,password,mail,q1,q2) VALUES ('" + Username + "','" + Password + "','" + Email + "','" + Q1 + "','" + Q2 + "')";
-                try (PreparedStatement s = c.prepareStatement(registerValues)) {
-                    s.execute();
-                }
+                PreparedStatement s = c.prepareStatement(registerValues);
+                s.execute();
+                
 
             } catch (SQLException sqlexp) {
                 JOptionPane.showMessageDialog(null, "Failed to execute one of the statements." + sqlexp.getMessage());

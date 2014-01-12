@@ -18,6 +18,7 @@ public class ResetPassword extends javax.swing.JFrame {
 
     public ResetPassword() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
 
@@ -33,7 +34,7 @@ public class ResetPassword extends javax.swing.JFrame {
         question1label1 = new javax.swing.JLabel();
         close = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Reset Password");
 
         submit.setText("Reset");
@@ -135,8 +136,7 @@ public class ResetPassword extends javax.swing.JFrame {
                 clpbrd.setContents(stringSelection, null);
                 JOptionPane.showMessageDialog(null, "New Pass Is " + dao.getPass()+ " And Autocopied To Clipboard");
                 dispose();
-                LoginForm regFace = new LoginForm();
-                regFace.setVisible(true);
+
 
         }
     }//GEN-LAST:event_submitActionPerformed
@@ -144,8 +144,6 @@ public class ResetPassword extends javax.swing.JFrame {
     private void closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeActionPerformed
        
                 dispose();
-                LoginForm regFace = new LoginForm();
-                regFace.setVisible(true);
     }//GEN-LAST:event_closeActionPerformed
 
     /**

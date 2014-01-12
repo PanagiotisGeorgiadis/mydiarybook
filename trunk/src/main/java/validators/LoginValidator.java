@@ -35,16 +35,16 @@ public class LoginValidator {
         return true;
     }
 
-public boolean checkValues(String username, String pass) {
-        LoginValidator e = new LoginValidator();
-
-        if (!e.checkPass (pass)) {
-            return false;
-        }
-        if (!e.checkUsername(username))
-        {
-            return false;
-        }
-            return true;
-    } 
+//public boolean checkValues(String username, String pass) {
+//        LoginValidator e = new LoginValidator();
+//
+//        if (!e.checkPass (pass)) {
+//            return false;
+//        }
+//        if (!e.checkUsername(username))
+//        {
+//            return false;
+//        }
+//            return true;
+//    } 
 }

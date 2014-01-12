@@ -486,7 +486,7 @@ public class FilesDaoTest {
         
         File firstImageFile = new File(path+fSeparator+"testImg.jpg");
         File secondImageFile = new File(path+fSeparator+"testImg2.jpg");
-        List<URI> expResult = new ArrayList<>();
+        List<URI> expResult = new ArrayList<URI>();
         expResult.add(firstImageFile.toURI());
         expResult.add(secondImageFile.toURI());
         List<URI> result;
@@ -504,7 +504,7 @@ public class FilesDaoTest {
         String path = folder.toString()+fSeparator+"EmptyFolder";
         FilesDao instance = new FilesDao();
 
-        List<URI> expResult = new ArrayList<>();
+        List<URI> expResult = new ArrayList<URI>();
         expResult.removeAll(expResult);
         List<URI> result;
         try{

@@ -25,6 +25,7 @@ public class LoginForm extends javax.swing.JFrame {
         login.setName("login");
         exit.setName("exit");
         wrongmsg.setName("wrongmsg");
+        this.setLocationRelativeTo(null);
      
 //        usermsg.setVisible(false);
      
@@ -210,15 +211,12 @@ public class LoginForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         RegisterForm regFace = new RegisterForm();
         regFace.setVisible(true);
-        dispose();
     }//GEN-LAST:event_CreateAccountPopUpLabelMouseClicked
 
     private void ResetPasswordPopUpjLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ResetPasswordPopUpjLabelMouseClicked
         // TODO add your handling code here:
         ResetPassword regFace = new ResetPassword();
         regFace.setVisible(true);
-
-        dispose();
     }//GEN-LAST:event_ResetPasswordPopUpjLabelMouseClicked
 
     private void usernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernameFocusGained

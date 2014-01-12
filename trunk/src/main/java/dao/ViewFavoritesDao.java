@@ -103,9 +103,9 @@ public class ViewFavoritesDao {
 
                       String delete = ("Delete From favorites where username='"+username+"'");
                 
-                try (PreparedStatement s = c.prepareStatement(delete)) {
-                    s.execute();
-                }
+                PreparedStatement s = c.prepareStatement(delete);
+                s.execute();
+                
 
             } catch (SQLException sqlexp) {
                 JOptionPane.showMessageDialog(null, "Failed to execute one of the statements." + sqlexp.getMessage());
