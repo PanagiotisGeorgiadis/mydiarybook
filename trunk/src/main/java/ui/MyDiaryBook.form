@@ -71,29 +71,22 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Important Momments"/>
           </Properties>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="searchMenu">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Search.."/>
-          </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JRadioButtonMenuItem" name="entriesByNameRadioButton">
+            <MenuItem class="javax.swing.JMenuItem" name="newImportantMoment">
               <Properties>
-                <Property name="selected" type="boolean" value="true"/>
-                <Property name="text" type="java.lang.String" value="Entries By Name"/>
+                <Property name="text" type="java.lang.String" value="New Important Momment"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="newImportantMomentActionPerformed"/>
+              </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JRadioButtonMenuItem" name="entriesByDateRadioButton">
+            <MenuItem class="javax.swing.JMenuItem" name="deleteImportantMoment">
               <Properties>
-                <Property name="selected" type="boolean" value="true"/>
-                <Property name="text" type="java.lang.String" value="Entries By Date"/>
+                <Property name="text" type="java.lang.String" value="Delete Important Momment"/>
               </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JRadioButtonMenuItem" name="personalGoalsRadioButton">
-              <Properties>
-                <Property name="selected" type="boolean" value="true"/>
-                <Property name="text" type="java.lang.String" value="Personal Goals"/>
-              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteImportantMomentActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

@@ -6,17 +6,11 @@
 
 package ui;
 import java.sql.*;
-import java.sql.Connection;  
-import java.sql.DriverManager;  
-import java.sql.ResultSet;  
-import java.sql.Statement; 
 import javax.swing.JOptionPane;
 import java.sql.Connection;  
 import java.sql.DriverManager;  
 import java.sql.ResultSet;  
 import java.sql.Statement; 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -159,19 +153,17 @@ public class DeleteImportantMomentsForm extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
    
         try {
-Class.forName("com.mysql.jdbc.Driver");
-Connection con= (Connection)  DriverManager.getConnection("jdbc:mysql://89.163.172.10/tl","tl","tl");
-Statement stmt=con.createStatement();
-String num  = (String) comboBox1.getSelectedItem();
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://89.163.172.10/tl", "tl", "tl");
+            Statement stmt = con.createStatement();
+            String num = (String) comboBox1.getSelectedItem();
 
-String sql2 = "Delete from moments where Title = '"+(num)+"'";
-stmt.executeUpdate(sql2);
-JOptionPane.showConfirmDialog(this,"Are you sure you want to delete this entry?","Confirmation", JOptionPane.WARNING_MESSAGE
-                , JOptionPane.OK_CANCEL_OPTION);
-}
-catch(Exception e) {
-JOptionPane.showMessageDialog(this, e.getMessage());
-}
+            String sql2 = "Delete from moments where Title = '" + (num) + "'";
+            stmt.executeUpdate(sql2);
+            JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this entry?", "Confirmation", JOptionPane.WARNING_MESSAGE, JOptionPane.OK_CANCEL_OPTION);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
            
        
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -184,7 +176,7 @@ JOptionPane.showMessageDialog(this, e.getMessage());
     }//GEN-LAST:event_comboBox1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-            System.exit(0);        // TODO add your handling code here:
+            dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

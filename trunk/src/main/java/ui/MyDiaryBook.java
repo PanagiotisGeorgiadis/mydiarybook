@@ -441,10 +441,8 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         newFavorites = new javax.swing.JMenuItem();
         viewFavorites = new javax.swing.JMenuItem();
         importantMommentsMenu = new javax.swing.JMenu();
-        searchMenu = new javax.swing.JMenu();
-        entriesByNameRadioButton = new javax.swing.JRadioButtonMenuItem();
-        entriesByDateRadioButton = new javax.swing.JRadioButtonMenuItem();
-        personalGoalsRadioButton = new javax.swing.JRadioButtonMenuItem();
+        newImportantMoment = new javax.swing.JMenuItem();
+        deleteImportantMoment = new javax.swing.JMenuItem();
         changePassword = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -879,23 +877,24 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         myDiaryBookMenu.add(favoritesMenu);
 
         importantMommentsMenu.setText("Important Momments");
+
+        newImportantMoment.setText("New Important Momment");
+        newImportantMoment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newImportantMomentActionPerformed(evt);
+            }
+        });
+        importantMommentsMenu.add(newImportantMoment);
+
+        deleteImportantMoment.setText("Delete Important Momment");
+        deleteImportantMoment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteImportantMomentActionPerformed(evt);
+            }
+        });
+        importantMommentsMenu.add(deleteImportantMoment);
+
         myDiaryBookMenu.add(importantMommentsMenu);
-
-        searchMenu.setText("Search..");
-
-        entriesByNameRadioButton.setSelected(true);
-        entriesByNameRadioButton.setText("Entries By Name");
-        searchMenu.add(entriesByNameRadioButton);
-
-        entriesByDateRadioButton.setSelected(true);
-        entriesByDateRadioButton.setText("Entries By Date");
-        searchMenu.add(entriesByDateRadioButton);
-
-        personalGoalsRadioButton.setSelected(true);
-        personalGoalsRadioButton.setText("Personal Goals");
-        searchMenu.add(personalGoalsRadioButton);
-
-        myDiaryBookMenu.add(searchMenu);
 
         changePassword.setText("Change Password");
         changePassword.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1199,6 +1198,32 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         changePasswd.setVisible(true);
     }//GEN-LAST:event_changePasswordMouseClicked
 
+    private void newImportantMomentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newImportantMomentActionPerformed
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        momentsframe theView = new momentsframe();
+
+        theView.setDefaultLookAndFeelDecorated(true);
+        theView.setLocationRelativeTo(null);
+        theView.setVisible(true);
+    }//GEN-LAST:event_newImportantMomentActionPerformed
+
+    private void deleteImportantMomentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteImportantMomentActionPerformed
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        DeleteImportantMomentsForm theView = new DeleteImportantMomentsForm();
+
+        theView.setDefaultLookAndFeelDecorated(true);
+        theView.setLocationRelativeTo(null);
+        theView.setVisible(true);
+    }//GEN-LAST:event_deleteImportantMomentActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1243,11 +1268,10 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
     private javax.swing.JButton cancelPersonalGoalButton;
     private javax.swing.JMenu changePassword;
     private javax.swing.JTextField checkFieldTextField;
+    private javax.swing.JMenuItem deleteImportantMoment;
     private javax.swing.JMenuItem deleteSelectedEntry;
     private javax.swing.JTabbedPane displayEntryPane;
     private javax.swing.JMenuItem editEntry;
-    private javax.swing.JRadioButtonMenuItem entriesByDateRadioButton;
-    private javax.swing.JRadioButtonMenuItem entriesByNameRadioButton;
     private javax.swing.JList entriesList;
     private javax.swing.JScrollPane entriesListScrollPane;
     private javax.swing.JLabel entryDateLabel;
@@ -1274,6 +1298,7 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
     private javax.swing.JMenuBar myDiaryBookMenu;
     private javax.swing.JMenuItem newEntry;
     private javax.swing.JMenuItem newFavorites;
+    private javax.swing.JMenuItem newImportantMoment;
     private javax.swing.JMenuItem newPersonalGoal;
     private javax.swing.JButton pauseOrPlayVideoButton;
     private javax.swing.JLabel personalGoalLabel;
@@ -1281,11 +1306,9 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
     private javax.swing.JScrollPane personalGoalListScrollPane;
     private javax.swing.JMenu personalGoalMenu;
     private javax.swing.JPanel personalGoalPanel;
-    private javax.swing.JRadioButtonMenuItem personalGoalsRadioButton;
     private javax.swing.JButton playVideoButton;
     private javax.swing.JButton saveEditButton;
     private javax.swing.JButton savePersonalGoalButton;
-    private javax.swing.JMenu searchMenu;
     private javax.swing.JPanel textPanel;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JTextField titleTextField;

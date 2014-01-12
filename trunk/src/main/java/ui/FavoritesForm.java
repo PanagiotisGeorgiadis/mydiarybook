@@ -3,24 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ui;
 
 import controller.FavoritesController;
 import dao.FavoritesDao;
 import model.Login;
 
-
 /**
  *
  * @author w7user
  */
 public class FavoritesForm extends javax.swing.JFrame {
-  
-  
+
     public FavoritesForm() {
         initComponents();
         emptymsg.setVisible(false);
+        link.setName("link");
+        emptymsg.setName("emptymsg");
+        comment.setName("comment");
+        save.setName("save");
+        clear.setName("clear");
+        back.setName("back");
+        msg.setName("msg");
         this.setLocationRelativeTo(null);
     }
 
@@ -184,17 +188,17 @@ public class FavoritesForm extends javax.swing.JFrame {
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
         FavoritesDao dao = new FavoritesDao();
-        
+
         if (dao.saveFavorite(link.getText(), comment.getText(), Login.getUsername())) //need update to support looged in user
         {
             msg.setText("Link Successfully Saved!");
             link.setText(null);
             comment.setText(null);
             link.requestFocus(true);
-        }
-        else
+        } else {
             msg.setText("Error Saving Your Link!");
-        
+        }
+
     }//GEN-LAST:event_saveActionPerformed
 
     private void linkKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_linkKeyTyped
@@ -202,25 +206,21 @@ public class FavoritesForm extends javax.swing.JFrame {
     }//GEN-LAST:event_linkKeyTyped
 
     private void linkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_linkMouseClicked
-     
+
     }//GEN-LAST:event_linkMouseClicked
 
     private void linkFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_linkFocusLost
-      FavoritesController controller = new FavoritesController();
-   
-         
-     if(!controller.checklink(link.getText()))
-      {
-      emptymsg.setVisible(true);
-      save.setEnabled(false);
-      }
-      else 
-      {
-      emptymsg.setVisible(false);
-       save.setEnabled(true);
-      }
-      
-      
+        FavoritesController controller = new FavoritesController();
+
+        if (!controller.checklink(link.getText())) {
+            emptymsg.setVisible(true);
+            save.setEnabled(false);
+        } else {
+            emptymsg.setVisible(false);
+            save.setEnabled(true);
+        }
+
+
     }//GEN-LAST:event_linkFocusLost
 
     private void linkFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_linkFocusGained
