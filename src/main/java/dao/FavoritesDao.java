@@ -47,9 +47,9 @@ public class FavoritesDao {
 
                 String registerValues
                         = "Insert Into favorites (username,link,comment) VALUES ('" + username + "','" + link + "','" + comment + "')";
-                try (PreparedStatement s = c.prepareStatement(registerValues)) {
-                    s.execute();
-                }
+                PreparedStatement s = c.prepareStatement(registerValues);
+                s.execute();
+                
 
             } catch (SQLException sqlexp) {
                 JOptionPane.showMessageDialog(null, "Failed to execute one of the statements." + sqlexp.getMessage());

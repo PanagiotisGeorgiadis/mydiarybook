@@ -369,7 +369,7 @@ public class FilesDao {
                 return null;
             String[] children = file.list();
             File subFile;
-            List<URI> subFolders = new ArrayList<>();
+            List<URI> subFolders = new ArrayList<URI>();
             int j=0;
              for(int i=0;i<children.length;i++)
             {

@@ -41,16 +41,16 @@ public class FavoritesValidator {
         }
         return true;
     }    
-public static boolean checkValues(String link)
-{
-    FavoritesValidator e= new FavoritesValidator();
-    
-    if(!e.checklink(link))
-    {
-    return false;
-    }
-        
-        return true;
-}
+//public static boolean checkValues(String link)
+//{
+//    FavoritesValidator e= new FavoritesValidator();
+//    
+//    if(!e.checklink(link))
+//    {
+//    return false;
+//    }
+//        
+//        return true;
+//}
 
 }

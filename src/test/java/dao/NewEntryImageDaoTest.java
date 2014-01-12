@@ -196,7 +196,7 @@ public class NewEntryImageDaoTest {
         File imageFile = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator
             +"Users"+fSeparator+"Panagiwtis Georgiadis"+fSeparator+"Entries"+fSeparator+"testEntryWithImages"
             +fSeparator+"Images"+fSeparator+"testImg.jpg");
-        List<URI> expResult = new ArrayList<>();
+        List<URI> expResult = new ArrayList<URI>();
         expResult.add(imageFile.toURI());
         List<URI> result = instance.getImageFiles(entryTitle);
         assertEquals(expResult, result);
@@ -207,7 +207,7 @@ public class NewEntryImageDaoTest {
         System.out.println("getImageFiles From Existing Entry Without Images");
         String entryTitle = "testEntry";
         NewEntryImageDao instance = new NewEntryImageDao();
-        List<URI> expResult = new ArrayList<>();
+        List<URI> expResult = new ArrayList<URI>();
         List<URI> result = instance.getImageFiles(entryTitle);
         assertEquals(expResult, result);
     }

@@ -74,30 +74,30 @@ public class RegisterValidator {
         return true;
     }
 
-    public static boolean checkValues(String username, String password, String repeatedpassword, String email,String Q1,String Q2) {
-        RegisterValidator e = new RegisterValidator();
-        if (!e.checkMail(email)) {
-            return false;
-
-        }
-        if (!e.checkQ1(Q1))
-        {
-            return false;
-        }
-        if (!e.checkQ1(Q2))
-        {
-            return false;
-        }
-        
-
-        if (!e.checkUsername(username)) {
-            return false;
-        }
-        if (!e.checkPassword(password, repeatedpassword)) {
-            return false;
-        }
- 
-        return true;
-    }
+//    public static boolean checkValues(String username, String password, String repeatedpassword, String email,String Q1,String Q2) {
+//        RegisterValidator e = new RegisterValidator();
+//        if (!e.checkMail(email)) {
+//            return false;
+//
+//        }
+//        if (!e.checkQ1(Q1))
+//        {
+//            return false;
+//        }
+//        if (!e.checkQ1(Q2))
+//        {
+//            return false;
+//        }
+//        
+//
+//        if (!e.checkUsername(username)) {
+//            return false;
+//        }
+//        if (!e.checkPassword(password, repeatedpassword)) {
+//            return false;
+//        }
+// 
+//        return true;
+//    }
 
 }

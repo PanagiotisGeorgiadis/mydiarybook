@@ -151,18 +151,7 @@ public class FavoritesValidatorTest {
         assertEquals(expResult, result);
       
     }
-    /**
-     * Test of checkValues method, of class FavoritesController.
-     */
-    @Test
-    public void testCheckValues() {
-        System.out.println("checkValues");
-        String link = "http://www.paok.gr";
-        boolean expResult = true;
-        boolean result = FavoritesValidator.checkValues(link);
-        assertEquals(expResult, result);
-       
-    }
+
     
     
     

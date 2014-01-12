@@ -37,6 +37,8 @@ import validators.*;
 public class PersonalGoalForm extends javax.swing.JFrame implements IPersonalGoalForm {
 
     private PersonalGoalController PersonalGoalController;
+    private BufferedImage dialogImage;
+    private PersonalGoalDao db;
    
     public boolean ifImageExist = false;
   
@@ -110,7 +112,7 @@ public class PersonalGoalForm extends javax.swing.JFrame implements IPersonalGoa
         buttonUploadFoto = new javax.swing.JButton();
         checkFieldTextField = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setForeground(java.awt.Color.orange);
 
         jLabel1.setFont(new java.awt.Font("Tempus Sans ITC", 0, 24)); // NOI18N
@@ -506,8 +508,15 @@ public class PersonalGoalForm extends javax.swing.JFrame implements IPersonalGoa
                     break;
                 }
             }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException ex){
             java.util.logging.Logger.getLogger(PersonalGoalForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }catch(InstantiationException ex){
+               
+        }catch(IllegalAccessException x){
+                        
+        }
+        catch(javax.swing.UnsupportedLookAndFeelException ex){
+            
         }
         //</editor-fold>
 
@@ -544,6 +553,5 @@ public class PersonalGoalForm extends javax.swing.JFrame implements IPersonalGoa
     private javax.swing.JLabel withPersonLabel;
     private javax.swing.JTextField withPersonTextField;
     // End of variables declaration//GEN-END:variables
-    private BufferedImage dialogImage;
-    private PersonalGoalDao db;
+
 }
