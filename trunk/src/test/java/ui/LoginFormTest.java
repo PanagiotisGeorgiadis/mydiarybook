@@ -17,14 +17,11 @@ import static org.junit.Assert.*;
 import org.uispec4j.Button;
 import org.uispec4j.PasswordField;
 import org.uispec4j.TextBox;
-import org.uispec4j.Trigger;
 import org.uispec4j.UISpec4J;
 import org.uispec4j.UISpecTestCase;
 import org.uispec4j.Window;
 import org.uispec4j.interception.MainClassAdapter;
-import org.uispec4j.interception.WindowHandler;
 import org.uispec4j.interception.WindowInterceptor;
-import ui.LoginForm;
 
 /**
  *
