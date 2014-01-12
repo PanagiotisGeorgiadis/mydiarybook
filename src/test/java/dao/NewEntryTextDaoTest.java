@@ -33,6 +33,12 @@ public class NewEntryTextDaoTest {
     
     @AfterClass
     public static void tearDownClass() {
+        File file = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook");
+        try {
+            FileUtils.deleteDirectory(file);
+        } catch (IOException ex) {
+            Logger.getLogger(NewEntryTextDaoTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     @Before
@@ -63,12 +69,6 @@ public class NewEntryTextDaoTest {
     
     @After
     public void tearDown() {
-        File file = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook");
-        try {
-            FileUtils.deleteDirectory(file);
-        } catch (IOException ex) {
-            Logger.getLogger(NewEntryTextDaoTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     /**
@@ -187,7 +187,7 @@ public class NewEntryTextDaoTest {
      */
     @Test
     public void testReturnTextFilePath() {
-        System.out.println("returnTextFilePath");
+        System.out.println("returnTextFilePath from existant Entry");
         String entryTitle = "testEntry";
         String userName = "Panagiwtis Georgiadis";
         NewEntryTextDao instance = new NewEntryTextDao();
