@@ -1,6 +1,5 @@
 package ui;
 
-
 import controller.MailController;
 import controller.PasswordController;
 import controller.Q1Controller;
@@ -12,8 +11,6 @@ import validators.RegisterValidator;
 import dao.RegisterFormDao;
 import javax.swing.JOptionPane;
 import model.Login;
-
-
 
 /**
  *
@@ -28,8 +25,6 @@ public class RegisterForm extends javax.swing.JFrame {
     boolean q1pass = false;
     boolean q2pass = false;
 
-    
-
     public RegisterForm() {
         initComponents();
         usernameexistmsg.setVisible(false);
@@ -38,7 +33,7 @@ public class RegisterForm extends javax.swing.JFrame {
         invalidpassword.setVisible(false);
         cndaccept.setVisible(false);
         SubmitAccountButton.setEnabled(false);
-        q1msg.setVisible(false); 
+        q1msg.setVisible(false);
         usernameexistmsg.setName("usernameexistmsg");
         password.setName("password");
         repassword.setName("repassword");
@@ -62,12 +57,14 @@ public class RegisterForm extends javax.swing.JFrame {
         invalidemail.setName("invalidemail");
         FavoriteCar.setName("FavoriteCar");
         q1msg.setName("q1msg");
-       q2msg.setName("q2msg");
-       SubmitAccountButton.setName("SubmitAccountButton");
-       CancelButton.setName("CancelButton");
-       msg.setVisible(false);
-       this.setLocationRelativeTo(null);
- 
+        q2msg.setName("q2msg");
+        SubmitAccountButton.setName("SubmitAccountButton");
+        CancelButton.setName("CancelButton");
+        msg.setVisible(false);
+        ConditionAndTemrsCheckBox.setName("ConditionAndTemrsCheckBox");
+        msg.setName("msg");
+        this.setLocationRelativeTo(null);
+
     }
 
     @SuppressWarnings("unchecked")
@@ -101,6 +98,7 @@ public class RegisterForm extends javax.swing.JFrame {
         msg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Register");
 
         jLabel1.setText("UserName");
 
@@ -350,13 +348,13 @@ public class RegisterForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelButtonActionPerformed
-             this.dispose();
+        this.dispose();
     }//GEN-LAST:event_CancelButtonActionPerformed
 
     private void cndMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cndMouseClicked
         JOptionPane.showMessageDialog(null, "This is an open source application \n Owner rights: \n "
-            + "ΜΥΡΩΝΙΔΗΣ ΔΗΜΗΤΡΗΣ, ΧΡΗΣΤΟΥ ΑΠΟΣΤΟΛΗΣ \n TΣΙΛΟΠΟΥΛΟΣ ΠΑΝΑΓΙΩΤΗΣ, ΓΕΩΣΡΓΙΑΔΗΣ ΠΑΝΑΓΙΩΤΗΣ,\n ΤΣΑΜΗΣ ΙΩΑΝΝΗΣ"
-            + "ΣΤΕΦΑΝΙΔΗΣ ΣΤΕΦΑΝΟΣ,\n ΠΑΤΣΑΝΗΣ ΑΛΕΞΑΝΔΡΟΣ, ΤΑΣΣΙΟΣ ΜΑΡΙΟΣ, \n ΣΤΥΛΙΔΗΣ ΧΡΗΣΤΟΣ, ΔΗΜΤΣΑΣ ΒΙΚΤΩΡΑΣ ");
+                + "ΜΥΡΩΝΙΔΗΣ ΔΗΜΗΤΡΗΣ, ΧΡΗΣΤΟΥ ΑΠΟΣΤΟΛΗΣ \n TΣΙΛΟΠΟΥΛΟΣ ΠΑΝΑΓΙΩΤΗΣ, ΓΕΩΣΡΓΙΑΔΗΣ ΠΑΝΑΓΙΩΤΗΣ,\n ΤΣΑΜΗΣ ΙΩΑΝΝΗΣ"
+                + "ΣΤΕΦΑΝΙΔΗΣ ΣΤΕΦΑΝΟΣ,\n ΠΑΤΣΑΝΗΣ ΑΛΕΞΑΝΔΡΟΣ, ΤΑΣΣΙΟΣ ΜΑΡΙΟΣ, \n ΣΤΥΛΙΔΗΣ ΧΡΗΣΤΟΣ, ΔΗΜΤΣΑΣ ΒΙΚΤΩΡΑΣ ");
     }//GEN-LAST:event_cndMouseClicked
 
     private void SubmitAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitAccountButtonActionPerformed
@@ -492,7 +490,7 @@ public class RegisterForm extends javax.swing.JFrame {
     }//GEN-LAST:event_FavoriteCarKeyTyped
 
     private void usernameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usernameKeyTyped
-           CheckUserController controller = new CheckUserController();
+        CheckUserController controller = new CheckUserController();
         if (!controller.checkUser(username.getText() + evt.getKeyChar())) {
             usernamepass = false;
             msg.setVisible(true);
@@ -504,7 +502,7 @@ public class RegisterForm extends javax.swing.JFrame {
             if (usernamepass && passwordpass && repeatpassowrdpass && mailpass && q1pass && q2pass) {
                 SubmitAccountButton.setEnabled(true);
             }
-        } 
+        }
     }//GEN-LAST:event_usernameKeyTyped
 
     private void passwordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFocusLost
@@ -546,7 +544,7 @@ public class RegisterForm extends javax.swing.JFrame {
     }//GEN-LAST:event_FavoritePetFocusLost
 
     private void FavoriteCarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FavoriteCarFocusLost
-         Q2Controller controller = new Q2Controller();
+        Q2Controller controller = new Q2Controller();
         if (!controller.checkQ2(FavoriteCar.getText())) {
             q2pass = false;
             q2msg.setVisible(true);
