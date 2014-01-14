@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Login;
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -59,6 +60,7 @@ public class NewEntryImageDaoTest {
         File newEntryWithoutImagesFolder = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator
             +"Users"+fSeparator+"Panagiwtis Georgiadis"+fSeparator+"Entries"+fSeparator+"emptyEntryFolder");
         newEntryWithoutImagesFolder.mkdirs();
+        Login.username = "Panagiwtis Georgiadis";
     }
     
     @After
