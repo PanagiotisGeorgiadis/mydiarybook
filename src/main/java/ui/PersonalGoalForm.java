@@ -47,12 +47,39 @@ public class PersonalGoalForm extends javax.swing.JFrame implements IPersonalGoa
      */
     public PersonalGoalForm() {
         initComponents();
+        titleTextField.setName("titleTextField");
+        locationTextField.setName("locationTextField");
+        withPersonTextField.setName("withPersonTextField");
+        whenDateSpinner.setName("whenDateSpinner");
+        announcementEditorPane.setName("announcementEditorPane");
+        saveButton.setName("saveButton");
+        cancelButton.setName("cancelButton");
+        checkFieldTextField.setName("checkFieldTextField");
+        browseFotoFile.setName("browseFotoFile");
+        buttonUploadFoto.setName("buttonUploadFoto");
+        browseFotoTextField.setName("browseFotoTextField");
+        imageLabel.setName("imageLabel");
         
        
     }
 
     public PersonalGoalForm(String txt) {
         initComponents();
+        
+        titleTextField.setName("titleTextField");
+        locationTextField.setName("locationTextField");
+        withPersonTextField.setName("withPersonTextField");
+        whenDateSpinner.setName("whenDateSpinner");
+        announcementEditorPane.setName("announcementEditorPane");
+        saveButton.setName("saveButton");
+        cancelButton.setName("cancelButton");
+        checkFieldTextField.setName("checkFieldTextField");
+        browseFotoFile.setName("browseFotoFile");
+        buttonUploadFoto.setName("buttonUploadFoto");
+        browseFotoTextField.setName("browseFotoTextField");
+        imageLabel.setName("imageLabel");
+       
+        
 
     }
     
