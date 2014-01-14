@@ -41,4 +41,6 @@ public interface IMyDiaryBook {
 
     void refreshEntries();
     
+    void loadFavorites();
+    
 }

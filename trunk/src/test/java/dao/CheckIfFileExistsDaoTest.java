@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Login;
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -51,6 +52,7 @@ public class CheckIfFileExistsDaoTest {
         file = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator
                 +"Panagiwtis Georgiadis"+fSeparator+"Entries"+fSeparator+"TexnologiaLogismikou2"); 
         file.mkdirs();
+        Login.username = "Panagiwtis Georgiadis";
     }
     
     @After

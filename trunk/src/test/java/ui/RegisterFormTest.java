@@ -17,14 +17,17 @@ import org.uispec4j.Button;
 import org.uispec4j.CheckBox;
 import org.uispec4j.PasswordField;
 import org.uispec4j.TextBox;
+import org.uispec4j.UISpec4J;
+import org.uispec4j.UISpecTestCase;
 import org.uispec4j.Window;
+import static org.uispec4j.assertion.UISpecAssert.not;
 import org.uispec4j.interception.MainClassAdapter;
 
 /**
  *
  * @author MariosT
  */
-public class RegisterFormTest extends HelperClass {
+public class RegisterFormTest extends UISpecTestCase {
 
     protected TextBox username;
     protected PasswordField pass;
@@ -38,9 +41,9 @@ public class RegisterFormTest extends HelperClass {
     
     
     
-//     static {
-//        UISpec4J.init();
-//    }
+     static {
+        UISpec4J.init();
+    }
     
     public RegisterFormTest() {
     }

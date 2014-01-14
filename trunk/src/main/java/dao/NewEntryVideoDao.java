@@ -8,9 +8,7 @@ package dao;
 
 import exception.EntryException;
 import java.io.File;
-import java.io.IOException;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import model.Login;
 
 /**
  *
@@ -28,7 +26,7 @@ public class NewEntryVideoDao {
     {
         if(entryTitle==null || sourcePath == null || entryTitle.trim().equals("") || sourcePath.trim().equals("")) 
             return false;
-        String videoDestPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+"Panagiwtis Georgiadis"
+        String videoDestPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+Login.getUsername()
                 +fSeparator+"Entries"+fSeparator+entryTitle+fSeparator+"Videos"+fSeparator;
         try
         {

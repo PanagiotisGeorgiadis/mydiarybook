@@ -10,6 +10,7 @@ import exception.EntryException;
 import java.io.File;
 import java.net.URI;
 import java.util.List;
+import model.Login;
 
 /**
  *
@@ -25,7 +26,7 @@ public class NewEntryImageDao {
     
     public boolean prepareImageForCopy(String entryTitle,String sourcePath)
     {
-        String imageDestPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+"Panagiwtis Georgiadis"
+        String imageDestPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+Login.getUsername()
                 +fSeparator+"Entries"+fSeparator+entryTitle+fSeparator+"Images"+fSeparator;
         
         File destFile = new File(imageDestPath);

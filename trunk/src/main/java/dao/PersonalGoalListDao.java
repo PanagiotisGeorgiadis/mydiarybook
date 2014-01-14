@@ -8,6 +8,7 @@ package dao;
 
 import exception.EntryException;
 import java.io.File;
+import model.Login;
 
 /**
  *
@@ -17,7 +18,7 @@ public class PersonalGoalListDao {
     String fSeparator = File.separator;
     public String[] getListOfPersonalGoal()
     {
-        String personalGoalPath = System.getProperty("user.dir") + fSeparator + "MyDiaryBook" + fSeparator + "Users" + fSeparator + "Alex Patsanis"  + fSeparator + "PersonalGoal";
+        String personalGoalPath = System.getProperty("user.dir") + fSeparator + "MyDiaryBook" + fSeparator + "Users" + fSeparator + Login.getUsername() + fSeparator + "PersonalGoal";
         FilesDao personalGoalDao = new FilesDao();
         try{
             return personalGoalDao.getDirectoryList(personalGoalPath);

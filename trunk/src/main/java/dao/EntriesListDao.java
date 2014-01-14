@@ -19,7 +19,7 @@ public class EntriesListDao {
     
     public String[] getListOfEntries()
     {
-        String entriesPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+"Panagiwtis Georgiadis"+fSeparator+"Entries";
+        String entriesPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+Login.getUsername()+fSeparator+"Entries";
         FilesDao entriesDao = new FilesDao();
         try{
             return entriesDao.getDirectoryList(entriesPath);

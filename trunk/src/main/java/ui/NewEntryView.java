@@ -164,7 +164,7 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
         titleLabel = new javax.swing.JLabel();
         introLabel = new javax.swing.JLabel();
         entryAlreadyExistsLabel = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        imageContainerPanel = new javax.swing.JPanel();
         imageChooseButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         imagePanel = new javax.swing.JPanel();
@@ -263,7 +263,7 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
 
         jTabbedPane1.addTab("Text", textPanel);
 
-        jPanel2.setAutoscrolls(true);
+        imageContainerPanel.setAutoscrolls(true);
 
         imageChooseButton.setText("Choose");
         imageChooseButton.addActionListener(new java.awt.event.ActionListener() {
@@ -278,33 +278,37 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
         imagesLeftLabel.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
         imagesLeftLabel.setText("30 Images");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        imageExceedLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        imageExceedLabel.setText("Too Many Selected!");
+
+        javax.swing.GroupLayout imageContainerPanelLayout = new javax.swing.GroupLayout(imageContainerPanel);
+        imageContainerPanel.setLayout(imageContainerPanelLayout);
+        imageContainerPanelLayout.setHorizontalGroup(
+            imageContainerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(imageContainerPanelLayout.createSequentialGroup()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 691, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(imageChooseButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(imagesLeftLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(imageExceedLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addGroup(imageContainerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(imageContainerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(imageChooseButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(imagesLeftLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(imageExceedLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        imageContainerPanelLayout.setVerticalGroup(
+            imageContainerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane2)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(imageContainerPanelLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(imageChooseButton)
                 .addGap(35, 35, 35)
                 .addComponent(imagesLeftLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(imageExceedLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(391, Short.MAX_VALUE))
+                .addComponent(imageExceedLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(367, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Photos", jPanel2);
+        jTabbedPane1.addTab("Photos", imageContainerPanel);
 
         videoChooseButton.setText("Choose");
         videoChooseButton.addActionListener(new java.awt.event.ActionListener() {
@@ -404,23 +408,21 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
         imageChooser.setMultiSelectionEnabled(true);
         File[] tempFile = new File[100];
         
-        imageExceedLabel.setVisible(false);
-        int returnVal = imageChooser.showOpenDialog(jPanel2);       
+        imageExceedLabel.setVisible(false);        
+        int returnVal = imageChooser.showOpenDialog(imageContainerPanel);       
         if(returnVal == JFileChooser.OPEN_DIALOG)
         {    
             tempFile = imageChooser.getSelectedFiles();
             int i=0;
-            while(i<tempFile.length && tempFile.length<=maxImageNumber && imageNumber<=maxImageNumber && imagePanel.getComponents().length<maxImageNumber)
-            {
-                imageFiles[imageNumber] = tempFile[i];
-                displayNewImage(tempFile[i].toURI());
-                i++;
-            }
-            if(imageFiles.length>maxImageNumber || imageNumber>maxImageNumber)
-            {
+            if(imageNumber + tempFile.length<=maxImageNumber)
+                while(i<tempFile.length && tempFile.length<=maxImageNumber && imageNumber<=maxImageNumber && imagePanel.getComponents().length<maxImageNumber)
+                {
+                    imageFiles[imageNumber] = tempFile[i];
+                    displayNewImage(tempFile[i].toURI());
+                    i++;
+                }
+            else
                 imageExceedLabel.setVisible(true);
-                imageExceedLabel.setText("Careful! Too many images \nselected! Please choose \n again!");
-            }
         }
 
     }//GEN-LAST:event_imageChooseButtonActionPerformed
@@ -566,8 +568,8 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Motif".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
@@ -593,11 +595,11 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
     private javax.swing.JButton cancelButton;
     private javax.swing.JLabel entryAlreadyExistsLabel;
     private javax.swing.JButton imageChooseButton;
+    private javax.swing.JPanel imageContainerPanel;
     private javax.swing.JLabel imageExceedLabel;
     private javax.swing.JPanel imagePanel;
     private javax.swing.JLabel imagesLeftLabel;
     private javax.swing.JLabel introLabel;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
