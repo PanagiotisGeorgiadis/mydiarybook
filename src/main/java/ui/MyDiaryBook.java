@@ -84,6 +84,7 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         loadListOfPersonalGoal();
         this.setLocationRelativeTo(null);
         JOptionPane.showMessageDialog(this, DefaultPath.getDefaultPath());
+        JOptionPane.showMessageDialog(this,alexPanel.getSize());
     }
     
     /** Displays the new Image Specified in 2 different modes: 
