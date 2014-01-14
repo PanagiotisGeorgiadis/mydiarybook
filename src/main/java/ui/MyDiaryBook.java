@@ -7,6 +7,7 @@
 package ui;
 
 import controller.DeleteImageController;
+import controller.DeletePersonalGoalController;
 import controller.DeleteTextController;
 import controller.DeleteVideoController;
 import controller.LoadEntriesController;
@@ -436,6 +437,7 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         cancelPersonalGoalButton = new javax.swing.JButton();
         personalGoalLabel = new javax.swing.JLabel();
         checkFieldTextField = new javax.swing.JTextField();
+        deletePersonalGoal = new javax.swing.JButton();
         favouritesPanel = new javax.swing.JPanel();
         welcomeLabel = new javax.swing.JLabel();
         pauseOrPlayVideoButton = new javax.swing.JButton();
@@ -513,10 +515,10 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         textPanelLayout.setHorizontalGroup(
             textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(textPanelLayout.createSequentialGroup()
-                .addComponent(entryTextAreaScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 698, Short.MAX_VALUE)
+                .addComponent(entryTextAreaScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 691, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(entriesListScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+                    .addComponent(entriesListScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
                     .addGroup(textPanelLayout.createSequentialGroup()
                         .addGroup(textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(saveEditButton)
@@ -620,7 +622,7 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
                         .addComponent(loadAlbumButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(deleteImageAlbumButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(deleteImageButton))
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
         imagePanelContainerLayout.setVerticalGroup(
             imagePanelContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -662,7 +664,7 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         videoPanelLayout.setHorizontalGroup(
             videoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, videoPanelLayout.createSequentialGroup()
-                .addContainerGap(741, Short.MAX_VALUE)
+                .addContainerGap(727, Short.MAX_VALUE)
                 .addComponent(playVideoButton)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, videoPanelLayout.createSequentialGroup()
@@ -754,6 +756,13 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         personalGoalLabel.setFont(new java.awt.Font("Tempus Sans ITC", 0, 24)); // NOI18N
         personalGoalLabel.setText("Personal Goal");
 
+        deletePersonalGoal.setText("Delete Goal");
+        deletePersonalGoal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deletePersonalGoalActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout personalGoalPanelLayout = new javax.swing.GroupLayout(personalGoalPanel);
         personalGoalPanel.setLayout(personalGoalPanelLayout);
         personalGoalPanelLayout.setHorizontalGroup(
@@ -800,8 +809,10 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
                         .addGap(18, 18, 18)
                         .addGroup(personalGoalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(personalGoalListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(checkFieldTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE))))
-                .addContainerGap(75, Short.MAX_VALUE))
+                            .addComponent(checkFieldTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(deletePersonalGoal)))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         personalGoalPanelLayout.setVerticalGroup(
             personalGoalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -813,22 +824,28 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
                             .addComponent(titleLabel)
                             .addComponent(titleTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(personalGoalLabel))
-                        .addGap(18, 18, 18)
-                        .addGroup(personalGoalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(locationLabel)
-                            .addComponent(locationTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(personalGoalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(withPersonTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(withPersonLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(personalGoalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(whenDateSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(WhenDate))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(AnnouncementLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(personalGoalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(personalGoalPanelLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(personalGoalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(locationLabel)
+                                    .addComponent(locationTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(personalGoalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(withPersonTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(withPersonLabel))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(personalGoalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(whenDateSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(WhenDate))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(AnnouncementLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(personalGoalPanelLayout.createSequentialGroup()
+                                .addGap(5, 5, 5)
+                                .addComponent(deletePersonalGoal)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(personalGoalPanelLayout.createSequentialGroup()
                         .addGap(46, 46, 46)
                         .addComponent(personalGoalListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -965,7 +982,7 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(displayEntryPane, javax.swing.GroupLayout.DEFAULT_SIZE, 837, Short.MAX_VALUE)
+                    .addComponent(displayEntryPane, javax.swing.GroupLayout.DEFAULT_SIZE, 823, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(welcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -1431,6 +1448,27 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         }
     }//GEN-LAST:event_deleteVideoButtonActionPerformed
 
+    private void deletePersonalGoalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletePersonalGoalActionPerformed
+        DeletePersonalGoalController controller = new DeletePersonalGoalController();
+        int dialog = JOptionPane.showConfirmDialog(this, "Are You sure for this delete?", "Confirm Message", JOptionPane.OK_CANCEL_OPTION);
+         if (dialog == JOptionPane.YES_OPTION) {
+                try {
+                    controller.deleteElementFromList(model.Login.getUsername(), personalGoalList.getSelectedValue().toString());
+                    loadListOfPersonalGoal();
+                      JOptionPane.showConfirmDialog(this, controller.showSuccess(), "Success", JOptionPane.CANCEL_OPTION);
+
+                } catch (NullPointerException ex) {
+
+                    JOptionPane.showConfirmDialog(this, controller.showNoFileFound(), "This File not exist", JOptionPane.CANCEL_OPTION);
+
+                } catch (Exception ex) {
+
+                    JOptionPane.showConfirmDialog(this, controller.showError(), "There was a Error", JOptionPane.CANCEL_OPTION);
+
+                }
+         }
+    }//GEN-LAST:event_deletePersonalGoalActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1478,6 +1516,7 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
     private javax.swing.JButton deleteImageAlbumButton;
     private javax.swing.JButton deleteImageButton;
     private javax.swing.JMenuItem deleteImportantMoment;
+    private javax.swing.JButton deletePersonalGoal;
     private javax.swing.JMenuItem deleteSelectedEntry;
     private javax.swing.JButton deleteTextButton;
     private javax.swing.JButton deleteVideoButton;
