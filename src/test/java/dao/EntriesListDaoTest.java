@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Login;
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -56,6 +57,7 @@ public class EntriesListDaoTest {
         file = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator
                 +"Panagiwtis Georgiadis"+fSeparator+"Entries"+fSeparator+"Trela"); 
         file.mkdirs();
+        Login.username = "Panagiwtis Georgiadis";
     }
     
     @After

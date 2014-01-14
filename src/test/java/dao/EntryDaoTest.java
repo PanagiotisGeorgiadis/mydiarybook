@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Entry;
+import model.Login;
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -115,6 +116,7 @@ public class EntryDaoTest {
         } catch (IOException ex) {
             Logger.getLogger(EntryDaoTest.class.getName()).log(Level.SEVERE, null, ex);
         }
+        Login.username = "Panagiwtis Georgiadis";
     }
     
     @After

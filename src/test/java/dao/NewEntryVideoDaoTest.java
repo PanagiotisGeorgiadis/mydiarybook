@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Login;
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -52,6 +53,7 @@ public class NewEntryVideoDaoTest {
         } catch (IOException ex) {
             Logger.getLogger(NewEntryVideoDaoTest.class.getName()).log(Level.SEVERE, null, ex);
         }
+        Login.username = "Panagiwtis Georgiadis";
     }
     
     @After
