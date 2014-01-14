@@ -87,19 +87,6 @@ public class DeleteImageController {
                   return message;
               }
     
- /*
-    Se periptwsi pou xrisimopoihsoume to Entry
-    */
-//    public boolean checkFileExist(String imageName){
-//        int imageCounter = 0;
-//            for(String imageNames : entry.getImageList()){
-//                if(imageNames.equals(imageName))
-//                    imageCounter++;
-//            }
-//            if(imageCounter > 0)
-//                return true;
-//            else
-//                return false;
-//    }
+
     
 }

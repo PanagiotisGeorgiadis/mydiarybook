@@ -50,20 +50,21 @@ import validators.WithPersonValidator;
  * @author Zarc
  */
 public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
+
     private List<URI> images;
     private String imageMode;
     private final String fSeparator = File.separator;
     private EmbeddedMediaPlayerComponent mediaPlayer2 = null;
-    private String vlcPath = System.getProperty("user.dir")+fSeparator+"VLC"+fSeparator;
+    private String vlcPath = System.getProperty("user.dir") + fSeparator + "VLC" + fSeparator;
     private Entry entry;
     private File video;
     private String pauseOrPlay = "Pause";
     private PersonalGoalModel personalGoalModel;
+
     /**
      * Creates new form MyDiaryBook
      */
-    public MyDiaryBook() 
-    {
+    public MyDiaryBook() {
         initComponents();
         entriesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         loadEntriesList();
@@ -91,85 +92,71 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         deleteImageButton.setVisible(false);
         deleteImageAlbumButton.setVisible(false);
     }
-    
-    /** Displays the new Image Specified in 2 different modes: 
-     * Album mode which can contain up to 30 images and
-     * Single mode which can contain 1 image but scaled properly.
-     * @param imagePath The path of the image.     
-     * @param mode String "Album" for Album mode or a random string for 
-     * Single mode
-     */  
+
+    /**
+     * Displays the new Image Specified in 2 different modes: Album mode which
+     * can contain up to 30 images and Single mode which can contain 1 image but
+     * scaled properly.
+     *
+     * @param imagePath The path of the image.
+     * @param mode String "Album" for Album mode or a random string for Single
+     * mode
+     */    
     @Override
-    public void displayNewImage(URI imagePath,String mode)
-    {
+    public void displayNewImage(URI imagePath, String mode) {
         JLabel jlabel = new JLabel();
         ImageIcon icon = null;
         Image newimg = null;
-        try 
-        {
+        try {
             icon = new ImageIcon(imagePath.toURL());
             Image img = icon.getImage();
-            if(mode == "Album")
+            if (mode == "Album") {
                 newimg = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-            else
+            } else {
                 newimg = img.getScaledInstance(img.getWidth(jlabel), img.getWidth(jlabel), Image.SCALE_SMOOTH);
+            }
             ImageIcon newIcon = new ImageIcon(newimg);
             imagePanel.add(jlabel);
             jlabel.setIcon(newIcon);
-        } 
-        catch (MalformedURLException ex) 
-        {
+        } catch (MalformedURLException ex) {
             imagePanel.remove(jlabel);
         }        
     }
     
     @Override
-    public void displayVideo(String videoPath,String whatToDo)
-    {
+    public void displayVideo(String videoPath, String whatToDo) {
         EmbeddedMediaPlayerComponent mediaPlayer = mediaPlayer2;
-                // ****** VlcJ framework  ******//
-        if(whatToDo.equalsIgnoreCase("Display"))
-        {
+        // ****** VlcJ framework  ******//
+        if (whatToDo.equalsIgnoreCase("Display")) {
             Dimension d = videoPanel.getSize();
             mediaPlayer.setSize(d);
             videoPanel.add(mediaPlayer);
             mediaPlayer.getMediaPlayer().attachVideoSurface();
-            mediaPlayer.getMediaPlayer().playMedia(videoPath); 
-        }
-        else if(whatToDo.equalsIgnoreCase("Pause"))
-        {
+            mediaPlayer.getMediaPlayer().playMedia(videoPath);            
+        } else if (whatToDo.equalsIgnoreCase("Pause")) {
             //mediaPlayer.getMediaPlayer().pause();
             mediaPlayer.getMediaPlayer().pause();
             pauseOrPlay = "Play";
-        }
-        else if(whatToDo.equalsIgnoreCase("Play"))
-        {
+        } else if (whatToDo.equalsIgnoreCase("Play")) {
             mediaPlayer.getMediaPlayer().play();
             pauseOrPlay = "Pause";
-        }
-        else
-        {
+        } else {
             mediaPlayer.release(true);
             videoPanel.remove(mediaPlayer);
         }
     }
     
     @Override
-    public void loadEntriesList()
-    {
+    public void loadEntriesList() {
         LoadEntriesController controller = new LoadEntriesController();
         DefaultListModel listModel = new DefaultListModel();
-        try
-        {            
+        try {            
             String[] entries = controller.getEntriesList();
-            for(int i=0;i<entries.length;i++)
-            {
-                listModel.addElement(entries[i]);    
+            for (int i = 0; i < entries.length; i++) {
+                listModel.addElement(entries[i]);                
             }
             entriesList.setModel(listModel);
-        }
-        catch(NullPointerException ex)
-        {
+        } catch (NullPointerException ex) {
             listModel.clear();
             entriesList.setModel(listModel);
             //TODO: Add Logger
@@ -177,24 +164,19 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
     }    
     
     @Override
-    public void loadImageList()
-    {
+    public void loadImageList() {
         DefaultListModel listModel = new DefaultListModel();
 //        try
 //        {
-        if(entry.getImageList()!=null)
-        {
+        if (entry.getImageList() != null) {
             String[] imageNames = entry.getImageList(); //controller.getImageList(entriesList.getSelectedValue().toString());
-            for(int i=0;i<imageNames.length;i++)
-            {
-                listModel.addElement(imageNames[i]);    
+            for (int i = 0; i < imageNames.length; i++) {
+                listModel.addElement(imageNames[i]);                
             }
             imagesList.setModel(listModel);
             loadAlbumButton.setVisible(true);
-        }
-//        catch(NullPointerException ex)
-        else
-        {
+        } //        catch(NullPointerException ex)
+        else {
             listModel.clear();
             imagesList.setModel(listModel);
             loadAlbumButton.setVisible(false);
@@ -206,85 +188,70 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
     }
     
     @Override
-    public void loadEntryImages()
-    {
-        imageMode="Album";
+    public void loadEntryImages() {
+        imageMode = "Album";
         imagePanel.removeAll();
         GridLayout layout = new GridLayout();
         layout.setColumns(10);
         layout.setRows(3);
         imagePanel.setLayout(layout);
-        try{
+        try {
             images = entry.getEntryImages();
-            for(int i=0;i<images.size();i++)
-            {
-                displayNewImage(images.get(i),imageMode);
+            for (int i = 0; i < images.size(); i++) {
+                displayNewImage(images.get(i), imageMode);
             }
-        }
-        catch(NullPointerException ex)
-        {
+        } catch (NullPointerException ex) {
             //TODO: Add Logger
         }
     }
     
     @Override
-    public void loadEntryImage()
-    {
-        imageMode="Single";
+    public void loadEntryImage() {
+        imageMode = "Single";
         imagePanel.removeAll();
         BorderLayout border = new BorderLayout();
-        try
-        {
+        try {
             imagePanel.setLayout(border);
             String imageName = imagesList.getSelectedValue().toString();
-            int i=0;
+            int i = 0;
             
-            while(!images.get(i).toString().contains(imageName))
-            {
+            while (!images.get(i).toString().contains(imageName)) {
                 i++;
             }
-            displayNewImage(images.get(i),imageMode);
-        }
-        catch(NullPointerException ex)
-        {
+            displayNewImage(images.get(i), imageMode);
+        } catch (NullPointerException ex) {
             //TODO: Add Logger
         }
     }
     
     @Override
-    public void loadEntryText()
-    {
+    public void loadEntryText() {
         String text = entry.getEntryText();
-        if(!text.equals(""))
+        if (!text.equals("")) {
             entryTextArea.setText(entry.getEntryText());
-        else
+        } else {
             entryTextArea.setText("");
+        }
     }
     
     @Override
-    public void loadEntryVideo()
-    {
-        if(entry.getEntryVideo()!= null)
-        {
+    public void loadEntryVideo() {
+        if (entry.getEntryVideo() != null) {
             video = entry.getEntryVideo();
-            mediaPlayer2 = new EmbeddedMediaPlayerComponent(); 
+            mediaPlayer2 = new EmbeddedMediaPlayerComponent();            
             playVideoButton.setVisible(true);
-        }
-        else
-        {
+        } else {
             playVideoButton.setVisible(false);
             pauseOrPlayVideoButton.setVisible(false);
         }
     }
     
     @Override
-    public void pauseOrPlayVideo()
-    {
-        displayVideo(video.toString(),pauseOrPlay);
+    public void pauseOrPlayVideo() {
+        displayVideo(video.toString(), pauseOrPlay);
     }
     
-    public void loadEntryDateLabel()
-    {
+    public void loadEntryDateLabel() {
         NewEntryDao entryDao = new NewEntryDao();
         entryDateLabel.setText(entryDao.getEntryLastModified(entriesList.getSelectedValue().toString()));
         lastModifiedLabel.setVisible(true);
@@ -292,73 +259,70 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
     }
     
     @Override
-    public void refreshEntries()
-    {
+    public void refreshEntries() {
         entriesListValueChanged(null);
         loadEntriesList();
     }
-    
+
     /**
      * load list of personal goals
      */
-     public void loadListOfPersonalGoal()
-    {
+    public void loadListOfPersonalGoal() {
         PersonalGoalLoadController controller = new PersonalGoalLoadController();
         DefaultListModel listModel = new DefaultListModel();
-        try
-        {            
+        try {            
             String[] personalGoal = controller.getListOfPesronalGoal();
-            for(int i=0;i<personalGoal.length;i++)
-            {
-                listModel.addElement(personalGoal[i]);    
+            for (int i = 0; i < personalGoal.length; i++) {
+                listModel.addElement(personalGoal[i]);                
             }
             personalGoalList.setModel(listModel);
-        }
-        catch(NullPointerException ex)
-        {
+        } catch (NullPointerException ex) {
             listModel.clear();
             personalGoalList.setModel(listModel);
-           
+            
         }
-    }  
-     
-     public void loadPersonalGoalTitle()
-    {
+    }    
+    
+    public void loadPersonalGoalTitle() {
         String text = personalGoalModel.getPersonalGoalTitle();
-        if(!text.equals(""))
+        if (!text.equals("")) {
             entryTextArea.setText(personalGoalModel.getPersonalGoalTitle());
+        }
         
     }
-       public void loadPersonalGoalLocation()
-    {
+
+    public void loadPersonalGoalLocation() {
         String textLocation = personalGoalModel.getPersonalGoalLocation();
-        if(!textLocation.equals(""))
+        if (!textLocation.equals("")) {
             locationTextField.setText(personalGoalModel.getPersonalGoalLocation());
+        }
         
     }
-       public void loadPersonalGoalWithPerson()
-    {
+
+    public void loadPersonalGoalWithPerson() {
         String textWithPerson = personalGoalModel.getPersonalGoalWithPerson();
-        if(!textWithPerson.equals(""))
+        if (!textWithPerson.equals("")) {
             withPersonTextField.setText(personalGoalModel.getPersonalGoalLocation());
+        }
         
     }
-         public void loadPersonalGoalwhenDate()
-    {
+
+    public void loadPersonalGoalwhenDate() {
         String textWithPerson = personalGoalModel.getPersonalGoalWithPerson();
-        if(!textWithPerson.equals(""))
+        if (!textWithPerson.equals("")) {
             withPersonTextField.setText(personalGoalModel.getPersonalGoalLocation());
+        }
         
     }
-       
-       public void loadPersonalGoalAnnouncement()
-    {
+    
+    public void loadPersonalGoalAnnouncement() {
         String textAnnouncement = personalGoalModel.getPersonalGoalAnnouncement();
-        if(!textAnnouncement.equals(""))
+        if (!textAnnouncement.equals("")) {
             announcementEditorPane.setText(personalGoalModel.getPersonalGoalAnnouncement());
+        }
         
     }
-       
+
 //       public void displayImagePersonalGoal(){
 //           String fileName = personalGoal.getPersonalGoalImage();
 //        
@@ -382,7 +346,6 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
 //        imageLabel.setIcon(new ImageIcon(resizedImg));
 //        boolean ifImageExist =true;
 //     }
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -448,6 +411,7 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         deleteSelectedEntry = new javax.swing.JMenuItem();
         personalGoalMenu = new javax.swing.JMenu();
         newPersonalGoal = new javax.swing.JMenuItem();
+        deletePersonalGoalMenuItem = new javax.swing.JMenuItem();
         favoritesMenu = new javax.swing.JMenu();
         newFavorites = new javax.swing.JMenuItem();
         viewFavorites = new javax.swing.JMenuItem();
@@ -923,6 +887,14 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         });
         personalGoalMenu.add(newPersonalGoal);
 
+        deletePersonalGoalMenuItem.setText("Delete Personal Goal");
+        deletePersonalGoalMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deletePersonalGoalActionPerformed(evt);
+            }
+        });
+        personalGoalMenu.add(deletePersonalGoalMenuItem);
+
         myDiaryBookMenu.add(personalGoalMenu);
 
         favoritesMenu.setText("Favourites");
@@ -982,7 +954,7 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(displayEntryPane, javax.swing.GroupLayout.DEFAULT_SIZE, 823, Short.MAX_VALUE)
+                    .addComponent(displayEntryPane)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(welcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -1028,9 +1000,8 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
 
     private void entriesListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_entriesListValueChanged
         MyDiaryBookController controller = new MyDiaryBookController();
-        try{
-            if(mediaPlayer2!=null)
-            {
+        try {
+            if (mediaPlayer2 != null) {
                 videoPanel.remove(mediaPlayer2);
                 mediaPlayer2.getMediaPlayer().stop();
                 pauseOrPlayVideoButton.setVisible(false);
@@ -1045,7 +1016,7 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
             loadEntryDateLabel();
             loadImageList();
             loadEntryVideo();
-        }catch(NullPointerException ex){
+        } catch (NullPointerException ex) {
             //TODO: Add Logger
             entriesList.setSelectedIndex(0);
         }
@@ -1089,10 +1060,10 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
 
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
         int ret = JOptionPane.showConfirmDialog(this, "Are You Sure? ");
-        if(ret == JOptionPane.YES_OPTION)
-        {
-            if(mediaPlayer2!=null)
+        if (ret == JOptionPane.YES_OPTION) {
+            if (mediaPlayer2 != null) {
                 mediaPlayer2.getMediaPlayer().release();
+            }
             System.exit(0);
         }
     }//GEN-LAST:event_exitButtonActionPerformed
@@ -1104,7 +1075,7 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
             e.printStackTrace();
         }
         PersonalGoalForm theView = new PersonalGoalForm();
-
+        
         theView.setDefaultLookAndFeelDecorated(true);
         theView.setLocationRelativeTo(null);
         theView.setVisible(true);
@@ -1117,7 +1088,7 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
             e.printStackTrace();
         }
         FavoritesForm theView = new FavoritesForm();
-
+        
         theView.setDefaultLookAndFeelDecorated(true);
         theView.setLocationRelativeTo(null);
         theView.setVisible(true);
@@ -1130,14 +1101,14 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
             e.printStackTrace();
         }
         ViewFavorites theView = new ViewFavorites();
-
+        
         theView.setDefaultLookAndFeelDecorated(true);
         theView.setLocationRelativeTo(null);
-        theView.setVisible(true);    
+        theView.setVisible(true);        
     }//GEN-LAST:event_viewFavoritesActionPerformed
 
     private void playVideoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playVideoButtonActionPerformed
-        displayVideo(video.toString(),"Display");
+        displayVideo(video.toString(), "Display");
         playVideoButton.setVisible(false);
         pauseOrPlayVideoButton.setVisible(true);
     }//GEN-LAST:event_playVideoButtonActionPerformed
@@ -1148,22 +1119,22 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
     }//GEN-LAST:event_pauseOrPlayVideoButtonActionPerformed
 
     private void personalGoalListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_personalGoalListValueChanged
-
+        
         MyDiaryBookController controller = new MyDiaryBookController();
-
+        
         personalGoalModel = controller.getPersonalGoal(personalGoalList.getSelectedValue().toString());
-        try{
+        try {
             titleTextField.setText(personalGoalList.getSelectedValue().toString());
-
+            
             loadPersonalGoalLocation();
             loadPersonalGoalWithPerson();
             loadPersonalGoalAnnouncement();
-          //  displayImagePersonalGoal();
+            //  displayImagePersonalGoal();
 
-        }catch(NullPointerException ex){
+        } catch (NullPointerException ex) {
             //fix this
             entriesList.setSelectedIndex(0);
-
+            
         }
     }//GEN-LAST:event_personalGoalListValueChanged
 
@@ -1176,10 +1147,10 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         boolean isValid = newTitle.titleIsValid(titleTextField.getText());
         savePersonalGoalButton.setEnabled(isValid);
         if (!isValid) {
-
+            
             titleTextField.setForeground(Color.red);
         } else {
-
+            
             titleTextField.setForeground(Color.black);
         }
     }//GEN-LAST:event_titleTextFieldFocusLost
@@ -1188,10 +1159,10 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         LocationValidator newLocation = new LocationValidator();
         boolean isValid = newLocation.locationIsValid(locationTextField.getText());
         if (!isValid) {
-
+            
             locationTextField.setForeground(Color.red);
         } else {
-
+            
             locationTextField.setForeground(Color.black);
         }
     }//GEN-LAST:event_locationTextFieldFocusLost
@@ -1200,10 +1171,10 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         WithPersonValidator withPerson = new WithPersonValidator();
         boolean isValid = withPerson.withPersonIsValid(withPersonTextField.getText());
         if (!isValid) {
-
+            
             withPersonTextField.setForeground(Color.red);
         } else {
-
+            
             withPersonTextField.setForeground(Color.black);
         }
     }//GEN-LAST:event_withPersonTextFieldFocusLost
@@ -1212,10 +1183,10 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         WhenDateValidator whenDate = new WhenDateValidator();
         boolean isValid = whenDate.whenDateIsValid(whenDateSpinner.getName().toString());
         if (!isValid) {
-
+            
             locationTextField.setForeground(Color.red);
         } else {
-
+            
             locationTextField.setForeground(Color.black);
         }
     }//GEN-LAST:event_whenDateSpinnerFocusLost
@@ -1224,10 +1195,10 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         AnnouncementValidator announcement = new AnnouncementValidator();
         boolean isValid = announcement.announcementIsValid(announcementEditorPane.getText());
         if (!isValid) {
-
+            
             withPersonTextField.setForeground(Color.red);
         } else {
-
+            
             withPersonTextField.setForeground(Color.black);
         }
     }//GEN-LAST:event_announcementEditorPaneFocusLost
@@ -1238,31 +1209,31 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         String withPerson = withPersonTextField.getText();
         String whenDate = whenDateSpinner.getValue().toString();
         String announcement = announcementEditorPane.getText();
-
+        
         PersonalGoalController newController = new PersonalGoalController();
         PersonalGoalImageController newImageController = new PersonalGoalImageController();
         //check if all Field is correct and return if is all ok success or tha name the wrong value.
         String allFieldSuccess = newController.createPersonalGoal(titleTextField.getText(), locationTextField.getText(), withPersonTextField.getText(), whenDateSpinner.getValue().toString(), announcementEditorPane.getText());
-
+        
         if ("success".equals(allFieldSuccess)) {
-
+            
             PersonalGoalTextController newTextController = new PersonalGoalTextController();
             PersonalGoalTxtDao newTxtDao = new PersonalGoalTxtDao();
-
+            
             boolean Success = newTextController.createTextFile(titleTextField.getText(), locationTextField.getText(), withPersonTextField.getText(), whenDateSpinner.getValue().toString(), announcementEditorPane.getText());
             //if(ifImageExist =true){
-                //newImageController.saveImage(titleTextField.getText(), browseFotoTextField.getText());
+            //newImageController.saveImage(titleTextField.getText(), browseFotoTextField.getText());
 
-                //}
+            //}
             if (Success) {
                 checkFieldTextField.setText("success");
                 checkFieldTextField.setForeground(Color.green);
             }
         } else {
-
+            
             checkFieldTextField.setText(allFieldSuccess + " is incorect!");
             checkFieldTextField.setForeground(Color.red);
-
+            
         }
     }//GEN-LAST:event_savePersonalGoalButtonActionPerformed
 
@@ -1282,7 +1253,7 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
             e.printStackTrace();
         }
         momentsframe theView = new momentsframe();
-
+        
         theView.setDefaultLookAndFeelDecorated(true);
         theView.setLocationRelativeTo(null);
         theView.setVisible(true);
@@ -1295,7 +1266,7 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
             e.printStackTrace();
         }
         DeleteImportantMomentsForm theView = new DeleteImportantMomentsForm();
-
+        
         theView.setDefaultLookAndFeelDecorated(true);
         theView.setLocationRelativeTo(null);
         theView.setVisible(true);
@@ -1304,11 +1275,11 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
     private void deleteTextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteTextButtonActionPerformed
         DeleteTextController textDelete = new DeleteTextController();
         int dialog = JOptionPane.showConfirmDialog(this, "Are You sure for this delete?", "Confirm Message", JOptionPane.OK_CANCEL_OPTION);
-
+        
         if (dialog == JOptionPane.YES_OPTION) {
-
+            
             try {
-
+                
                 textDelete.deleteAElementFromTextList(entriesList.getSelectedValue().toString());
                 entryTextArea.setText("");
                 entriesListValueChanged(null);
@@ -1316,13 +1287,13 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
                 // Prepei na ginei to listModel private wste na mporw na to xrisimopoihsw
 
             } catch (NullPointerException ex) {
-
+                
                 JOptionPane.showConfirmDialog(this, textDelete.showNoFileFound(), "This File not exist", JOptionPane.CANCEL_OPTION);
-
+                
             } catch (Exception ex) {
-
+                
                 JOptionPane.showConfirmDialog(this, textDelete.showError(), "There was a Error", JOptionPane.CANCEL_OPTION);
-
+                
             }
         }
     }//GEN-LAST:event_deleteTextButtonActionPerformed
@@ -1332,142 +1303,159 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
     }//GEN-LAST:event_deleteImageAlbumButtonActionPerformed
 
     private void deleteImageAlbumButtondeleteImageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteImageAlbumButtondeleteImageButtonActionPerformed
-
+        
         MyDiaryBookController controller = new MyDiaryBookController();
         DeleteImageController imageDelete = new DeleteImageController();
         int dialog = JOptionPane.showConfirmDialog(this, "Are You sure for this delete?", "Confirm Message", JOptionPane.OK_CANCEL_OPTION);
         if (imageMode == "Single") {
-
+            
             if (dialog == JOptionPane.YES_OPTION) {
                 try {
-
+                    
                     imageDelete.deleteAElementFromImageList(entryTitleField.getText(), imagesList.getSelectedValue().toString());
                     entriesListValueChanged(null); // tha mpei to idio gia to textlistdelete
                     loadImageButtonActionPerformed(evt);
-
+                    
                     JOptionPane.showConfirmDialog(this, imageDelete.showSuccess(), "Success", JOptionPane.CANCEL_OPTION);
-
+                    
                 } catch (NullPointerException ex) {
-
+                    
                     JOptionPane.showConfirmDialog(this, imageDelete.showNoFileFound(), "This File not exist", JOptionPane.CANCEL_OPTION);
-
+                    
                 } catch (Exception ex) {
-
+                    
                     JOptionPane.showConfirmDialog(this, imageDelete.showError(), "There was a Error", JOptionPane.CANCEL_OPTION);
-
+                    
                 }
             }
         } else {
             if (dialog == JOptionPane.YES_OPTION) {
-
+                
                 try {
                     imageDelete.deleteImageAlbum(entryTitleField.getText());
                     loadAlbumButtonActionPerformed(evt);
                     JOptionPane.showConfirmDialog(this, imageDelete.showSuccess(), "Success", JOptionPane.CANCEL_OPTION);
                 } catch (NullPointerException ex) {
-
+                    
                     JOptionPane.showConfirmDialog(this, imageDelete.showNoFileFound(), "This File not exist", JOptionPane.CANCEL_OPTION);
-
+                    
                 } catch (Exception ex) {
-
+                    
                     JOptionPane.showConfirmDialog(this, imageDelete.showError(), "There was a Error", JOptionPane.CANCEL_OPTION);
-
+                    
                 }
             }
-
+            
         }
 
     }//GEN-LAST:event_deleteImageAlbumButtondeleteImageButtonActionPerformed
 
     private void deleteImageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteImageButtonActionPerformed
-
+        
         MyDiaryBookController controller = new MyDiaryBookController();
         DeleteImageController imageDelete = new DeleteImageController();
         int dialog = JOptionPane.showConfirmDialog(this, "Are You sure for this delete?", "Confirm Message", JOptionPane.OK_CANCEL_OPTION);
         if (imageMode == "Single") {
-
+            
             if (dialog == JOptionPane.YES_OPTION) {
                 try {
-
+                    
                     imageDelete.deleteAElementFromImageList(entryTitleField.getText(), imagesList.getSelectedValue().toString());
                     entriesListValueChanged(null); // tha mpei to idio gia to textlistdelete
                     loadImageButtonActionPerformed(evt);
-
+                    
                     JOptionPane.showConfirmDialog(this, imageDelete.showSuccess(), "Success", JOptionPane.CANCEL_OPTION);
-
+                    
                 } catch (NullPointerException ex) {
-
+                    
                     JOptionPane.showConfirmDialog(this, imageDelete.showNoFileFound(), "This File not exist", JOptionPane.CANCEL_OPTION);
-
+                    
                 } catch (Exception ex) {
-
+                    
                     JOptionPane.showConfirmDialog(this, imageDelete.showError(), "There was a Error", JOptionPane.CANCEL_OPTION);
-
+                    
                 }
             }
         } else {
             if (dialog == JOptionPane.YES_OPTION) {
-
+                
                 try {
                     imageDelete.deleteImageAlbum(entryTitleField.getText());
                     loadAlbumButtonActionPerformed(evt);
                     JOptionPane.showConfirmDialog(this, imageDelete.showSuccess(), "Success", JOptionPane.CANCEL_OPTION);
                 } catch (NullPointerException ex) {
-
+                    
                     JOptionPane.showConfirmDialog(this, imageDelete.showNoFileFound(), "This File not exist", JOptionPane.CANCEL_OPTION);
-
+                    
                 } catch (Exception ex) {
-
+                    
                     JOptionPane.showConfirmDialog(this, imageDelete.showError(), "There was a Error", JOptionPane.CANCEL_OPTION);
-
+                    
                 }
             }
-
+            
         }
 
     }//GEN-LAST:event_deleteImageButtonActionPerformed
 
     private void deleteVideoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteVideoButtonActionPerformed
         DeleteVideoController controller = new DeleteVideoController();
-
+        
         try {
-
+            
             controller.deleteVideoAlbum(entry.getEntryVideo());
             entriesListValueChanged(null);
             JOptionPane.showConfirmDialog(this, controller.showSuccess(), "Success", JOptionPane.CANCEL_OPTION);
             // Prepei na ginei to listModel private wste na mporw na to xrisimopoihsw
 
         } catch (NullPointerException ex) {
-
+            
             JOptionPane.showConfirmDialog(this, controller.showNoFileFound(), "This File not exist", JOptionPane.CANCEL_OPTION);
-
+            
         } catch (Exception ex) {
-
+            
             JOptionPane.showConfirmDialog(this, controller.showError(), "There was a Error", JOptionPane.CANCEL_OPTION);
-
+            
         }
     }//GEN-LAST:event_deleteVideoButtonActionPerformed
 
     private void deletePersonalGoalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletePersonalGoalActionPerformed
         DeletePersonalGoalController controller = new DeletePersonalGoalController();
-        int dialog = JOptionPane.showConfirmDialog(this, "Are You sure for this delete?", "Confirm Message", JOptionPane.OK_CANCEL_OPTION);
-         if (dialog == JOptionPane.YES_OPTION) {
+        if (titleTextField.getText().equals("")) {
+            JOptionPane.showConfirmDialog(this, "First you have to Select a Personal Goal ", "Info" ,JOptionPane.DEFAULT_OPTION);
+        } else {
+            int dialog = JOptionPane.showConfirmDialog(this, "Are You sure for this delete?", "Confirm Message", JOptionPane.OK_CANCEL_OPTION);
+            if (dialog == JOptionPane.YES_OPTION) {
                 try {
-                    controller.deleteElementFromList(model.Login.getUsername(), personalGoalList.getSelectedValue().toString());
+                    controller.deleteElementFromList(model.Login.getUsername(), titleTextField.getText());
+          /*
+                    NA DOUME GIA TI LISTA META TO DELETE
+                    */          
+                    
+                    emptyPersonalTextField();
                     loadListOfPersonalGoal();
-                      JOptionPane.showConfirmDialog(this, controller.showSuccess(), "Success", JOptionPane.CANCEL_OPTION);
-
+                    personalGoalListValueChanged(null);
+                    JOptionPane.showConfirmDialog(this, controller.showSuccess(), "Success", JOptionPane.CANCEL_OPTION);
+                    
                 } catch (NullPointerException ex) {
-
+                    
                     JOptionPane.showConfirmDialog(this, controller.showNoFileFound(), "This File not exist", JOptionPane.CANCEL_OPTION);
-
+                    
                 } catch (Exception ex) {
-
+                    
                     JOptionPane.showConfirmDialog(this, controller.showError(), "There was a Error", JOptionPane.CANCEL_OPTION);
-
+                    
                 }
-         }
+            }
+        }
     }//GEN-LAST:event_deletePersonalGoalActionPerformed
+    
+    public void emptyPersonalTextField() {
+        titleTextField.setText("");
+        locationTextField.setText("");
+        withPersonTextField.setText("");
+        announcementEditorPane.setText("");
+    }
 
     /**
      * @param args the command line arguments
@@ -1517,6 +1505,7 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
     private javax.swing.JButton deleteImageButton;
     private javax.swing.JMenuItem deleteImportantMoment;
     private javax.swing.JButton deletePersonalGoal;
+    private javax.swing.JMenuItem deletePersonalGoalMenuItem;
     private javax.swing.JMenuItem deleteSelectedEntry;
     private javax.swing.JButton deleteTextButton;
     private javax.swing.JButton deleteVideoButton;
