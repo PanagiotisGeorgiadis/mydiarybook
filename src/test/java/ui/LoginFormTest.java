@@ -17,8 +17,6 @@ import static org.junit.Assert.*;
 import org.uispec4j.Button;
 import org.uispec4j.PasswordField;
 import org.uispec4j.TextBox;
-import org.uispec4j.UISpec4J;
-import org.uispec4j.UISpecTestCase;
 import org.uispec4j.Window;
 import org.uispec4j.interception.MainClassAdapter;
 import org.uispec4j.interception.WindowInterceptor;
@@ -27,7 +25,7 @@ import org.uispec4j.interception.WindowInterceptor;
  *
  * @author MariosT
  */
-public class LoginFormTest extends UISpecTestCase {
+public class LoginFormTest extends HelperClass {
     
     protected TextBox user;
     protected PasswordField pass;

@@ -15,8 +15,6 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import org.uispec4j.Button;
 import org.uispec4j.TextBox;
-import org.uispec4j.UISpec4J;
-import org.uispec4j.UISpecTestCase;
 import org.uispec4j.Window;
 import org.uispec4j.interception.MainClassAdapter;
 
@@ -24,7 +22,7 @@ import org.uispec4j.interception.MainClassAdapter;
  *
  * @author MariosT
  */
-public class FavoritesFormTest extends UISpecTestCase{
+public class FavoritesFormTest extends HelperClass{
       
     
       protected TextBox link;

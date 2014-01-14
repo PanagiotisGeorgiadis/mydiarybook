@@ -7,7 +7,6 @@
 package mydiarybook;
 
 
-import javax.swing.UIManager;
 import ui.MyMainForm;
 
 /**
@@ -17,14 +16,14 @@ import ui.MyMainForm;
 public class MyDiaryBook {
     
  public static void showDefaultFrame() {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//        } catch(Exception e) {
+//            e.printStackTrace();
+//        }
         MyMainForm theView = new MyMainForm();
 
-        MyMainForm.setDefaultLookAndFeelDecorated(true);
+//        MyMainForm.setDefaultLookAndFeelDecorated(true);
         theView.setVisible(true);
     }    
     
@@ -34,7 +33,6 @@ public class MyDiaryBook {
     public static void main(String[] args) {
         // TODO refer to https://code.google.com/p/mydiarybook/issues/list
         
-        //JOptionPane.showMessageDialog(null, "Hello World!");
         showDefaultFrame();
     }
     

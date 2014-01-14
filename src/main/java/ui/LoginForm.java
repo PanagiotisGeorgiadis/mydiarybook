@@ -183,14 +183,14 @@ public class LoginForm extends javax.swing.JFrame {
             lgn.setUsername(username.getText());
             DefaultPath defaultPath = new DefaultPath();
             defaultPath.setDefaultPath(System.getProperty("user.dir"));
-            try {
-                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+//            try {
+//                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
             MyDiaryBook theView = new MyDiaryBook();
 
-            theView.setDefaultLookAndFeelDecorated(true);
+ //           theView.setDefaultLookAndFeelDecorated(true);
             theView.setLocationRelativeTo(null);
             theView.setVisible(true);
 
@@ -254,8 +254,8 @@ public class LoginForm extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                if ("Motif".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
                     break;
                 }
             }
