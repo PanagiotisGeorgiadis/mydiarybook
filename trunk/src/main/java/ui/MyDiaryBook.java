@@ -1022,42 +1022,42 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
     }//GEN-LAST:event_exitButtonActionPerformed
 
     private void newPersonalGoalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newPersonalGoalActionPerformed
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        PersonalGoalForm theView = new PersonalGoalForm();
-
-        theView.setDefaultLookAndFeelDecorated(true);
-        theView.setLocationRelativeTo(null);
-        theView.setVisible(true);
+//        try {
+//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        PersonalGoalForm theView = new PersonalGoalForm();
+//
+//        theView.setDefaultLookAndFeelDecorated(true);
+//        theView.setLocationRelativeTo(null);
+//        theView.setVisible(true);
     }//GEN-LAST:event_newPersonalGoalActionPerformed
 
     private void newFavoritesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newFavoritesActionPerformed
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        FavoritesForm theView = new FavoritesForm();
-
-        theView.setDefaultLookAndFeelDecorated(true);
-        theView.setLocationRelativeTo(null);
-        theView.setVisible(true);
+//        try {
+//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        FavoritesForm theView = new FavoritesForm();
+//
+//        theView.setDefaultLookAndFeelDecorated(true);
+//        theView.setLocationRelativeTo(null);
+//        theView.setVisible(true);
     }//GEN-LAST:event_newFavoritesActionPerformed
 
     private void viewFavoritesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewFavoritesActionPerformed
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        ViewFavorites theView = new ViewFavorites();
-
-        theView.setDefaultLookAndFeelDecorated(true);
-        theView.setLocationRelativeTo(null);
-        theView.setVisible(true);    
+//        try {
+//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        ViewFavorites theView = new ViewFavorites();
+//
+//        theView.setDefaultLookAndFeelDecorated(true);
+//        theView.setLocationRelativeTo(null);
+//        theView.setVisible(true);    
     }//GEN-LAST:event_viewFavoritesActionPerformed
 
     private void playVideoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playVideoButtonActionPerformed
@@ -1200,29 +1200,29 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
     }//GEN-LAST:event_changePasswordMouseClicked
 
     private void newImportantMomentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newImportantMomentActionPerformed
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        momentsframe theView = new momentsframe();
-
-        theView.setDefaultLookAndFeelDecorated(true);
-        theView.setLocationRelativeTo(null);
-        theView.setVisible(true);
+//        try {
+//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        momentsframe theView = new momentsframe();
+//
+//        theView.setDefaultLookAndFeelDecorated(true);
+//        theView.setLocationRelativeTo(null);
+//        theView.setVisible(true);
     }//GEN-LAST:event_newImportantMomentActionPerformed
 
     private void deleteImportantMomentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteImportantMomentActionPerformed
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        DeleteImportantMomentsForm theView = new DeleteImportantMomentsForm();
-
-        theView.setDefaultLookAndFeelDecorated(true);
-        theView.setLocationRelativeTo(null);
-        theView.setVisible(true);
+//        try {
+//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        DeleteImportantMomentsForm theView = new DeleteImportantMomentsForm();
+//
+//        theView.setDefaultLookAndFeelDecorated(true);
+//        theView.setLocationRelativeTo(null);
+//        theView.setVisible(true);
     }//GEN-LAST:event_deleteImportantMomentActionPerformed
 
     /**
@@ -1236,8 +1236,9 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                if ("Motif".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+                    //javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }

@@ -90,9 +90,9 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
             jlabel.setIcon(newIcon);
             if(imagePanel.getComponents().length<=maxImageNumber)
             imageNumber++;
-            imagesLeftLabel.setText((maxImageNumber - imageNumber)+" Images"+" Left");
+            imagesLeftLabel.setText((maxImageNumber - imageNumber)+" Images Left");
             if((maxImageNumber - imageNumber)== 1)
-                imagesLeftLabel.setText((maxImageNumber - imageNumber)+" Image"+" Left");
+                imagesLeftLabel.setText((maxImageNumber - imageNumber)+" Image Left");
         } 
         catch (MalformedURLException ex) 
         {
@@ -566,8 +566,8 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                if ("Motif".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
                     break;
                 }
             }
