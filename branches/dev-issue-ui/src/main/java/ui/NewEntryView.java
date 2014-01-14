@@ -67,6 +67,24 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
         entryAlreadyExistsLabel.setText("Warning! An Entry With This Title Already Exists!");
         submitButton.setEnabled(false);
         imageExceedLabel.setVisible(false);
+        
+        
+        textPanel.setName("textPanel");
+        titleField.setName("titleField");
+        entryAlreadyExistsLabel.setName("entryAlreadyExistsLabel");
+        textArea.setName("textArea");
+        jTabbedPane1.setName("jTabbedPane1");
+        imagePanel.setName("imagePanel");
+        imageChooseButton.setName("imageChooseButton");
+        imagesLeftLabel.setName("imagesLeftLabel");
+        videoPanel.setName("videoPanel");
+        videoChooseButton.setName("videoChooseButton");
+        previewVideoButton.setName("previewVideoButton");
+        pauseButton.setName("pauseButton");
+        stopButton.setName("stopButton");
+        submitButton.setName("submitButton");
+        cancelButton.setName("cancelButton");
+        
     }
     
     @Override
@@ -231,7 +249,7 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
             .addGroup(textPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 834, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 855, Short.MAX_VALUE)
                     .addGroup(textPanelLayout.createSequentialGroup()
                         .addGroup(textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(textPanelLayout.createSequentialGroup()
@@ -257,7 +275,7 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
                     .addComponent(titleField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(entryAlreadyExistsLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -289,7 +307,7 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
                     .addComponent(imageChooseButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(imagesLeftLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(imageExceedLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -301,7 +319,7 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
                 .addComponent(imagesLeftLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(imageExceedLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(391, Short.MAX_VALUE))
+                .addContainerGap(362, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Photos", jPanel2);
@@ -325,7 +343,7 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
         videoPanelLayout.setHorizontalGroup(
             videoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(videoPanelLayout.createSequentialGroup()
-                .addContainerGap(783, Short.MAX_VALUE)
+                .addContainerGap(804, Short.MAX_VALUE)
                 .addGroup(videoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(previewVideoButton, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(videoChooseButton, javax.swing.GroupLayout.Alignment.TRAILING)))
@@ -336,7 +354,7 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
                 .addComponent(videoChooseButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(previewVideoButton)
-                .addContainerGap(452, Short.MAX_VALUE))
+                .addContainerGap(460, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Video", videoPanel);
@@ -360,7 +378,7 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(345, Short.MAX_VALUE)
+                .addContainerGap(366, Short.MAX_VALUE)
                 .addComponent(pauseButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(stopButton)
@@ -376,7 +394,7 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 532, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(submitButton)
