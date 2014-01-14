@@ -128,7 +128,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="displayEntryPane" pref="837" max="32767" attributes="0"/>
+                  <Component id="displayEntryPane" pref="823" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Component id="welcomeLabel" min="-2" pref="144" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -212,10 +212,10 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="entryTextAreaScrollPane" pref="698" max="32767" attributes="0"/>
+                      <Component id="entryTextAreaScrollPane" pref="691" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="entriesListScrollPane" pref="118" max="32767" attributes="0"/>
+                          <Component id="entriesListScrollPane" pref="111" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="saveEditButton" min="-2" max="-2" attributes="0"/>
@@ -399,7 +399,7 @@
                           </Group>
                           <Component id="deleteImageButton" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="67" max="32767" attributes="0"/>
+                      <EmptySpace pref="53" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -506,7 +506,7 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="741" max="32767" attributes="0"/>
+                      <EmptySpace pref="727" max="32767" attributes="0"/>
                       <Component id="playVideoButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -634,9 +634,11 @@
                                   <Component id="personalGoalListScrollPane" pref="0" max="32767" attributes="0"/>
                                   <Component id="checkFieldTextField" pref="101" max="32767" attributes="0"/>
                               </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="deletePersonalGoal" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="75" max="32767" attributes="0"/>
+                      <EmptySpace pref="21" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -651,25 +653,34 @@
                                   <Component id="titleTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="personalGoalLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="locationLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="locationTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="locationLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="locationTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="withPersonTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="withPersonLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="whenDateSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="WhenDate" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="AnnouncementLabel" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="jScrollPane2" min="-2" pref="94" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                                      <Component id="deletePersonalGoal" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="withPersonTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="withPersonLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="whenDateSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="WhenDate" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="AnnouncementLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jScrollPane2" min="-2" pref="94" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
@@ -804,6 +815,14 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="checkFieldTextField">
+            </Component>
+            <Component class="javax.swing.JButton" name="deletePersonalGoal">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Delete Goal"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deletePersonalGoalActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
