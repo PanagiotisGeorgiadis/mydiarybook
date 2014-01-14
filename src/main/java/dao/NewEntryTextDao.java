@@ -8,9 +8,9 @@ package dao;
 
 import exception.EntryException;
 import java.io.File;
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Login;
 
 /**
  *
@@ -27,7 +27,7 @@ public class NewEntryTextDao {
     
     public boolean createTextFile(String entryTitle,String userText)
     {
-        String textDestPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+"Panagiwtis Georgiadis"
+        String textDestPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+Login.getUsername()
                 +fSeparator+"Entries"+fSeparator+entryTitle+fSeparator+"Texts"+fSeparator;
         
         FilesDao textDao = new FilesDao();

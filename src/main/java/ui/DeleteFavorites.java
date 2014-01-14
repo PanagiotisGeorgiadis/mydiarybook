@@ -15,12 +15,12 @@ import model.Login;
  *
  * @author w7user
  */
-public class ViewFavorites extends javax.swing.JFrame {
-
+public class DeleteFavorites extends javax.swing.JFrame {
+    private IMyDiaryBook callerFrame;
     /**
      * Creates new form ViewFavorites
      */
-    public ViewFavorites() {
+    public DeleteFavorites() {
         initComponents();
         LoggedInController controller = new LoggedInController();
 
@@ -39,6 +39,11 @@ public class ViewFavorites extends javax.swing.JFrame {
       this.setLocationRelativeTo(null);
     }
 
+    
+    public void setCallerForm(IMyDiaryBook callerFrame)
+    {
+        this.callerFrame = callerFrame;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -59,6 +64,7 @@ public class ViewFavorites extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         links.setColumns(20);
+        links.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         links.setRows(5);
         jScrollPane1.setViewportView(links);
 
@@ -149,12 +155,15 @@ public class ViewFavorites extends javax.swing.JFrame {
       links.setText(null);
       msg.setText("Links Successfully Deleted!");
       }
-      else msg.setText("Error Deleting Your Links");
+      else 
+        msg.setText("Error Deleting Your Links");
+      this.callerFrame.loadFavorites();
               
     }//GEN-LAST:event_clearActionPerformed
 
     private void confirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmActionPerformed
         msg.setText(null);
+        this.callerFrame.loadFavorites();
     }//GEN-LAST:event_confirmActionPerformed
 
     /**
@@ -168,26 +177,26 @@ public class ViewFavorites extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Motif".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ViewFavorites.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DeleteFavorites.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ViewFavorites.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DeleteFavorites.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ViewFavorites.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DeleteFavorites.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ViewFavorites.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DeleteFavorites.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ViewFavorites().setVisible(true);
+                new DeleteFavorites().setVisible(true);
                 
                 
             }

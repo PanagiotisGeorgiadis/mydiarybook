@@ -148,9 +148,6 @@
           <Dimension value="[151, 23]"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EditEntryButtonActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="ExitButton">
       <Properties>

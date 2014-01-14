@@ -7,6 +7,7 @@
 package dao;
 
 import java.io.File;
+import model.Login;
 
 /**
  *
@@ -23,7 +24,7 @@ public class CheckIfFileExistsDao {
     {
         if(title==null || title.trim().isEmpty())
             return false;
-        String path = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+"Panagiwtis Georgiadis"
+        String path = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+Login.getUsername()
                 +fSeparator+"Entries"+fSeparator+title;
         File file = new File(path);
         return file.exists();

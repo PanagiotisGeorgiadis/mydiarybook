@@ -14,7 +14,8 @@ import model.Login;
  * @author w7user
  */
 public class FavoritesForm extends javax.swing.JFrame {
-
+    private IMyDiaryBook callerFrame;
+    
     public FavoritesForm() {
         initComponents();
         emptymsg.setVisible(false);
@@ -28,6 +29,11 @@ public class FavoritesForm extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
 
+    public void setCallerForm(IMyDiaryBook theView)
+    {
+        this.callerFrame = theView;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -78,6 +84,7 @@ public class FavoritesForm extends javax.swing.JFrame {
         });
 
         comment.setColumns(20);
+        comment.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         comment.setRows(5);
         jScrollPane1.setViewportView(comment);
 
@@ -183,6 +190,7 @@ public class FavoritesForm extends javax.swing.JFrame {
     }//GEN-LAST:event_clearActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
+        callerFrame.loadFavorites();
         this.dispose();
     }//GEN-LAST:event_backActionPerformed
 
@@ -195,10 +203,10 @@ public class FavoritesForm extends javax.swing.JFrame {
             link.setText(null);
             comment.setText(null);
             link.requestFocus(true);
+            callerFrame.loadFavorites();
         } else {
             msg.setText("Error Saving Your Link!");
         }
-
     }//GEN-LAST:event_saveActionPerformed
 
     private void linkKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_linkKeyTyped
@@ -238,8 +246,8 @@ public class FavoritesForm extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Motif".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }

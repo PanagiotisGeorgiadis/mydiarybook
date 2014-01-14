@@ -86,11 +86,6 @@ public class MyMainForm extends javax.swing.JFrame {
 
         EditEntryButton.setText("Edit Entry Demo");
         EditEntryButton.setPreferredSize(new java.awt.Dimension(151, 23));
-        EditEntryButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EditEntryButtonActionPerformed(evt);
-            }
-        });
 
         ExitButton.setText("Exit");
         ExitButton.addActionListener(new java.awt.event.ActionListener() {
@@ -185,117 +180,104 @@ public class MyMainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_ExitButtonActionPerformed
 
     private void RegisterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterButtonActionPerformed
-//        try {
-//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         RegisterForm theView = new RegisterForm();
 
- //       theView.setDefaultLookAndFeelDecorated(true);
+        theView.setDefaultLookAndFeelDecorated(true);
         theView.setLocationRelativeTo(null);
         theView.setVisible(true);
     }//GEN-LAST:event_RegisterButtonActionPerformed
 
     private void NewEntryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewEntryButtonActionPerformed
-//        try {
-//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         NewEntryView theView = new NewEntryView();
- //       theView.setDefaultLookAndFeelDecorated(true);
+        theView.setDefaultLookAndFeelDecorated(true);
         theView.setLocationRelativeTo(null);
         theView.setVisible(true);
     }//GEN-LAST:event_NewEntryButtonActionPerformed
 
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
-//        try {
-//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         LoginForm theView = new LoginForm();
 
-    //    theView.setDefaultLookAndFeelDecorated(true);
+        theView.setDefaultLookAndFeelDecorated(true);
         theView.setLocationRelativeTo(null);
         theView.setVisible(true);
     }//GEN-LAST:event_LoginButtonActionPerformed
 
-    private void EditEntryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditEntryButtonActionPerformed
-//        try {
-//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-        EditForm theView = new EditForm();
-
- //       theView.setDefaultLookAndFeelDecorated(true);
-        theView.setLocationRelativeTo(null);
-        theView.setVisible(true);
-    }//GEN-LAST:event_EditEntryButtonActionPerformed
-
     private void PersonalGoalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PersonalGoalButtonActionPerformed
- //       try {
-//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         PersonalGoalForm theView = new PersonalGoalForm();
 
-   //     theView.setDefaultLookAndFeelDecorated(true);
+        theView.setDefaultLookAndFeelDecorated(true);
         theView.setLocationRelativeTo(null);
         theView.setVisible(true);
     }//GEN-LAST:event_PersonalGoalButtonActionPerformed
 
     private void ImportantMomentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImportantMomentButtonActionPerformed
-//        try {
-//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         momentsframe theView = new momentsframe();
 
-//        theView.setDefaultLookAndFeelDecorated(true);
+        theView.setDefaultLookAndFeelDecorated(true);
         theView.setLocationRelativeTo(null);
         theView.setVisible(true);
     }//GEN-LAST:event_ImportantMomentButtonActionPerformed
 
     private void demoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_demoButtonActionPerformed
-//         try {
-//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+         try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         LoginForm theView = new LoginForm();
 
-       // theView.setDefaultLookAndFeelDecorated(true);
+        theView.setDefaultLookAndFeelDecorated(true);
         theView.setLocationRelativeTo(null);
         theView.setVisible(true);
     }//GEN-LAST:event_demoButtonActionPerformed
 
     private void addFavoritesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFavoritesActionPerformed
-//       try {
-//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-        ViewFavorites theView = new ViewFavorites();
+       try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        DeleteFavorites theView = new DeleteFavorites();
 
- //       theView.setDefaultLookAndFeelDecorated(true);
+        theView.setDefaultLookAndFeelDecorated(true);
         theView.setLocationRelativeTo(null);
         theView.setVisible(true);
     }//GEN-LAST:event_addFavoritesActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-//        try {
-//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         
         MyDiaryBook theView = new MyDiaryBook();
-   //     theView.setDefaultLookAndFeelDecorated(true);
+        theView.setDefaultLookAndFeelDecorated(true);
         theView.setLocationRelativeTo(null);
         theView.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -311,9 +293,8 @@ public class MyMainForm extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Motif".equals(info.getName())) {
-                    //javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    javax.swing.UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }

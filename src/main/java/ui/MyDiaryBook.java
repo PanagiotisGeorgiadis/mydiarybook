@@ -7,6 +7,7 @@
 package ui;
 
 import controller.LoadEntriesController;
+import controller.LoggedInController;
 import controller.MyDiaryBookController;
 import controller.PersonalGoalController;
 import controller.PersonalGoalImageController;
@@ -14,6 +15,7 @@ import controller.PersonalGoalLoadController;
 import controller.PersonalGoalTextController;
 import dao.NewEntryDao;
 import dao.PersonalGoalTxtDao;
+import dao.ViewFavoritesDao;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -30,7 +32,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
-import model.DefaultPath;
+import javax.swing.UnsupportedLookAndFeelException;
 import model.Entry;
 import model.Login;
 import model.PersonalGoalModel;
@@ -82,9 +84,8 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
         this.setExtendedState(JFrame.NORMAL);
         loadListOfPersonalGoal();
+        loadFavorites();
         this.setLocationRelativeTo(null);
-        JOptionPane.showMessageDialog(this, DefaultPath.getDefaultPath());
-        JOptionPane.showMessageDialog(this,alexPanel.getSize());
     }
     
     /** Displays the new Image Specified in 2 different modes: 
@@ -293,6 +294,16 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         loadEntriesList();
     }
     
+    @Override
+    public void loadFavorites()
+    {
+        LoggedInController controller = new LoggedInController();
+        ViewFavoritesDao dao = new ViewFavoritesDao();
+        if(controller.loggedIn())
+            favoritesTextArea.setText(dao.viewFavorites(Login.getUsername()));
+    }
+    
+    
     /**
      * load list of personal goals
      */
@@ -429,8 +440,11 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         personalGoalLabel = new javax.swing.JLabel();
         checkFieldTextField = new javax.swing.JTextField();
         favouritesPanel = new javax.swing.JPanel();
+        favoritesScrollPane = new javax.swing.JScrollPane();
+        favoritesTextArea = new javax.swing.JTextArea();
         welcomeLabel = new javax.swing.JLabel();
         pauseOrPlayVideoButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         myDiaryBookMenu = new javax.swing.JMenuBar();
         entryMenu = new javax.swing.JMenu();
         newEntry = new javax.swing.JMenuItem();
@@ -440,7 +454,7 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         newPersonalGoal = new javax.swing.JMenuItem();
         favoritesMenu = new javax.swing.JMenu();
         newFavorites = new javax.swing.JMenuItem();
-        viewFavorites = new javax.swing.JMenuItem();
+        editFavorites = new javax.swing.JMenuItem();
         importantMommentsMenu = new javax.swing.JMenu();
         newImportantMoment = new javax.swing.JMenuItem();
         deleteImportantMoment = new javax.swing.JMenuItem();
@@ -700,7 +714,7 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
             }
         });
 
-        personalGoalLabel.setFont(new java.awt.Font("Tempus Sans ITC", 0, 24)); // NOI18N
+        personalGoalLabel.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
         personalGoalLabel.setText("Personal Goal");
 
         javax.swing.GroupLayout personalGoalPanelLayout = new javax.swing.GroupLayout(personalGoalPanel);
@@ -750,7 +764,7 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
                         .addGroup(personalGoalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(personalGoalListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(checkFieldTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(117, Short.MAX_VALUE))
         );
         personalGoalPanelLayout.setVerticalGroup(
             personalGoalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -807,15 +821,24 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        favoritesTextArea.setColumns(20);
+        favoritesTextArea.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        favoritesTextArea.setRows(5);
+        favoritesScrollPane.setViewportView(favoritesTextArea);
+
         javax.swing.GroupLayout favouritesPanelLayout = new javax.swing.GroupLayout(favouritesPanel);
         favouritesPanel.setLayout(favouritesPanelLayout);
         favouritesPanelLayout.setHorizontalGroup(
             favouritesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 469, Short.MAX_VALUE)
+            .addGap(0, 518, Short.MAX_VALUE)
+            .addGroup(favouritesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(favoritesScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 518, Short.MAX_VALUE))
         );
         favouritesPanelLayout.setVerticalGroup(
             favouritesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 205, Short.MAX_VALUE)
+            .addGap(0, 272, Short.MAX_VALUE)
+            .addGroup(favouritesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(favoritesScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE))
         );
 
         welcomeLabel.setText("Welcome, ");
@@ -826,6 +849,9 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
                 pauseOrPlayVideoButtonActionPerformed(evt);
             }
         });
+
+        jLabel1.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        jLabel1.setText("My Favourite Links");
 
         entryMenu.setText("Entries");
 
@@ -867,13 +893,13 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         });
         favoritesMenu.add(newFavorites);
 
-        viewFavorites.setText("View Favorites");
-        viewFavorites.addActionListener(new java.awt.event.ActionListener() {
+        editFavorites.setText("Edit Favorites");
+        editFavorites.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewFavoritesActionPerformed(evt);
+                editFavoritesActionPerformed(evt);
             }
         });
-        favoritesMenu.add(viewFavorites);
+        favoritesMenu.add(editFavorites);
 
         myDiaryBookMenu.add(favoritesMenu);
 
@@ -918,18 +944,25 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(welcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(favouritesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(alexPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(31, 31, 31))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(pauseOrPlayVideoButton)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(alexPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(31, 31, 31))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(pauseOrPlayVideoButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(exitButton)
+                                .addContainerGap())
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(favouritesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(exitButton)
-                        .addContainerGap())))
+                        .addComponent(jLabel1)
+                        .addGap(166, 166, 166))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -938,14 +971,18 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(alexPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(favouritesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(pauseOrPlayVideoButton)
-                                .addComponent(exitButton))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(pauseOrPlayVideoButton)
+                                    .addComponent(exitButton)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(welcomeLabel)
                                 .addGap(40, 40, 40)
@@ -1022,43 +1059,61 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
     }//GEN-LAST:event_exitButtonActionPerformed
 
     private void newPersonalGoalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newPersonalGoalActionPerformed
-//        try {
-//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        PersonalGoalForm theView = new PersonalGoalForm();
-//
-//        theView.setDefaultLookAndFeelDecorated(true);
-//        theView.setLocationRelativeTo(null);
-//        theView.setVisible(true);
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
+        PersonalGoalForm theView = new PersonalGoalForm();
+
+        PersonalGoalForm.setDefaultLookAndFeelDecorated(true);
+        theView.setLocationRelativeTo(null);
+        theView.setVisible(true);
     }//GEN-LAST:event_newPersonalGoalActionPerformed
 
     private void newFavoritesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newFavoritesActionPerformed
-//        try {
-//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        FavoritesForm theView = new FavoritesForm();
-//
-//        theView.setDefaultLookAndFeelDecorated(true);
-//        theView.setLocationRelativeTo(null);
-//        theView.setVisible(true);
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
+        FavoritesForm theView = new FavoritesForm();
+        theView.setCallerForm(this);
+        FavoritesForm.setDefaultLookAndFeelDecorated(true);
+        theView.setLocationRelativeTo(null);
+        theView.setVisible(true);
     }//GEN-LAST:event_newFavoritesActionPerformed
 
-    private void viewFavoritesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewFavoritesActionPerformed
-//        try {
-//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        ViewFavorites theView = new ViewFavorites();
-//
-//        theView.setDefaultLookAndFeelDecorated(true);
-//        theView.setLocationRelativeTo(null);
-//        theView.setVisible(true);    
-    }//GEN-LAST:event_viewFavoritesActionPerformed
+    private void editFavoritesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editFavoritesActionPerformed
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
+        DeleteFavorites theView = new DeleteFavorites();
+        theView.setCallerForm(this);
+        DeleteFavorites.setDefaultLookAndFeelDecorated(true);
+        theView.setLocationRelativeTo(null);
+        theView.setVisible(true);    
+    }//GEN-LAST:event_editFavoritesActionPerformed
 
     private void playVideoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playVideoButtonActionPerformed
         displayVideo(video.toString(),"Display");
@@ -1200,29 +1255,41 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
     }//GEN-LAST:event_changePasswordMouseClicked
 
     private void newImportantMomentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newImportantMomentActionPerformed
-//        try {
-//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        momentsframe theView = new momentsframe();
-//
-//        theView.setDefaultLookAndFeelDecorated(true);
-//        theView.setLocationRelativeTo(null);
-//        theView.setVisible(true);
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
+        momentsframe theView = new momentsframe();
+
+        momentsframe.setDefaultLookAndFeelDecorated(true);
+        theView.setLocationRelativeTo(null);
+        theView.setVisible(true);
     }//GEN-LAST:event_newImportantMomentActionPerformed
 
     private void deleteImportantMomentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteImportantMomentActionPerformed
-//        try {
-//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        DeleteImportantMomentsForm theView = new DeleteImportantMomentsForm();
-//
-//        theView.setDefaultLookAndFeelDecorated(true);
-//        theView.setLocationRelativeTo(null);
-//        theView.setVisible(true);
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
+        DeleteImportantMomentsForm theView = new DeleteImportantMomentsForm();
+
+        theView.setDefaultLookAndFeelDecorated(true);
+        theView.setLocationRelativeTo(null);
+        theView.setVisible(true);
     }//GEN-LAST:event_deleteImportantMomentActionPerformed
 
     /**
@@ -1236,9 +1303,8 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Motif".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
-                    //javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
@@ -1274,6 +1340,7 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
     private javax.swing.JMenuItem deleteSelectedEntry;
     private javax.swing.JTabbedPane displayEntryPane;
     private javax.swing.JMenuItem editEntry;
+    private javax.swing.JMenuItem editFavorites;
     private javax.swing.JList entriesList;
     private javax.swing.JScrollPane entriesListScrollPane;
     private javax.swing.JLabel entryDateLabel;
@@ -1284,6 +1351,8 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
     private javax.swing.JLabel entryTitleLabel;
     private javax.swing.JButton exitButton;
     private javax.swing.JMenu favoritesMenu;
+    private javax.swing.JScrollPane favoritesScrollPane;
+    private javax.swing.JTextArea favoritesTextArea;
     private javax.swing.JPanel favouritesPanel;
     private javax.swing.JScrollPane imageListScrollPane;
     private javax.swing.JPanel imagePanel;
@@ -1291,6 +1360,7 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
     private javax.swing.JScrollPane imagePanelScrollPane;
     private javax.swing.JList imagesList;
     private javax.swing.JMenu importantMommentsMenu;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lastModifiedLabel;
     private javax.swing.JButton loadAlbumButton;
@@ -1315,7 +1385,6 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
     private javax.swing.JLabel titleLabel;
     private javax.swing.JTextField titleTextField;
     private javax.swing.JPanel videoPanel;
-    private javax.swing.JMenuItem viewFavorites;
     private javax.swing.JLabel welcomeLabel;
     private javax.swing.JSpinner whenDateSpinner;
     private javax.swing.JLabel withPersonLabel;

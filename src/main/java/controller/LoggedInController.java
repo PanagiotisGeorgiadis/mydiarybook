@@ -13,13 +13,18 @@ import model.Login;
  * @author w7user
  */
 public class LoggedInController {
+    
     public boolean loggedIn()
     {
-        if(Login.getUsername().equalsIgnoreCase(""))
-        {
+        try{
+            if(Login.getUsername().equalsIgnoreCase(""))
+            {
+                return false;
+            }
+            return true;
+        }catch(NullPointerException ex){
             return false;
         }
-        return true;
     }
     
 }

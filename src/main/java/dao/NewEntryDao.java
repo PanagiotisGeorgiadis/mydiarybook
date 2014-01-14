@@ -8,6 +8,7 @@ package dao;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import model.Login;
 
 /**
  *
@@ -17,7 +18,7 @@ public class NewEntryDao {
     String fSeparator = File.separator;
     public boolean deleteEntry(String entryTitle)
     {
-        String fileToDeletePath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+"Panagiwtis Georgiadis"
+        String fileToDeletePath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+Login.getUsername()
                 +fSeparator+"Entries"+fSeparator+entryTitle+fSeparator;
         
         FilesDao deleteDao = new FilesDao();

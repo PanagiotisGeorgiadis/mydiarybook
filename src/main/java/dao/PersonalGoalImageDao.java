@@ -11,6 +11,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import model.Login;
 
 
 /**
@@ -25,7 +26,7 @@ public class PersonalGoalImageDao {
       
     
        
-        String imageDestPath = System.getProperty("user.dir")+ fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+"Alex Patsanis"+fSeparator+"PersonalGoal"+ fSeparator + title + fSeparator + "Images" + fSeparator;
+        String imageDestPath = System.getProperty("user.dir")+ fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+Login.getUsername()+fSeparator+"PersonalGoal"+ fSeparator + title + fSeparator + "Images" + fSeparator;
         
         
         File destFile = new File(imageDestPath);
