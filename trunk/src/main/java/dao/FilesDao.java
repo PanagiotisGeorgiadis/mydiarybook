@@ -485,8 +485,36 @@ public class FilesDao {
             text = FileUtils.readFileToString(textFile);
         } catch (IOException ex) {
             text = "";
+            //TODO: Add Logger
         }
         return text;
+    }
+    
+    public boolean delete(File fileText) {
+        File fileParent = fileText.getParentFile();
+
+        if (fileText.exists()) {
+            if (fileText.isDirectory()) {
+                String[] subFile = fileText.list();
+                for (String childFile : subFile) {
+                    delete(new File(fileText, childFile));
+                }
+                fileText.delete();
+            } else {
+                fileText.delete();
+                String[] subFile = fileParent.list();
+                if (subFile.length == 0) {
+                    fileParent.delete();
+                }
+            }
+        } else {
+            return false;
+        }
+        if (fileText.exists()) {
+            return false;
+        } else {
+            return true;
+        }
     }
     
 }

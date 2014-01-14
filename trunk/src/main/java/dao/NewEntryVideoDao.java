@@ -49,7 +49,7 @@ public class NewEntryVideoDao {
     
     public File getVideoFile(String entryTitle)
     {
-        String videoPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+"Panagiwtis Georgiadis"
+        String videoPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+Login.getUsername()
                 +fSeparator+"Entries"+fSeparator+entryTitle+fSeparator+"Videos"+fSeparator;
         
         FilesDao video = new FilesDao();
@@ -59,4 +59,16 @@ public class NewEntryVideoDao {
             return null;
         }
     }
+    
+    public boolean prepareForDeleteAlbum(File videoFile){
+      FilesDao fileDelete = new FilesDao();
+      try{
+          
+          return fileDelete.delete(videoFile);
+ 
+      }catch(Exception ex){
+          return false;
+          //TODO logger
+      }
+  }
 }

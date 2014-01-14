@@ -29,7 +29,7 @@ public class NewEntryDao {
     public String getEntryLastModified(String entryTitle)
     {
         
-        String entryPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+"Panagiwtis Georgiadis"+
+        String entryPath = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+Login.getUsername()+
                 fSeparator+"Entries"+fSeparator+entryTitle+fSeparator;
         File entryFile = new File(entryPath);
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy     HH:mm:ss");
