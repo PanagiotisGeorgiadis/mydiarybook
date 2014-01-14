@@ -6,25 +6,18 @@
 
 package controller;
 
-import dao.IEditEntryDao;
-//import exception.ExceptionDao;
-import model.EditEntry;
+import dao.EditTextEntryDao;
 
 /**
  *
  * @author PTsilopoulos
  */
-public class EditEntryController {
+public class EditTextEntryController {
     
-    public EditEntry newEditEntry;
-    public IEditEntryDao EditEntryDao;
-    public EditEntryController()
-    {
-        
-    }
-    public EditEntryController(IEditEntryDao EditEntryDao) {
-        this.EditEntryDao = EditEntryDao;
-        this.newEditEntry = new EditEntry();
+    public String editTextEntry(String EntryTitle) {
+        EditTextEntryDao textEntryDao = new EditTextEntryDao();
+
+        return textEntryDao.EditText(EntryTitle);
     }
        
     public boolean checkEdit(String textToEdit)

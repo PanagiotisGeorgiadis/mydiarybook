@@ -17,9 +17,9 @@ import static org.junit.Assert.*;
  *
  * @author user
  */
-public class EditEntryControllerTest {
+public class EditTextEntryControllerTest {
     
-    public EditEntryControllerTest() {
+    public EditTextEntryControllerTest() {
     }
     
     @BeforeClass
@@ -39,25 +39,40 @@ public class EditEntryControllerTest {
     }
 
     /**
-     * Test of checkEdit method, of class EditEntryController.
+     * Test of checkEdit method, of class EditTextEntryController.
      */
     @Test
-    public void testCheckEdit() {
-        System.out.println("checkEdit");
+    public void testCheckEditWorks() {
+        System.out.println("checkEditWorksAsIntended");
         String textToEdit = "This is the test text!";
-        EditEntryController instance = new EditEntryController();
+        EditTextEntryController instance = new EditTextEntryController();
         boolean expResult = true;
         boolean result = instance.checkEdit(textToEdit);
         assertEquals(expResult, result);
     }
     
+    @Test
     public void testCheckEditIsEmpty() {
         System.out.println("checkEditIsEmpty");
         String textToEdit = "";
-        EditEntryController instance = new EditEntryController();
-        boolean expResult = true;
+        EditTextEntryController instance = new EditTextEntryController();
+        boolean expResult = false;
         boolean result = instance.checkEdit(textToEdit);
         assertEquals(expResult, result);
     }
     
+     /**
+     * Test of editTestEntry method, of class EditTextEntryController.
+     */
+    
+     @Test
+    public void editTestEntry() {
+        System.out.println("EditTestEntry");
+        String textToEdit = "This is the test text!";
+        EditTextEntryController instance = new EditTextEntryController();
+        String expResult = "";
+        String result;
+        result = instance.editTextEntry(textToEdit);
+        assertEquals(expResult, result);
+    }
 }
