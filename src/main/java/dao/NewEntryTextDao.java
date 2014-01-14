@@ -11,6 +11,8 @@ import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Login;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  *
@@ -38,7 +40,7 @@ public class NewEntryTextDao {
     
     public String returnTextFromTextFile(String entryTitle)
     {
-        String textPath =System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+"Panagiwtis Georgiadis"+fSeparator+"Entries"+fSeparator+entryTitle+fSeparator+"Texts"+fSeparator+entryTitle+".txt";
+        String textPath =System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+Login.getUsername()+fSeparator+"Entries"+fSeparator+entryTitle+fSeparator+"Texts"+fSeparator+entryTitle+".txt";
         FilesDao textDao = new FilesDao();
         try {
             return textDao.returnTextFile(textPath);
@@ -60,4 +62,42 @@ public class NewEntryTextDao {
             return null;
     }
     
+    public String getTextFile(String entryTitle){
+        
+        String textPath =System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+Login.getUsername()+fSeparator+"Entries"+fSeparator+entryTitle+fSeparator+"Texts"+fSeparator+entryTitle+".txt";
+        return textPath;
+    }
+    
+    public boolean prepareForDeleteFromList(String textName) {
+        String entryTitle = getTextFile(textName);
+        File file = new File(entryTitle);
+        System.out.println(file);
+        FilesDao fileDelete = new FilesDao();
+        try {
+
+            return fileDelete.delete(file);
+
+        } catch (Exception ex) {
+            //TODO logger
+            return false;
+
+        }
+
+    }
+        
+    public boolean prepareForDeleteAlbum(String textPath) {
+
+        File textFile = new File(textPath);
+
+        FilesDao fileDelete = new FilesDao();
+        try {
+
+            return fileDelete.delete(textFile);
+
+        } catch (Exception ex) {
+            return false;
+            //TODO logger
+        }
+
+    }
 }

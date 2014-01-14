@@ -15,12 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import model.PersonalGoalModel;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import ui.IPersonalGoalForm;
-import ui.PersonalGoalForm;
 
 /*
  **Μια κλάση που υλοποιή την εγγραφή σε και την κάνει load.
@@ -161,23 +156,21 @@ public class PersonalGoalDao implements IPersonalGoalDao {
         }
     }
     
-     public static PersonalGoalModel getPersonalGoalByTitle(String title)
-    {
+    public static PersonalGoalModel getPersonalGoalByTitle(String title) {
         //NewEntryImageDao imageFilesDao = new NewEntryImageDao();
         PersonalGoalTxtDao textFile = new PersonalGoalTxtDao();
         PersonalGoalListDao personalGoalListDao = new PersonalGoalListDao();
-        
+
        // String imageList[] = imageFilesDao.getImageList(title);
-       
-        String  personalGoalTitle = textFile.returnTextTitleFile(title);
-        String  personalGoalLocation = textFile.returnTextLocationFile(title);
-        String  personalGoalWithPerson = textFile.returnTextWithPersonFile(title);
-        String  personalGoalWhenDate = textFile.returnTextWhenDateFile(title);
-        String  personalGoalAnnouncement = textFile.returnTextAnnouncementFile(title);
-        String  personalGoalImage = textFile.returnTextImageDestPath(title);
-        
+        String personalGoalTitle = textFile.returnTextTitleFile(title);
+        String personalGoalLocation = textFile.returnTextLocationFile(title);
+        String personalGoalWithPerson = textFile.returnTextWithPersonFile(title);
+        String personalGoalWhenDate = textFile.returnTextWhenDateFile(title);
+        String personalGoalAnnouncement = textFile.returnTextAnnouncementFile(title);
+        String personalGoalImage = textFile.returnTextImageDestPath(title);
+
         String[] entriesList = personalGoalListDao.getListOfPersonalGoal();
-        
+
         PersonalGoalModel personalGoal = new PersonalGoalModel();
         personalGoal.setPersonalGoalTitle(personalGoalTitle);
         personalGoal.setPersonalGoalLocation(personalGoalLocation);
@@ -187,11 +180,24 @@ public class PersonalGoalDao implements IPersonalGoalDao {
         personalGoal.setPersonalGoalAnnouncement(personalGoalAnnouncement);
         personalGoal.setPersonalGoalImage(personalGoalImage);
         personalGoal.setPersonalGoalList(entriesList);
-        
-         
+
         return personalGoal;
-     
-            
+
+    }
+    
+    public boolean prepareForDelete(String userName, String personalGoalTitle){
+        String filePath = System.getProperty("user.dir") + File.separator + "MyDiaryBook"+ File.separator + "Users" + File.separator + userName + File.separator + "PersonalGoal" + File.separator + personalGoalTitle + File.separator +
+                                    "Texts" ;
+        String imagePath = System.getProperty("user.dir") + File.separator + "MyDiaryBook"+ File.separator + "Users" + File.separator + userName + File.separator + "PersonalGoal" + File.separator + personalGoalTitle + File.separator +
+                                    "Images" ;
+        File filePersonalGoal = new File(filePath);
+        File fileImage = new File(imagePath);
+        File fileParent = fileImage.getParentFile();
+        FilesDao deleteFile = new FilesDao();
+        deleteFile.delete(fileImage);
+        deleteFile.delete(filePersonalGoal);
+        return deleteFile.delete(fileParent);
+        
     }
 
 }
