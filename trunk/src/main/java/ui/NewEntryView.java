@@ -177,7 +177,7 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
         pauseButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("MyDiaryBook Version 0.3");
+        setTitle("New Entry");
         setMinimumSize(new java.awt.Dimension(780, 550));
         setPreferredSize(new java.awt.Dimension(890, 580));
 

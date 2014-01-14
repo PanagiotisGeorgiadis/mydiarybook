@@ -36,10 +36,9 @@ public class LoginFormTest extends UISpecTestCase {
     protected Button createnewaccount;
     protected Button resetpassword;
    
-    
-    static {
-        UISpec4J.init();
-    }
+//    static {
+//        UISpec4J.init();
+//    }
     
     public LoginFormTest() {
     }

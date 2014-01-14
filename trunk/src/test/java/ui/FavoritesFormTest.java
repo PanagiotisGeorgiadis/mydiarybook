@@ -34,9 +34,9 @@ public class FavoritesFormTest extends UISpecTestCase{
       protected Button close;
     
     
-     static {
-        UISpec4J.init();
-    }
+//     static {
+//        UISpec4J.init();
+//    }
      
      
     public FavoritesFormTest() {

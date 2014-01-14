@@ -40,9 +40,9 @@ public class RegisterFormTest extends UISpecTestCase {
     
     
     
-     static {
-        UISpec4J.init();
-    }
+//     static {
+//        UISpec4J.init();
+//    }
     
     public RegisterFormTest() {
     }
