@@ -61,4 +61,31 @@ public class NewEntryVideoDao {
             return null;
         }
     }
+    
+    public boolean prepareForDeleteAlbum(File videoFile){
+//    Path path = Paths.get(System.getProperty("user.dir") + fSeparator + "MyDiaryBook" + fSeparator + "Users"+ fSeparator + username + fSeparator + "Entries" + fSeparator + entrytitle + fSeparator
+//                                         + "Videos");
+//    if(videoFile.exists()){
+      FilesDao fileDelete = new FilesDao();
+      try{
+          
+          return fileDelete.delete(videoFile);
+ 
+      }catch(Exception ex){
+          return false;
+          //TODO logger
+      }
+//      finally{
+//          
+//          if(videoFile.exists())
+//           return false;
+//       else
+//           return true;
+//          
+//      }
+//    }
+//    else
+//        return false;
+  }
+    
 }

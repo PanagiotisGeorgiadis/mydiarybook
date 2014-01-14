@@ -489,4 +489,36 @@ public class FilesDao {
         return text;
     }
     
+      /*
+    Dokimastiki method gia diagrafi
+    */
+     public boolean delete(File fileText) throws IOException{
+         File fileParent = fileText.getParentFile();
+         
+         if(fileText.exists())
+               
+                    if(fileText.isDirectory()){
+                        String[] subFile = fileText.list();
+                        for(String childFile : subFile)                            
+                        delete(new File(fileText, childFile));
+                        
+                        fileText.delete();
+                    }
+                    else{
+                        fileText.delete();
+                        
+                        String[] subFile = fileParent.list();
+                        if(subFile.length == 0 )
+                            
+                            fileParent.delete();    // an 8elw na kanei delete olous tous fakelous pou einai adeioi tote:  fileParent.delete()-> delete(fileParent);
+                    }      
+         else
+             return false;
+         if(fileText.exists())              
+            return false;
+        else
+             return true;
+    }
+     
+    
 }
