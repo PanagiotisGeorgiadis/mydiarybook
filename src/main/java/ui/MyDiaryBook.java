@@ -6,6 +6,9 @@
 
 package ui;
 
+import controller.DeleteImageController;
+import controller.DeleteTextController;
+import controller.DeleteVideoController;
 import controller.LoadEntriesController;
 import controller.MyDiaryBookController;
 import controller.PersonalGoalController;
@@ -84,6 +87,8 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         loadListOfPersonalGoal();
         this.setLocationRelativeTo(null);
         JOptionPane.showMessageDialog(this, DefaultPath.getDefaultPath());
+        deleteImageButton.setVisible(false);
+        deleteImageAlbumButton.setVisible(false);
     }
     
     /** Displays the new Image Specified in 2 different modes: 
@@ -399,6 +404,7 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         cancelEditButton = new javax.swing.JButton();
         entryDateLabel = new javax.swing.JLabel();
         lastModifiedLabel = new javax.swing.JLabel();
+        deleteTextButton = new javax.swing.JButton();
         imagePanelContainer = new javax.swing.JPanel();
         imageListScrollPane = new javax.swing.JScrollPane();
         imagesList = new javax.swing.JList();
@@ -406,8 +412,11 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         imagePanel = new javax.swing.JPanel();
         loadImageButton = new javax.swing.JButton();
         loadAlbumButton = new javax.swing.JButton();
+        deleteImageAlbumButton = new javax.swing.JButton();
+        deleteImageButton = new javax.swing.JButton();
         videoPanel = new javax.swing.JPanel();
         playVideoButton = new javax.swing.JButton();
+        deleteVideoButton = new javax.swing.JButton();
         alexPanel = new javax.swing.JPanel();
         personalGoalPanel = new javax.swing.JPanel();
         personalGoalListScrollPane = new javax.swing.JScrollPane();
@@ -447,7 +456,6 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("My Diary Book v1.0!");
-        setPreferredSize(new java.awt.Dimension(1300, 750));
 
         exitButton.setText("Exit");
         exitButton.addActionListener(new java.awt.event.ActionListener() {
@@ -493,20 +501,28 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         lastModifiedLabel.setFont(new java.awt.Font("Comic Sans MS", 0, 16)); // NOI18N
         lastModifiedLabel.setText("Date Created:");
 
+        deleteTextButton.setLabel("Delete Text");
+        deleteTextButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteTextButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout textPanelLayout = new javax.swing.GroupLayout(textPanel);
         textPanel.setLayout(textPanelLayout);
         textPanelLayout.setHorizontalGroup(
             textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(textPanelLayout.createSequentialGroup()
-                .addComponent(entryTextAreaScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 673, Short.MAX_VALUE)
+                .addComponent(entryTextAreaScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 698, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(entriesListScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
+                    .addComponent(entriesListScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
                     .addGroup(textPanelLayout.createSequentialGroup()
                         .addGroup(textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(saveEditButton)
-                            .addComponent(cancelEditButton))
-                        .addGap(0, 26, Short.MAX_VALUE)))
+                            .addComponent(cancelEditButton)
+                            .addComponent(deleteTextButton))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, textPanelLayout.createSequentialGroup()
                 .addGroup(textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -541,7 +557,9 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
                         .addComponent(saveEditButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cancelEditButton)
-                        .addGap(280, 280, 280)
+                        .addGap(18, 18, 18)
+                        .addComponent(deleteTextButton)
+                        .addGap(239, 239, 239)
                         .addComponent(entriesListScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE))
                     .addComponent(entryTextAreaScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
@@ -573,18 +591,36 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
             }
         });
 
+        deleteImageAlbumButton.setText("Delete Album");
+        deleteImageAlbumButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteImageAlbumButtonActionPerformed(evt);
+                deleteImageAlbumButtondeleteImageButtonActionPerformed(evt);
+            }
+        });
+
+        deleteImageButton.setText("Delete Image");
+        deleteImageButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteImageButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout imagePanelContainerLayout = new javax.swing.GroupLayout(imagePanelContainer);
         imagePanelContainer.setLayout(imagePanelContainerLayout);
         imagePanelContainerLayout.setHorizontalGroup(
             imagePanelContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(imagePanelContainerLayout.createSequentialGroup()
                 .addComponent(imagePanelScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 662, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(imagePanelContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(imageListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(loadImageButton)
-                    .addComponent(loadAlbumButton))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(imagePanelContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(imageListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(loadImageButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(loadAlbumButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(deleteImageAlbumButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(deleteImageButton))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
         imagePanelContainerLayout.setVerticalGroup(
             imagePanelContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -595,7 +631,11 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
                         .addComponent(loadImageButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(loadAlbumButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 372, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(deleteImageAlbumButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(deleteImageButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 290, Short.MAX_VALUE)
                         .addComponent(imageListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addComponent(imagePanelScrollPane)))
@@ -610,21 +650,33 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
             }
         });
 
+        deleteVideoButton.setText("Delete Video");
+        deleteVideoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteVideoButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout videoPanelLayout = new javax.swing.GroupLayout(videoPanel);
         videoPanel.setLayout(videoPanelLayout);
         videoPanelLayout.setHorizontalGroup(
             videoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, videoPanelLayout.createSequentialGroup()
-                .addContainerGap(689, Short.MAX_VALUE)
+                .addContainerGap(741, Short.MAX_VALUE)
                 .addComponent(playVideoButton)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, videoPanelLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(deleteVideoButton))
         );
         videoPanelLayout.setVerticalGroup(
             videoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(videoPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(playVideoButton)
-                .addContainerGap(562, Short.MAX_VALUE))
+                .addGap(40, 40, 40)
+                .addComponent(deleteVideoButton)
+                .addContainerGap(499, Short.MAX_VALUE))
         );
 
         displayEntryPane.addTab("Video", videoPanel);
@@ -749,7 +801,7 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
                         .addGroup(personalGoalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(personalGoalListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(checkFieldTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
         personalGoalPanelLayout.setVerticalGroup(
             personalGoalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -793,9 +845,9 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         alexPanel.setLayout(alexPanelLayout);
         alexPanelLayout.setHorizontalGroup(
             alexPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(alexPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(personalGoalPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, alexPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(personalGoalPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         alexPanelLayout.setVerticalGroup(
@@ -810,7 +862,7 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         favouritesPanel.setLayout(favouritesPanelLayout);
         favouritesPanelLayout.setHorizontalGroup(
             favouritesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 469, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         favouritesPanelLayout.setVerticalGroup(
             favouritesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -913,7 +965,7 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(displayEntryPane, javax.swing.GroupLayout.PREFERRED_SIZE, 785, Short.MAX_VALUE)
+                    .addComponent(displayEntryPane, javax.swing.GroupLayout.DEFAULT_SIZE, 837, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(welcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -942,9 +994,11 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(pauseOrPlayVideoButton)
-                                .addComponent(exitButton))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(pauseOrPlayVideoButton)
+                                    .addComponent(exitButton)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(welcomeLabel)
                                 .addGap(40, 40, 40)
@@ -995,6 +1049,9 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         loadAlbumButton.setVisible(true);
         loadImageButton.setVisible(false);
         imageListScrollPane.setVisible(true);
+        deleteImageAlbumButton.setVisible(false);
+        deleteImageButton.setVisible(true);
+        imageMode = "Single";
     }//GEN-LAST:event_loadImageButtonActionPerformed
 
     private void loadAlbumButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadAlbumButtonActionPerformed
@@ -1002,6 +1059,9 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         loadImageButton.setVisible(true);
         loadAlbumButton.setVisible(false);
         imageListScrollPane.setVisible(false);
+        deleteImageAlbumButton.setVisible(true);
+        deleteImageButton.setVisible(false);
+        imageMode = "Album";
     }//GEN-LAST:event_loadAlbumButtonActionPerformed
 
     private void newEntryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newEntryActionPerformed
@@ -1224,6 +1284,153 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         theView.setVisible(true);
     }//GEN-LAST:event_deleteImportantMomentActionPerformed
 
+    private void deleteTextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteTextButtonActionPerformed
+        DeleteTextController textDelete = new DeleteTextController();
+        int dialog = JOptionPane.showConfirmDialog(this, "Are You sure for this delete?", "Confirm Message", JOptionPane.OK_CANCEL_OPTION);
+
+        if (dialog == JOptionPane.YES_OPTION) {
+
+            try {
+
+                textDelete.deleteAElementFromTextList(entriesList.getSelectedValue().toString());
+                entryTextArea.setText("");
+                entriesListValueChanged(null);
+                JOptionPane.showConfirmDialog(this, textDelete.showSuccess(), "Success", JOptionPane.CANCEL_OPTION);
+                // Prepei na ginei to listModel private wste na mporw na to xrisimopoihsw
+
+            } catch (NullPointerException ex) {
+
+                JOptionPane.showConfirmDialog(this, textDelete.showNoFileFound(), "This File not exist", JOptionPane.CANCEL_OPTION);
+
+            } catch (Exception ex) {
+
+                JOptionPane.showConfirmDialog(this, textDelete.showError(), "There was a Error", JOptionPane.CANCEL_OPTION);
+
+            }
+        }
+    }//GEN-LAST:event_deleteTextButtonActionPerformed
+
+    private void deleteImageAlbumButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteImageAlbumButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_deleteImageAlbumButtonActionPerformed
+
+    private void deleteImageAlbumButtondeleteImageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteImageAlbumButtondeleteImageButtonActionPerformed
+
+        MyDiaryBookController controller = new MyDiaryBookController();
+        DeleteImageController imageDelete = new DeleteImageController();
+        int dialog = JOptionPane.showConfirmDialog(this, "Are You sure for this delete?", "Confirm Message", JOptionPane.OK_CANCEL_OPTION);
+        if (imageMode == "Single") {
+
+            if (dialog == JOptionPane.YES_OPTION) {
+                try {
+
+                    imageDelete.deleteAElementFromImageList(entryTitleField.getText(), imagesList.getSelectedValue().toString());
+                    entriesListValueChanged(null); // tha mpei to idio gia to textlistdelete
+                    loadImageButtonActionPerformed(evt);
+
+                    JOptionPane.showConfirmDialog(this, imageDelete.showSuccess(), "Success", JOptionPane.CANCEL_OPTION);
+
+                } catch (NullPointerException ex) {
+
+                    JOptionPane.showConfirmDialog(this, imageDelete.showNoFileFound(), "This File not exist", JOptionPane.CANCEL_OPTION);
+
+                } catch (Exception ex) {
+
+                    JOptionPane.showConfirmDialog(this, imageDelete.showError(), "There was a Error", JOptionPane.CANCEL_OPTION);
+
+                }
+            }
+        } else {
+            if (dialog == JOptionPane.YES_OPTION) {
+
+                try {
+                    imageDelete.deleteImageAlbum(entryTitleField.getText());
+                    loadAlbumButtonActionPerformed(evt);
+                    JOptionPane.showConfirmDialog(this, imageDelete.showSuccess(), "Success", JOptionPane.CANCEL_OPTION);
+                } catch (NullPointerException ex) {
+
+                    JOptionPane.showConfirmDialog(this, imageDelete.showNoFileFound(), "This File not exist", JOptionPane.CANCEL_OPTION);
+
+                } catch (Exception ex) {
+
+                    JOptionPane.showConfirmDialog(this, imageDelete.showError(), "There was a Error", JOptionPane.CANCEL_OPTION);
+
+                }
+            }
+
+        }
+
+    }//GEN-LAST:event_deleteImageAlbumButtondeleteImageButtonActionPerformed
+
+    private void deleteImageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteImageButtonActionPerformed
+
+        MyDiaryBookController controller = new MyDiaryBookController();
+        DeleteImageController imageDelete = new DeleteImageController();
+        int dialog = JOptionPane.showConfirmDialog(this, "Are You sure for this delete?", "Confirm Message", JOptionPane.OK_CANCEL_OPTION);
+        if (imageMode == "Single") {
+
+            if (dialog == JOptionPane.YES_OPTION) {
+                try {
+
+                    imageDelete.deleteAElementFromImageList(entryTitleField.getText(), imagesList.getSelectedValue().toString());
+                    entriesListValueChanged(null); // tha mpei to idio gia to textlistdelete
+                    loadImageButtonActionPerformed(evt);
+
+                    JOptionPane.showConfirmDialog(this, imageDelete.showSuccess(), "Success", JOptionPane.CANCEL_OPTION);
+
+                } catch (NullPointerException ex) {
+
+                    JOptionPane.showConfirmDialog(this, imageDelete.showNoFileFound(), "This File not exist", JOptionPane.CANCEL_OPTION);
+
+                } catch (Exception ex) {
+
+                    JOptionPane.showConfirmDialog(this, imageDelete.showError(), "There was a Error", JOptionPane.CANCEL_OPTION);
+
+                }
+            }
+        } else {
+            if (dialog == JOptionPane.YES_OPTION) {
+
+                try {
+                    imageDelete.deleteImageAlbum(entryTitleField.getText());
+                    loadAlbumButtonActionPerformed(evt);
+                    JOptionPane.showConfirmDialog(this, imageDelete.showSuccess(), "Success", JOptionPane.CANCEL_OPTION);
+                } catch (NullPointerException ex) {
+
+                    JOptionPane.showConfirmDialog(this, imageDelete.showNoFileFound(), "This File not exist", JOptionPane.CANCEL_OPTION);
+
+                } catch (Exception ex) {
+
+                    JOptionPane.showConfirmDialog(this, imageDelete.showError(), "There was a Error", JOptionPane.CANCEL_OPTION);
+
+                }
+            }
+
+        }
+
+    }//GEN-LAST:event_deleteImageButtonActionPerformed
+
+    private void deleteVideoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteVideoButtonActionPerformed
+        DeleteVideoController controller = new DeleteVideoController();
+
+        try {
+
+            controller.deleteVideoAlbum(entry.getEntryVideo());
+            entriesListValueChanged(null);
+            JOptionPane.showConfirmDialog(this, controller.showSuccess(), "Success", JOptionPane.CANCEL_OPTION);
+            // Prepei na ginei to listModel private wste na mporw na to xrisimopoihsw
+
+        } catch (NullPointerException ex) {
+
+            JOptionPane.showConfirmDialog(this, controller.showNoFileFound(), "This File not exist", JOptionPane.CANCEL_OPTION);
+
+        } catch (Exception ex) {
+
+            JOptionPane.showConfirmDialog(this, controller.showError(), "There was a Error", JOptionPane.CANCEL_OPTION);
+
+        }
+    }//GEN-LAST:event_deleteVideoButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1268,8 +1475,12 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
     private javax.swing.JButton cancelPersonalGoalButton;
     private javax.swing.JMenu changePassword;
     private javax.swing.JTextField checkFieldTextField;
+    private javax.swing.JButton deleteImageAlbumButton;
+    private javax.swing.JButton deleteImageButton;
     private javax.swing.JMenuItem deleteImportantMoment;
     private javax.swing.JMenuItem deleteSelectedEntry;
+    private javax.swing.JButton deleteTextButton;
+    private javax.swing.JButton deleteVideoButton;
     private javax.swing.JTabbedPane displayEntryPane;
     private javax.swing.JMenuItem editEntry;
     private javax.swing.JList entriesList;

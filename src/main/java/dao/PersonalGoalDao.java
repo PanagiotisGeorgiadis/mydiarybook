@@ -193,5 +193,14 @@ public class PersonalGoalDao implements IPersonalGoalDao {
      
             
     }
+       public boolean prepareForDelete(String userName, String entryTitle) throws IOException{
+        String filePath = System.getProperty("user.dir") + File.separator + "MyDiaryBook"+ File.separator + "Users" + File.separator + userName + File.separator + "PersonalGoal" + File.separator + entryTitle + File.separator +
+                                    "Texts" +  File.separator + entryTitle + File.separator + "TitleName.txt";
+        File filePersonalGoal = new File(filePath);
+        FilesDao deleteFile = new FilesDao();
+        return deleteFile.delete(filePersonalGoal);
+        
+    }
+     
 
 }

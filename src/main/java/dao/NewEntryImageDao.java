@@ -8,6 +8,7 @@ package dao;
 
 import exception.EntryException;
 import java.io.File;
+import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 
@@ -71,6 +72,71 @@ public class NewEntryImageDao {
             return null;
         }
         
+    }
+    
+    /**
+     * This method try to prepare the user-choice from List for erase.
+     *
+     * @param entrytitle
+     * @param imageName
+     * @return true if the erasion was successful
+     * @throws NullPointerException
+     */
+    public boolean prepareForDeleteFromList(String entrytitle, String imageName) {
+        List<URI> imagePath = getImageFiles(entrytitle);
+        String image = "";
+        for (URI imageURI : imagePath) {
+            image = imageURI.toString();
+            if (image.contains(imageName)) {
+                System.out.println("To Path einai: " + image);
+                image = imageURI.getPath();
+            } else {
+                continue;
+            }
+            break;
+        }
+        File file = new File(image);
+        System.out.println(file);
+
+        FilesDao fileDelete = new FilesDao();
+        try {
+
+            return fileDelete.delete(file);
+
+        } catch (Exception ex) {
+            return false;
+            //TODO logger
+        }
+
+    }
+
+    /**
+     * This method try to prepare the whole user's Image folder
+     *
+     * @param entryTitle
+     * @return true if erasion was successful
+     * @throws NullPointerException
+     */
+    public boolean prepareForDeleteAlbum(String entryTitle) throws NullPointerException {
+        List<URI> imagePath = getImageFiles(entryTitle);
+        File image;
+        URI imageEntry;
+        if (imagePath == null) {
+            return false;
+        } else {
+            imageEntry = imagePath.get(0);
+            image = new File(imageEntry);
+            System.out.println(imageEntry);
+
+            FilesDao fileDelete = new FilesDao();
+            try {
+                return fileDelete.delete(image.getParentFile());
+
+            } catch (IOException ex) {
+                return false;
+                //TODO logger
+            }
+        }
     }
     
 }
