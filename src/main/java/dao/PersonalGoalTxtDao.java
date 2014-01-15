@@ -7,7 +7,9 @@ package dao;
 
 import exception.EntryException;
 import java.io.File;
-import model.Login;
+import java.io.IOException;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  *
@@ -27,19 +29,24 @@ public class PersonalGoalTxtDao {
      * @param announcement
      * @return true or false.
      */
-    public boolean prepareForCreatingTextFile(String title, String location, String withPerson, String whenDate, String announcement) {
-        String textDestPath = System.getProperty("user.dir") + fSeparator + "MyDiaryBook" + fSeparator + "Users" + fSeparator + Login.getUsername()  + fSeparator + "PersonalGoal" + fSeparator+ title + fSeparator + "Texts" + fSeparator;
+    public boolean prepareForCreatingTextFile(String title, String location, String withPerson, String whenDate, String announcement,String userName) {
+        String textDestPath = System.getProperty("user.dir") + fSeparator + "MyDiaryBook" + fSeparator + "Users" + fSeparator + userName  + fSeparator + "PersonalGoal" + fSeparator+ title + fSeparator + "Texts" + fSeparator;
         PersonalGoalDao newTextDao = new PersonalGoalDao();
-        //FilesDao newFile = new FilesDao();
         return newTextDao.saveTextFile(textDestPath, title, location, withPerson, whenDate, announcement);
 
     }
+    /**
+     * function of title text.
+     * @param Title
+     * @param userName
+     * @return  return  the content of title text 
+     */
     
-    public String returnTextTitleFile(String Title)
+    public String returnTextTitleFile(String Title,String userName)
     {
         
     
-        String textTitlePath = System.getProperty("user.dir") + fSeparator + "MyDiaryBook" + fSeparator + "Users" + fSeparator + Login.getUsername() + fSeparator + "PersonalGoal" +fSeparator + Title + fSeparator+"Texts"+ fSeparator+"title.txt";
+        String textTitlePath = System.getProperty("user.dir") + fSeparator + "MyDiaryBook" + fSeparator + "Users" + fSeparator + userName  + fSeparator + "PersonalGoal" +fSeparator + Title + fSeparator+"Texts"+ fSeparator+"title.txt";
         FilesDao textDao = new FilesDao();
         try{
             return textDao.returnTextFile(textTitlePath);
@@ -48,12 +55,17 @@ public class PersonalGoalTxtDao {
         }
         
     }
-    
-    public String returnTextLocationFile(String Title)
+    /**
+     * function of location text.
+     * @param Title String
+     * @param userName String
+     * @return  return  the content of location text
+     */
+    public String returnTextLocationFile(String Title,String userName)
     {
         
     
-        String textLocationPath = System.getProperty("user.dir") + fSeparator + "MyDiaryBook" + fSeparator + "Users" + fSeparator + Login.getUsername() + fSeparator + "PersonalGoal" +fSeparator + Title + fSeparator+"Texts"+ fSeparator+"location.txt";
+        String textLocationPath = System.getProperty("user.dir") + fSeparator + "MyDiaryBook" + fSeparator + "Users" + fSeparator + userName  + fSeparator + "PersonalGoal" +fSeparator + Title + fSeparator+"Texts"+ fSeparator+"location.txt";
         FilesDao textDao = new FilesDao();
         try{
             return textDao.returnTextFile(textLocationPath);
@@ -62,12 +74,17 @@ public class PersonalGoalTxtDao {
         }
 
     }
-       
-    public String returnTextWithPersonFile(String Title)
+     /**
+      * function of withPerson text.
+      * @param Title String
+      * @param userName String
+      * @return return  the content of with person text
+      */
+    public String returnTextWithPersonFile(String Title,String userName)
     {
         
     
-        String textWithPersonPath = System.getProperty("user.dir") + fSeparator + "MyDiaryBook" + fSeparator + "Users" + fSeparator + Login.getUsername()  + fSeparator + "PersonalGoal" +fSeparator + Title + fSeparator+"Texts"+ fSeparator+"withPerson.txt";
+        String textWithPersonPath = System.getProperty("user.dir") + fSeparator + "MyDiaryBook" + fSeparator + "Users" + fSeparator + userName  + fSeparator + "PersonalGoal" +fSeparator + Title + fSeparator+"Texts"+ fSeparator+"withPerson.txt";
         FilesDao textDao = new FilesDao();
         try{
             return textDao.returnTextFile(textWithPersonPath);
@@ -76,12 +93,17 @@ public class PersonalGoalTxtDao {
         }
 
     }
-         
-    public String returnTextWhenDateFile(String Title)
+        /**
+         * function of whenDate text.
+         * @param Title String
+         * @param userName String
+         * @return  the content of when date text
+         */ 
+    public String returnTextWhenDateFile(String Title,String userName)
     {
         
     
-        String textWhenDatePath = System.getProperty("user.dir") + fSeparator + "MyDiaryBook" + fSeparator + "Users" + fSeparator + Login.getUsername() + fSeparator + "PersonalGoal" +fSeparator + Title + fSeparator+"Texts"+ fSeparator+"whenDate.txt";
+        String textWhenDatePath = System.getProperty("user.dir") + fSeparator + "MyDiaryBook" + fSeparator + "Users" + fSeparator + userName  + fSeparator + "PersonalGoal" +fSeparator + Title + fSeparator+"Texts"+ fSeparator+"whenDate.txt";
         FilesDao textDao = new FilesDao();
         try{
             return textDao.returnTextFile(textWhenDatePath);
@@ -92,12 +114,17 @@ public class PersonalGoalTxtDao {
     }
     
       
-           
-      public String returnTextAnnouncementFile(String Title)
+        /**
+         * function of announcement text.
+         * @param Title String
+         * @param userName String
+         * @return the content of announcement text.
+         */   
+      public String returnTextAnnouncementFile(String Title,String userName)
     {
         
     
-        String textAnnouncementPath = System.getProperty("user.dir") + fSeparator + "MyDiaryBook" + fSeparator + "Users" + fSeparator + Login.getUsername() + fSeparator + "PersonalGoal" +fSeparator + Title + fSeparator+"Texts"+ fSeparator+"announcement.txt";
+        String textAnnouncementPath = System.getProperty("user.dir") + fSeparator + "MyDiaryBook" + fSeparator + "Users" + fSeparator + userName  + fSeparator + "PersonalGoal" +fSeparator + Title + fSeparator+"Texts"+ fSeparator+"announcement.txt";
         FilesDao textDao = new FilesDao();
         try{
             return textDao.returnTextFile(textAnnouncementPath);
@@ -106,12 +133,18 @@ public class PersonalGoalTxtDao {
         }
 
     }
-        public String returnTextImageDestPath(String Title)
+      /**
+       * function of image text.
+       * @param Title
+       * @param userName
+       * @return the content of image text.
+       */
+        public String returnTextImageDestPath(String Title,String userName)
     {
         
     
         
-       String textImageDestPath = System.getProperty("user.dir")+ fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+Login.getUsername()+fSeparator+"PersonalGoal"+ fSeparator + Title + fSeparator + "Images" + fSeparator+"imageString.txt";
+       String textImageDestPath = System.getProperty("user.dir")+ fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+userName+fSeparator+"PersonalGoal"+ fSeparator + Title + fSeparator + "Images" + fSeparator+"imageString.txt";
         FilesDao textDao = new FilesDao();
         try{
             return textDao.returnTextFile(textImageDestPath);

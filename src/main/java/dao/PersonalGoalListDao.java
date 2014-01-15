@@ -8,7 +8,6 @@ package dao;
 
 import exception.EntryException;
 import java.io.File;
-import model.Login;
 
 /**
  *
@@ -16,16 +15,22 @@ import model.Login;
  */
 public class PersonalGoalListDao {
     String fSeparator = File.separator;
-    public String[] getListOfPersonalGoal()
+    /**
+     * Function for take list of personal goal as String[]
+     * @param userName String
+     * @return  the list String[]
+     */
+    public String[] getListOfPersonalGoal(String userName)
     {
-        String personalGoalPath = System.getProperty("user.dir") + fSeparator + "MyDiaryBook" + fSeparator + "Users" + fSeparator + Login.getUsername() + fSeparator + "PersonalGoal";
-        FilesDao personalGoalDao = new FilesDao();
-        try{
+        try {
+            String personalGoalPath = System.getProperty("user.dir") + fSeparator + "MyDiaryBook" + fSeparator + "Users" + fSeparator + userName + fSeparator + "PersonalGoal";
+            FilesDao personalGoalDao = new FilesDao();
             return personalGoalDao.getDirectoryList(personalGoalPath);
-        }catch(EntryException ex){
+        } catch (EntryException ex) {
             return null;
         }
-        //check apo to FilesDaos to getDirectoryList an yparxei kapoio problima
+    
     }
+    
     
 }

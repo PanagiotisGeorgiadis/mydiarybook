@@ -5,16 +5,10 @@
  */
 package dao;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.PersonalGoalModel;
 
 /*
@@ -26,42 +20,12 @@ import model.PersonalGoalModel;
  * @throws IOException
  *@author alex
  */
-public class PersonalGoalDao implements IPersonalGoalDao {
+public class PersonalGoalDao {
 
     private ArrayList<PersonalGoalModel> database;
     private final String delimeter = ";";
 
-    /**
-     *
-     * @param fileName
-     */
-    @Override
-    public void txtLoadPersonalGoal(String fileName) {
-
-        FileReader fr = null;
-        String line = null;
-        try {
-            fr = new FileReader(fileName);
-            BufferedReader br = new BufferedReader(fr);
-
-            line = br.readLine();
-            String[] lineSplit;
-            PersonalGoalModel tempPGM = null;
-            while (line != null) {
-                line = br.readLine();
-                lineSplit = line.split(delimeter);
-                tempPGM.setPersonalGoalTitle(lineSplit[0]);
-                tempPGM.setPersonalGoalLocation(lineSplit[1]);
-                tempPGM.setPersonalGoalWithPerson(lineSplit[2]);
-                tempPGM.setPersonalGoalWhenDate(new Date(lineSplit[3]));
-                tempPGM.setPersonalGoalAnnouncement(lineSplit[4]);
-                database.add(tempPGM);
-            }
-            fr.close();
-        } catch (IOException ex) {
-            Logger.getLogger(PersonalGoalDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+   
 
     /**
      * function save text file
@@ -74,7 +38,6 @@ public class PersonalGoalDao implements IPersonalGoalDao {
      * @param whenDate
      * @return true if file is saved or false if is not.
      */
-    @Override
     public boolean saveTextFile(String path, String title, String location, String withPerson, String whenDate, String announcement) {
 
         try {
@@ -87,15 +50,7 @@ public class PersonalGoalDao implements IPersonalGoalDao {
                File  announcementFile =  new File(path + "announcement.txt");
             boolean exists = createFilePath(path);
             if (exists) {
-                /*
-                FileWriter fw = new FileWriter(file, true);
-                BufferedWriter bw = new BufferedWriter(fw);
-                bw.write("\n" + "Title:" + title + "\t Location:" + location + "\t With:"
-                        + withPerson + "\t when:" + whenDate
-                        + "\t Annoucement:" + announcement);
-                bw.close();
-                fw.close();
-                */
+               
                 FileWriter titleWritter = new FileWriter(titleFile, true);
                 BufferedWriter titleBufferedWriter = new BufferedWriter(titleWritter);
                 titleBufferedWriter.write(title);
@@ -156,33 +111,42 @@ public class PersonalGoalDao implements IPersonalGoalDao {
         }
     }
     
-    public static PersonalGoalModel getPersonalGoalByTitle(String title) {
-        //NewEntryImageDao imageFilesDao = new NewEntryImageDao();
+    /**
+     * Function for taking a model of personalGoal
+     * @param title
+     * @param userName
+     * @return a personalGoal model
+     */
+     public static PersonalGoalModel getPersonalGoalByTitle(String title,String userName)
+    {
+        
         PersonalGoalTxtDao textFile = new PersonalGoalTxtDao();
         PersonalGoalListDao personalGoalListDao = new PersonalGoalListDao();
-
-       // String imageList[] = imageFilesDao.getImageList(title);
-        String personalGoalTitle = textFile.returnTextTitleFile(title);
-        String personalGoalLocation = textFile.returnTextLocationFile(title);
-        String personalGoalWithPerson = textFile.returnTextWithPersonFile(title);
-        String personalGoalWhenDate = textFile.returnTextWhenDateFile(title);
-        String personalGoalAnnouncement = textFile.returnTextAnnouncementFile(title);
-        String personalGoalImage = textFile.returnTextImageDestPath(title);
-
-        String[] entriesList = personalGoalListDao.getListOfPersonalGoal();
-
         PersonalGoalModel personalGoal = new PersonalGoalModel();
+      
+       
+        String  personalGoalTitle = textFile.returnTextTitleFile(title,userName);
+        String  personalGoalLocation = textFile.returnTextLocationFile(title,userName);
+        String  personalGoalWithPerson = textFile.returnTextWithPersonFile(title,userName);
+        String  personalGoalWhenDate = textFile.returnTextWhenDateFile(title,userName);
+        String  personalGoalAnnouncement = textFile.returnTextAnnouncementFile(title,userName);
+        String  personalGoalImage = textFile.returnTextImageDestPath(title,userName);
+        
+        String[] personalGoalList = personalGoalListDao.getListOfPersonalGoal(userName);
+        
+        
         personalGoal.setPersonalGoalTitle(personalGoalTitle);
         personalGoal.setPersonalGoalLocation(personalGoalLocation);
         personalGoal.setPersonalGoalWithPerson(personalGoalWithPerson);
-        //FIX DATE
-        //personalGoal.setPersonalGoalWhenDate(personalGoalWhenDate);
+        personalGoal.setPersonalGoalWhenDate(personalGoalWhenDate);
         personalGoal.setPersonalGoalAnnouncement(personalGoalAnnouncement);
         personalGoal.setPersonalGoalImage(personalGoalImage);
-        personalGoal.setPersonalGoalList(entriesList);
-
+        personalGoal.setPersonalGoalList(personalGoalList);
+        
+         
         return personalGoal;
-
+     
+            
     }
     
     public boolean prepareForDelete(String userName, String personalGoalTitle){

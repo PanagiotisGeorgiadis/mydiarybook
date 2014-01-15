@@ -5,13 +5,17 @@
  */
 package controller;
 
+import static controller.NewEntryTextControllerTest.fSeparator;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.AfterClass;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -28,10 +32,21 @@ public class PersonalGoalTextControllerTest {
 
     @AfterClass
     public static void tearDownClass() {
+        
+        File file = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator);
+        try {
+            FileUtils.deleteDirectory(file);
+        } catch (IOException ex) {
+            Logger.getLogger(NewEntryTextControllerTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Before
     public void setUp() {
+        
+        File file = new File(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+"Alex Patsanis"+fSeparator
+                +"PersonalGoal"+fSeparator+"testProject"+fSeparator+"Texts");
+        file.mkdirs(); 
     }
 
     @After
@@ -49,9 +64,10 @@ public class PersonalGoalTextControllerTest {
         String withPerson = "Alex";
         String whenDate = "27/08/1991";
         String announcement = "I want a new job";
+        String userName="alex";
         PersonalGoalTextController instance = new PersonalGoalTextController();
         boolean expResult = true;
-        boolean result = instance.createTextFile(title, location, withPerson, whenDate, announcement);
+        boolean result = instance.createTextFile(title, location, withPerson, whenDate, announcement, userName);
 
     }
 
@@ -66,9 +82,10 @@ public class PersonalGoalTextControllerTest {
         String withPerson = "";
         String whenDate = "";
         String announcement = "";
+        String userName="";
         PersonalGoalTextController instance = new PersonalGoalTextController();
         boolean expResult = false;
-        boolean result = instance.createTextFile(title, location, withPerson, whenDate, announcement);
+        boolean result = instance.createTextFile(title, location, withPerson, whenDate, announcement,userName);
 
     }
 
@@ -83,9 +100,10 @@ public class PersonalGoalTextControllerTest {
         String withPerson = "Alex";
         String whenDate = "27/08/1991";
         String announcement = "I want a new job";
+        String userName="alex";
         PersonalGoalTextController instance = new PersonalGoalTextController();
         boolean expResult = false;
-        boolean result = instance.createTextFile(title, location, withPerson, whenDate, announcement);
+        boolean result = instance.createTextFile(title, location, withPerson, whenDate, announcement,userName);
 
     }
 
@@ -100,9 +118,10 @@ public class PersonalGoalTextControllerTest {
         String withPerson = "Alex";
         String whenDate = "27/08/1991";
         String announcement = "I want a new job";
+        String userName="alex";
         PersonalGoalTextController instance = new PersonalGoalTextController();
         boolean expResult = false;
-        boolean result = instance.createTextFile(title, location, withPerson, whenDate, announcement);
+        boolean result = instance.createTextFile(title, location, withPerson, whenDate, announcement,userName);
 
     }
 
@@ -117,9 +136,10 @@ public class PersonalGoalTextControllerTest {
         String withPerson = "Alex";
         String whenDate = "27/08/1991";
         String announcement = "I want a new job";
+        String userName="alex";
         PersonalGoalTextController instance = new PersonalGoalTextController();
         boolean expResult = false;
-        boolean result = instance.createTextFile(title, location, withPerson, whenDate, announcement);
+        boolean result = instance.createTextFile(title, location, withPerson, whenDate, announcement,userName);
 
     }
 
@@ -134,9 +154,10 @@ public class PersonalGoalTextControllerTest {
         String withPerson = "Alex";
         String whenDate = "";
         String announcement = "I want a new job";
+        String userName="alex";
         PersonalGoalTextController instance = new PersonalGoalTextController();
         boolean expResult = false;
-        boolean result = instance.createTextFile(title, location, withPerson, whenDate, announcement);
+        boolean result = instance.createTextFile(title, location, withPerson, whenDate, announcement,userName);
 
     }
 
@@ -151,9 +172,10 @@ public class PersonalGoalTextControllerTest {
         String withPerson = "Alex";
         String whenDate = "";
         String announcement = "12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901";
+        String userName="alex";
         PersonalGoalTextController instance = new PersonalGoalTextController();
         boolean expResult = false;
-        boolean result = instance.createTextFile(title, location, withPerson, whenDate, announcement);
+        boolean result = instance.createTextFile(title, location, withPerson, whenDate, announcement,userName);
 
     }
 
