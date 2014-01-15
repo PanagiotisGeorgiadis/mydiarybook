@@ -28,7 +28,7 @@ public class DeleteTextController {
     
      public boolean deleteTextAlbum (String textPath){
          
-            return textDao.prepareForDeleteAlbum( textPath);
+            return textDao.prepareForDeleteTextFile( textPath);
             
     }
      

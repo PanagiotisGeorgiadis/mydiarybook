@@ -8,7 +8,7 @@ package mydiarybook;
 
 
 import javax.swing.UIManager;
-import ui.MyMainForm;
+import ui.LoginForm;
 
 /**
  *
@@ -22,9 +22,9 @@ public class MyDiaryBook {
         } catch(Exception e) {
             e.printStackTrace();
         }
-        MyMainForm theView = new MyMainForm();
+        LoginForm theView = new LoginForm();
 
-        MyMainForm.setDefaultLookAndFeelDecorated(true);
+        LoginForm.setDefaultLookAndFeelDecorated(true);
         theView.setVisible(true);
     }    
     

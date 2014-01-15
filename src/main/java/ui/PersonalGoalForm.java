@@ -8,6 +8,7 @@ package ui;
 import controller.PersonalGoalController;
 import controller.PersonalGoalImageController;
 import controller.PersonalGoalTextController;
+import dao.CheckIfFileExistsDao;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -48,13 +49,13 @@ public class PersonalGoalForm extends javax.swing.JFrame implements IPersonalGoa
      */
     public PersonalGoalForm() {
         initComponents();
-        
+        this.setLocationRelativeTo(null);
        
     }
 
     public PersonalGoalForm(String txt) {
         initComponents();
-
+        this.setLocationRelativeTo(null);
     }
     /**
      * function for displayImage
@@ -325,31 +326,39 @@ public class PersonalGoalForm extends javax.swing.JFrame implements IPersonalGoa
         PersonalGoalController newController = new PersonalGoalController();
         PersonalGoalImageController newImageController = new PersonalGoalImageController();
         //check if all Field is correct and return if is all ok success or tha name the wrong value.
-        String allFieldSuccess = newController.createPersonalGoal(titleTextField.getText(), locationTextField.getText(), withPersonTextField.getText(), whenDateSpinner.getValue().toString(), announcementEditorPane.getText());
 
-        if ("success".equals(allFieldSuccess)) {
+        Boolean success = false;
+        String allFieldSuccess = "wrong";
+        CheckIfFileExistsDao PersonalGoal = new CheckIfFileExistsDao();
+        if (PersonalGoal.filePathExistsPersonalGoal(titleTextField.getText())) {
 
-            PersonalGoalTextController newTextController = new PersonalGoalTextController();
-            PersonalGoalTxtDao newTxtDao = new PersonalGoalTxtDao();
-            Login lgn = new Login();
-             String userName = lgn.getUsername();
-            boolean Success = newTextController.createTextFile(titleTextField.getText(), locationTextField.getText(), withPersonTextField.getText(), whenDateSpinner.getValue().toString(), announcementEditorPane.getText(),userName);
-            //if(ifImageExist =true){
-                newImageController.saveImage(titleTextField.getText(), browseFotoTextField.getText(),userName);
-               
-               
-            //}
-            if (Success) {
-                checkFieldTextField.setText("success");
-                checkFieldTextField.setForeground(Color.green);
-            }
+            checkFieldTextField.setBackground(Color.red);
+            checkFieldTextField.setText(" File exist! rename the title");
         } else {
 
-            checkFieldTextField.setText(allFieldSuccess + " is incorect!");
-            checkFieldTextField.setForeground(Color.red);
+            allFieldSuccess = newController.createPersonalGoal(titleTextField.getText(), locationTextField.getText(), withPersonTextField.getText(), whenDateSpinner.getValue().toString(), announcementEditorPane.getText());
 
+            if ("success".equals(allFieldSuccess)) {
+
+                PersonalGoalTextController newTextController = new PersonalGoalTextController();
+                PersonalGoalTxtDao newTxtDao = new PersonalGoalTxtDao();
+                Login lgn = new Login();
+                String userName = lgn.getUsername();
+                boolean Success = newTextController.createTextFile(titleTextField.getText(), locationTextField.getText(), withPersonTextField.getText(), whenDateSpinner.getValue().toString(), announcementEditorPane.getText(), userName);
+                newImageController.saveImage(titleTextField.getText(), browseFotoTextField.getText(), userName);
+
+                if (Success) {
+                    checkFieldTextField.setText("success");
+                    checkFieldTextField.setBackground(Color.green);
+                }
+                else {
+
+                checkFieldTextField.setText(allFieldSuccess + " is incorect!");
+                checkFieldTextField.setBackground(Color.red);
+
+            }
         }
-
+    }
     }//GEN-LAST:event_saveButtonActionPerformed
 
    
