@@ -19,7 +19,8 @@ public class EditTitleEntryDao {
         
     /**
      * 
-     * @param FileTitle is the plain name of the file we wish to change it's name
+     * @param oldFileTitle is the plain name of the file we wish to change it's name
+     * @param newFileTitle the new file title.
      * @return true or false depending on whether the rename of FileTitle was successful
      */
     

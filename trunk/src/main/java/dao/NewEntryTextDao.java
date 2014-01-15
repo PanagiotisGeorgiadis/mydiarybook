@@ -11,8 +11,6 @@ import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Login;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 /**
  *
@@ -85,7 +83,7 @@ public class NewEntryTextDao {
 
     }
         
-    public boolean prepareForDeleteAlbum(String textPath) {
+    public boolean prepareForDeleteTextFile(String textPath) {
 
         File textFile = new File(textPath);
 

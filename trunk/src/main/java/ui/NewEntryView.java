@@ -440,7 +440,9 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
             {
                 previewVideoButton.setVisible(true);
                 videoChooseButton.setVisible(false);
-            }    
+            }
+            else
+                videoPath = null;
         }
 
     }//GEN-LAST:event_videoChooseButtonActionPerformed
@@ -450,7 +452,7 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
         NewEntryImageController imageController = new NewEntryImageController();
         NewEntryTextController textController = new NewEntryTextController();
         NewEntryDeleteController deleteController = new NewEntryDeleteController(); 
-        if(!textArea.getText().equals("") || imageNumber!=0 || mediaPlayer2!=null)
+        if(!textArea.getText().equals("") || imageNumber!=0 || videoPath!=null)
             if(titleField.getBackground() == Color.orange)
             {
                 int ret = JOptionPane.showConfirmDialog(this, "Do You Want To Overwrite It?\n", "Duplicate Entry Found!",YES_NO_OPTION , WARNING_MESSAGE);
@@ -474,7 +476,7 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
                 if(imageNumber>0)
                     for(int i=0;i<imageNumber;i++)  
                         imageController.copyImage(titleField.getText(), imageFiles[i].toString());
-                if(videoPath != null)
+                if(!videoPath.equals(""))
                     videoController.copyVideo(titleField.getText(), videoPath);
                 if(mediaPlayer2!=null)
                     displayVideo(videoPath,"hhg");

@@ -30,4 +30,14 @@ public class CheckIfFileExistsDao {
         return file.exists();
     }
     
+    public boolean filePathExistsPersonalGoal(String title)
+    {
+        if(title==null || title.trim().isEmpty())
+            return false;
+        String path = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+Login.getUsername()
+                +fSeparator+"PersonalGoal"+fSeparator+title;
+        File file = new File(path);
+        return file.exists();
+    }
+    
 }
