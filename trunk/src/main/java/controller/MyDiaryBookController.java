@@ -26,8 +26,14 @@ public class MyDiaryBookController {
     {
         return EntryDao.getEntryByTitle(entryTitle);
     }
-    public PersonalGoalModel getPersonalGoal (String Title)
-    {
-        return PersonalGoalDao.getPersonalGoalByTitle(Title);
+    
+    /**
+     * function for getting a model of personalGoal
+     * @param Title string
+     * @param userName string
+     * @return model
+     */
+    public PersonalGoalModel getPersonalGoal(String Title, String userName) {
+        return PersonalGoalDao.getPersonalGoalByTitle(Title, userName);
     }
 }

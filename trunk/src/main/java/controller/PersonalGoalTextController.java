@@ -17,17 +17,17 @@ public class PersonalGoalTextController {
     
     /**
      * function prepare for creating text file
-     * @param title
-     * @param location
-     * @param withPerson
-     * @param whenDate
-     * @param announcement
-     * @return return true is all is ok or false if is not.
+     * @param title String
+     * @param location String
+     * @param withPerson String
+     * @param whenDate String
+     * @param announcement String
+     * @return return true is all is correct or false if is not.
      */
 
-    public boolean createTextFile(String title, String location, String withPerson, String whenDate, String announcement) {
+    public boolean createTextFile(String title, String location, String withPerson, String whenDate, String announcement ,String userName) {
         PersonalGoalTxtDao newTextDao = new PersonalGoalTxtDao();
-        return newTextDao.prepareForCreatingTextFile(title, location, withPerson, whenDate, announcement);
+        return newTextDao.prepareForCreatingTextFile(title, location, withPerson, whenDate, announcement, userName);
     }
 
 }

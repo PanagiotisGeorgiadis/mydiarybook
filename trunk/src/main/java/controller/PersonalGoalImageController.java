@@ -10,16 +10,22 @@ import dao.PersonalGoalImageDao;
 
 /**
  *
- * @author nova
+ * @author alex
  */
 public class PersonalGoalImageController {
-    
-     public boolean saveImage(String userTitle,String imagePath)
+    /**
+     * function for save image
+     * @param userTitle String
+     * @param imagePath String
+     * @param userName String
+     * @return  true if success or false if fail
+     */
+     public boolean saveImage(String userTitle,String imagePath,String userName)
     {
          
        PersonalGoalImageDao imageDao = new PersonalGoalImageDao();
         
-       return imageDao.ImageForCopy(userTitle, imagePath);
+       return imageDao.ImageForCopy(userTitle, imagePath,userName);
     }   
     
 }

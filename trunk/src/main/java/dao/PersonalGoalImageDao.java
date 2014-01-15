@@ -11,22 +11,28 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import model.Login;
 
 
 /**
  *
- * @author nova
+ * @author alex
  */
 public class PersonalGoalImageDao {
     
     private final String fSeparator = File.separator;
-     public boolean ImageForCopy(String title,String path)
+    /**
+     * Function for copy a image..
+     * @param title string
+     * @param path  string
+     * @param userName  string
+     * @return true if copy is success or  false if is not.
+     */
+     public boolean ImageForCopy(String title,String path,String userName)
     {
       
     
        
-        String imageDestPath = System.getProperty("user.dir")+ fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+Login.getUsername()+fSeparator+"PersonalGoal"+ fSeparator + title + fSeparator + "Images" + fSeparator;
+        String imageDestPath = System.getProperty("user.dir")+ fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+userName+fSeparator+"PersonalGoal"+ fSeparator + title + fSeparator + "Images" + fSeparator;
         
         
         File destFile = new File(imageDestPath);
@@ -56,27 +62,5 @@ public class PersonalGoalImageDao {
         
         return true;
     }
-    /*
-    public String[] getImageList(String entryTitle)
-    {
-        INewEntryMockDefaultPath rootPathMock = mock(INewEntryMockDefaultPath.class);
-        when(rootPathMock.getDefaultPath()).thenReturn(System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator);
-        
-        INewEntryMockUsername userMock = mock(INewEntryMockUsername.class);
-        when(userMock.getUsername()).thenReturn("Panagiwtis Georgiadis");
-    
-        String imagePath = rootPathMock.getDefaultPath()+userMock.getUsername()+fSeparator+"Entries"+fSeparator+entryTitle+fSeparator+"Images"+fSeparator;
-        
-        FilesDao imageDao = new FilesDao();
-        try{
-            return imageDao.getFilesList(imagePath);
-        }
-        catch(NullPointerException e)
-        {
-            String[] exception = null;
-            
-            return exception;
-        }
-    }
-    */
+   
 }

@@ -18,18 +18,6 @@ public interface IPersonalGoalDao {
      *
      * @param fileName
      */
-    void txtLoadPersonalGoal(String fileName);
     
-    /**
-     *
-     * @param path
-     * @param title
-     * @param fileName
-     * @param location
-     * @param withPerson
-     * @param announcement
-     * @param whenDate
-     * @return
-     */
     
 }

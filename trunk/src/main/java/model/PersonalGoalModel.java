@@ -18,11 +18,12 @@ public class PersonalGoalModel {
     private String personalGoalTitle;
     private String personalGoalLocation;
     private String personalGoalWithPerson;
-    private Date personalGoalWhenDate;
+    private String personalGoalWhenDate;
     private String personalGoalAnnouncement;
     private String[] personalGoalList;
     private String personalGoalImage;
 
+    
     public String getPersonalGoalImage() {
         return personalGoalImage;
     }
@@ -63,11 +64,11 @@ public class PersonalGoalModel {
         this.personalGoalWithPerson = personalGoalWithPerson;
     }
 
-    public Date getPersonalGoalWhenDate() {
+    public String getPersonalGoalWhenDate() {
         return personalGoalWhenDate;
     }
 
-    public void setPersonalGoalWhenDate(Date personalGoalWhenDate) {
+    public void setPersonalGoalWhenDate(String personalGoalWhenDate) {
         this.personalGoalWhenDate = personalGoalWhenDate;
     }
 

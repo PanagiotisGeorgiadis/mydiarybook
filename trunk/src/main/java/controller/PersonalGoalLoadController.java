@@ -7,17 +7,22 @@
 package controller;
 
 import dao.PersonalGoalListDao;
+import exception.EntryException;
 
 /**
- *
- * @author nova
+ * 
+ * @author alex
  */
 public class PersonalGoalLoadController {
-    
-    public String[] getListOfPesronalGoal()
+    /**
+     * function getting String[] of list 
+     * @param userName
+     * @return List 
+     */
+    public String[] getListOfPesronalGoal(String userName) 
     {
         PersonalGoalListDao personalGoalList = new PersonalGoalListDao();
-        return personalGoalList.getListOfPersonalGoal();
+        return personalGoalList.getListOfPersonalGoal(userName);
     }
     
 }

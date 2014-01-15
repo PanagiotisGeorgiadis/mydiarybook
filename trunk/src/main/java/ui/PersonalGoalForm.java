@@ -23,6 +23,7 @@ import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import model.Login;
 import validators.LocationValidator;
 import validators.TitleValidator;
 import validators.WhenDateValidator;
@@ -55,7 +56,10 @@ public class PersonalGoalForm extends javax.swing.JFrame implements IPersonalGoa
         initComponents();
 
     }
-    
+    /**
+     * function for displayImage
+     * @param fileName 
+     */
     public void displayImage(String fileName){
         File file = new File(fileName);
         BufferedImage img = null;
@@ -327,10 +331,11 @@ public class PersonalGoalForm extends javax.swing.JFrame implements IPersonalGoa
 
             PersonalGoalTextController newTextController = new PersonalGoalTextController();
             PersonalGoalTxtDao newTxtDao = new PersonalGoalTxtDao();
-
-            boolean Success = newTextController.createTextFile(titleTextField.getText(), locationTextField.getText(), withPersonTextField.getText(), whenDateSpinner.getValue().toString(), announcementEditorPane.getText());
+            Login lgn = new Login();
+             String userName = lgn.getUsername();
+            boolean Success = newTextController.createTextFile(titleTextField.getText(), locationTextField.getText(), withPersonTextField.getText(), whenDateSpinner.getValue().toString(), announcementEditorPane.getText(),userName);
             //if(ifImageExist =true){
-                newImageController.saveImage(titleTextField.getText(), browseFotoTextField.getText());
+                newImageController.saveImage(titleTextField.getText(), browseFotoTextField.getText(),userName);
                
                
             //}
@@ -347,7 +352,7 @@ public class PersonalGoalForm extends javax.swing.JFrame implements IPersonalGoa
 
     }//GEN-LAST:event_saveButtonActionPerformed
 
-    //FIXME: refactor  σε μια νέα κλάση 
+   
     /**
      *
      * @param fileDescription
@@ -365,7 +370,7 @@ public class PersonalGoalForm extends javax.swing.JFrame implements IPersonalGoa
             return f.getSelectedFile();
         }
     }
-    //FIXME: refactor  σε μια νέα κλάση 
+    
     /**
      *
      * @param evt
@@ -402,7 +407,7 @@ public class PersonalGoalForm extends javax.swing.JFrame implements IPersonalGoa
         displayImage(fileName);
        
         
-        //TODO make some checks..
+       
        
 
 
@@ -468,7 +473,7 @@ public class PersonalGoalForm extends javax.swing.JFrame implements IPersonalGoa
             withPersonTextField.setForeground(Color.black);
         }
     }//GEN-LAST:event_announcementEditorPaneFocusLost
-    //FIXME: refactor  σε μια νέα κλάση και να βάλω interface
+    
     // displayErrorMessage εαν υπάρχει κάποιο λάθος.
     @Override
     public void displayErrorMessage(String errorMessage) {
@@ -480,16 +485,7 @@ public class PersonalGoalForm extends javax.swing.JFrame implements IPersonalGoa
         JOptionPane.showMessageDialog(this, successMessage);
     }
 
-    public class Utils {
-
-        public final static String jpeg = "jpeg";
-        public final static String jpg = "jpg";
-        public final static String gif = "gif";
-        public final static String tiff = "tiff";
-        public final static String tif = "tif";
-        public final static String png = "png";
-
-    }
+   
 
     /**
      * @param args the command line arguments
