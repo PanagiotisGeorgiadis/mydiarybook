@@ -10,6 +10,8 @@ import controller.DeleteImageController;
 import controller.DeletePersonalGoalController;
 import controller.DeleteTextController;
 import controller.DeleteVideoController;
+import controller.EditTextEntryController;
+import controller.EditTitleEntryController;
 import controller.LoadEntriesController;
 import controller.LoggedInController;
 import controller.MyDiaryBookController;
@@ -61,6 +63,8 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
     private File video;
     private String pauseOrPlay = "Pause";
     private PersonalGoalModel personalGoalModel;
+    private String editMode;
+    private String previousEntryTitle;
     /**
      * Creates new form MyDiaryBook
      */
@@ -93,6 +97,7 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         deleteImageButton.setVisible(false);
         deleteVideoButton.setVisible(false);
         deletePersonalGoalButton.setVisible(false);
+        editEntryTitleLabel.setVisible(false);
         this.setLocationRelativeTo(null);
     }
     
@@ -429,6 +434,8 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         entryDateLabel = new javax.swing.JLabel();
         lastModifiedLabel = new javax.swing.JLabel();
         deleteTextButton = new javax.swing.JButton();
+        editEntryTitleLabel = new javax.swing.JLabel();
+        editButton = new javax.swing.JButton();
         imagePanelContainer = new javax.swing.JPanel();
         imageListScrollPane = new javax.swing.JScrollPane();
         imagesList = new javax.swing.JList();
@@ -470,7 +477,7 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         myDiaryBookMenu = new javax.swing.JMenuBar();
         entryMenu = new javax.swing.JMenu();
         newEntry = new javax.swing.JMenuItem();
-        editEntry = new javax.swing.JMenuItem();
+        editEntryTitle = new javax.swing.JMenuItem();
         deleteSelectedEntry = new javax.swing.JMenuItem();
         personalGoalMenu = new javax.swing.JMenu();
         newPersonalGoal = new javax.swing.JMenuItem();
@@ -512,6 +519,11 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         entriesListScrollPane.setViewportView(entriesList);
 
         entryTitleField.setEditable(false);
+        entryTitleField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                entryTitleFieldFocusLost(evt);
+            }
+        });
 
         entryTitleLabel.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
         entryTitleLabel.setText("Entry Title");
@@ -524,6 +536,11 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         });
 
         cancelEditButton.setText("Cancel");
+        cancelEditButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelEditButtonActionPerformed(evt);
+            }
+        });
 
         entryDateLabel.setFont(new java.awt.Font("Comic Sans MS", 0, 16)); // NOI18N
         entryDateLabel.setText("Date Label");
@@ -535,6 +552,15 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         deleteTextButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteTextButtonActionPerformed(evt);
+            }
+        });
+
+        editEntryTitleLabel.setText("Dont Leave Empty The Title!");
+
+        editButton.setText("Edit Text");
+        editButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editButtonActionPerformed(evt);
             }
         });
 
@@ -551,24 +577,22 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
                         .addGroup(textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(saveEditButton)
                             .addComponent(cancelEditButton)
-                            .addComponent(deleteTextButton))
+                            .addComponent(deleteTextButton)
+                            .addComponent(editButton))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, textPanelLayout.createSequentialGroup()
-                .addGroup(textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, textPanelLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lastModifiedLabel))
-                    .addGroup(textPanelLayout.createSequentialGroup()
-                        .addGroup(textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(entryTitleField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(textPanelLayout.createSequentialGroup()
-                                .addGap(54, 54, 54)
-                                .addComponent(entryTitleLabel)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(entryTitleField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(entryDateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
+                .addComponent(editEntryTitleLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lastModifiedLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(entryDateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53))
+            .addGroup(textPanelLayout.createSequentialGroup()
+                .addComponent(entryTitleLabel)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         textPanelLayout.setVerticalGroup(
             textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -577,7 +601,9 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
                     .addGroup(textPanelLayout.createSequentialGroup()
                         .addComponent(entryTitleLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(entryTitleField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(entryTitleField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(editEntryTitleLabel)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lastModifiedLabel)
                         .addComponent(entryDateLabel)))
@@ -589,7 +615,9 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
                         .addComponent(cancelEditButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(deleteTextButton)
-                        .addGap(246, 246, 246)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(editButton)
+                        .addGap(217, 217, 217)
                         .addComponent(entriesListScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE))
                     .addComponent(entryTextAreaScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
@@ -646,10 +674,9 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, imagePanelContainerLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(deleteImageButton))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, imagePanelContainerLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(deleteImageAlbumButton)))
+                        .addGroup(imagePanelContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(deleteImageButton, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(deleteImageAlbumButton, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addContainerGap())
         );
         imagePanelContainerLayout.setVerticalGroup(
@@ -941,8 +968,13 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         });
         entryMenu.add(newEntry);
 
-        editEntry.setText("Edit Entry..");
-        entryMenu.add(editEntry);
+        editEntryTitle.setText("Edit Entry Title..");
+        editEntryTitle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editEntryTitleActionPerformed(evt);
+            }
+        });
+        entryMenu.add(editEntryTitle);
 
         deleteSelectedEntry.setText("Delete Selected Entry..");
         entryMenu.add(deleteSelectedEntry);
@@ -1111,8 +1143,26 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
     }//GEN-LAST:event_entriesListValueChanged
 
     private void saveEditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveEditButtonActionPerformed
-        loadEntryImages();
-        loadEntryVideo();
+        EditTextEntryController editText = new EditTextEntryController();
+        EditTitleEntryController editTitle = new EditTitleEntryController();
+        
+        if(saveEditButton.getText().equalsIgnoreCase("Save Title"))
+        {
+            if (!entryTitleField.getText().trim().equals("")) 
+            {
+                    editTitle.editFileTitle(previousEntryTitle, entryTitleField.getText());
+                    cancelEditButton.setVisible(false);
+                    saveEditButton.setVisible(false);
+                    editButton.setVisible(true);
+                    refreshEntries();
+            }
+        }
+        else
+        {
+           // entryTextArea.setText(editText.editTextEntry(entryTitleField.getText()));
+        }
+        
+        
     }//GEN-LAST:event_saveEditButtonActionPerformed
 
     private void imagesListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_imagesListValueChanged
@@ -1491,6 +1541,67 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         deletePersonalGoalButtonActionPerformed(evt);
     }//GEN-LAST:event_deletePersonalGoalMenuActionPerformed
 
+    private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
+        entryTextArea.setEditable(true);
+        saveEditButton.setVisible(true);
+        editMode = "Save Text";
+        saveEditButton.setText(editMode);
+        cancelEditButton.setVisible(true);
+        if(entryTextArea.requestFocusInWindow())
+            entryTextArea.requestFocus();
+        editButton.setVisible(false);
+    }//GEN-LAST:event_editButtonActionPerformed
+
+    private void cancelEditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelEditButtonActionPerformed
+       if(saveEditButton.getText().equalsIgnoreCase("Save Text"))
+       {
+           entryTextArea.setEditable(false);
+       }
+       else
+       {
+           entryTitleField.setEditable(false);
+       }
+       editButton.setVisible(true); 
+       entryTextArea.setEditable(false);
+       saveEditButton.setVisible(false);
+       cancelEditButton.setVisible(false);
+       refreshEntries();
+       entriesList.setSelectedIndex(0);
+       loadEntryText();
+    }//GEN-LAST:event_cancelEditButtonActionPerformed
+
+    private void editEntryTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editEntryTitleActionPerformed
+        previousEntryTitle = entryTitleField.getText();
+        entryTitleField.setEditable(true);
+        editMode = "Save Title";
+        saveEditButton.setText(editMode);
+        editButton.setVisible(false);
+        saveEditButton.setVisible(true);
+        cancelEditButton.setVisible(true);
+    }//GEN-LAST:event_editEntryTitleActionPerformed
+
+    private void entryTitleFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_entryTitleFieldFocusLost
+        if(entryTitleField.getText().trim().equals(""))
+        {
+            editEntryTitleLabel.setVisible(true);
+            editEntryTitleLabel.setText("Title Cannot Be Null!");
+            saveEditButton.setVisible(false);
+        }
+                
+        if(entryTitleField.getText().matches("\\w*") || entryTitleField.getText().matches("\\w*\\s\\w*") || entryTitleField.getText().matches("\\w*\\s\\w*\\s\\w*"))
+        {
+            editEntryTitleLabel.setVisible(false);
+            saveEditButton.setVisible(true);
+        }
+        else
+        {
+            editEntryTitleLabel.setText("Title Length Must Be 3 Words Max!");
+            editEntryTitleLabel.setVisible(true);
+            saveEditButton.setVisible(false);
+        }
+        
+    }//GEN-LAST:event_entryTitleFieldFocusLost
+
     /**
      * @param args the command line arguments
      */
@@ -1544,7 +1655,9 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
     private javax.swing.JButton deleteTextButton;
     private javax.swing.JButton deleteVideoButton;
     private javax.swing.JTabbedPane displayEntryPane;
-    private javax.swing.JMenuItem editEntry;
+    private javax.swing.JButton editButton;
+    private javax.swing.JMenuItem editEntryTitle;
+    private javax.swing.JLabel editEntryTitleLabel;
     private javax.swing.JMenuItem editFavorites;
     private javax.swing.JList entriesList;
     private javax.swing.JScrollPane entriesListScrollPane;
