@@ -17,7 +17,6 @@ import controller.LoggedInController;
 import controller.MyDiaryBookController;
 import controller.PersonalGoalLoadController;
 import dao.NewEntryDao;
-import dao.PersonalGoalDao;
 import static dao.PersonalGoalDao.getPersonalGoalByTitle;
 import dao.ViewFavoritesDao;
 import java.awt.BorderLayout;
@@ -171,17 +170,19 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         try
         {            
             String[] entries = controller.getEntriesList();
-            for(int i=0;i<entries.length;i++)
+            if(entries!=null)
             {
-                listModel.addElement(entries[i]);    
+                for(int i=0;i<entries.length;i++)
+                {
+                    listModel.addElement(entries[i]);    
+                }
+                entriesList.setModel(listModel);
             }
-            entriesList.setModel(listModel);
         }
         catch(NullPointerException ex)
         {
             listModel.clear();
-            entriesList.setModel(listModel);
-            //TODO: Add Logger
+            entriesList.setModel(new DefaultListModel());
         }
     }    
     
@@ -232,7 +233,7 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         }
         catch(NullPointerException ex)
         {
-            //TODO: Add Logger
+           //TODO: Add Logger
         }
     }
     
@@ -1135,6 +1136,9 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
             deleteImageButton.setVisible(false);
             deleteVideoButton.setVisible(false);
             imagePanel.removeAll();
+            saveEditButton.setVisible(false);
+            cancelEditButton.setVisible(false);
+            editButton.setVisible(true);
             loadEntryText();
             loadEntryDateLabel();
             loadImageList();
@@ -1151,8 +1155,11 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         
         if(saveEditButton.getText().equalsIgnoreCase("Save Title"))
         {
-            if (!entryTitleField.getText().trim().equals("")) 
+            if (entryTitleField.getText().trim().equals("") || entryTitleField.getText()==null) 
             {
+                editEntryTitleLabel.setVisible(true);
+            }
+            else{
                     editTitle.editFileTitle(previousEntryTitle, entryTitleField.getText());
                     cancelEditButton.setVisible(false);
                     saveEditButton.setVisible(false);
@@ -1162,8 +1169,13 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         }
         else
         {
-           // entryTextArea.setText(editText.editTextEntry(entryTitleField.getText()));
-        }        
+            editText.writeStringToFile(entryTitleField.getText(),entryTextArea.getText());
+            refreshEntries();
+        } 
+        
+        entryTitleField.setEditable(false);
+        entryTextArea.setEditable(false);
+       
     }//GEN-LAST:event_saveEditButtonActionPerformed
 
     private void imagesListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_imagesListValueChanged
@@ -1413,10 +1425,8 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
                 textDelete.deleteAElementFromTextList(entriesList.getSelectedValue().toString());
                 entryTextArea.setText("");
                 refreshEntries();
-                JOptionPane.showConfirmDialog(this, textDelete.showSuccess(), "Success", JOptionPane.CANCEL_OPTION);
             } catch (NullPointerException ex) {
-                //TODO Add logger
-                JOptionPane.showConfirmDialog(this, textDelete.showNoFileFound(), "This File not exist", JOptionPane.CANCEL_OPTION);
+               //TODO: Add Logger
             }
         }
     }//GEN-LAST:event_deleteTextButtonActionPerformed
@@ -1437,12 +1447,9 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
                     emptyPersonalTextField();
                     loadListOfPersonalGoal();
                     personalGoalListValueChanged(null);
-                    JOptionPane.showConfirmDialog(this, controller.showSuccess(), "Success", JOptionPane.CANCEL_OPTION);
-
                 } catch (NullPointerException ex) {
 
-                    JOptionPane.showConfirmDialog(this, controller.showNoFileFound(), "This File not exist", JOptionPane.CANCEL_OPTION);
-                    //TODO Add Logger
+                    //TODO: Add Logger
                 }
             }
         }
@@ -1460,11 +1467,9 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
                     refreshEntries();
                     //loadImageButtonActionPerformed(evt);
 
-                    JOptionPane.showConfirmDialog(this, imageDelete.showSuccess(), "Success", JOptionPane.CANCEL_OPTION);
 
                 } catch (NullPointerException ex) {
 
-                    JOptionPane.showConfirmDialog(this, imageDelete.showNoFileFound(), "This File not exist", JOptionPane.CANCEL_OPTION);
 
                 } 
             }
@@ -1474,11 +1479,8 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
                 try {
                     imageDelete.deleteImageAlbum(entryTitleField.getText());
                     loadAlbumButtonActionPerformed(evt);
-                    JOptionPane.showConfirmDialog(this, imageDelete.showSuccess(), "Success", JOptionPane.CANCEL_OPTION);
                 } catch (NullPointerException ex) {
-                    //TODO Add Logger
-                    JOptionPane.showConfirmDialog(this, imageDelete.showNoFileFound(), "This File not exist", JOptionPane.CANCEL_OPTION);
-
+                    //TODO: Add Logger
                 }
             }
 
@@ -1489,15 +1491,10 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         DeleteVideoController controller = new DeleteVideoController();
 
         try {
-
             controller.deleteVideoAlbum(entry.getEntryVideo());
             refreshEntries();
-            JOptionPane.showConfirmDialog(this, controller.showSuccess(), "Success", JOptionPane.CANCEL_OPTION);
-
         } catch (NullPointerException ex) {
-            //TODO Add Logger
-            JOptionPane.showConfirmDialog(this, controller.showNoFileFound(), "This File not exist", JOptionPane.CANCEL_OPTION);
-
+            //TODO: Add Logger
         } 
     }//GEN-LAST:event_deleteVideoButtonActionPerformed
 
@@ -1517,16 +1514,9 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
     }//GEN-LAST:event_editButtonActionPerformed
 
     private void cancelEditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelEditButtonActionPerformed
-       if(saveEditButton.getText().equalsIgnoreCase("Save Text"))
-       {
-           entryTextArea.setEditable(false);
-       }
-       else
-       {
-           entryTitleField.setEditable(false);
-       }
        editButton.setVisible(true); 
        entryTextArea.setEditable(false);
+       entryTitleField.setEditable(false);
        saveEditButton.setVisible(false);
        cancelEditButton.setVisible(false);
        refreshEntries();

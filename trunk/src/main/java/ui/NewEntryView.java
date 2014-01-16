@@ -476,7 +476,7 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
                 if(imageNumber>0)
                     for(int i=0;i<imageNumber;i++)  
                         imageController.copyImage(titleField.getText(), imageFiles[i].toString());
-                if(!videoPath.equals(""))
+                if(videoPath!=null)
                     videoController.copyVideo(titleField.getText(), videoPath);
                 if(mediaPlayer2!=null)
                     displayVideo(videoPath,"hhg");
