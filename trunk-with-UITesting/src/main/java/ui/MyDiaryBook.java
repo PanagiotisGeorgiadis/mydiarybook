@@ -100,6 +100,18 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         editEntryTitleLabel.setVisible(false);
         
         this.setLocationRelativeTo(null);
+        
+       //Give names in this components because we want to find from uispec4j.
+
+        exitButton.setName("exitButton");
+        entryMenu.setName("entryMenu");
+        newEntry.setName("newEntry");
+        entryMenu.setName("entryMenu");
+        cancelEditButton.setName("cancelEditButton");
+        showPersonalGoalImageButton.setName("showPersonalGoalImageButton");
+        showPersonalGoalImageButton.setVisible(true);
+        showPersonalGoalImageButton.setEnabled(true);
+        
     }
     
     /** Displays the new Image Specified in 2 different modes: 
@@ -1109,7 +1121,7 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
                                     .addComponent(deleteVideoButton)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(welcomeLabel)
-                                .addGap(40, 40, 40)
+                                .addGap(46, 46, 46)
                                 .addComponent(displayEntryPane)))
                         .addContainerGap())))
         );

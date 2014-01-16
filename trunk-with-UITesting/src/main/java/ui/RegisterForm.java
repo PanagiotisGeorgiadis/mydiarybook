@@ -31,20 +31,13 @@ public class RegisterForm extends javax.swing.JFrame {
         invalidemail.setVisible(false);
         invalidpassword.setVisible(false);
         cndaccept.setVisible(false);
-        SubmitAccountButton.setEnabled(false);
+        SubmitAccountButton.setEnabled(true);
         q1msg.setVisible(false);
-        usernameexistmsg.setName("usernameexistmsg");
-        password.setName("password");
-        repassword.setName("repassword");
-        invalidpassword.setName("invalidpassword");
-        email.setName("email");
-        missmatchpasswords.setName("missmatchpasswords");
-        FavoritePet.setName("FavoritePet");
-        invalidemail.setName("invalidemail");
-        FavoriteCar.setName("FavoriteCar");
-        q1msg.setName("q1msg");
-
         q2msg.setVisible(false);
+        msg.setVisible(false);
+        
+        //Give names in this components because we want to find from uispec4j.
+        
         username.setName("username");
         usernameexistmsg.setName("usernameexistmsg");
         password.setName("password");
@@ -59,7 +52,6 @@ public class RegisterForm extends javax.swing.JFrame {
         q2msg.setName("q2msg");
         SubmitAccountButton.setName("SubmitAccountButton");
         CancelButton.setName("CancelButton");
-        msg.setVisible(false);
         ConditionAndTemrsCheckBox.setName("ConditionAndTemrsCheckBox");
         msg.setName("msg");
         this.setLocationRelativeTo(null);

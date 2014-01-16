@@ -57,16 +57,37 @@ public class NewEntryView extends javax.swing.JFrame implements INewEntryView {
         //NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcCoreName(), vlcPath);
         jScrollPane2.getVerticalScrollBar().setUnitIncrement(20);
         jScrollPane2.getHorizontalScrollBar().setUnitIncrement(20);
-        previewVideoButton.setVisible(false);
-        pauseButton.setVisible(false);
-        stopButton.setVisible(false);  
+        previewVideoButton.setVisible(true);
+        pauseButton.setVisible(true);
+        stopButton.setVisible(true);  
         imageNumber = 0;
         imageFiles = new File[30];
         maxImageNumber = 30;
         entryAlreadyExistsLabel.setVisible(false);
         entryAlreadyExistsLabel.setText("Warning! An Entry With This Title Already Exists!");
-        submitButton.setEnabled(false);
+        submitButton.setEnabled(true);
         imageExceedLabel.setVisible(false);
+        
+        
+         //Give names in this components because we want to find from uispec4j.
+        
+        textPanel.setName("textPanel");
+        titleField.setName("titleField");
+        entryAlreadyExistsLabel.setName("entryAlreadyExistsLabel");
+        textArea.setName("textArea");
+        jTabbedPane1.setName("jTabbedPane1");
+        imagePanel.setName("imagePanel");
+        imageChooseButton.setName("imageChooseButton");
+        imagesLeftLabel.setName("imagesLeftLabel");
+        videoPanel.setName("videoPanel");
+        videoChooseButton.setName("videoChooseButton");
+        previewVideoButton.setName("previewVideoButton");
+        pauseButton.setName("pauseButton");
+        stopButton.setName("stopButton");
+        submitButton.setName("submitButton");
+        cancelButton.setName("cancelButton");
+        
+        
     }
     
     @Override

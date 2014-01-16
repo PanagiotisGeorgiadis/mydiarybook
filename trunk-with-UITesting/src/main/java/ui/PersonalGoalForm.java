@@ -49,6 +49,21 @@ public class PersonalGoalForm extends javax.swing.JFrame implements IPersonalGoa
     public PersonalGoalForm() {
         initComponents();
         
+         //Give names in this components because we want to find from uispec4j.
+        
+        titleTextField.setName("titleTextField");
+        locationTextField.setName("locationTextField");
+        withPersonTextField.setName("withPersonTextField");
+        whenDateSpinner.setName("whenDateSpinner");
+        announcementEditorPane.setName("announcementEditorPane");
+        saveButton.setName("saveButton");
+        cancelButton.setName("cancelButton");
+        checkFieldTextField.setName("checkFieldTextField");
+        browseFotoFile.setName("browseFotoFile");
+        buttonUploadFoto.setName("buttonUploadFoto");
+        browseFotoTextField.setName("browseFotoTextField");
+        imageLabel.setName("imageLabel");
+        
        
     }
 
@@ -117,6 +132,7 @@ public class PersonalGoalForm extends javax.swing.JFrame implements IPersonalGoa
         checkFieldTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("New Personal Goal");
         setForeground(java.awt.Color.orange);
 
         jLabel1.setFont(new java.awt.Font("Tempus Sans ITC", 0, 24)); // NOI18N

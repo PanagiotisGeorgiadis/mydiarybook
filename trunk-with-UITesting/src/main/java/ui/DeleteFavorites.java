@@ -62,6 +62,7 @@ public class DeleteFavorites extends javax.swing.JFrame {
         msg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Edit Favourites");
 
         links.setColumns(20);
         links.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N

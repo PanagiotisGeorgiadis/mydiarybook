@@ -19,12 +19,16 @@ public class FavoritesForm extends javax.swing.JFrame {
     public FavoritesForm() {
         initComponents();
         emptymsg.setVisible(false);
+        
+        //Give names in this components because we want to find from uispec4j.
+        
         link.setName("link");
         emptymsg.setName("emptymsg");
         comment.setName("comment");
         save.setName("save");
         clear.setName("clear");
         back.setName("back");
+        back.isEnabled();
         msg.setName("msg");
         this.setLocationRelativeTo(null);
     }
@@ -32,6 +36,7 @@ public class FavoritesForm extends javax.swing.JFrame {
     public void setCallerForm(IMyDiaryBook theView)
     {
         this.callerFrame = theView;
+       
     }
     
     /**
@@ -56,6 +61,7 @@ public class FavoritesForm extends javax.swing.JFrame {
         emptymsg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Favorites Form");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Add Your Favorite Links Here!");

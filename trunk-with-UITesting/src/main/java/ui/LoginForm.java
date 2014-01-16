@@ -20,12 +20,15 @@ public class LoginForm extends javax.swing.JFrame {
     public LoginForm() {
         initComponents();
         wrongmsg.setVisible(false);
+        this.setLocationRelativeTo(null);
+        
+        //Give names in this components because we want to find from uispec4j.
+        
         username.setName("username");
         pass.setName("pass");
         login.setName("login");
         exit.setName("exit");
         wrongmsg.setName("wrongmsg");
-        this.setLocationRelativeTo(null);
         CreateAccountPopUpButton.setName("CreateAccountPopUpButton");
         ResetPasswordPopUpButton.setName("ResetPasswordPopUpButton");
      
