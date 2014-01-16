@@ -14,8 +14,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.commons.io.FileUtils;
 
 /**
@@ -23,7 +21,7 @@ import org.apache.commons.io.FileUtils;
  * @author Zarc
  */
 public class FilesDao {
-    
+   
     public FilesDao()
     {
         
@@ -92,7 +90,7 @@ public class FilesDao {
             }
             catch(IOException ex)
             {
-                //TODO: Add logger.
+                //TODO: Add Logger
                 return false;
             }
             finally

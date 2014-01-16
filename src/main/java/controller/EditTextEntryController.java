@@ -6,39 +6,38 @@
 
 package controller;
 
-import dao.EditTextEntryDao;
+import java.io.File;
+import java.io.IOException;
+import model.Login;
+import org.apache.commons.io.FileUtils;
+
+
 
 /**
  *
  * @author PTsilopoulos
  */
 public class EditTextEntryController {
-    
-    public String editTextEntry(String entryTitle, String entryText) {
-        EditTextEntryDao textEntryDao = new EditTextEntryDao();
-
-        return textEntryDao.EditText(entryTitle);
-    }
        
+    private final String fSeparator = File.separator;
+    
+    public void writeStringToFile(String EntryTitle, String Data) {
+        String path = System.getProperty("user.dir")+fSeparator+"MyDiaryBook"+fSeparator+"Users"+fSeparator+Login.getUsername()
+        +fSeparator+"Entries"+fSeparator+EntryTitle+fSeparator+"Texts"+fSeparator+EntryTitle+".txt";
+        File TextFile = new File(path);
+        try {    
+            FileUtils.writeStringToFile(TextFile, Data);
+        } catch(IOException e) {   
+           }
+    }
+    
     public boolean checkEdit(String textToEdit)
     {
-        if(!("").equals(textToEdit.trim())) {
+        if(("").equals(textToEdit.trim())) {
+            return false;
         }
         else {
-            return false;
         }
         return true;
     }
 }
-
-/*public EditEntry displayEntry(String entryObj){
-        try {
-            if (!entryObj.equals(null))
-                newEditEntry.setEntry(entryObj);
-                return new EditEntry();    
-        }
-        catch (Exception e) {
-                //throw new IllegalArgumentException("You forgot to add content to your entry!");
-                return new EditEntry();
-        }
-    }*/
