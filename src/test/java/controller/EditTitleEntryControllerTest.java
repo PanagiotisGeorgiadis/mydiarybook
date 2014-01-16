@@ -47,7 +47,7 @@ public class EditTitleEntryControllerTest {
         String oldEntryTitle = "";
         String newEntryTitle = "";
         EditTitleEntryController instance = new EditTitleEntryController();
-        boolean expResult = true;
+        boolean expResult = false;
         boolean result = instance.editFileTitle(oldEntryTitle, newEntryTitle);
         assertEquals(expResult, result);
     }
