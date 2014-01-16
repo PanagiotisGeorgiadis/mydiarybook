@@ -86,8 +86,7 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         entriesList.setSelectedIndex(0);
         //Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         //this.setSize(d);
-        this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-        this.setExtendedState(JFrame.NORMAL);
+        this.setSize(1350, 730);
         loadListOfPersonalGoal();
         loadFavorites();
         personalGoalList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -1503,14 +1502,21 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
     }//GEN-LAST:event_deletePersonalGoalMenuActionPerformed
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
-        entryTextArea.setEditable(true);
-        saveEditButton.setVisible(true);
-        editMode = "Save Text";
-        saveEditButton.setText(editMode);
-        cancelEditButton.setVisible(true);
-        if(entryTextArea.requestFocusInWindow())
-            entryTextArea.requestFocus();
-        editButton.setVisible(false);
+        if(!entryTextArea.getText().trim().equals(""))
+        {
+            entryTextArea.setEditable(true);
+            saveEditButton.setVisible(true);
+            editMode = "Save Text";
+            saveEditButton.setText(editMode);
+            cancelEditButton.setVisible(true);
+            if(entryTextArea.requestFocusInWindow())
+                entryTextArea.requestFocus();
+            editButton.setVisible(false);
+        }
+        else
+        {
+            editButton.setVisible(true);
+        }
     }//GEN-LAST:event_editButtonActionPerformed
 
     private void cancelEditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelEditButtonActionPerformed
@@ -1525,13 +1531,16 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
     }//GEN-LAST:event_cancelEditButtonActionPerformed
 
     private void editEntryTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editEntryTitleActionPerformed
-        previousEntryTitle = entryTitleField.getText();
-        entryTitleField.setEditable(true);
-        editMode = "Save Title";
-        saveEditButton.setText(editMode);
-        editButton.setVisible(false);
-        saveEditButton.setVisible(true);
-        cancelEditButton.setVisible(true);
+        if(entryTitleField.getText()!=null && !entryTitleField.getText().trim().equals(""))
+        {
+            previousEntryTitle = entryTitleField.getText();
+            entryTitleField.setEditable(true);
+            editMode = "Save Title";
+            saveEditButton.setText(editMode);
+            editButton.setVisible(false);
+            saveEditButton.setVisible(true);
+            cancelEditButton.setVisible(true);
+        }
     }//GEN-LAST:event_editEntryTitleActionPerformed
 
     private void entryTitleFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_entryTitleFieldFocusLost
