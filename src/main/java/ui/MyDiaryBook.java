@@ -645,6 +645,11 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
         });
 
         deleteImageAlbumButton.setText("Delete Album");
+        deleteImageAlbumButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteImageAlbumButtonActionPerformed(evt);
+            }
+        });
 
         deleteImageButton.setText("Delete Image");
         deleteImageButton.addActionListener(new java.awt.event.ActionListener() {
@@ -1606,6 +1611,10 @@ public class MyDiaryBook extends javax.swing.JFrame implements IMyDiaryBook {
          
         showImagePersonalGoalForm.urlTextField.setText(fileName);
     }//GEN-LAST:event_showPersonalGoalImageButtonActionPerformed
+
+    private void deleteImageAlbumButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteImageAlbumButtonActionPerformed
+        deleteImageButtonActionPerformed(evt);
+    }//GEN-LAST:event_deleteImageAlbumButtonActionPerformed
 
     /**
      * @param args the command line arguments

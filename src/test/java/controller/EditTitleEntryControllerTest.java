@@ -41,16 +41,6 @@ public class EditTitleEntryControllerTest {
     /**
      * Test of editFileTitle method, of class EditTitleEntryController.
      */
-    @Test
-    public void testEditFileTitle1() {
-        System.out.println("editFileTitleNoParameters");
-        String oldEntryTitle = "";
-        String newEntryTitle = "";
-        EditTitleEntryController instance = new EditTitleEntryController();
-        boolean expResult = false;
-        boolean result = instance.editFileTitle(oldEntryTitle, newEntryTitle);
-        assertEquals(expResult, result);
-    }
     
     @Test
     public void testEditFileTitle2() {

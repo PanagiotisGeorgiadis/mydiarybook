@@ -534,6 +534,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Delete Album"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteImageAlbumButtonActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="deleteImageButton">
               <Properties>
